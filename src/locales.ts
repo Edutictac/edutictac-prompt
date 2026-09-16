@@ -8,7 +8,10 @@ export const translations: Record<Language, Record<string,string>> = {
 for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
   Object.assign(translations[language], {
     curriculum: language === 'en' ? 'Curriculum profile (optional)' : 'Perfil curricular (opcional)',
-    general: language === 'en' ? 'General mode: no curriculum profile' : language === 'ca-valencia' ? 'Mode general: sense perfil curricular' : language === 'ca' ? 'Mode general: sense perfil curricular' : 'Modo general: sin perfil curricular'
+    general: language === 'en' ? 'General mode: no curriculum profile' : language === 'ca-valencia' ? 'Mode general: sense perfil curricular' : language === 'ca' ? 'Mode general: sense perfil curricular' : 'Modo general: sin perfil curricular',
+    specificCompetences: language === 'en' ? 'Specific competences' : language === 'ca' ? 'Competències específiques' : 'Competències específiques',
+    assessmentCriteria: language === 'en' ? 'Assessment criteria' : language === 'ca' ? 'Criteris d’avaluació' : 'Criteris d’avaluació',
+    basicKnowledge: language === 'en' ? 'Basic knowledge' : language === 'ca' ? 'Sabers bàsics' : 'Sabers bàsics'
   })
 }
 export function detectLanguage(): Language { const value = localStorage.getItem('edutictac-language'); if (value === 'es'||value === 'ca'||value === 'ca-valencia'||value === 'en') return value; const browser = navigator.language.toLowerCase(); return browser.startsWith('en')?'en':browser.startsWith('ca')?'ca': 'es' }

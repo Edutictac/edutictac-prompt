@@ -1,6 +1,7 @@
 import type { Language } from './types'
 
 export interface CurriculumProfile { id: string; level: string; course: string; subject: string; labels: Record<Language, string> }
+export interface CurriculumElements { specificCompetences: string[]; assessmentCriteria: string[]; basicKnowledge: string[] }
 const profile = (id: string, level: string, course: string, subject: string, es: string, ca: string, en = es): CurriculumProfile => ({ id, level, course, subject, labels: { es, 'ca-valencia': ca, ca, en } })
 
 // Catálogo inicial CV-LOMLOE. Los elementos curriculares detallados se incorporarán
@@ -14,3 +15,18 @@ export const valencianProfiles: CurriculumProfile[] = [
   profile('cv-fp', 'Formación Profesional', 'Cicle formatiu', '', 'Comunitat Valenciana · Formación Profesional', 'Comunitat Valenciana · Formació Professional', 'Valencian Community · Vocational education'),
   profile('cv-adults', 'Educación de personas adultas', 'Formació de persones adultes', '', 'Comunitat Valenciana · Educación de personas adultas', 'Comunitat Valenciana · Educació de persones adultes', 'Valencian Community · Adult education')
 ]
+
+// Primera colección curricular detallada. Son opciones de apoyo para redactar el
+// prompt; el profesorado puede editarlas y no sustituyen la programación oficial.
+export const valencianCurriculumElements: Record<string, CurriculumElements> = {
+  'cv-eso-tecnologia-i-digitalització': {
+    specificCompetences: ['Identificar i resoldre problemes tecnològics de manera planificada.', 'Analitzar objectes i sistemes tecnològics aplicant criteris de sostenibilitat.', 'Desenvolupar solucions digitals i de programació per a necessitats concretes.', 'Comunicar i documentar el procés de disseny, construcció i avaluació.'],
+    assessmentCriteria: ['Defineix el problema i proposa una solució viable.', 'Planifica, construeix i prova un prototip amb seguretat.', 'Utilitza materials, eines i recursos digitals de manera responsable.', 'Documenta el procés i justifica les decisions preses.'],
+    basicKnowledge: ['Procés de resolució de problemes tecnològics.', 'Materials, estructures i mecanismes.', 'Electricitat i electrònica.', 'Programació, control i robòtica.', 'Tecnologia digital, dades i ciutadania digital.', 'Sostenibilitat i impacte social de la tecnologia.']
+  },
+  'cv-eso-matemàtiques': {
+    specificCompetences: ['Interpretar i resoldre problemes matemàtics en contextos diversos.', 'Explorar, formular i validar conjectures amb raonament matemàtic.', 'Representar i comunicar idees matemàtiques amb llenguatges diversos.', 'Utilitzar eines tecnològiques per investigar i comprovar resultats.'],
+    assessmentCriteria: ['Comprén la situació i selecciona estratègies adequades.', 'Realitza representacions i connexions entre conceptes.', 'Justifica el procés i comprova la validesa del resultat.', 'Comunica conclusions amb precisió i vocabulari matemàtic.'],
+    basicKnowledge: ['Sentit numèric i de les operacions.', 'Sentit algebraic.', 'Sentit espacial i geomètric.', 'Relacions i funcions.', 'Sentit estocàstic.', 'Pensament computacional.']
+  }
+}
