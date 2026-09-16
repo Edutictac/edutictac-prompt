@@ -14,7 +14,7 @@ npm run dev
 npm run build
 ```
 
-Para Docker: `npm run build && docker compose up --build`. El contenedor escucha en el puerto 8080 del host y está preparado para reverse proxy.
+Para Docker: `npm run build && docker compose up --build`. El contenedor escucha en el puerto 8092 del host y está preparado para reverse proxy.
 
 ## Arquitectura
 
