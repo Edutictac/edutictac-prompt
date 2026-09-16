@@ -17,7 +17,7 @@ cp -R "$project_dir/dist/." .
 touch .nojekyll
 git add .
 git -c user.name="EduTicTac Pages" -c user.email="pages@edutictac.es" commit -m "Publish EduTicTac Prompt" >/dev/null
-git push edutictac HEAD:pages
+git push edutictac HEAD:refs/heads/pages
 cd "$project_dir"
 git worktree remove --force "$pages_dir"
 
