@@ -27,3 +27,15 @@ Para Docker: `npm run build && docker compose up --build`. El contenedor escucha
 El JSON de exportación es propio (`format: edutictac-prompts`, `version: 1`) y no expone el esquema interno de IndexedDB. La sincronización usa la API privada `edutictac-prompt-api`; Authentik valida la identidad y la API nunca acepta el propietario enviado por el navegador.
 
 No introduzcas nombres ni datos personales del alumnado. Generar un prompt no llama a una IA ni envía datos a Internet. Licencia AGPL-3.0.
+
+## Estat actual
+
+- Versió publicada de la PWA: **0.1.9**.
+- Producció: [pages.edutictac.es/Edutictac/edutictac-prompt](https://pages.edutictac.es/Edutictac/edutictac-prompt/).
+- La PWA funciona localment amb IndexedDB i continua disponible sense compte ni connexió.
+- Authentik està integrat mitjançant OIDC + PKCE. L’inici de sessió es fa des de `id.edutictac.es`.
+- La biblioteca remota és privada per usuari i està disponible en [prompts.edutictac.es](https://prompts.edutictac.es). Els prompts locals només es pugen quan la persona prem **Sincronitzar biblioteca**.
+- El backend és el repositori [`edutictac-prompt-api`](https://github.com/Edutictac/edutictac-prompt-api), amb còpia en Forgejo. Utilitza SQLite, cookies de sessió signades i el nucli compartit `edutictac-community`.
+- El catàleg només mostra categories que tenen ferramentes associades; les categories buides no apareixen.
+- Proves automatitzades: **12** en la PWA i **8** en l’API.
+- Cada publicació de la PWA actualitza la versió de Workbox del `sw.js` i inclou un avís perquè la persona usuària puga actualitzar l’aplicació.
