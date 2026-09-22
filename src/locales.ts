@@ -63,6 +63,12 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
     templateChecklist: language === 'en' ? 'Checklist' : language === 'ca' ? 'Llista de verificació' : 'Llista de coteig',
     templateH5p: language === 'en' ? 'H5P activity' : 'Activitat H5P',
     templateFree: language === 'en' ? 'Free builder' : language === 'ca' ? 'Constructor lliure' : 'Constructor lliure'
+    ,login: language === 'en' ? 'Sign in' : language === 'es' ? 'Iniciar sesión' : 'Inicia sessió'
+    ,logout: language === 'en' ? 'Sign out' : language === 'es' ? 'Cerrar sesión' : 'Tanca la sessió'
+    ,sync: language === 'en' ? 'Sync library' : language === 'es' ? 'Sincronizar biblioteca' : 'Sincronitza la biblioteca'
+    ,syncDownloaded: language === 'en' ? 'Your online library is ready.' : language === 'es' ? 'Tu biblioteca online ya está disponible.' : 'La teua biblioteca en línia ja està disponible.'
+    ,syncUploaded: language === 'en' ? 'Local prompts uploaded to your library.' : language === 'es' ? 'Los prompts locales se han subido a tu biblioteca.' : 'Els prompts locals s’han pujat a la teua biblioteca.'
+    ,syncFailed: language === 'en' ? 'The library could not be synchronized.' : language === 'es' ? 'No se ha podido sincronizar la biblioteca.' : 'No s’ha pogut sincronitzar la biblioteca.'
   })
 }
 export function detectLanguage(): Language { const value = localStorage.getItem('edutictac-language'); if (value === 'es'||value === 'ca'||value === 'ca-valencia'||value === 'en') return value; const browser = navigator.language.toLowerCase(); return browser.startsWith('en')?'en':browser.startsWith('ca')?'ca': 'es' }

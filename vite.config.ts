@@ -7,7 +7,7 @@ export default defineConfig({
   // EduTicTac Pages sirve el repositorio bajo /<owner>/<repo>/.
   // Las rutas relativas también funcionan en el despliegue Docker de /.
   base: './',
-  plugins: [react(), VitePWA({ registerType: 'autoUpdate', includeAssets: ['favicon.svg'], workbox: {
+  plugins: [react(), VitePWA({ registerType: 'prompt', includeAssets: ['favicon.svg'], workbox: {
     cacheId: `edutictac-prompt-v${packageJson.version}`,
       cleanupOutdatedCaches: true,
     clientsClaim: true
