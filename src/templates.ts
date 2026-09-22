@@ -30,4 +30,6 @@ for (const template of templates) {
   }
 }
 
-export const categoryIds = ['all','planning','activities','assessment','adaptation','content','digital','communication','free']
+// Solo mostramos filtros que tienen al menos una herramienta publicada.
+// Así el catálogo no ofrece categorías vacías mientras se preparan futuras plantillas.
+export const categoryIds = ['all', ...new Set(templates.map(template => template.category))]

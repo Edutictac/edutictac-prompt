@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { templates } from './templates'
+import { categoryIds, templates } from './templates'
 
 describe('plantillas de prompts', () => {
   it('ofrece contexto, restricciones y criterios de calidad', () => {
@@ -17,5 +17,11 @@ describe('plantillas de prompts', () => {
       const fieldIds = template.fields.map(field => field.id)
       expect(new Set(fieldIds).size).toBe(fieldIds.length)
     }
+  })
+
+  it('no ofrece categorías sin herramientas', () => {
+    const categoriesWithTemplates = new Set(templates.map(template => template.category))
+    expect(categoryIds).toEqual(['all', ...categoriesWithTemplates])
+    expect(categoryIds.slice(1).every(category => categoriesWithTemplates.has(category))).toBe(true)
   })
 })
