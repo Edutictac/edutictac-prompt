@@ -9,8 +9,7 @@ export default defineConfig({
   base: './',
   plugins: [react(), VitePWA({ registerType: 'autoUpdate', includeAssets: ['favicon.svg'], workbox: {
     cacheId: `edutictac-prompt-v${packageJson.version}`,
-    cleanupOutdatedCaches: true,
-    skipWaiting: true,
+      cleanupOutdatedCaches: true,
     clientsClaim: true
   }, manifest: {
     name: 'EduTicTac Prompt', short_name: 'EduTicTac Prompt', description: 'Crea y organiza prompts educativos', theme_color: '#123c69', background_color: '#f6f8fb', display: 'standalone', start_url: './', scope: './', icons: [{ src: './pwa-192.svg', sizes: '192x192', type: 'image/svg+xml' }, { src: './pwa-512.svg', sizes: '512x512', type: 'image/svg+xml' }]

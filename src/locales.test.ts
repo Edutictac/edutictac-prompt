@@ -23,6 +23,7 @@ describe('traducciones de la interfaz', () => {
       'subjectsForStage', 'subjectHint', 'chooseSubject', 'invalidFile',
       'titlePlaceholder', 'newCategoryPlaceholder', 'tagsPlaceholder',
       'editableHint', 'fullscreen', 'exitFullscreen',
+      'updateAvailable', 'updateButton',
       'placeholderCourse', 'placeholderSubject', 'placeholderTopic',
       'placeholderObjectives', 'placeholderContext', 'placeholderConstraints',
       'placeholderQualityCriteria', 'placeholderRole', 'placeholderTask',
