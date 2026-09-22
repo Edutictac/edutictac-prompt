@@ -22,6 +22,11 @@ describe('traducciones de la interfaz', () => {
       'privacyBody', 'offline', 'topicHint', 'curriculumElements',
       'subjectsForStage', 'subjectHint', 'chooseSubject', 'invalidFile',
       'titlePlaceholder', 'newCategoryPlaceholder', 'tagsPlaceholder',
+      'editableHint', 'fullscreen', 'exitFullscreen',
+      'placeholderCourse', 'placeholderSubject', 'placeholderTopic',
+      'placeholderObjectives', 'placeholderContext', 'placeholderConstraints',
+      'placeholderQualityCriteria', 'placeholderRole', 'placeholderTask',
+      'placeholderActivity', 'placeholderCriteria',
       'templateLearningSituation', 'templateLesson', 'templateSequence',
       'templateCompetencyActivity', 'templateProject', 'templateChallenge',
       'templateRubric', 'templateChecklist', 'templateH5p', 'templateFree'
