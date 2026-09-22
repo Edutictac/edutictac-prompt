@@ -68,4 +68,13 @@ describe('generatePrompt', () => {
     expect(prompt).toContain('## Criteris de qualitat')
     expect(prompt).toContain('## Format d’eixida')
   })
+
+  it('mantiene el idioma elegido cuando el formulario está vacío', () => {
+    const catalan = generatePrompt(template('free'), {}, 'ca')
+    expect(catalan).toContain('Actua com a docent especialista en educació')
+    expect(catalan).toContain('Dissenya una activitat sobre el tema indicat.')
+    expect(catalan).toContain('Ofereix un primer esborrany revisable')
+    expect(catalan).not.toContain('Actúa como docente')
+    expect(catalan).not.toContain('Diseña una actividad')
+  })
 })
