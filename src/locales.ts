@@ -35,6 +35,7 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
     exitFullscreen: language === 'en' ? 'Exit full screen' : 'Eixir de pantalla completa',
     updateAvailable: language === 'en' ? 'A new version of the application is available.' : language === 'ca' ? 'Hi ha una nova versió de l’aplicació.' : 'Hi ha una nova versió de l’aplicació.',
     updateButton: language === 'en' ? 'Update application' : language === 'ca' ? 'Actualitza l’aplicació' : 'Actualitza l’aplicació',
+    edit: language === 'en' ? 'Edit' : language === 'ca' ? 'Edita' : 'Edita',
     placeholderCourse: language === 'en' ? 'E.g. 4th Primary' : 'Ex. 4t de Primària',
     placeholderSubject: language === 'en' ? 'E.g. Natural Sciences' : 'Ex. Ciències Naturals',
     placeholderTopic: language === 'en' ? 'E.g. Ecosystems in our local environment' : 'Ex. Els ecosistemes del nostre entorn',
