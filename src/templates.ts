@@ -1,4 +1,4 @@
-import type { PromptTemplate } from './types'
+import type { PromptTemplate, TemplateField } from './types'
 export const templates: PromptTemplate[] = [
   { id: 'learning-situation', category: 'planning', icon: '◎', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','Formación Profesional','Universidad','Otro']},{id:'course',type:'text'},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'methodology',type:'multiselect',options:['Aprendizaje basado en proyectos','Aprendizaje cooperativo','Aprendizaje basado en problemas','DUA','Investigación']},{id:'duration',type:'select',options:['15 minutos','30 minutos','45 minutos','55 minutos','Una sesión','Varias sesiones']},{id:'resources',type:'multiselect',options:['Ordenadores','Tablets','Proyector','Pizarra digital','Material manipulativo','Sin tecnología']},{id:'outputFormat',type:'select',options:['Texto','Markdown','Tabla']}] },
   { id: 'lesson', category: 'planning', icon: '◷', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP','Universidad']},{id:'course',type:'text'},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'duration',type:'select',options:['15 minutos','30 minutos','45 minutos','55 minutos','Una sesión']},{id:'resources',type:'multiselect',options:['Ordenadores','Tablets','Proyector','Pizarra digital','Sin tecnología']},{id:'outputFormat',type:'select',options:['Texto','Markdown','Tabla']}] },
@@ -11,5 +11,23 @@ export const templates: PromptTemplate[] = [
   { id: 'h5p', category: 'digital', icon: '▣', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'activityType',type:'select',options:['Quiz','Arrastrar y soltar','Vídeo interactivo','Tarjetas']},{id:'outputFormat',type:'select',options:['H5P','Markdown']}] },
   { id: 'free', category: 'free', icon: '✎', fields: [{id:'role',type:'text'},{id:'context',type:'textarea'},{id:'task',type:'textarea'},{id:'constraints',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown','Tabla','JSON','HTML']}] }
 ]
+
+// El curso de IA recomienda completar siempre que sea posible el contexto,
+// las restricciones y los criterios con los que se revisará el resultado.
+// Se añaden a las plantillas que aún no los tenían sin duplicar los campos
+// del constructor libre.
+const promptingFields: TemplateField[] = [
+  {id:'context', type:'textarea'},
+  {id:'constraints', type:'textarea'},
+  {id:'qualityCriteria', type:'textarea'}
+]
+
+for (const template of templates) {
+  for (const field of promptingFields) {
+    if (!template.fields.some(existing => existing.id === field.id)) {
+      template.fields.push({...field})
+    }
+  }
+}
 
 export const categoryIds = ['all','planning','activities','assessment','adaptation','content','digital','communication','free']
