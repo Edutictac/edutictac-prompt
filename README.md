@@ -30,13 +30,15 @@ No introduzcas nombres ni datos personales del alumnado. Generar un prompt no ll
 
 ## Estat actual
 
-- Versió publicada de la PWA: **0.1.11**.
+- Versió publicada de la PWA: **0.1.16**.
 - Producció: [pages.edutictac.es/Edutictac/edutictac-prompt](https://pages.edutictac.es/Edutictac/edutictac-prompt/).
 - La PWA funciona localment amb IndexedDB i continua disponible sense compte ni connexió.
 - Authentik està integrat mitjançant OIDC + PKCE. L’inici de sessió es fa des de `id.edutictac.es`.
 - La biblioteca remota és privada per usuari i està disponible en [prompts.edutictac.es](https://prompts.edutictac.es). Els prompts locals només es pugen quan la persona prem **Sincronitzar biblioteca**.
 - El backend és el repositori [`edutictac-prompt-api`](https://github.com/Edutictac/edutictac-prompt-api), amb còpia en Forgejo. Utilitza SQLite, cookies de sessió signades i el nucli compartit `edutictac-community`.
 - El catàleg només mostra categories que tenen ferramentes associades; les categories buides no apareixen.
-- Proves automatitzades: **16** en la PWA i **8** en l’API.
+- Proves automatitzades: **21** en la PWA i **8** en l’API.
 - El formulari ofereix un **mode senzill** amb els camps essencials i un **mode avançat** amb tots els camps disponibles.
+- El currículum CV-LOMLOE incorpora perfils inicials d’Infantil, Primària (Coneixement del medi), ESO (Tecnologia i Matemàtiques) i selecció avançada de competències, criteris i sabers bàsics.
+- La categoria d’avaluació inclou rúbriques, escales de valoració, llistes de coteig, observació sistemàtica, portafolis, produccions, proves escrites, productes i exposicions.
 - Cada publicació de la PWA actualitza la versió de Workbox del `sw.js` i inclou un avís perquè la persona usuària puga actualitzar l’aplicació.
