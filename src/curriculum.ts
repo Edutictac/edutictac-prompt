@@ -69,6 +69,38 @@ export const valencianCurriculumElements: Record<string, CurriculumElements> = {
       'Àrea III · Gest, moviment, mímica, dansa, teatre, música, imatge, so i eines digitals.',
       'Àrea III · Manifestacions culturals, festes, tradicions i patrimoni de l’entorn pròxim.'
     ]
+  },
+  'cv-primaria-coneixement-del-medi-natural-social-i-cultural': {
+    specificCompetences: [
+      'Utilitzar de forma guiada i delimitada dispositius i recursos digitals per a cercar informació, comunicar-se, col·laborar i crear contingut digital senzill amb seguretat i eficàcia.',
+      'Desenvolupar projectes cooperatius delimitats i realitzar investigacions senzilles de naturalesa interdisciplinària amb la guia i ajuda del professorat.',
+      'Plantejar i respondre preguntes sobre qüestions de la vida quotidiana relatives a l’entorn natural, social i cultural.',
+      'Adoptar hàbits saludables de consum, alimentació, exercici i descans a partir del coneixement del cos i de l’entorn.',
+      'Identificar, analitzar i proposar solucions als problemes generats per l’acció humana en l’entorn.',
+      'Situar cronològicament i espacial els esdeveniments que marquen l’inici i el final dels grans períodes històrics.',
+      'Identificar i descriure l’organització i l’estructura política i territorial municipal, de la Comunitat Valenciana i d’Espanya.',
+      'Reconéixer alguns elements destacats del patrimoni natural, històric i cultural de la Comunitat Valenciana i d’altres territoris.'
+    ],
+    assessmentCriteria: [
+      'Utilització segura i guiada de dispositius i recursos digitals per a buscar informació i comunicar-se.',
+      'Participació en projectes cooperatius i investigacions senzilles, registrant observacions i comunicant resultats.',
+      'Formulació de preguntes, prediccions i explicacions sobre fenòmens pròxims.',
+      'Adopció d’hàbits saludables i responsables relacionats amb el cos, el consum i el benestar.',
+      'Identificació de problemes ambientals i proposta d’accions de cura i sostenibilitat.',
+      'Ús de referències temporals, espacials i territorials per interpretar l’entorn i la història.',
+      'Reconeixement, valoració i respecte del patrimoni natural, històric i cultural.'
+    ],
+    basicKnowledge: [
+      'Cultura científica · Iniciació a l’activitat científica, observació, prediccions, experimentació i registre de resultats.',
+      'Cultura científica · Éssers vius, cos humà, hàbits saludables i relacions amb l’entorn.',
+      'Cultura científica · Matèria, forces, energia, màquines i canvis en materials i objectes.',
+      'Tecnologia i digitalització · Dispositius, aplicacions, cerca d’informació i creació de continguts digitals.',
+      'Tecnologia i digitalització · Projectes cooperatius, pensament de disseny i pensament computacional.',
+      'Societats i territoris · El temps històric, fonts, canvis i continuïtats en l’entorn pròxim.',
+      'Societats i territoris · Organització política i territorial, convivència, participació i ciutadania.',
+      'Societats i territoris · Patrimoni natural, històric i cultural de la Comunitat Valenciana.',
+      'Societats i territoris · Sostenibilitat, consum responsable i cura de l’entorn.'
+    ]
   }
 }
 
