@@ -1,4 +1,5 @@
 import type { Language, PromptTemplate } from './types'
+import { localizeOption } from './optionLocales'
 
 type LabelKey = 'role'|'context'|'task'|'objectives'|'methodology'|'duration'|'resources'|'requirements'|'format'|'criteria'|'qualityCriteria'|'constraints'|'levels'|'activityType'|'specificCompetences'|'assessmentCriteria'|'basicKnowledge'
 type DefaultText = 'role'|'education'|'stage'|'design'|'rubric'|'checklist'|'h5p'|'interactive'|'topic'|'draft'|'clear'|'viable'|'verify'|'invent'|'structured'
@@ -18,7 +19,8 @@ const defaults: Record<Language, Record<DefaultText,string>> = {
 export function generatePrompt(template: PromptTemplate, values: Record<string,string>, language: Language): string {
   const l=labels[language]
   const d=defaults[language]
-  const value=(key:string)=>values[key]?.trim()||''
+  const localizedKeys = new Set(['level', 'methodology', 'duration', 'resources', 'outputFormat', 'activityType'])
+  const value=(key:string)=>{const raw=values[key]?.trim()||'';return localizedKeys.has(key)?raw.split(' · ').map(item=>localizeOption(item,language)).join(' · '):raw}
   const lines:string[]=[]
   const level=[value('level'),value('course')].filter(Boolean).join(' ')
   lines.push(`## ${l.role}\n${value('role')||`${d.role} ${value('subject')||d.education} ${level||d.stage}.`}`)
@@ -29,6 +31,7 @@ export function generatePrompt(template: PromptTemplate, values: Record<string,s
   for(const key of ['objectives','criteria','methodology','duration','resources','levels','constraints','qualityCriteria']) if(value(key)) lines.push(`## ${l[key as LabelKey]}\n${value(key)}`)
   if(value('curriculumCriteria')) lines.push(`## ${l.assessmentCriteria}\n${value('curriculumCriteria')}`)
   if(value('curriculumKnowledge')) lines.push(`## ${l.basicKnowledge}\n${value('curriculumKnowledge')}`)
-  lines.push(`## ${l.requirements}\n- ${d.draft}\n- ${d.clear}\n- ${d.viable}\n- ${d.verify}\n- ${d.invent}`, `## ${l.format}\n${language==='en'?'Return the result in':'Devuelve el resultado en'} ${value('outputFormat')||d.structured}.`)
+  const returnText = language === 'en' ? 'Return the result in' : language === 'es' ? 'Devuelve el resultado en' : language === 'ca-valencia' ? 'Retorna el resultat en' : 'Retorna el resultat en'
+  lines.push(`## ${l.requirements}\n- ${d.draft}\n- ${d.clear}\n- ${d.viable}\n- ${d.verify}\n- ${d.invent}`, `## ${l.format}\n${returnText} ${value('outputFormat')||d.structured}.`)
   return lines.join('\n\n')
 }

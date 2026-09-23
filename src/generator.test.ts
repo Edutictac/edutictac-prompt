@@ -77,4 +77,12 @@ describe('generatePrompt', () => {
     expect(catalan).not.toContain('Actúa como docente')
     expect(catalan).not.toContain('Diseña una actividad')
   })
+
+  it('traduce les opcions seleccionades en el prompt català', () => {
+    const prompt = generatePrompt(template('lesson'), { level: 'Primaria', outputFormat: 'Texto' }, 'ca')
+    expect(prompt).toContain('Primària')
+    expect(prompt).toContain('Retorna el resultat en Text.')
+    expect(prompt).not.toContain('Primaria')
+    expect(prompt).not.toContain('Texto')
+  })
 })
