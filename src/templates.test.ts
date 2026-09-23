@@ -25,6 +25,12 @@ describe('plantillas de prompts', () => {
     expect(categoryIds.slice(1).every(category => categoriesWithTemplates.has(category))).toBe(true)
   })
 
+  it('inclou els instruments d’avaluació sol·licitats', () => {
+    expect(templates.map(template => template.id)).toEqual(expect.arrayContaining([
+      'rubric', 'rating-scale', 'checklist', 'systematic-observation', 'portfolio', 'production', 'written-test', 'product', 'presentation'
+    ]))
+  })
+
   it('define un modo sencillo con menos campos que el modo avanzado', () => {
     for (const template of templates) {
       expect(simpleFieldIds[template.id]?.length).toBeGreaterThan(0)

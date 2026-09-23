@@ -63,6 +63,13 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
     templateChallenge: language === 'en' ? 'Problem or challenge' : language === 'ca' ? 'Problema o repte' : 'Problema o repte',
     templateRubric: language === 'en' ? 'Rubric' : 'Rúbrica',
     templateChecklist: language === 'en' ? 'Checklist' : language === 'ca' ? 'Llista de verificació' : 'Llista de coteig',
+    templateRatingScale: language === 'en' ? 'Rating scale' : language === 'es' ? 'Escala de valoración' : 'Escala de valoració',
+    templateSystematicObservation: language === 'en' ? 'Systematic observation' : language === 'es' ? 'Observación sistemática' : 'Observació sistemàtica',
+    templatePortfolio: language === 'en' ? 'Portfolio' : 'Portafolis',
+    templateProduction: language === 'en' ? 'Student production' : language === 'es' ? 'Producción' : 'Producció',
+    templateWrittenTest: language === 'en' ? 'Written test' : language === 'es' ? 'Prueba escrita' : 'Prova escrita',
+    templateProduct: language === 'en' ? 'Learning product' : language === 'es' ? 'Producto' : 'Producte',
+    templatePresentation: language === 'en' ? 'Presentation' : language === 'es' ? 'Exposición' : 'Exposició',
     templateH5p: language === 'en' ? 'H5P activity' : 'Activitat H5P',
     templateFree: language === 'en' ? 'Free builder' : language === 'ca' ? 'Constructor lliure' : 'Constructor lliure'
     ,login: language === 'en' ? 'Sign in' : language === 'es' ? 'Iniciar sesión' : 'Inicia sessió'
