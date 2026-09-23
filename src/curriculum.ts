@@ -30,3 +30,9 @@ export const valencianCurriculumElements: Record<string, CurriculumElements> = {
     basicKnowledge: ['Sentit numèric i de les operacions.', 'Sentit algebraic.', 'Sentit espacial i geomètric.', 'Relacions i funcions.', 'Sentit estocàstic.', 'Pensament computacional.']
   }
 }
+
+export function getCurriculumElements(profileId: string, level?: string, subject?: string): CurriculumElements | undefined {
+  if (valencianCurriculumElements[profileId]) return valencianCurriculumElements[profileId]
+  const matchingProfile = valencianProfiles.find(profile => profile.id !== profileId && profile.level === level && profile.subject === subject && valencianCurriculumElements[profile.id])
+  return matchingProfile ? valencianCurriculumElements[matchingProfile.id] : undefined
+}
