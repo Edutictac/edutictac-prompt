@@ -1,0 +1,6 @@
+.curriculum-elements{border:1px solid #d8e0ea;border-radius:8px;padding:10px;margin:12px 0}
+.curriculum-elements legend{padding:0 5px;font-size:13px}
+.curriculum-options{display:grid;gap:8px}
+.curriculum-option{display:flex!important;align-items:flex-start;gap:8px!important;margin:0!important;font-weight:400!important;font-size:12px!important}
+.curriculum-option input{width:auto!important;margin-top:3px}
+[data-theme="dark"] .curriculum-elements{border-color:var(--line)}
