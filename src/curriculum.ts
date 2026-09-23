@@ -28,6 +28,47 @@ export const valencianCurriculumElements: Record<string, CurriculumElements> = {
     specificCompetences: ['Interpretar i resoldre problemes matemàtics en contextos diversos.', 'Explorar, formular i validar conjectures amb raonament matemàtic.', 'Representar i comunicar idees matemàtiques amb llenguatges diversos.', 'Utilitzar eines tecnològiques per investigar i comprovar resultats.'],
     assessmentCriteria: ['Comprén la situació i selecciona estratègies adequades.', 'Realitza representacions i connexions entre conceptes.', 'Justifica el procés i comprova la validesa del resultat.', 'Comunica conclusions amb precisió i vocabulari matemàtic.'],
     basicKnowledge: ['Sentit numèric i de les operacions.', 'Sentit algebraic.', 'Sentit espacial i geomètric.', 'Relacions i funcions.', 'Sentit estocàstic.', 'Pensament computacional.']
+  },
+  'cv-infantil': {
+    specificCompetences: [
+      'Àrea I · Explorar i experimentar les necessitats i possibilitats del cos per mitjà del moviment en diversos espais, i mostrar seguretat, respecte i confiança.',
+      'Àrea I · Manifestar i compartir emocions, sentiments, necessitats, interessos i pensaments en situacions de la vida quotidiana amb respecte i seguretat.',
+      'Àrea I · Establir interaccions amb els seus iguals i els adults de l’entorn social més pròxim per mitjà de vivències quotidianes i valorar la importància de la cura, l’amistat, el respecte i l’empatia.',
+      'Àrea I · Mostrar comportaments i actuacions concordes amb el propi benestar físic, mental, social i emocional, i assumir responsabilitats.',
+      'Àrea I · Prendre iniciativa, planificar i seqüenciar la pròpia acció, de manera individual o en grup, en situacions quotidianes i de joc.',
+      'Àrea II · Identificar algunes característiques bàsiques, propietats i atributs destacats en materials, objectes, fenòmens habituals i éssers vius mitjançant l’exploració sensorial de l’entorn.',
+      'Àrea II · Dur a terme investigacions senzilles, individuals i grupals, orientades a explorar objectes, éssers vius, fenòmens i materials.',
+      'Àrea II · Identificar i intervindre en les accions i situacions presents en la vida quotidiana que posen en risc la sostenibilitat de l’entorn pròxim.',
+      'Àrea III · Explorar i utilitzar materials, tècniques, instruments i codis dels diversos llenguatges, i ajustar-ne l’ús a les situacions quotidianes de comunicació.',
+      'Àrea III · Comprendre missatges i representacions senzilles de la vida quotidiana per mitjà de diversos llenguatges, a partir de l’experiència pròpia.',
+      'Àrea III · Expressar sentiments, idees i pensaments propis utilitzant els diversos llenguatges de manera personal i creativa.',
+      'Àrea III · Interactuar en situacions quotidianes utilitzant les dues llengües oficials en el context de l’aula.',
+      'Àrea III · Mostrar interés per participar en situacions comunicatives orals del context escolar i familiar.',
+      'Àrea III · Identificar, valorar i participar de les diferents manifestacions culturals presents en l’entorn.'
+    ],
+    assessmentCriteria: [
+      'Desenvolupament progressiu de l’autonomia en les rutines, les cures i els hàbits saludables.',
+      'Expressió i regulació progressiva de les emocions, necessitats i interessos en situacions quotidianes.',
+      'Participació en relacions basades en el respecte, la cura, la igualtat i l’empatia.',
+      'Exploració, observació, classificació i comparació d’objectes, materials, éssers vius i fenòmens de l’entorn.',
+      'Participació en investigacions senzilles i comunicació dels descobriments mitjançant diversos llenguatges.',
+      'Ús progressiu dels llenguatges corporal, verbal, artístic, musical i audiovisual per expressar-se i comunicar-se.'
+    ],
+    basicKnowledge: [
+      'Àrea I · Parts del cos, moviment, coordinació, equilibri i possibilitats d’acció.',
+      'Àrea I · Joc exploratori, sensorial, simbòlic, motor i de regles.',
+      'Àrea I · Benestar emocional, identificació i regulació progressiva de les emocions.',
+      'Àrea I · Hàbits d’alimentació, higiene, descans, autocura i cura de l’entorn.',
+      'Àrea II · Exploració sensorial, propietats dels objectes i materials i relacions d’ordre, classificació i comparació.',
+      'Àrea II · Nocions espacials, quantificadors, formes i mesures en contextos quotidians.',
+      'Àrea II · Éssers vius, necessitats, canvis perceptibles i respecte per la natura.',
+      'Àrea II · Curiositat, iniciació al pensament científic, formulació de preguntes i comprovació d’hipòtesis senzilles.',
+      'Àrea III · Possibilitats sonores i expressives de la veu, el cos, els objectes i els instruments.',
+      'Àrea III · Materials, colors, textures, tècniques i procediments plàstics.',
+      'Àrea III · Llenguatge verbal, escolta, conversa, literatura infantil i desig de comunicar-se.',
+      'Àrea III · Gest, moviment, mímica, dansa, teatre, música, imatge, so i eines digitals.',
+      'Àrea III · Manifestacions culturals, festes, tradicions i patrimoni de l’entorn pròxim.'
+    ]
   }
 }
 

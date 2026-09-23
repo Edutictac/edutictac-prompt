@@ -14,4 +14,12 @@ describe('currículum valencià', () => {
     const elements = getCurriculumElements('cv-eso-matemàtiques')
     expect(elements?.basicKnowledge).toContain('Sentit algebraic.')
   })
+
+  it('inclou les tres àrees d’Educació Infantil', () => {
+    const elements = getCurriculumElements('cv-infantil')
+    expect(elements?.specificCompetences.some(item => item.startsWith('Àrea I'))).toBe(true)
+    expect(elements?.specificCompetences.some(item => item.startsWith('Àrea II'))).toBe(true)
+    expect(elements?.specificCompetences.some(item => item.startsWith('Àrea III'))).toBe(true)
+    expect(elements?.basicKnowledge).toContain('Àrea II · Éssers vius, necessitats, canvis perceptibles i respecte per la natura.')
+  })
 })
