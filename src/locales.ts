@@ -69,6 +69,11 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
     ,syncDownloaded: language === 'en' ? 'Your online library is ready.' : language === 'es' ? 'Tu biblioteca online ya está disponible.' : 'La teua biblioteca en línia ja està disponible.'
     ,syncUploaded: language === 'en' ? 'Local prompts uploaded to your library.' : language === 'es' ? 'Los prompts locales se han subido a tu biblioteca.' : 'Els prompts locals s’han pujat a la teua biblioteca.'
     ,syncFailed: language === 'en' ? 'The library could not be synchronized.' : language === 'es' ? 'No se ha podido sincronizar la biblioteca.' : 'No s’ha pogut sincronitzar la biblioteca.'
+    ,formMode: language === 'en' ? 'Form mode' : language === 'es' ? 'Modo del formulario' : 'Mode del formulari'
+    ,simpleMode: language === 'en' ? 'Simple' : language === 'es' ? 'Sencillo' : 'Senzill'
+    ,advancedMode: language === 'en' ? 'Advanced' : language === 'es' ? 'Avanzado' : 'Avançat'
+    ,simpleModeHint: language === 'en' ? 'Start with the essential fields. You can add detail later.' : language === 'es' ? 'Empieza con los campos esenciales. Puedes añadir detalle después.' : 'Comença amb els camps essencials. Pots afegir detalls després.'
+    ,advancedModeHint: language === 'en' ? 'All fields are visible for more precise prompts.' : language === 'es' ? 'Todos los campos están visibles para crear prompts más precisos.' : 'Tots els camps estan visibles per a crear prompts més precisos.'
   })
 }
 export function detectLanguage(): Language { const value = localStorage.getItem('edutictac-language'); if (value === 'es'||value === 'ca'||value === 'ca-valencia'||value === 'en') return value; const browser = navigator.language.toLowerCase(); return browser.startsWith('en')?'en':browser.startsWith('ca')?'ca': 'es' }

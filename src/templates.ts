@@ -33,3 +33,18 @@ for (const template of templates) {
 // Solo mostramos filtros que tienen al menos una herramienta publicada.
 // Así el catálogo no ofrece categorías vacías mientras se preparan futuras plantillas.
 export const categoryIds = ['all', ...new Set(templates.map(template => template.category))]
+
+// Camps que ajuden a començar sense convertir el formulari inicial en una fitxa tècnica.
+// El mode avançat continua mostrant tots els camps de la plantilla.
+export const simpleFieldIds: Record<string, string[]> = {
+  'learning-situation': ['level', 'course', 'subject', 'topic', 'objectives', 'duration', 'outputFormat'],
+  lesson: ['level', 'course', 'subject', 'topic', 'objectives', 'duration', 'outputFormat'],
+  sequence: ['level', 'subject', 'topic', 'objectives', 'duration', 'outputFormat'],
+  'competency-activity': ['level', 'subject', 'topic', 'objectives', 'outputFormat'],
+  project: ['level', 'subject', 'topic', 'objectives', 'duration', 'outputFormat'],
+  challenge: ['level', 'subject', 'topic', 'objectives', 'outputFormat'],
+  rubric: ['level', 'subject', 'activity', 'criteria', 'outputFormat'],
+  checklist: ['level', 'subject', 'activity', 'criteria', 'outputFormat'],
+  h5p: ['level', 'subject', 'topic', 'objectives', 'activityType', 'outputFormat'],
+  free: ['role', 'task', 'outputFormat']
+}

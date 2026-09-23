@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { categoryIds, templates } from './templates'
+import { categoryIds, simpleFieldIds, templates } from './templates'
 
 describe('plantillas de prompts', () => {
   it('ofrece contexto, restricciones y criterios de calidad', () => {
@@ -23,5 +23,12 @@ describe('plantillas de prompts', () => {
     const categoriesWithTemplates = new Set(templates.map(template => template.category))
     expect(categoryIds).toEqual(['all', ...categoriesWithTemplates])
     expect(categoryIds.slice(1).every(category => categoriesWithTemplates.has(category))).toBe(true)
+  })
+
+  it('define un modo sencillo con menos campos que el modo avanzado', () => {
+    for (const template of templates) {
+      expect(simpleFieldIds[template.id]?.length).toBeGreaterThan(0)
+      expect(simpleFieldIds[template.id].length).toBeLessThan(template.fields.length)
+    }
   })
 })
