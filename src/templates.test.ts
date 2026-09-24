@@ -38,6 +38,14 @@ describe('plantillas de prompts', () => {
     }
   })
 
+  it('deja el formato de salida al final y admite PDF', () => {
+    for (const template of templates) {
+      const last = template.fields[template.fields.length - 1]
+      expect(last.id).toBe('outputFormat')
+      expect(last.options).toContain('PDF')
+    }
+  })
+
   it('activa les categories d’adaptació, continguts i comunicació', () => {
     const ids = templates.map(template => template.id)
     expect(ids).toEqual(expect.arrayContaining([

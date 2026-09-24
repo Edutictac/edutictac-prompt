@@ -44,6 +44,15 @@ for (const template of templates) {
   }
 }
 
+// El formato de salida se ofrece siempre en último lugar y admite PDF.
+for (const template of templates) {
+  const outputFormat = template.fields.find(field => field.id === 'outputFormat')
+  if (!outputFormat) continue
+  if (outputFormat.options && !outputFormat.options.includes('PDF')) outputFormat.options.push('PDF')
+  template.fields = template.fields.filter(field => field.id !== 'outputFormat')
+  template.fields.push(outputFormat)
+}
+
 // Solo mostramos filtros que tienen al menos una herramienta publicada.
 // Así el catálogo no ofrece categorías vacías mientras se preparan futuras plantillas.
 export const categoryIds = ['all', ...new Set(templates.map(template => template.category))]
