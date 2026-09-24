@@ -44,6 +44,8 @@ describe('plantillas de prompts', () => {
       expect(last.id).toBe('outputFormat')
       if (template.id === 'scorm') {
         expect(last.options).toEqual(['SCORM 1.2'])
+      } else if (template.id === 'h5p') {
+        expect(last.options).toEqual(['H5P'])
       } else {
         expect(last.options).toContain('PDF')
       }

@@ -15,7 +15,7 @@ export const templates: PromptTemplate[] = [
   { id: 'written-test', category: 'assessment', icon: '▧', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'activity',type:'text'},{id:'criteria',type:'textarea'},{id:'levels',type:'select',options:['10','20','100']},{id:'outputFormat',type:'select',options:['Tabla Markdown','Texto']}] },
   { id: 'product', category: 'assessment', icon: '◆', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'activity',type:'text'},{id:'context',type:'textarea'},{id:'criteria',type:'textarea'},{id:'outputFormat',type:'select',options:['Tabla Markdown','Texto']}] },
   { id: 'presentation', category: 'assessment', icon: '▹', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'activity',type:'text'},{id:'duration',type:'select',options:['3 minutos','5 minutos','10 minutos','15 minutos']},{id:'criteria',type:'textarea'},{id:'outputFormat',type:'select',options:['Tabla Markdown','Texto']}] },
-  { id: 'h5p', category: 'digital', icon: '▣', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'activityType',type:'select',options:['Quiz','Arrastrar y soltar','Vídeo interactivo','Tarjetas']},{id:'outputFormat',type:'select',options:['H5P','Markdown']}] },
+  { id: 'h5p', category: 'digital', icon: '▣', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'activityType',type:'select',options:['Quiz','Arrastrar y soltar','Vídeo interactivo','Tarjetas']},{id:'outputFormat',type:'select',options:['H5P']}] },
   { id: 'scorm', category: 'digital', icon: '⊞', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'outputFormat',type:'select',options:['SCORM 1.2']}] },
   { id: 'feedback', category: 'assessment', icon: '✍', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'task',type:'textarea'},{id:'criteria',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown']}] },
   { id: 'three-levels', category: 'adaptation', icon: '≣', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'task',type:'textarea'},{id:'objectives',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown','Tabla']}] },
@@ -46,11 +46,11 @@ for (const template of templates) {
 }
 
 // El formato de salida se ofrece siempre en último lugar. Admite PDF en todas
-// las plantillas salvo en SCORM, que produce un paquete .zip.
+// las plantillas salvo en H5P y SCORM, que producen su propio paquete.
 for (const template of templates) {
   const outputFormat = template.fields.find(field => field.id === 'outputFormat')
   if (!outputFormat) continue
-  if (template.id !== 'scorm' && outputFormat.options && !outputFormat.options.includes('PDF')) outputFormat.options.push('PDF')
+  if (!['h5p', 'scorm'].includes(template.id) && outputFormat.options && !outputFormat.options.includes('PDF')) outputFormat.options.push('PDF')
   template.fields = template.fields.filter(field => field.id !== 'outputFormat')
   template.fields.push(outputFormat)
 }
