@@ -121,4 +121,15 @@ describe('generatePrompt', () => {
     expect(prompt).toContain('## Texto de partida')
     expect(prompt).toContain('Los ecosistemas son sistemas formados por seres vivos')
   })
+
+  it('usa textos propios en los comunicados, la tutoría y el feedback', () => {
+    const family = generatePrompt(template('family-note'), { outputFormat: 'Texto' }, 'es')
+    expect(family).toContain('tutor/a o miembro del equipo directivo')
+    expect(family).toContain('Redacta una comunicación breve y clara para las familias.')
+    expect(family).not.toContain('Diseña una actividad')
+
+    const feedback = generatePrompt(template('feedback'), { outputFormat: 'Texto' }, 'ca')
+    expect(feedback).toContain('feedback formatiu')
+    expect(feedback).not.toContain('Dissenya una activitat')
+  })
 })
