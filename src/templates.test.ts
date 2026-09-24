@@ -38,12 +38,16 @@ describe('plantillas de prompts', () => {
     }
   })
 
-  it('activa les categories d’adaptació i comunicació', () => {
+  it('activa les categories d’adaptació, continguts i comunicació', () => {
     const ids = templates.map(template => template.id)
-    expect(ids).toEqual(expect.arrayContaining(['feedback', 'three-levels', 'family-note']))
+    expect(ids).toEqual(expect.arrayContaining([
+      'feedback', 'three-levels', 'easy-reading', 'bias-check',
+      'glossary-support', 'family-note', 'tutoring-script'
+    ]))
 
     const categories = new Set(templates.map(template => template.category))
     expect(categories.has('adaptation')).toBe(true)
+    expect(categories.has('content')).toBe(true)
     expect(categories.has('communication')).toBe(true)
   })
 })

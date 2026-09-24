@@ -18,7 +18,11 @@ export const templates: PromptTemplate[] = [
   { id: 'h5p', category: 'digital', icon: '▣', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'activityType',type:'select',options:['Quiz','Arrastrar y soltar','Vídeo interactivo','Tarjetas']},{id:'outputFormat',type:'select',options:['H5P','Markdown']}] },
   { id: 'feedback', category: 'assessment', icon: '✍', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'task',type:'textarea'},{id:'criteria',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown']}] },
   { id: 'three-levels', category: 'adaptation', icon: '≣', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'task',type:'textarea'},{id:'objectives',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown','Tabla']}] },
+  { id: 'easy-reading', category: 'adaptation', icon: '¶', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'sourceText',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown']}] },
+  { id: 'bias-check', category: 'adaptation', icon: '⚖', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'sourceText',type:'textarea'},{id:'criteria',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown']}] },
+  { id: 'glossary-support', category: 'content', icon: '✧', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown','Tabla']}] },
   { id: 'family-note', category: 'communication', icon: '✉', fields: [{id:'role',type:'text'},{id:'context',type:'textarea'},{id:'task',type:'textarea'},{id:'constraints',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown']}] },
+  { id: 'tutoring-script', category: 'communication', icon: '☏', fields: [{id:'role',type:'text'},{id:'context',type:'textarea'},{id:'task',type:'textarea'},{id:'objectives',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown']}] },
   { id: 'free', category: 'free', icon: '✎', fields: [{id:'role',type:'text'},{id:'context',type:'textarea'},{id:'task',type:'textarea'},{id:'constraints',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown','Tabla','JSON','HTML']}] }
 ]
 
@@ -65,6 +69,10 @@ export const simpleFieldIds: Record<string, string[]> = {
   h5p: ['level', 'subject', 'topic', 'objectives', 'activityType', 'outputFormat'],
   feedback: ['level', 'subject', 'task', 'outputFormat'],
   'three-levels': ['level', 'subject', 'task', 'objectives', 'outputFormat'],
+  'easy-reading': ['level', 'subject', 'topic', 'sourceText', 'outputFormat'],
+  'bias-check': ['level', 'subject', 'sourceText', 'outputFormat'],
+  'glossary-support': ['level', 'subject', 'topic', 'outputFormat'],
   'family-note': ['role', 'task', 'outputFormat'],
+  'tutoring-script': ['role', 'task', 'outputFormat'],
   free: ['role', 'task', 'outputFormat']
 }

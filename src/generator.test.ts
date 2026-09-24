@@ -108,4 +108,17 @@ describe('generatePrompt', () => {
     expect(family).toContain('## Contexto')
     expect(family).toContain('Redacta una circular breve')
   })
+
+  it('adapta un texto a lectura fácil e incluye el texto de partida', () => {
+    const prompt = generatePrompt(template('easy-reading'), {
+      level: 'Primaria',
+      subject: 'Ciencias',
+      topic: 'Los ecosistemas',
+      sourceText: 'Los ecosistemas son sistemas formados por seres vivos...',
+      outputFormat: 'Texto'
+    }, 'es')
+    expect(prompt).toContain('Adapta a lectura fácil el siguiente texto.')
+    expect(prompt).toContain('## Texto de partida')
+    expect(prompt).toContain('Los ecosistemas son sistemas formados por seres vivos')
+  })
 })
