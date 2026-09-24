@@ -42,7 +42,11 @@ describe('plantillas de prompts', () => {
     for (const template of templates) {
       const last = template.fields[template.fields.length - 1]
       expect(last.id).toBe('outputFormat')
-      expect(last.options).toContain('PDF')
+      if (template.id === 'scorm') {
+        expect(last.options).toEqual(['SCORM 1.2'])
+      } else {
+        expect(last.options).toContain('PDF')
+      }
     }
   })
 
