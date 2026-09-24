@@ -132,4 +132,17 @@ describe('generatePrompt', () => {
     expect(feedback).toContain('feedback formatiu')
     expect(feedback).not.toContain('Dissenya una activitat')
   })
+
+  it('adapta el bloque de revisión a cada tipo de plantilla', () => {
+    const family = generatePrompt(template('family-note'), { outputFormat: 'Texto' }, 'ca-valencia')
+    expect(family).toContain('llenguatge clar i proper per a les famílies')
+    expect(family).not.toContain('Usa instrucciones claras, observables')
+
+    const adaptation = generatePrompt(template('three-levels'), { outputFormat: 'Texto' }, 'es')
+    expect(adaptation).toContain('Mantén el mismo objetivo de aprendizaje')
+    expect(adaptation).not.toContain('Comprueba que la propuesta es viable')
+
+    const rubric = generatePrompt(template('rubric'), { outputFormat: 'Texto' }, 'es')
+    expect(rubric).toContain('los criterios son observables y no ambiguos')
+  })
 })

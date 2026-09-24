@@ -16,6 +16,137 @@ const defaults: Record<Language, Record<DefaultText,string>> = {
   en:{role:'Act as a teacher specialising in',education:'education and activity design for learners at',stage:'the stated educational stage',design:'Design an activity about',rubric:'Create a rubric to assess',checklist:'Create a checklist for',h5p:'Design an H5P activity of type',interactive:'interactive',topic:'the stated topic',draft:'Deliver a reviewable first draft; do not present it as definitive.',clear:'Use clear, observable instructions appropriate to the level.',viable:'Check that the proposal is feasible with the stated time and resources.',verify:'Flag any data, source or assumption the teacher should verify.',invent:'Do not invent regulations, references or information about learners.',structured:'structured text',easyReading:'Produce an easy-read version of the following text.',biasCheck:'Review the following text for possible gender, cultural or ability bias.',glossary:'Create a glossary of key terms and visual supports about',roleComm:'Act as a tutor or a member of the school leadership team.',feedback:'Write a formative feedback comment on the student’s work.',familyNote:'Write a short, clear communication for families.',tutoringScript:'Prepare a script for a meeting or tutoring session with a family.',threeLevels:'Create three versions (support, core and extension) with the same learning objective.'}
 }
 
+type ReviewType = 'generic'|'assessment'|'adaptation'|'communication'
+const reviewTypes: Record<string, ReviewType> = {
+  rubric:'assessment', checklist:'assessment', 'rating-scale':'assessment',
+  'systematic-observation':'assessment', portfolio:'assessment', production:'assessment',
+  'written-test':'assessment', product:'assessment', presentation:'assessment', feedback:'assessment',
+  'three-levels':'adaptation', 'easy-reading':'adaptation', 'bias-check':'adaptation',
+  'family-note':'communication', 'tutoring-script':'communication'
+}
+const reviews: Record<Language, Record<ReviewType,string[]>> = {
+  es: {
+    generic: [
+      'Entrega un primer borrador revisable, no lo presentes como definitivo.',
+      'Usa instrucciones claras, observables y adecuadas al nivel.',
+      'Comprueba que la propuesta es viable con el tiempo y los recursos indicados.',
+      'Señala cualquier dato, fuente o supuesto que deba verificar la persona docente.',
+      'No inventes normativa, referencias ni información sobre el alumnado.'
+    ],
+    assessment: [
+      'Entrega un primer borrador revisable, no lo presentes como definitivo.',
+      'Comprueba que los criterios son observables y no ambiguos.',
+      'Revisa que los niveles de desempeño estén bien definidos.',
+      'Señala cualquier dato, fuente o supuesto que deba verificar la persona docente.',
+      'No inventes normativa, referencias ni información sobre el alumnado.'
+    ],
+    adaptation: [
+      'Mantén el mismo objetivo de aprendizaje en todas las versiones.',
+      'Adapta el acceso (formato, apoyos), no la exigencia.',
+      'Revisa los ejemplos y los roles para no reforzar estereotipos.',
+      'No incluyas datos personales del alumnado.',
+      'Entrega un primer borrador revisable, no lo presentes como definitivo.'
+    ],
+    communication: [
+      'Usa un lenguaje claro y cercano para las familias.',
+      'Revisa la extensión y el tono antes de enviarlo.',
+      'No incluyas datos personales del alumnado.',
+      'Mantén el criterio institucional del centro.',
+      'Entrega un primer borrador revisable, no lo presentes como definitivo.'
+    ]
+  },
+  'ca-valencia': {
+    generic: [
+      'Ofereix un primer esborrany revisable, no el presentis com a definitiu.',
+      'Usa instruccions clares, observables i adequades al nivell.',
+      'Comprova que la proposta és viable amb el temps i els recursos indicats.',
+      'Assenyala qualsevol dada, font o supòsit que haja de verificar la persona docent.',
+      'No inventes normativa, referències ni informació sobre l’alumnat.'
+    ],
+    assessment: [
+      'Ofereix un primer esborrany revisable, no el presentis com a definitiu.',
+      'Comprova que els criteris són observables i no ambigus.',
+      'Revisa que els nivells de rendiment estiguen ben definits.',
+      'Assenyala qualsevol dada, font o supòsit que haja de verificar la persona docent.',
+      'No inventes normativa, referències ni informació sobre l’alumnat.'
+    ],
+    adaptation: [
+      'Mantín el mateix objectiu d’aprenentatge en totes les versions.',
+      'Adapta l’accés (format, suports), no l’exigència.',
+      'Revisa els exemples i els rols per a no reforçar estereotips.',
+      'No inclogues dades personals de l’alumnat.',
+      'Ofereix un primer esborrany revisable, no el presentis com a definitiu.'
+    ],
+    communication: [
+      'Usa un llenguatge clar i proper per a les famílies.',
+      'Revisa l’extensió i el to abans d’enviar-lo.',
+      'No inclogues dades personals de l’alumnat.',
+      'Mantín el criteri institucional del centre.',
+      'Ofereix un primer esborrany revisable, no el presentis com a definitiu.'
+    ]
+  },
+  ca: {
+    generic: [
+      'Ofereix un primer esborrany revisable, no el presentis com a definitiu.',
+      'Utilitza instruccions clares, observables i adequades al nivell.',
+      'Comprova que la proposta és viable amb el temps i els recursos indicats.',
+      'Assenyala qualsevol dada, font o supòsit que hagi de verificar el docent.',
+      'No inventis normativa, referències ni informació sobre l’alumnat.'
+    ],
+    assessment: [
+      'Ofereix un primer esborrany revisable, no el presentis com a definitiu.',
+      'Comprova que els criteris són observables i no ambigus.',
+      'Revisa que els nivells de rendiment estiguen ben definits.',
+      'Assenyala qualsevol dada, font o supòsit que hagi de verificar el docent.',
+      'No inventis normativa, referències ni informació sobre l’alumnat.'
+    ],
+    adaptation: [
+      'Mantín el mateix objectiu d’aprenentatge en totes les versions.',
+      'Adapta l’accés (format, suports), no l’exigència.',
+      'Revisa els exemples i els rols per a no reforçar estereotips.',
+      'No inclogues dades personals de l’alumnat.',
+      'Ofereix un primer esborrany revisable, no el presentis com a definitiu.'
+    ],
+    communication: [
+      'Utilitza un llenguatge clar i proper per a les famílies.',
+      'Revisa l’extensió i el to abans d’enviar-lo.',
+      'No inclogues dades personals de l’alumnat.',
+      'Mantín el criteri institucional del centre.',
+      'Ofereix un primer esborrany revisable, no el presentis com a definitiu.'
+    ]
+  },
+  en: {
+    generic: [
+      'Deliver a reviewable first draft; do not present it as definitive.',
+      'Use clear, observable instructions appropriate to the level.',
+      'Check that the proposal is feasible with the stated time and resources.',
+      'Flag any data, source or assumption the teacher should verify.',
+      'Do not invent regulations, references or information about learners.'
+    ],
+    assessment: [
+      'Deliver a reviewable first draft; do not present it as definitive.',
+      'Check that the criteria are observable and unambiguous.',
+      'Review that the performance levels are well defined.',
+      'Flag any data, source or assumption the teacher should verify.',
+      'Do not invent regulations, references or information about learners.'
+    ],
+    adaptation: [
+      'Keep the same learning objective in all versions.',
+      'Adapt access (format, supports), not the level of demand.',
+      'Review the examples and roles so as not to reinforce stereotypes.',
+      'Do not include students’ personal data.',
+      'Deliver a reviewable first draft; do not present it as definitive.'
+    ],
+    communication: [
+      'Use clear, friendly language for families.',
+      'Review the length and tone before sending.',
+      'Do not include students’ personal data.',
+      'Keep the school’s institutional line.',
+      'Deliver a reviewable first draft; do not present it as definitive.'
+    ]
+  }
+}
+
 export function generatePrompt(template: PromptTemplate, values: Record<string,string>, language: Language): string {
   const l=labels[language]
   const d=defaults[language]
@@ -35,6 +166,7 @@ export function generatePrompt(template: PromptTemplate, values: Record<string,s
   if(value('curriculumCriteria')) lines.push(`## ${l.assessmentCriteria}\n${value('curriculumCriteria')}`)
   if(value('curriculumKnowledge')) lines.push(`## ${l.basicKnowledge}\n${value('curriculumKnowledge')}`)
   const returnText = language === 'en' ? 'Return the result in' : language === 'es' ? 'Devuelve el resultado en' : language === 'ca-valencia' ? 'Retorna el resultat en' : 'Retorna el resultat en'
-  lines.push(`## ${l.requirements}\n- ${d.draft}\n- ${d.clear}\n- ${d.viable}\n- ${d.verify}\n- ${d.invent}`, `## ${l.format}\n${returnText} ${value('outputFormat')||d.structured}.`)
+  const review = reviews[language][reviewTypes[template.id]||'generic']
+  lines.push(`## ${l.requirements}\n${review.map(item=>`- ${item}`).join('\n')}`, `## ${l.format}\n${returnText} ${value('outputFormat')||d.structured}.`)
   return lines.join('\n\n')
 }
