@@ -153,4 +153,18 @@ describe('generatePrompt', () => {
     expect(prompt).toContain('el ciclo del agua')
     expect(prompt).toContain('Retorna el resultat en SCORM 1.2.')
   })
+
+  it('genera bancos de preguntas y paquetes estándar (GIFT, QTI, Common Cartridge)', () => {
+    const gift = generatePrompt(template('gift'), { topic: 'les fraccions', outputFormat: 'GIFT' }, 'ca')
+    expect(gift).toContain('format GIFT')
+    expect(gift).toContain('les fraccions')
+    expect(gift).toContain('Retorna el resultat en GIFT.')
+
+    const qti = generatePrompt(template('qti'), { topic: 'el ciclo del agua', outputFormat: 'QTI 2.1' }, 'es')
+    expect(qti).toContain('QTI 2.1')
+    expect(qti).toContain('el ciclo del agua')
+
+    const cc = generatePrompt(template('common-cartridge'), { outputFormat: 'Common Cartridge' }, 'en')
+    expect(cc).toContain('Common Cartridge')
+  })
 })

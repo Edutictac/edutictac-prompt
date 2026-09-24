@@ -17,6 +17,9 @@ export const templates: PromptTemplate[] = [
   { id: 'presentation', category: 'assessment', icon: '▹', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'activity',type:'text'},{id:'duration',type:'select',options:['3 minutos','5 minutos','10 minutos','15 minutos']},{id:'criteria',type:'textarea'},{id:'outputFormat',type:'select',options:['Tabla Markdown','Texto']}] },
   { id: 'h5p', category: 'digital', icon: '▣', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'activityType',type:'select',options:['Quiz','Arrastrar y soltar','Vídeo interactivo','Tarjetas']},{id:'outputFormat',type:'select',options:['H5P']}] },
   { id: 'scorm', category: 'digital', icon: '⊞', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'outputFormat',type:'select',options:['SCORM 1.2']}] },
+  { id: 'gift', category: 'digital', icon: '☰', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'outputFormat',type:'select',options:['GIFT']}] },
+  { id: 'qti', category: 'digital', icon: '◫', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'outputFormat',type:'select',options:['QTI 2.1']}] },
+  { id: 'common-cartridge', category: 'digital', icon: '❏', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'outputFormat',type:'select',options:['Common Cartridge']}] },
   { id: 'feedback', category: 'assessment', icon: '✍', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'task',type:'textarea'},{id:'criteria',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown']}] },
   { id: 'three-levels', category: 'adaptation', icon: '≣', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'task',type:'textarea'},{id:'objectives',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown','Tabla']}] },
   { id: 'easy-reading', category: 'adaptation', icon: '¶', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'sourceText',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown']}] },
@@ -46,11 +49,13 @@ for (const template of templates) {
 }
 
 // El formato de salida se ofrece siempre en último lugar. Admite PDF en todas
-// las plantillas salvo en H5P y SCORM, que producen su propio paquete.
+// las plantillas salvo en las que producen su propio paquete o formato
+// (H5P, SCORM, GIFT, QTI y Common Cartridge).
+const ownFormatTemplates = ['h5p', 'scorm', 'gift', 'qti', 'common-cartridge']
 for (const template of templates) {
   const outputFormat = template.fields.find(field => field.id === 'outputFormat')
   if (!outputFormat) continue
-  if (!['h5p', 'scorm'].includes(template.id) && outputFormat.options && !outputFormat.options.includes('PDF')) outputFormat.options.push('PDF')
+  if (!ownFormatTemplates.includes(template.id) && outputFormat.options && !outputFormat.options.includes('PDF')) outputFormat.options.push('PDF')
   template.fields = template.fields.filter(field => field.id !== 'outputFormat')
   template.fields.push(outputFormat)
 }
@@ -79,6 +84,9 @@ export const simpleFieldIds: Record<string, string[]> = {
   presentation: ['level', 'subject', 'activity', 'duration', 'criteria', 'outputFormat'],
   h5p: ['level', 'subject', 'topic', 'objectives', 'activityType', 'outputFormat'],
   scorm: ['level', 'subject', 'topic', 'objectives', 'outputFormat'],
+  gift: ['level', 'subject', 'topic', 'objectives', 'outputFormat'],
+  qti: ['level', 'subject', 'topic', 'objectives', 'outputFormat'],
+  'common-cartridge': ['level', 'subject', 'topic', 'objectives', 'outputFormat'],
   feedback: ['level', 'subject', 'task', 'outputFormat'],
   'three-levels': ['level', 'subject', 'task', 'objectives', 'outputFormat'],
   'easy-reading': ['level', 'subject', 'topic', 'sourceText', 'outputFormat'],

@@ -71,7 +71,10 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
     templateProduct: language === 'en' ? 'Learning product' : language === 'es' ? 'Producto' : 'Producte',
     templatePresentation: language === 'en' ? 'Presentation' : language === 'es' ? 'Exposición' : 'Exposició',
     templateH5p: language === 'en' ? 'H5P activity' : 'Activitat H5P'
-    ,templateScorm: language === 'en' ? 'SCORM package' : language === 'es' ? 'Paquete SCORM' : 'Paquet SCORM',
+    ,templateScorm: language === 'en' ? 'SCORM package' : language === 'es' ? 'Paquete SCORM' : 'Paquet SCORM'
+    ,templateGift: language === 'en' ? 'GIFT question bank' : language === 'es' ? 'Banco de preguntas GIFT' : 'Banc de preguntes GIFT'
+    ,templateQti: language === 'en' ? 'QTI 2.1 questions' : language === 'es' ? 'Preguntas QTI 2.1' : 'Preguntes QTI 2.1'
+    ,templateCommonCartridge: language === 'en' ? 'Common Cartridge package' : language === 'es' ? 'Paquete Common Cartridge' : 'Paquet Common Cartridge',
     templateFree: language === 'en' ? 'Free builder' : language === 'ca' ? 'Constructor lliure' : 'Constructor lliure'
     ,templateFeedback: language === 'en' ? 'Formative feedback' : language === 'es' ? 'Feedback formativo' : 'Feedback formatiu'
     ,templateThreeLevels: language === 'en' ? 'One material, three levels' : language === 'es' ? 'Un material, tres niveles' : 'Un material, tres nivells'

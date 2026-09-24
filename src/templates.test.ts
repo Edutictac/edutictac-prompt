@@ -39,13 +39,14 @@ describe('plantillas de prompts', () => {
   })
 
   it('deja el formato de salida al final y admite PDF', () => {
+    const ownFormats: Record<string, string[]> = {
+      scorm: ['SCORM 1.2'], h5p: ['H5P'], gift: ['GIFT'], qti: ['QTI 2.1'], 'common-cartridge': ['Common Cartridge']
+    }
     for (const template of templates) {
       const last = template.fields[template.fields.length - 1]
       expect(last.id).toBe('outputFormat')
-      if (template.id === 'scorm') {
-        expect(last.options).toEqual(['SCORM 1.2'])
-      } else if (template.id === 'h5p') {
-        expect(last.options).toEqual(['H5P'])
+      if (ownFormats[template.id]) {
+        expect(last.options).toEqual(ownFormats[template.id])
       } else {
         expect(last.options).toContain('PDF')
       }
@@ -56,7 +57,8 @@ describe('plantillas de prompts', () => {
     const ids = templates.map(template => template.id)
     expect(ids).toEqual(expect.arrayContaining([
       'feedback', 'three-levels', 'easy-reading', 'bias-check',
-      'glossary-support', 'family-note', 'tutoring-script', 'scorm'
+      'glossary-support', 'family-note', 'tutoring-script', 'scorm',
+      'gift', 'qti', 'common-cartridge'
     ]))
 
     const categories = new Set(templates.map(template => template.category))
