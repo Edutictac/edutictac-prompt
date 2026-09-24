@@ -70,7 +70,8 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
     templateWrittenTest: language === 'en' ? 'Written test' : language === 'es' ? 'Prueba escrita' : 'Prova escrita',
     templateProduct: language === 'en' ? 'Learning product' : language === 'es' ? 'Producto' : 'Producte',
     templatePresentation: language === 'en' ? 'Presentation' : language === 'es' ? 'Exposición' : 'Exposició',
-    templateH5p: language === 'en' ? 'H5P activity' : 'Activitat H5P',
+    templateH5p: language === 'en' ? 'H5P activity' : 'Activitat H5P'
+    ,templateScorm: language === 'en' ? 'SCORM package' : language === 'es' ? 'Paquete SCORM' : 'Paquet SCORM',
     templateFree: language === 'en' ? 'Free builder' : language === 'ca' ? 'Constructor lliure' : 'Constructor lliure'
     ,templateFeedback: language === 'en' ? 'Formative feedback' : language === 'es' ? 'Feedback formativo' : 'Feedback formatiu'
     ,templateThreeLevels: language === 'en' ? 'One material, three levels' : language === 'es' ? 'Un material, tres niveles' : 'Un material, tres nivells'

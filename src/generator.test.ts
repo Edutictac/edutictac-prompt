@@ -145,4 +145,12 @@ describe('generatePrompt', () => {
     const rubric = generatePrompt(template('rubric'), { outputFormat: 'Texto' }, 'es')
     expect(rubric).toContain('los criterios son observables y no ambiguos')
   })
+
+  it('genera un paquete SCORM compatible con Moodle', () => {
+    const prompt = generatePrompt(template('scorm'), { topic: 'el ciclo del agua', outputFormat: 'SCORM 1.2' }, 'ca')
+    expect(prompt).toContain('paquet SCORM 1.2')
+    expect(prompt).toContain('imsmanifest.xml')
+    expect(prompt).toContain('el ciclo del agua')
+    expect(prompt).toContain('Retorna el resultat en SCORM 1.2.')
+  })
 })

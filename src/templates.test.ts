@@ -50,7 +50,7 @@ describe('plantillas de prompts', () => {
     const ids = templates.map(template => template.id)
     expect(ids).toEqual(expect.arrayContaining([
       'feedback', 'three-levels', 'easy-reading', 'bias-check',
-      'glossary-support', 'family-note', 'tutoring-script'
+      'glossary-support', 'family-note', 'tutoring-script', 'scorm'
     ]))
 
     const categories = new Set(templates.map(template => template.category))
