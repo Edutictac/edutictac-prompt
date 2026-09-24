@@ -16,6 +16,9 @@ export const templates: PromptTemplate[] = [
   { id: 'product', category: 'assessment', icon: '◆', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'activity',type:'text'},{id:'context',type:'textarea'},{id:'criteria',type:'textarea'},{id:'outputFormat',type:'select',options:['Tabla Markdown','Texto']}] },
   { id: 'presentation', category: 'assessment', icon: '▹', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'activity',type:'text'},{id:'duration',type:'select',options:['3 minutos','5 minutos','10 minutos','15 minutos']},{id:'criteria',type:'textarea'},{id:'outputFormat',type:'select',options:['Tabla Markdown','Texto']}] },
   { id: 'h5p', category: 'digital', icon: '▣', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'activityType',type:'select',options:['Quiz','Arrastrar y soltar','Vídeo interactivo','Tarjetas']},{id:'outputFormat',type:'select',options:['H5P','Markdown']}] },
+  { id: 'feedback', category: 'assessment', icon: '✍', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'task',type:'textarea'},{id:'criteria',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown']}] },
+  { id: 'three-levels', category: 'adaptation', icon: '≣', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'task',type:'textarea'},{id:'objectives',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown','Tabla']}] },
+  { id: 'family-note', category: 'communication', icon: '✉', fields: [{id:'role',type:'text'},{id:'context',type:'textarea'},{id:'task',type:'textarea'},{id:'constraints',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown']}] },
   { id: 'free', category: 'free', icon: '✎', fields: [{id:'role',type:'text'},{id:'context',type:'textarea'},{id:'task',type:'textarea'},{id:'constraints',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown','Tabla','JSON','HTML']}] }
 ]
 
@@ -60,5 +63,8 @@ export const simpleFieldIds: Record<string, string[]> = {
   product: ['level', 'subject', 'activity', 'criteria', 'outputFormat'],
   presentation: ['level', 'subject', 'activity', 'duration', 'criteria', 'outputFormat'],
   h5p: ['level', 'subject', 'topic', 'objectives', 'activityType', 'outputFormat'],
+  feedback: ['level', 'subject', 'task', 'outputFormat'],
+  'three-levels': ['level', 'subject', 'task', 'objectives', 'outputFormat'],
+  'family-note': ['role', 'task', 'outputFormat'],
   free: ['role', 'task', 'outputFormat']
 }

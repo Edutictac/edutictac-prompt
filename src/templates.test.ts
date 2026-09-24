@@ -37,4 +37,13 @@ describe('plantillas de prompts', () => {
       expect(simpleFieldIds[template.id].length).toBeLessThan(template.fields.length)
     }
   })
+
+  it('activa les categories d’adaptació i comunicació', () => {
+    const ids = templates.map(template => template.id)
+    expect(ids).toEqual(expect.arrayContaining(['feedback', 'three-levels', 'family-note']))
+
+    const categories = new Set(templates.map(template => template.category))
+    expect(categories.has('adaptation')).toBe(true)
+    expect(categories.has('communication')).toBe(true)
+  })
 })

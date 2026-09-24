@@ -72,6 +72,9 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
     templatePresentation: language === 'en' ? 'Presentation' : language === 'es' ? 'Exposición' : 'Exposició',
     templateH5p: language === 'en' ? 'H5P activity' : 'Activitat H5P',
     templateFree: language === 'en' ? 'Free builder' : language === 'ca' ? 'Constructor lliure' : 'Constructor lliure'
+    ,templateFeedback: language === 'en' ? 'Formative feedback' : language === 'es' ? 'Feedback formativo' : 'Feedback formatiu'
+    ,templateThreeLevels: language === 'en' ? 'One material, three levels' : language === 'es' ? 'Un material, tres niveles' : 'Un material, tres nivells'
+    ,templateFamilyNote: language === 'en' ? 'Family communication' : language === 'es' ? 'Comunicación a familias' : 'Comunicació a les famílies'
     ,login: language === 'en' ? 'Sign in' : language === 'es' ? 'Iniciar sesión' : 'Inicia sessió'
     ,logout: language === 'en' ? 'Sign out' : language === 'es' ? 'Cerrar sesión' : 'Tanca la sessió'
     ,sync: language === 'en' ? 'Sync library' : language === 'es' ? 'Sincronizar biblioteca' : 'Sincronitza la biblioteca'

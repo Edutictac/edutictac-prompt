@@ -85,4 +85,27 @@ describe('generatePrompt', () => {
     expect(prompt).not.toContain('Primaria')
     expect(prompt).not.toContain('Texto')
   })
+
+  it('genera el feedback formatiu i la comunicació a famílies', () => {
+    const feedback = generatePrompt(template('feedback'), {
+      level: 'ESO',
+      subject: 'Tecnología',
+      task: 'comentario sobre el prototipo de un grupo',
+      criteria: 'Justificación y uso de fuentes.',
+      outputFormat: 'Texto'
+    }, 'es')
+    expect(feedback).toContain('## Objetivo y tarea')
+    expect(feedback).toContain('comentario sobre el prototipo de un grupo')
+
+    const family = generatePrompt(template('family-note'), {
+      role: 'Tutor de 2.º de ESO',
+      context: 'Comunicar una salida didáctica.',
+      task: 'Redacta una circular breve para las familias.',
+      outputFormat: 'Texto'
+    }, 'es')
+    expect(family).toContain('## Rol')
+    expect(family).toContain('Tutor de 2.º de ESO')
+    expect(family).toContain('## Contexto')
+    expect(family).toContain('Redacta una circular breve')
+  })
 })
