@@ -86,6 +86,15 @@ describe('generatePrompt', () => {
     expect(prompt).not.toContain('Texto')
   })
 
+  it('localiza la frase de contexto y no duplica la etapa', () => {
+    const ca = generatePrompt(template('lesson'), { level: 'Primaria', outputFormat: 'Texto' }, 'ca')
+    expect(ca).toContain('Treball amb alumnat de Primària.')
+    expect(ca).not.toContain('Trabajo con alumnado')
+
+    const en = generatePrompt(template('lesson'), { level: 'Primaria', outputFormat: 'Texto' }, 'en')
+    expect(en).toContain('Working with learners in Primary.')
+  })
+
   it('genera el feedback formatiu i la comunicació a famílies', () => {
     const feedback = generatePrompt(template('feedback'), {
       level: 'ESO',
