@@ -66,4 +66,19 @@ describe('plantillas de prompts', () => {
     expect(categories.has('content')).toBe(true)
     expect(categories.has('communication')).toBe(true)
   })
+
+  it('activa la categoría visual con las plantillas de imagen', () => {
+    const ids = templates.map(template => template.id)
+    expect(ids).toEqual(expect.arrayContaining(['scientific-illustration', 'infographic', 'mind-map']))
+    expect(new Set(templates.map(template => template.category)).has('visual')).toBe(true)
+    expect(categoryIds).toContain('visual')
+  })
+
+  it('ofrece el selector de herramienta de IA y el refinamiento en todas las plantillas', () => {
+    for (const template of templates) {
+      const fieldIds = template.fields.map(field => field.id)
+      expect(fieldIds, template.id).toContain('aiTool')
+      expect(fieldIds, template.id).toContain('refinement')
+    }
+  })
 })

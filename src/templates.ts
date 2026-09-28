@@ -27,7 +27,10 @@ export const templates: PromptTemplate[] = [
   { id: 'glossary-support', category: 'content', icon: '✧', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown','Tabla']}] },
   { id: 'family-note', category: 'communication', icon: '✉', fields: [{id:'role',type:'text'},{id:'context',type:'textarea'},{id:'task',type:'textarea'},{id:'constraints',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown']}] },
   { id: 'tutoring-script', category: 'communication', icon: '☏', fields: [{id:'role',type:'text'},{id:'context',type:'textarea'},{id:'task',type:'textarea'},{id:'objectives',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown']}] },
-  { id: 'free', category: 'free', icon: '✎', fields: [{id:'role',type:'text'},{id:'context',type:'textarea'},{id:'task',type:'textarea'},{id:'constraints',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown','Tabla','JSON','HTML']}] }
+  { id: 'free', category: 'free', icon: '✎', fields: [{id:'role',type:'text'},{id:'context',type:'textarea'},{id:'task',type:'textarea'},{id:'constraints',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown','Tabla','JSON','HTML']}] },
+  { id: 'scientific-illustration', category: 'visual', icon: '🔬', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP','Universidad']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'visualStyle',type:'select',options:['Diagrama técnico 2D','Ilustración de libro de texto','Fotorrealista','Acuarela científica','Infografía plana']},{id:'includeLabels',type:'select',options:['Sin texto','Con etiquetas básicas']},{id:'aspectRatio',type:'select',options:['16:9 horizontal','9:16 vertical','1:1 cuadrado']},{id:'outputFormat',type:'select',options:['Texto','Markdown','PDF']}] },
+  { id: 'infographic', category: 'visual', icon: '🧩', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP','Universidad']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'sections',type:'textarea'},{id:'visualStyle',type:'select',options:['Maqueta artesanal','Infografía plana','Isométrica','Cómic educativo']},{id:'aspectRatio',type:'select',options:['16:9 horizontal','9:16 vertical','1:1 cuadrado']},{id:'outputFormat',type:'select',options:['Texto','Markdown','PDF']}] },
+  { id: 'mind-map', category: 'visual', icon: '🧠', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP','Universidad']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'branches',type:'textarea'},{id:'outputFormat',type:'select',options:['Markdown','Mermaid','Texto','PDF']}] }
 ]
 
 // El curso de IA recomienda completar siempre que sea posible el contexto,
@@ -37,10 +40,19 @@ export const templates: PromptTemplate[] = [
 const promptingFields: TemplateField[] = [
   {id:'context', type:'textarea'},
   {id:'constraints', type:'textarea'},
-  {id:'qualityCriteria', type:'textarea'}
+  {id:'qualityCriteria', type:'textarea'},
+  {id:'refinement', type:'textarea'}
 ]
 
+// Selector universal de herramienta de IA: se ofrece en todas las plantillas
+// para indicar a qué asistente va dirigido el prompt. El primer valor equivale
+// a no indicar ninguna y el generador lo omite.
+const aiToolField: TemplateField = {id:'aiTool', type:'select', options:['Sin preferencia','ChatGPT','Gemini','Claude','Copilot','Perplexity','Midjourney','DALL·E','Canva']}
+
 for (const template of templates) {
+  if (!template.fields.some(existing => existing.id === aiToolField.id)) {
+    template.fields.unshift({...aiToolField})
+  }
   for (const field of promptingFields) {
     if (!template.fields.some(existing => existing.id === field.id)) {
       template.fields.push({...field})
@@ -94,5 +106,8 @@ export const simpleFieldIds: Record<string, string[]> = {
   'glossary-support': ['level', 'subject', 'topic', 'outputFormat'],
   'family-note': ['role', 'task', 'outputFormat'],
   'tutoring-script': ['role', 'task', 'outputFormat'],
+  'scientific-illustration': ['level', 'subject', 'topic', 'visualStyle', 'includeLabels', 'outputFormat'],
+  infographic: ['level', 'subject', 'topic', 'sections', 'visualStyle', 'outputFormat'],
+  'mind-map': ['level', 'subject', 'topic', 'objectives', 'outputFormat'],
   free: ['role', 'task', 'outputFormat']
 }

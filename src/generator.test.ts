@@ -176,4 +176,37 @@ describe('generatePrompt', () => {
     const cc = generatePrompt(template('common-cartridge'), { outputFormat: 'Common Cartridge' }, 'en')
     expect(cc).toContain('Common Cartridge')
   })
+
+  it('incluye la herramienta de IA elegida y omite "Sin preferencia"', () => {
+    const withTool = generatePrompt(template('lesson'), { level: 'Primaria', aiTool: 'ChatGPT', outputFormat: 'Texto' }, 'es')
+    expect(withTool).toContain('Herramienta de IA: ChatGPT.')
+
+    const noTool = generatePrompt(template('lesson'), { level: 'Primaria', aiTool: 'Sin preferencia', outputFormat: 'Texto' }, 'es')
+    expect(noTool).not.toContain('Herramienta de IA')
+
+    const caTool = generatePrompt(template('lesson'), { level: 'Primaria', aiTool: 'Gemini', outputFormat: 'Texto' }, 'ca')
+    expect(caTool).toContain('Eina d’IA: Gemini.')
+  })
+
+  it('añade el bloque de refinamiento solo cuando se indica', () => {
+    const prompt = generatePrompt(template('free'), { task: 'xy', refinement: 'Afig una versió en valencià.', outputFormat: 'Texto' }, 'ca-valencia')
+    expect(prompt).toContain('## Refinament i ajustos')
+    expect(prompt).toContain('Afig una versió en valencià.')
+
+    const empty = generatePrompt(template('free'), { task: 'xy', outputFormat: 'Texto' }, 'ca-valencia')
+    expect(empty).not.toContain('## Refinament i ajustos')
+  })
+
+  it('genera las tareas de las plantillas visuales', () => {
+    const ill = generatePrompt(template('scientific-illustration'), { topic: 'la cèl·lula', visualStyle: 'Diagrama técnico 2D', outputFormat: 'Texto' }, 'ca')
+    expect(ill).toContain('il·lustració educativa')
+    expect(ill).toContain('la cèl·lula')
+
+    const infographic = generatePrompt(template('infographic'), { topic: 'el cicle de l’aigua', outputFormat: 'Texto' }, 'ca')
+    expect(infographic).toContain('infografia educativa')
+
+    const mindMap = generatePrompt(template('mind-map'), { topic: 'els ecosistemes', outputFormat: 'Mermaid' }, 'es')
+    expect(mindMap).toContain('mapa mental')
+    expect(mindMap).toContain('Mermaid')
+  })
 })

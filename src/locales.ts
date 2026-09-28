@@ -101,6 +101,19 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
     ,advancedMode: language === 'en' ? 'Advanced' : language === 'es' ? 'Avanzado' : 'Avançat'
     ,simpleModeHint: language === 'en' ? 'Start with the essential fields. You can add detail later.' : language === 'es' ? 'Empieza con los campos esenciales. Puedes añadir detalle después.' : 'Comença amb els camps essencials. Pots afegir detalls després.'
     ,advancedModeHint: language === 'en' ? 'All fields are visible for more precise prompts.' : language === 'es' ? 'Todos los campos están visibles para crear prompts más precisos.' : 'Tots els camps estan visibles per a crear prompts més precisos.'
+    ,toolsCount: language === 'en' ? 'educational tools and growing' : language === 'es' ? 'herramientas educativas en evolución' : 'eines educatives en evolució'
+    ,visual: language === 'en' ? 'Image and visual' : language === 'es' ? 'Imagen y visual' : 'Imatge i visual'
+    ,templateScientificIllustration: language === 'en' ? 'Scientific illustration' : language === 'es' ? 'Ilustración científica' : 'Il·lustració científica'
+    ,templateInfographic: language === 'en' ? 'Educational infographic' : language === 'es' ? 'Infografía educativa' : 'Infografia educativa'
+    ,templateMindMap: language === 'en' ? 'Mind map / diagram' : language === 'es' ? 'Mapa mental / esquema' : 'Mapa mental / esquema'
+    ,aiTool: language === 'en' ? 'AI tool' : language === 'es' ? 'Herramienta de IA' : (language === 'ca' ? 'Eina d’IA' : 'Ferramenta d’IA')
+    ,refinement: language === 'en' ? 'Refinement and tweaks' : language === 'es' ? 'Refinamiento y ajustes' : 'Refinament i ajustos'
+    ,visualStyle: language === 'en' ? 'Visual style' : language === 'es' ? 'Estilo visual' : 'Estil visual'
+    ,includeLabels: language === 'en' ? 'Text and labels' : language === 'es' ? 'Texto y etiquetas' : 'Text i etiquetes'
+    ,aspectRatio: language === 'en' ? 'Aspect ratio' : language === 'es' ? 'Relación de aspecto' : 'Relació d’aspecte'
+    ,sections: language === 'en' ? 'Sections to include' : language === 'es' ? 'Apartados a incluir' : 'Apartats a incloure'
+    ,branches: language === 'en' ? 'Main branches' : language === 'es' ? 'Ramas principales' : 'Branques principals'
+    ,placeholderRefinement: language === 'en' ? 'E.g. Add a Valencian version and a local example...' : language === 'es' ? 'Ex. Añade una versión en valenciano y un ejemplo local...' : 'Ex. Afig una versió en valencià i un exemple local...'
   })
 }
 export function detectLanguage(): Language { const value = localStorage.getItem('edutictac-language'); if (value === 'es'||value === 'ca'||value === 'ca-valencia'||value === 'en') return value; const browser = navigator.language.toLowerCase(); return browser.startsWith('en')?'en':browser.startsWith('ca')?'ca': 'es' }
