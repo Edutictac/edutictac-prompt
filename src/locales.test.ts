@@ -39,6 +39,16 @@ describe('traducciones de la interfaz', () => {
     }
   })
 
+  it('usa un nombre de perfil curricular sin «opcional» para el prompt', () => {
+    for (const language of languages) {
+      const value = translations[language].curriculumName
+      expect(value, language).toBeTruthy()
+      expect(value.toLowerCase(), language).not.toContain('opcional')
+      expect(value.toLowerCase(), language).not.toContain('optional')
+      expect(value, language).not.toContain('(')
+    }
+  })
+
   it('traduce los nombres que aparecen en las tarjetas del catálogo', () => {
     expect(translations['ca-valencia'].templateLearningSituation).toBe('Situació d’aprenentatge')
     expect(translations.ca.templateLesson).toBe('Sessió de classe')

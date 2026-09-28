@@ -8,6 +8,7 @@ export const translations: Record<Language, Record<string,string>> = {
 for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
   Object.assign(translations[language], {
     curriculum: language === 'en' ? 'Curriculum profile (optional)' : 'Perfil curricular (opcional)',
+    curriculumName: language === 'en' ? 'Curriculum profile' : 'Perfil curricular',
     general: language === 'en' ? 'General mode: no curriculum profile' : language === 'ca-valencia' ? 'Mode general: sense perfil curricular' : language === 'ca' ? 'Mode general: sense perfil curricular' : 'Modo general: sin perfil curricular',
     specificCompetences: language === 'en' ? 'Specific competences' : language === 'ca' ? 'Competències específiques' : 'Competències específiques',
     assessmentCriteria: language === 'en' ? 'Assessment criteria' : language === 'ca' ? 'Criteris d’avaluació' : 'Criteris d’avaluació',
