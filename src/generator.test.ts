@@ -209,4 +209,42 @@ describe('generatePrompt', () => {
     expect(mindMap).toContain('mapa mental')
     expect(mindMap).toContain('Mermaid')
   })
+
+  it('añade los principios DUA elegidos y amplía la revisión docente', () => {
+    const prompt = generatePrompt(template('lesson'), { level: 'Primaria', topic: 'Los ecosistemas', udl: 'Representación · Acción y expresión', outputFormat: 'Texto' }, 'es')
+    expect(prompt).toContain('## Diseño Universal para el Aprendizaje (DUA)')
+    expect(prompt).toContain('- Representación (el qué)')
+    expect(prompt).toContain('- Acción y expresión (el cómo)')
+    expect(prompt).not.toContain('Implicación (el porqué)')
+    expect(prompt).toContain('al menos dos formas de acceder al contenido')
+
+    const plain = generatePrompt(template('lesson'), { level: 'Primaria', topic: 'Los ecosistemas', outputFormat: 'Texto' }, 'es')
+    expect(plain).not.toContain('Diseño Universal')
+    expect(plain).not.toContain('al menos dos formas')
+
+    const en = generatePrompt(template('project'), { topic: 'Energy', udl: 'Implicación', outputFormat: 'Texto' }, 'en')
+    expect(en).toContain('## Universal Design for Learning (UDL)')
+    expect(en).toContain('- Engagement (the why)')
+  })
+
+  it('incluye las barreras del contexto sin etiquetar al alumnado', () => {
+    const prompt = generatePrompt(template('rubric'), { activity: 'Debat', barriers: 'Textos llargs sense suport visual', outputFormat: 'Texto' }, 'ca-valencia')
+    expect(prompt).toContain('## Barreres del context\nTextos llargs sense suport visual\nAnticipa estes barreres')
+
+    const empty = generatePrompt(template('rubric'), { activity: 'Debat', outputFormat: 'Texto' }, 'ca-valencia')
+    expect(empty).not.toContain('Barreres del context')
+  })
+
+  it('genera la revisión DUA y la matriz DUA con su propio bloque de revisión', () => {
+    const review = generatePrompt(template('udl-review'), { sourceText: 'Llegir el tema i respondre deu preguntes.', outputFormat: 'Texto' }, 'ca')
+    expect(review).toContain('des del Disseny Universal per a l’Aprenentatge')
+    expect(review).toContain('Llegir el tema i respondre deu preguntes.')
+    expect(review).toContain('Mantén el mateix objectiu i nivell d’exigència')
+
+    const matrix = generatePrompt(template('udl-matrix'), { topic: 'El ciclo del agua', outputFormat: 'Tabla' }, 'es')
+    expect(matrix).toContain('matriz DUA (pautas CAST) para una situación de aprendizaje sobre El ciclo del agua.')
+    expect(matrix).toContain('- Implicación (el porqué)')
+    expect(matrix).toContain('- Representación (el qué)')
+    expect(matrix).toContain('- Acción y expresión (el cómo)')
+  })
 })

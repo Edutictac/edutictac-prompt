@@ -89,6 +89,40 @@ export const fieldSuggestions: Record<string, Record<Language, string[]>> = {
       'School uses Aules and Microsoft 365'
     ]
   },
+  barriers: {
+    es: [
+      'Textos largos o con vocabulario complejo',
+      'Parte del alumnado aún no domina la lengua vehicular',
+      'Dificultades de lectura o escritura',
+      'Necesidad de anticipación y rutinas claras',
+      'Ritmos de aprendizaje muy diversos',
+      'Acceso limitado a dispositivos o conexión en casa'
+    ],
+    'ca-valencia': [
+      'Textos llargs o amb vocabulari complex',
+      'Part de l’alumnat encara no domina la llengua vehicular',
+      'Dificultats de lectura o escriptura',
+      'Necessitat d’anticipació i rutines clares',
+      'Ritmes d’aprenentatge molt diversos',
+      'Accés limitat a dispositius o connexió a casa'
+    ],
+    ca: [
+      'Textos llargs o amb vocabulari complex',
+      'Part de l’alumnat encara no domina la llengua vehicular',
+      'Dificultats de lectura o escriptura',
+      'Necessitat d’anticipació i rutines clares',
+      'Ritmes d’aprenentatge molt diversos',
+      'Accés limitat a dispositius o connexió a casa'
+    ],
+    en: [
+      'Long texts or complex vocabulary',
+      'Some students are still learning the language of instruction',
+      'Reading or writing difficulties',
+      'Need for advance notice and clear routines',
+      'Very diverse learning paces',
+      'Limited access to devices or internet at home'
+    ]
+  },
   objectives: {
     es: [
       'Comprender las ideas clave',

@@ -30,7 +30,9 @@ export const templates: PromptTemplate[] = [
   { id: 'free', category: 'free', icon: '✎', fields: [{id:'role',type:'text'},{id:'context',type:'textarea'},{id:'task',type:'textarea'},{id:'constraints',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown','Tabla','JSON','HTML']}] },
   { id: 'scientific-illustration', category: 'visual', icon: '🔬', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP','Universidad']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'visualStyle',type:'select',options:['Diagrama técnico 2D','Ilustración de libro de texto','Fotorrealista','Acuarela científica','Infografía plana']},{id:'includeLabels',type:'select',options:['Sin texto','Con etiquetas básicas']},{id:'aspectRatio',type:'select',options:['16:9 horizontal','9:16 vertical','1:1 cuadrado']},{id:'outputFormat',type:'select',options:['Texto','Markdown','PDF']}] },
   { id: 'infographic', category: 'visual', icon: '🧩', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP','Universidad']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'sections',type:'textarea'},{id:'visualStyle',type:'select',options:['Maqueta artesanal','Infografía plana','Isométrica','Cómic educativo']},{id:'aspectRatio',type:'select',options:['16:9 horizontal','9:16 vertical','1:1 cuadrado']},{id:'outputFormat',type:'select',options:['Texto','Markdown','PDF']}] },
-  { id: 'mind-map', category: 'visual', icon: '🧠', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP','Universidad']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'branches',type:'textarea'},{id:'outputFormat',type:'select',options:['Markdown','Mermaid','Texto','PDF']}] }
+  { id: 'mind-map', category: 'visual', icon: '🧠', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP','Universidad']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'branches',type:'textarea'},{id:'outputFormat',type:'select',options:['Markdown','Mermaid','Texto','PDF']}] },
+  { id: 'udl-review', category: 'adaptation', icon: '◐', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'sourceText',type:'textarea'},{id:'objectives',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown','Tabla']}] },
+  { id: 'udl-matrix', category: 'planning', icon: '▦', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'course',type:'text'},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'duration',type:'select',options:['Una sesión','Varias sesiones','Una semana','Varias semanas']},{id:'outputFormat',type:'select',options:['Tabla','Markdown','Texto']}] },
 ]
 
 // El curso de IA recomienda completar siempre que sea posible el contexto,
@@ -49,7 +51,23 @@ const promptingFields: TemplateField[] = [
 // a no indicar ninguna y el generador lo omite.
 const aiToolField: TemplateField = {id:'aiTool', type:'select', options:['Sin preferencia','ChatGPT','Gemini','Claude','Copilot','Perplexity','Midjourney','DALL·E','Canva']}
 
+// Diseño Universal para el Aprendizaje: los principios de las pautas CAST se
+// ofrecen en las plantillas que diseñan propuestas o materiales, y las
+// barreras del contexto también en evaluación y adaptación. Se insertan antes
+// de los campos de prompting para que queden junto al resto del diseño.
+export const udlPrinciples = ['Implicación','Representación','Acción y expresión']
+const udlField: TemplateField = {id:'udl', type:'multiselect', options:udlPrinciples}
+const barriersField: TemplateField = {id:'barriers', type:'textarea'}
+const udlCategories = ['planning','activities','content','digital']
+const barrierCategories = [...udlCategories,'assessment','adaptation']
+
 for (const template of templates) {
+  if (udlCategories.includes(template.category) && !template.fields.some(existing => existing.id === udlField.id)) {
+    template.fields.push({...udlField, options:[...udlPrinciples]})
+  }
+  if (barrierCategories.includes(template.category) && !template.fields.some(existing => existing.id === barriersField.id)) {
+    template.fields.push({...barriersField})
+  }
   if (!template.fields.some(existing => existing.id === aiToolField.id)) {
     template.fields.unshift({...aiToolField})
   }
@@ -79,12 +97,12 @@ export const categoryIds = ['all', ...new Set(templates.map(template => template
 // Camps que ajuden a començar sense convertir el formulari inicial en una fitxa tècnica.
 // El mode avançat continua mostrant tots els camps de la plantilla.
 export const simpleFieldIds: Record<string, string[]> = {
-  'learning-situation': ['level', 'course', 'subject', 'topic', 'objectives', 'duration', 'outputFormat'],
-  lesson: ['level', 'course', 'subject', 'topic', 'objectives', 'duration', 'outputFormat'],
-  sequence: ['level', 'subject', 'topic', 'objectives', 'duration', 'outputFormat'],
-  'competency-activity': ['level', 'subject', 'topic', 'objectives', 'outputFormat'],
-  project: ['level', 'subject', 'topic', 'objectives', 'duration', 'outputFormat'],
-  challenge: ['level', 'subject', 'topic', 'objectives', 'outputFormat'],
+  'learning-situation': ['level', 'course', 'subject', 'topic', 'objectives', 'duration', 'udl', 'outputFormat'],
+  lesson: ['level', 'course', 'subject', 'topic', 'objectives', 'duration', 'udl', 'outputFormat'],
+  sequence: ['level', 'subject', 'topic', 'objectives', 'duration', 'udl', 'outputFormat'],
+  'competency-activity': ['level', 'subject', 'topic', 'objectives', 'udl', 'outputFormat'],
+  project: ['level', 'subject', 'topic', 'objectives', 'duration', 'udl', 'outputFormat'],
+  challenge: ['level', 'subject', 'topic', 'objectives', 'udl', 'outputFormat'],
   rubric: ['level', 'subject', 'activity', 'criteria', 'outputFormat'],
   checklist: ['level', 'subject', 'activity', 'criteria', 'outputFormat'],
   'rating-scale': ['level', 'subject', 'activity', 'criteria', 'levels', 'outputFormat'],
@@ -109,5 +127,7 @@ export const simpleFieldIds: Record<string, string[]> = {
   'scientific-illustration': ['level', 'subject', 'topic', 'visualStyle', 'includeLabels', 'outputFormat'],
   infographic: ['level', 'subject', 'topic', 'sections', 'visualStyle', 'outputFormat'],
   'mind-map': ['level', 'subject', 'topic', 'objectives', 'outputFormat'],
+  'udl-review': ['level', 'subject', 'sourceText', 'objectives', 'barriers', 'outputFormat'],
+  'udl-matrix': ['level', 'subject', 'topic', 'objectives', 'udl', 'barriers', 'outputFormat'],
   free: ['role', 'task', 'outputFormat']
 }

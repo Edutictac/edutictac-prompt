@@ -81,4 +81,14 @@ describe('plantillas de prompts', () => {
       expect(fieldIds, template.id).toContain('refinement')
     }
   })
+
+  it('ofrece el DUA en las plantillas de diseño y las barreras también en evaluación y adaptación', () => {
+    for (const template of templates) {
+      const fieldIds = template.fields.map(field => field.id)
+      const designs = ['planning', 'activities', 'content', 'digital'].includes(template.category)
+      expect(fieldIds.includes('udl'), template.id).toBe(designs)
+      expect(fieldIds.includes('barriers'), template.id).toBe(designs || ['assessment', 'adaptation'].includes(template.category))
+    }
+    expect(templates.map(template => template.id)).toEqual(expect.arrayContaining(['udl-review', 'udl-matrix']))
+  })
 })
