@@ -102,7 +102,7 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
     ,advancedMode: language === 'en' ? 'Advanced' : language === 'es' ? 'Avanzado' : 'Avançat'
     ,simpleModeHint: language === 'en' ? 'Start with the essential fields. You can add detail later.' : language === 'es' ? 'Empieza con los campos esenciales. Puedes añadir detalle después.' : 'Comença amb els camps essencials. Pots afegir detalls després.'
     ,advancedModeHint: language === 'en' ? 'All fields are visible for more precise prompts.' : language === 'es' ? 'Todos los campos están visibles para crear prompts más precisos.' : 'Tots els camps estan visibles per a crear prompts més precisos.'
-    ,toolsCount: language === 'en' ? 'educational tools and growing' : language === 'es' ? 'herramientas educativas en evolución' : 'eines educatives en evolució'
+    ,toolsCount: language === 'en' ? 'educational tools and growing' : language === 'es' ? 'herramientas educativas en evolución' : language === 'ca' ? 'eines educatives en evolució' : 'ferramentes educatives en evolució'
     ,visual: language === 'en' ? 'Image and visual' : language === 'es' ? 'Imagen y visual' : 'Imatge i visual'
     ,templateScientificIllustration: language === 'en' ? 'Scientific illustration' : language === 'es' ? 'Ilustración científica' : 'Il·lustració científica'
     ,templateInfographic: language === 'en' ? 'Educational infographic' : language === 'es' ? 'Infografía educativa' : 'Infografia educativa'

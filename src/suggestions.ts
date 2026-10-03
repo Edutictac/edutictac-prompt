@@ -133,7 +133,7 @@ export const fieldSuggestions: Record<string, Record<Language, string[]>> = {
     ],
     'ca-valencia': [
       'Comprendre les idees clau',
-      'Aplicar el que s’ha après a un cas real',
+      'Aplicar el que s’ha aprés a un cas real',
       'Treballar en equip',
       'Comunicar conclusions',
       'Desenvolupar pensament crític'

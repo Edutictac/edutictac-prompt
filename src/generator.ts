@@ -96,22 +96,22 @@ const reviews: Record<Language, Record<ReviewType,string[]>> = {
     assessment: [
       'Ofereix un primer esborrany revisable, no el presentis com a definitiu.',
       'Comprova que els criteris són observables i no ambigus.',
-      'Revisa que els nivells de rendiment estiguen ben definits.',
+      'Revisa que els nivells de rendiment estiguin ben definits.',
       'Assenyala qualsevol dada, font o supòsit que hagi de verificar el docent.',
       'No inventis normativa, referències ni informació sobre l’alumnat.'
     ],
     adaptation: [
-      'Mantín el mateix objectiu d’aprenentatge en totes les versions.',
+      'Mantén el mateix objectiu d’aprenentatge en totes les versions.',
       'Adapta l’accés (format, suports), no l’exigència.',
-      'Revisa els exemples i els rols per a no reforçar estereotips.',
-      'No inclogues dades personals de l’alumnat.',
+      'Revisa els exemples i els rols per no reforçar estereotips.',
+      'No incloguis dades personals de l’alumnat.',
       'Ofereix un primer esborrany revisable, no el presentis com a definitiu.'
     ],
     communication: [
       'Utilitza un llenguatge clar i proper per a les famílies.',
       'Revisa l’extensió i el to abans d’enviar-lo.',
-      'No inclogues dades personals de l’alumnat.',
-      'Mantín el criteri institucional del centre.',
+      'No incloguis dades personals de l’alumnat.',
+      'Mantén el criteri institucional del centre.',
       'Ofereix un primer esborrany revisable, no el presentis com a definitiu.'
     ]
   },
@@ -185,7 +185,7 @@ const udlTexts: Record<Language, UdlTexts> = {
       'Mantín el mateix objectiu i nivell d’exigència per a tot el grup.',
       'Comprova que hi ha almenys dues maneres d’accedir al contingut i de demostrar el que s’ha aprés.',
       'Prioritza opcions viables amb els recursos indicats, no llistes teòriques.',
-      'No etiquetes ni incloges dades personals de l’alumnat.',
+      'No etiquetes ni inclogues dades personals de l’alumnat.',
       'Entrega un primer esborrany revisable, no el presentes com a definitiu.'
     ]
   },
