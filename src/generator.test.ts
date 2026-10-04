@@ -210,6 +210,20 @@ describe('generatePrompt', () => {
     expect(mindMap).toContain('Mermaid')
   })
 
+  it('pide el instrumento de evaluación adecuado con la actividad indicada', () => {
+    const scale = generatePrompt(template('rating-scale'), { activity: 'el debate sobre el agua', levels: '4' }, 'es')
+    expect(scale).toContain('Crea una escala de valoración para evaluar el debate sobre el agua.')
+    expect(scale).not.toContain('Diseña una actividad')
+    const test = generatePrompt(template('written-test'), { activity: 'les fraccions', levels: '10' }, 'ca-valencia')
+    expect(test).toContain('Elabora una prova escrita')
+    expect(test).toContain('## Puntuació màxima\n10')
+    const talk = generatePrompt(template('presentation'), { activity: 'the water cycle', duration: '5 minutos' }, 'en')
+    expect(talk).toContain('oral presentation of the water cycle.')
+    expect(talk).toContain('5 minutes')
+    const easy = generatePrompt(template('easy-reading'), { topic: 'el reciclatge', sourceText: 'Text' }, 'ca')
+    expect(easy).toContain('Tema: el reciclatge.')
+  })
+
   it('incluye los campos propios de las plantillas visuales', () => {
     const prompt = generatePrompt(template('infographic'), { topic: 'el agua', sections: 'Estados del agua', visualStyle: 'Isométrica', aspectRatio: '1:1 cuadrado', outputFormat: 'Texto' }, 'ca-valencia')
     expect(prompt).toContain('## Apartats a incloure\nEstados del agua')

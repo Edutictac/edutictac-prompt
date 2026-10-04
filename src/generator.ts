@@ -359,6 +359,64 @@ const gameTexts: Record<Language, GameTexts> = {
   }
 }
 
+// Encargos de los instrumentos de evaluación: se completan con la actividad
+// que se evalúa. En la prueba escrita, «levels» es la puntuación máxima.
+type AssessmentTexts = { tasks: Record<string,string>; topic: string; maxScore: string }
+const assessmentTexts: Record<Language, AssessmentTexts> = {
+  es: {
+    tasks: {
+      'rating-scale': 'Crea una escala de valoración para evaluar',
+      'systematic-observation': 'Crea una ficha de observación sistemática, con indicadores observables y un registro por sesión, para',
+      portfolio: 'Diseña un portafolio de aprendizaje, con las evidencias que se recogerán, la reflexión del alumnado y los criterios de valoración, para',
+      production: 'Crea un instrumento para evaluar la producción del alumnado en',
+      'written-test': 'Elabora una prueba escrita, con su clave de corrección y la puntuación de cada pregunta, para evaluar',
+      product: 'Crea un instrumento para evaluar el producto final de',
+      presentation: 'Crea un instrumento para evaluar la exposición oral de'
+    },
+    topic: 'Tema',
+    maxScore: 'Puntuación máxima'
+  },
+  'ca-valencia': {
+    tasks: {
+      'rating-scale': 'Crea una escala de valoració per a avaluar',
+      'systematic-observation': 'Crea una fitxa d’observació sistemàtica, amb indicadors observables i un registre per sessió, per a',
+      portfolio: 'Dissenya un portafolis d’aprenentatge, amb les evidències que es recolliran, la reflexió de l’alumnat i els criteris de valoració, per a',
+      production: 'Crea un instrument per a avaluar la producció de l’alumnat en',
+      'written-test': 'Elabora una prova escrita, amb la clau de correcció i la puntuació de cada pregunta, per a avaluar',
+      product: 'Crea un instrument per a avaluar el producte final de',
+      presentation: 'Crea un instrument per a avaluar l’exposició oral de'
+    },
+    topic: 'Tema',
+    maxScore: 'Puntuació màxima'
+  },
+  ca: {
+    tasks: {
+      'rating-scale': 'Crea una escala de valoració per avaluar',
+      'systematic-observation': 'Crea una fitxa d’observació sistemàtica, amb indicadors observables i un registre per sessió, per a',
+      portfolio: 'Dissenya un portafolis d’aprenentatge, amb les evidències que es recolliran, la reflexió de l’alumnat i els criteris de valoració, per a',
+      production: 'Crea un instrument per avaluar la producció de l’alumnat en',
+      'written-test': 'Elabora una prova escrita, amb la clau de correcció i la puntuació de cada pregunta, per avaluar',
+      product: 'Crea un instrument per avaluar el producte final de',
+      presentation: 'Crea un instrument per avaluar l’exposició oral de'
+    },
+    topic: 'Tema',
+    maxScore: 'Puntuació màxima'
+  },
+  en: {
+    tasks: {
+      'rating-scale': 'Create a rating scale to assess',
+      'systematic-observation': 'Create a systematic observation sheet, with observable indicators and a per-session record, for',
+      portfolio: 'Design a learning portfolio, with the evidence to be collected, learner reflection and assessment criteria, for',
+      production: 'Create a tool to assess learner work in',
+      'written-test': 'Write a test, with an answer key and the marks for each question, to assess',
+      product: 'Create a tool to assess the final product of',
+      presentation: 'Create a tool to assess the oral presentation of'
+    },
+    topic: 'Topic',
+    maxScore: 'Maximum score'
+  }
+}
+
 // Etiquetas de los campos propios de las plantillas visuales.
 const extraLabels: Record<Language, Record<string,string>> = {
   es: {visualStyle:'Estilo visual', includeLabels:'Texto y etiquetas', aspectRatio:'Relación de aspecto', sections:'Apartados a incluir', branches:'Ramas principales'},
@@ -374,6 +432,7 @@ export function generatePrompt(template: PromptTemplate, values: Record<string,s
   const d=defaults[language]
   const u=udlTexts[language]
   const g=gameTexts[language]
+  const a=assessmentTexts[language]
   const localizedKeys = new Set(['level', 'methodology', 'duration', 'resources', 'outputFormat', 'activityType', 'visualStyle', 'includeLabels', 'aspectRatio'])
   const value=(key:string)=>{const raw=values[key]?.trim()||'';return localizedKeys.has(key)?raw.split(' · ').map(item=>localizeOption(item,language)).join(' · '):raw}
   const mechanics=value('activityType').split(' · ').filter(Boolean)
@@ -386,10 +445,10 @@ export function generatePrompt(template: PromptTemplate, values: Record<string,s
   lines.push(`## ${l.role}\n${value('role')||roleDefault}${tool?`\n${l.aiTool}: ${tool}.`:''}`)
   if(value('context')||level||value('curriculumContext')) lines.push(`## ${l.context}\n${level?`${d.workingWith} ${level}.`:''}\n${value('curriculumContext')}\n${value('context')}`.trim())
   if(value('curriculumCompetences')) lines.push(`## ${l.specificCompetences}\n${value('curriculumCompetences')}`)
-  const task = template.id==='rubric'?`${d.rubric} ${value('activity')||d.topic}.`:template.id==='checklist'?`${d.checklist} ${value('activity')||d.topic}.`:template.id==='h5p'?`${d.h5p} ${value('activityType')||d.interactive} ${language==='en'?'about':'sobre'} ${value('topic')||d.topic}.`:template.id==='easy-reading'?d.easyReading:template.id==='bias-check'?d.biasCheck:template.id==='glossary-support'?`${d.glossary} ${value('topic')||d.topic}.`:template.id==='feedback'?(value('task')||d.feedback):template.id==='family-note'?(value('task')||d.familyNote):template.id==='tutoring-script'?(value('task')||d.tutoringScript):template.id==='three-levels'?(value('task')||d.threeLevels):template.id==='scorm'?`${d.scorm} ${value('topic')||d.topic}.`:template.id==='gift'?`${d.gift} ${value('topic')||d.topic}.`:template.id==='qti'?`${d.qti} ${value('topic')||d.topic}.`:template.id==='common-cartridge'?`${d.commonCartridge} ${value('topic')||d.topic}.`:template.id==='scientific-illustration'?`${d.illustration} ${value('topic')||d.topic}.`:template.id==='infographic'?`${d.infographic} ${value('topic')||d.topic}.`:template.id==='mind-map'?`${d.mindMap} ${value('topic')||d.topic}.`:template.id==='html-game'?`${g.task} ${value('topic')||d.topic}.${mechanics.length?` ${mechanics.length>1?g.mechanics:g.mechanic} ${mechanics.join(', ')}.`:''}`:template.id==='udl-review'?u.review:template.id==='udl-matrix'?`${u.matrix} ${value('topic')||d.topic}. ${u.matrixFormat}`:value('task')||`${d.design} ${value('topic')||d.topic}.`
+  const task = template.id==='rubric'?`${d.rubric} ${value('activity')||d.topic}.`:template.id==='checklist'?`${d.checklist} ${value('activity')||d.topic}.`:template.id==='h5p'?`${d.h5p} ${value('activityType')||d.interactive} ${language==='en'?'about':'sobre'} ${value('topic')||d.topic}.`:template.id in a.tasks?`${a.tasks[template.id]} ${value('activity')||d.topic}.`:template.id==='easy-reading'?`${d.easyReading}${value('topic')?` ${a.topic}: ${value('topic')}.`:''}`:template.id==='bias-check'?`${d.biasCheck}${value('topic')?` ${a.topic}: ${value('topic')}.`:''}`:template.id==='glossary-support'?`${d.glossary} ${value('topic')||d.topic}.`:template.id==='feedback'?(value('task')||d.feedback):template.id==='family-note'?(value('task')||d.familyNote):template.id==='tutoring-script'?(value('task')||d.tutoringScript):template.id==='three-levels'?(value('task')||d.threeLevels):template.id==='scorm'?`${d.scorm} ${value('topic')||d.topic}.`:template.id==='gift'?`${d.gift} ${value('topic')||d.topic}.`:template.id==='qti'?`${d.qti} ${value('topic')||d.topic}.`:template.id==='common-cartridge'?`${d.commonCartridge} ${value('topic')||d.topic}.`:template.id==='scientific-illustration'?`${d.illustration} ${value('topic')||d.topic}.`:template.id==='infographic'?`${d.infographic} ${value('topic')||d.topic}.`:template.id==='mind-map'?`${d.mindMap} ${value('topic')||d.topic}.`:template.id==='html-game'?`${g.task} ${value('topic')||d.topic}.${mechanics.length?` ${mechanics.length>1?g.mechanics:g.mechanic} ${mechanics.join(', ')}.`:''}`:template.id==='udl-review'?u.review:template.id==='udl-matrix'?`${u.matrix} ${value('topic')||d.topic}. ${u.matrixFormat}`:value('task')||`${d.design} ${value('topic')||d.topic}.`
   lines.push(`## ${l.task}\n${task}`)
   if(value('sourceText')) lines.push(`## ${l.sourceText}\n${value('sourceText')}`)
-  for(const key of ['objectives','criteria','methodology','duration','resources','levels','constraints','qualityCriteria']) if(value(key)) lines.push(`## ${l[key as LabelKey]}\n${value(key)}`)
+  for(const key of ['objectives','criteria','methodology','duration','resources','levels','constraints','qualityCriteria']) if(value(key)) lines.push(`## ${key==='levels'&&template.id==='written-test'?a.maxScore:l[key as LabelKey]}\n${value(key)}`)
   if(value('curriculumCriteria')) lines.push(`## ${l.assessmentCriteria}\n${value('curriculumCriteria')}`)
   if(value('curriculumKnowledge')) lines.push(`## ${l.basicKnowledge}\n${value('curriculumKnowledge')}`)
   for(const key of Object.keys(extraLabels[language])) if(value(key)) lines.push(`## ${extraLabels[language][key]}\n${value(key)}`)

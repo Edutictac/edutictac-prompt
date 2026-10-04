@@ -2,6 +2,7 @@ import type { Language } from './types'
 
 const translations: Partial<Record<Language, Record<string, string>>> = {
   'ca-valencia': {
+    Tablets: 'Tauletes', Laboratorio: 'Laboratori', Robots: 'Robots', ABP: 'ABP', DUA: 'DUA',
     Infantil: 'Infantil', Primaria: 'Primària', Bachillerato: 'Batxillerat', 'Formación Profesional': 'Formació Professional', FP: 'FP', Universidad: 'Universitat', Otro: 'Altre',
     'Aprendizaje basado en proyectos': 'Aprenentatge basat en projectes', 'Aprendizaje cooperativo': 'Aprenentatge cooperatiu', 'Aprendizaje basado en problemas': 'Aprenentatge basat en problemes', Investigación: 'Investigació', 'Una sesión': 'Una sessió', 'Varias sesiones': 'Diverses sessions', 'Una semana': 'Una setmana', 'Varias semanas': 'Diverses setmanes',
     Ordenadores: 'Ordinadors', Proyector: 'Projector', 'Pizarra digital': 'Pissarra digital', 'Material manipulativo': 'Material manipulatiu', 'Sin tecnología': 'Sense tecnologia', 'Aprendizaje servicio': 'Aprenentatge servei', Cooperativo: 'Cooperatiu', Gamificación: 'Gamificació', Retos: 'Reptes', 'Trabajo individual': 'Treball individual', 'Pensamiento crítico': 'Pensament crític',
@@ -12,6 +13,8 @@ const translations: Partial<Record<Language, Record<string, string>>> = {
     'Niveles y trofeos': 'Nivells i trofeus', 'Ayuda para el alumnado': 'Ajuda per a l’alumnat', 'Menú docente oculto': 'Menú docent amagat', 'Manual docente': 'Manual docent', 'Guardar sesión': 'Guardar la sessió', 'Cargar contenido CSV': 'Carregar contingut CSV',
   },
   ca: {
+    'Aprendizaje servicio': 'Aprenentatge servei',
+    Tablets: 'Tauletes', Laboratorio: 'Laboratori', Robots: 'Robots', ABP: 'ABP', DUA: 'DUA',
     Infantil: 'Infantil', Primaria: 'Primària', Bachillerato: 'Batxillerat', 'Formación Profesional': 'Formació Professional', FP: 'FP', Universidad: 'Universitat', Otro: 'Altre',
     'Aprendizaje basado en proyectos': 'Aprenentatge basat en projectes', 'Aprendizaje cooperativo': 'Aprenentatge cooperatiu', 'Aprendizaje basado en problemas': 'Aprenentatge basat en problemes', Investigación: 'Investigació', 'Una sesión': 'Una sessió', 'Varias sesiones': 'Diverses sessions', 'Una semana': 'Una setmana', 'Varias semanas': 'Diverses setmanes',
     Ordenadores: 'Ordinadors', Proyector: 'Projector', 'Pizarra digital': 'Pissarra digital', 'Material manipulativo': 'Material manipulatiu', 'Sin tecnología': 'Sense tecnologia', Cooperativo: 'Cooperatiu', Gamificación: 'Gamificació', Retos: 'Reptes', 'Trabajo individual': 'Treball individual', 'Pensamiento crítico': 'Pensament crític',
@@ -22,6 +25,7 @@ const translations: Partial<Record<Language, Record<string, string>>> = {
     'Niveles y trofeos': 'Nivells i trofeus', 'Ayuda para el alumnado': 'Ajuda per a l’alumnat', 'Menú docente oculto': 'Menú docent amagat', 'Manual docente': 'Manual docent', 'Guardar sesión': 'Desar la sessió', 'Cargar contenido CSV': 'Carregar contingut CSV',
   },
   en: {
+    Tablets: 'Tablets', Laboratorio: 'Laboratory', Robots: 'Robots', ABP: 'PBL', DUA: 'UDL', 'Aprendizaje servicio': 'Service learning',
     Primaria: 'Primary', Bachillerato: 'Upper secondary', 'Formación Profesional': 'Vocational education', FP: 'Vocational education', Universidad: 'University', Otro: 'Other',
     'Aprendizaje basado en proyectos': 'Project-based learning', 'Aprendizaje cooperativo': 'Cooperative learning', 'Aprendizaje basado en problemas': 'Problem-based learning', Investigación: 'Inquiry', 'Una sesión': 'One session', 'Varias sesiones': 'Several sessions', 'Una semana': 'One week', 'Varias semanas': 'Several weeks',
     Ordenadores: 'Computers', Proyector: 'Projector', 'Pizarra digital': 'Interactive whiteboard', 'Material manipulativo': 'Manipulatives', 'Sin tecnología': 'No technology', Cooperativo: 'Cooperative learning', Gamificación: 'Gamification', Retos: 'Challenges', 'Trabajo individual': 'Individual work', 'Pensamiento crítico': 'Critical thinking',
@@ -34,5 +38,7 @@ const translations: Partial<Record<Language, Record<string, string>>> = {
 }
 
 export function localizeOption(value: string, language: Language): string {
+  const minutes = /^(\d+) minutos$/.exec(value)
+  if (minutes && language !== 'es') return `${minutes[1]} ${language === 'en' ? 'minutes' : 'minuts'}`
   return translations[language]?.[value] || value
 }
