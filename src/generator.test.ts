@@ -234,6 +234,9 @@ describe('generatePrompt', () => {
     const empty = generatePrompt(template('html-game'), { topic: 'fractions' }, 'en')
     expect(empty).toContain('Propose 20 items suited to the level')
     expect(empty).not.toContain('## Game features')
+
+    const several = generatePrompt(template('html-game'), { topic: 'fracciones', activityType: 'Emparejar · Ordenar', outputFormat: 'HTML' }, 'es')
+    expect(several).toContain('Mecánicas de juego (combínalas o altérnalas entre ejercicios): Emparejar, Ordenar.')
   })
 
   it('añade los principios DUA elegidos y amplía la revisión docente', () => {

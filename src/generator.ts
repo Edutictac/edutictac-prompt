@@ -231,11 +231,12 @@ const udlTexts: Record<Language, UdlTexts> = {
 // Juego HTML interactivo: un único archivo autocontenido que funciona sin
 // conexión. Las funciones opcionales se indexan por el valor original de la
 // opción (en castellano), igual que los principios DUA.
-type GameTexts = { task: string; mechanic: string; items: string; itemsNote: string; noItems: string; tech: string; techItems: string[]; features: string; featureTexts: Record<string,string>; checks: string[] }
+type GameTexts = { task: string; mechanic: string; mechanics: string; items: string; itemsNote: string; noItems: string; tech: string; techItems: string[]; features: string; featureTexts: Record<string,string>; checks: string[] }
 const gameTexts: Record<Language, GameTexts> = {
   es: {
     task: 'Crea un único archivo HTML autocontenido (HTML, CSS y JavaScript en el mismo fichero) con ejercicios interactivos sobre',
     mechanic: 'Mecánica de juego:',
+    mechanics: 'Mecánicas de juego (combínalas o altérnalas entre ejercicios):',
     items: 'Contenido de los ejercicios',
     itemsNote: 'Guarda estos datos en un array de objetos al principio del script, con un comentario que explique cómo añadir o cambiar elementos.',
     noItems: 'Propón 20 elementos adecuados al nivel y guárdalos en un array de objetos al principio del script, con un comentario que explique cómo añadir o cambiar elementos.',
@@ -266,6 +267,7 @@ const gameTexts: Record<Language, GameTexts> = {
   'ca-valencia': {
     task: 'Crea un únic fitxer HTML autocontingut (HTML, CSS i JavaScript en el mateix fitxer) amb exercicis interactius sobre',
     mechanic: 'Mecànica de joc:',
+    mechanics: 'Mecàniques de joc (combina-les o alterna-les entre exercicis):',
     items: 'Contingut dels exercicis',
     itemsNote: 'Guarda estes dades en un array d’objectes al principi de l’script, amb un comentari que explique com afegir o canviar elements.',
     noItems: 'Proposa 20 elements adequats al nivell i guarda’ls en un array d’objectes al principi de l’script, amb un comentari que explique com afegir o canviar elements.',
@@ -296,6 +298,7 @@ const gameTexts: Record<Language, GameTexts> = {
   ca: {
     task: 'Crea un únic fitxer HTML autocontingut (HTML, CSS i JavaScript en el mateix fitxer) amb exercicis interactius sobre',
     mechanic: 'Mecànica de joc:',
+    mechanics: 'Mecàniques de joc (combina-les o alterna-les entre exercicis):',
     items: 'Contingut dels exercicis',
     itemsNote: 'Desa aquestes dades en un array d’objectes al principi de l’script, amb un comentari que expliqui com afegir o canviar elements.',
     noItems: 'Proposa 20 elements adequats al nivell i desa’ls en un array d’objectes al principi de l’script, amb un comentari que expliqui com afegir o canviar elements.',
@@ -326,6 +329,7 @@ const gameTexts: Record<Language, GameTexts> = {
   en: {
     task: 'Create a single self-contained HTML file (HTML, CSS and JavaScript in the same file) with interactive exercises about',
     mechanic: 'Game mechanic:',
+    mechanics: 'Game mechanics (combine them or alternate them across exercises):',
     items: 'Exercise content',
     itemsNote: 'Store this data in an array of objects at the top of the script, with a comment explaining how to add or change items.',
     noItems: 'Propose 20 items suited to the level and store them in an array of objects at the top of the script, with a comment explaining how to add or change items.',
@@ -372,6 +376,7 @@ export function generatePrompt(template: PromptTemplate, values: Record<string,s
   const g=gameTexts[language]
   const localizedKeys = new Set(['level', 'methodology', 'duration', 'resources', 'outputFormat', 'activityType', 'visualStyle', 'includeLabels', 'aspectRatio'])
   const value=(key:string)=>{const raw=values[key]?.trim()||'';return localizedKeys.has(key)?raw.split(' · ').map(item=>localizeOption(item,language)).join(' · '):raw}
+  const mechanics=value('activityType').split(' · ').filter(Boolean)
   const lines:string[]=[]
   const level=[value('level'),value('course')].filter(Boolean).join(' ')
   const commTemplates = new Set(['family-note','tutoring-script'])
@@ -381,7 +386,7 @@ export function generatePrompt(template: PromptTemplate, values: Record<string,s
   lines.push(`## ${l.role}\n${value('role')||roleDefault}${tool?`\n${l.aiTool}: ${tool}.`:''}`)
   if(value('context')||level||value('curriculumContext')) lines.push(`## ${l.context}\n${level?`${d.workingWith} ${level}.`:''}\n${value('curriculumContext')}\n${value('context')}`.trim())
   if(value('curriculumCompetences')) lines.push(`## ${l.specificCompetences}\n${value('curriculumCompetences')}`)
-  const task = template.id==='rubric'?`${d.rubric} ${value('activity')||d.topic}.`:template.id==='checklist'?`${d.checklist} ${value('activity')||d.topic}.`:template.id==='h5p'?`${d.h5p} ${value('activityType')||d.interactive} ${language==='en'?'about':'sobre'} ${value('topic')||d.topic}.`:template.id==='easy-reading'?d.easyReading:template.id==='bias-check'?d.biasCheck:template.id==='glossary-support'?`${d.glossary} ${value('topic')||d.topic}.`:template.id==='feedback'?(value('task')||d.feedback):template.id==='family-note'?(value('task')||d.familyNote):template.id==='tutoring-script'?(value('task')||d.tutoringScript):template.id==='three-levels'?(value('task')||d.threeLevels):template.id==='scorm'?`${d.scorm} ${value('topic')||d.topic}.`:template.id==='gift'?`${d.gift} ${value('topic')||d.topic}.`:template.id==='qti'?`${d.qti} ${value('topic')||d.topic}.`:template.id==='common-cartridge'?`${d.commonCartridge} ${value('topic')||d.topic}.`:template.id==='scientific-illustration'?`${d.illustration} ${value('topic')||d.topic}.`:template.id==='infographic'?`${d.infographic} ${value('topic')||d.topic}.`:template.id==='mind-map'?`${d.mindMap} ${value('topic')||d.topic}.`:template.id==='html-game'?`${g.task} ${value('topic')||d.topic}.${value('activityType')?` ${g.mechanic} ${value('activityType')}.`:''}`:template.id==='udl-review'?u.review:template.id==='udl-matrix'?`${u.matrix} ${value('topic')||d.topic}. ${u.matrixFormat}`:value('task')||`${d.design} ${value('topic')||d.topic}.`
+  const task = template.id==='rubric'?`${d.rubric} ${value('activity')||d.topic}.`:template.id==='checklist'?`${d.checklist} ${value('activity')||d.topic}.`:template.id==='h5p'?`${d.h5p} ${value('activityType')||d.interactive} ${language==='en'?'about':'sobre'} ${value('topic')||d.topic}.`:template.id==='easy-reading'?d.easyReading:template.id==='bias-check'?d.biasCheck:template.id==='glossary-support'?`${d.glossary} ${value('topic')||d.topic}.`:template.id==='feedback'?(value('task')||d.feedback):template.id==='family-note'?(value('task')||d.familyNote):template.id==='tutoring-script'?(value('task')||d.tutoringScript):template.id==='three-levels'?(value('task')||d.threeLevels):template.id==='scorm'?`${d.scorm} ${value('topic')||d.topic}.`:template.id==='gift'?`${d.gift} ${value('topic')||d.topic}.`:template.id==='qti'?`${d.qti} ${value('topic')||d.topic}.`:template.id==='common-cartridge'?`${d.commonCartridge} ${value('topic')||d.topic}.`:template.id==='scientific-illustration'?`${d.illustration} ${value('topic')||d.topic}.`:template.id==='infographic'?`${d.infographic} ${value('topic')||d.topic}.`:template.id==='mind-map'?`${d.mindMap} ${value('topic')||d.topic}.`:template.id==='html-game'?`${g.task} ${value('topic')||d.topic}.${mechanics.length?` ${mechanics.length>1?g.mechanics:g.mechanic} ${mechanics.join(', ')}.`:''}`:template.id==='udl-review'?u.review:template.id==='udl-matrix'?`${u.matrix} ${value('topic')||d.topic}. ${u.matrixFormat}`:value('task')||`${d.design} ${value('topic')||d.topic}.`
   lines.push(`## ${l.task}\n${task}`)
   if(value('sourceText')) lines.push(`## ${l.sourceText}\n${value('sourceText')}`)
   for(const key of ['objectives','criteria','methodology','duration','resources','levels','constraints','qualityCriteria']) if(value(key)) lines.push(`## ${l[key as LabelKey]}\n${value(key)}`)
