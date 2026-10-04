@@ -445,7 +445,34 @@ export function generatePrompt(template: PromptTemplate, values: Record<string,s
   lines.push(`## ${l.role}\n${value('role')||roleDefault}${tool?`\n${l.aiTool}: ${tool}.`:''}`)
   if(value('context')||level||value('curriculumContext')) lines.push(`## ${l.context}\n${level?`${d.workingWith} ${level}.`:''}\n${value('curriculumContext')}\n${value('context')}`.trim())
   if(value('curriculumCompetences')) lines.push(`## ${l.specificCompetences}\n${value('curriculumCompetences')}`)
-  const task = template.id==='rubric'?`${d.rubric} ${value('activity')||d.topic}.`:template.id==='checklist'?`${d.checklist} ${value('activity')||d.topic}.`:template.id==='h5p'?`${d.h5p} ${value('activityType')||d.interactive} ${language==='en'?'about':'sobre'} ${value('topic')||d.topic}.`:template.id in a.tasks?`${a.tasks[template.id]} ${value('activity')||d.topic}.`:template.id==='easy-reading'?`${d.easyReading}${value('topic')?` ${a.topic}: ${value('topic')}.`:''}`:template.id==='bias-check'?`${d.biasCheck}${value('topic')?` ${a.topic}: ${value('topic')}.`:''}`:template.id==='glossary-support'?`${d.glossary} ${value('topic')||d.topic}.`:template.id==='feedback'?(value('task')||d.feedback):template.id==='family-note'?(value('task')||d.familyNote):template.id==='tutoring-script'?(value('task')||d.tutoringScript):template.id==='three-levels'?(value('task')||d.threeLevels):template.id==='scorm'?`${d.scorm} ${value('topic')||d.topic}.`:template.id==='gift'?`${d.gift} ${value('topic')||d.topic}.`:template.id==='qti'?`${d.qti} ${value('topic')||d.topic}.`:template.id==='common-cartridge'?`${d.commonCartridge} ${value('topic')||d.topic}.`:template.id==='scientific-illustration'?`${d.illustration} ${value('topic')||d.topic}.`:template.id==='infographic'?`${d.infographic} ${value('topic')||d.topic}.`:template.id==='mind-map'?`${d.mindMap} ${value('topic')||d.topic}.`:template.id==='html-game'?`${g.task} ${value('topic')||d.topic}.${mechanics.length?` ${mechanics.length>1?g.mechanics:g.mechanic} ${mechanics.join(', ')}.`:''}`:template.id==='udl-review'?u.review:template.id==='udl-matrix'?`${u.matrix} ${value('topic')||d.topic}. ${u.matrixFormat}`:value('task')||`${d.design} ${value('topic')||d.topic}.`
+  // Encargo propio de cada plantilla; las que no tienen uno usan la tarea
+  // escrita por el docente o el diseño de una actividad sobre el tema.
+  const topic=value('topic')||d.topic
+  const activity=value('activity')||d.topic
+  const taskBuilders: Record<string,()=>string> = {
+    ...Object.fromEntries(Object.keys(a.tasks).map(id=>[id,()=>`${a.tasks[id]} ${activity}.`])),
+    'rubric': ()=>`${d.rubric} ${activity}.`,
+    'checklist': ()=>`${d.checklist} ${activity}.`,
+    'h5p': ()=>`${d.h5p} ${value('activityType')||d.interactive} ${language==='en'?'about':'sobre'} ${topic}.`,
+    'easy-reading': ()=>`${d.easyReading}${value('topic')?` ${a.topic}: ${value('topic')}.`:''}`,
+    'bias-check': ()=>`${d.biasCheck}${value('topic')?` ${a.topic}: ${value('topic')}.`:''}`,
+    'glossary-support': ()=>`${d.glossary} ${topic}.`,
+    'feedback': ()=>(value('task')||d.feedback),
+    'family-note': ()=>(value('task')||d.familyNote),
+    'tutoring-script': ()=>(value('task')||d.tutoringScript),
+    'three-levels': ()=>(value('task')||d.threeLevels),
+    'scorm': ()=>`${d.scorm} ${topic}.`,
+    'gift': ()=>`${d.gift} ${topic}.`,
+    'qti': ()=>`${d.qti} ${topic}.`,
+    'common-cartridge': ()=>`${d.commonCartridge} ${topic}.`,
+    'scientific-illustration': ()=>`${d.illustration} ${topic}.`,
+    'infographic': ()=>`${d.infographic} ${topic}.`,
+    'mind-map': ()=>`${d.mindMap} ${topic}.`,
+    'html-game': ()=>`${g.task} ${topic}.${mechanics.length?` ${mechanics.length>1?g.mechanics:g.mechanic} ${mechanics.join(', ')}.`:''}`,
+    'udl-review': ()=>u.review,
+    'udl-matrix': ()=>`${u.matrix} ${topic}. ${u.matrixFormat}`
+  }
+  const task = (taskBuilders[template.id]||(()=>value('task')||`${d.design} ${topic}.`))()
   lines.push(`## ${l.task}\n${task}`)
   if(value('sourceText')) lines.push(`## ${l.sourceText}\n${value('sourceText')}`)
   for(const key of ['objectives','criteria','methodology','duration','resources','levels','constraints','qualityCriteria']) if(value(key)) lines.push(`## ${key==='levels'&&template.id==='written-test'?a.maxScore:l[key as LabelKey]}\n${value(key)}`)

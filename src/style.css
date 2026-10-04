@@ -27,3 +27,16 @@
 .example-button:hover{border-style:solid;background:#eaf2f9}
 [data-theme="dark"] .example-button{color:#b8d2eb;border-color:var(--line)}
 [data-theme="dark"] .example-button:hover{background:#1c2a36}
+
+/* Abrir en un asistente y peticiones de seguimiento */
+.after-prompt{display:grid;gap:18px;margin-top:22px;padding-top:18px;border-top:1px solid #e3e9f0}
+.after-prompt .eyebrow{margin:0 0 8px}
+.ai-buttons,.follow-up-list{display:flex;flex-wrap:wrap;gap:8px}
+.ai-buttons button{padding:8px 14px;border:1px solid #c9d5e2;border-radius:8px;background:#fff;color:#123c69;font-weight:600;cursor:pointer}
+.ai-buttons button:hover,.ai-buttons button.preferred{border-color:#123c69;background:#eaf2f9}
+.follow-ups small{display:block;margin-bottom:8px;color:#5b7189}
+.follow-up-list button{font-size:13px;padding:6px 12px;border:1px solid #d8e0ea;border-radius:16px;background:#f4f8fb;color:#35506b;text-align:left;cursor:pointer}
+.follow-up-list button:hover{border-color:#123c69;color:#123c69}
+[data-theme="dark"] .after-prompt{border-color:var(--line)}
+[data-theme="dark"] .ai-buttons button,[data-theme="dark"] .follow-up-list button{background:#1c2a36;border-color:var(--line);color:#b8d2eb}
+[data-theme="dark"] .follow-ups small{color:#9fb3c8}

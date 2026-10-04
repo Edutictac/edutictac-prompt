@@ -117,7 +117,7 @@ export const examples: Record<string, Example> = {
   'html-game': {
     options: { level: 'Primaria', activityType: 'Memorizar y escribir · Completar huecos', gameFeatures: 'Niveles y trofeos · Ayuda para el alumnado · Menú docente oculto · Guardar sesión' },
     es: { subject: 'Lengua Castellana', topic: 'Palabras con b y v', gameItems: 'BOMBERO → _ombero (b)\nVIVIR → _i_ir (v, v)\nNAVEGAR → na_egar (v)\nCABALLO → ca_allo (b)' },
-    va: { subject: 'Valencià: Llengua i Literatura', topic: 'Paraules amb vocal neutra (a/e)', gameItems: 'ANAGRAMA → anagram_ (a)\nAVANTATGE → av_ntatg_ (a, e)\nCAMERA → cam_ra (e)\nTAULA → taul_ (a)' },
+    va: { subject: 'Valencià: Llengua i Literatura', topic: 'Paraules amb vocal neutra (a/e)', gameItems: 'ANAGRAMA → anagram_ (a)\nAVANTATGE → av_ntatg_ (a, e)\nPERSONA → p_rson_ (e, a)\nTAULA → taul_ (a)' },
     en: { subject: 'English Language', topic: 'Irregular past tense verbs', gameItems: 'go → went\nsee → saw\nbuy → bought\nthink → thought' }
   },
   gift: {
