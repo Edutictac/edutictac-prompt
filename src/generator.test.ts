@@ -210,6 +210,32 @@ describe('generatePrompt', () => {
     expect(mindMap).toContain('Mermaid')
   })
 
+  it('incluye los campos propios de las plantillas visuales', () => {
+    const prompt = generatePrompt(template('infographic'), { topic: 'el agua', sections: 'Estados del agua', visualStyle: 'Isométrica', aspectRatio: '1:1 cuadrado', outputFormat: 'Texto' }, 'ca-valencia')
+    expect(prompt).toContain('## Apartats a incloure\nEstados del agua')
+    expect(prompt).toContain('## Estil visual\nIsomètrica')
+    expect(prompt).toContain('## Relació d’aspecte\n1:1 quadrat')
+    const mindMap = generatePrompt(template('mind-map'), { topic: 'ecosistemas', branches: 'Factores bióticos', outputFormat: 'Mermaid' }, 'es')
+    expect(mindMap).toContain('## Ramas principales\nFactores bióticos')
+  })
+
+  it('genera un juego HTML autocontenido con las funciones elegidas', () => {
+    const prompt = generatePrompt(template('html-game'), { level: 'Primaria', topic: 'la vocal neutra', activityType: 'Memorizar y escribir', gameItems: 'ANAGRAMA, anagram_, a', gameFeatures: 'Niveles y trofeos · Guardar sesión', outputFormat: 'HTML' }, 'ca-valencia')
+    expect(prompt).toContain('Crea un únic fitxer HTML autocontingut')
+    expect(prompt).toContain('Mecànica de joc: Memoritzar i escriure.')
+    expect(prompt).toContain('## Contingut dels exercicis\nANAGRAMA, anagram_, a')
+    expect(prompt).toContain('## Requisits tècnics')
+    expect(prompt).toContain('- Nivells i trofeus:')
+    expect(prompt).toContain('- Guardar la sessió:')
+    expect(prompt).not.toContain('Menú docent amagat')
+    expect(prompt).toContain('com obrir i provar el fitxer en els navegadors')
+    expect(prompt).toContain('Retorna el resultat en HTML.')
+
+    const empty = generatePrompt(template('html-game'), { topic: 'fractions' }, 'en')
+    expect(empty).toContain('Propose 20 items suited to the level')
+    expect(empty).not.toContain('## Game features')
+  })
+
   it('añade los principios DUA elegidos y amplía la revisión docente', () => {
     const prompt = generatePrompt(template('lesson'), { level: 'Primaria', topic: 'Los ecosistemas', udl: 'Representación · Acción y expresión', outputFormat: 'Texto' }, 'es')
     expect(prompt).toContain('## Diseño Universal para el Aprendizaje (DUA)')

@@ -40,7 +40,7 @@ describe('plantillas de prompts', () => {
 
   it('deja el formato de salida al final y admite PDF', () => {
     const ownFormats: Record<string, string[]> = {
-      scorm: ['SCORM 1.2'], h5p: ['H5P'], gift: ['GIFT'], qti: ['QTI 2.1'], 'common-cartridge': ['Common Cartridge']
+      scorm: ['SCORM 1.2'], h5p: ['H5P'], gift: ['GIFT'], qti: ['QTI 2.1'], 'common-cartridge': ['Common Cartridge'], 'html-game': ['HTML']
     }
     for (const template of templates) {
       const last = template.fields[template.fields.length - 1]
