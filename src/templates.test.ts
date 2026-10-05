@@ -74,11 +74,11 @@ describe('plantillas de prompts', () => {
     expect(categoryIds).toContain('visual')
   })
 
-  it('ofrece el selector de herramienta de IA y el refinamiento en todas las plantillas', () => {
+  it('ofrece el refinamiento en todas las plantillas y la herramienta solo en las de imagen', () => {
     for (const template of templates) {
       const fieldIds = template.fields.map(field => field.id)
-      expect(fieldIds, template.id).toContain('aiTool')
       expect(fieldIds, template.id).toContain('refinement')
+      expect(fieldIds.includes('aiTool'), template.id).toBe(['scientific-illustration', 'infographic'].includes(template.id))
     }
   })
 

@@ -4,10 +4,10 @@ import { localizeOption } from './optionLocales'
 type LabelKey = 'role'|'context'|'task'|'objectives'|'methodology'|'duration'|'resources'|'requirements'|'format'|'criteria'|'qualityCriteria'|'constraints'|'levels'|'activityType'|'specificCompetences'|'assessmentCriteria'|'basicKnowledge'|'sourceText'|'aiTool'|'refinement'|'udl'|'barriers'
 type DefaultText = 'role'|'education'|'stage'|'design'|'rubric'|'checklist'|'h5p'|'interactive'|'topic'|'draft'|'clear'|'viable'|'verify'|'invent'|'structured'|'easyReading'|'biasCheck'|'glossary'|'roleComm'|'feedback'|'familyNote'|'tutoringScript'|'threeLevels'|'scorm'|'gift'|'qti'|'commonCartridge'|'workingWith'|'illustration'|'infographic'|'mindMap'
 const labels: Record<Language, Record<LabelKey,string>> = {
-  es:{udl:'Diseño Universal para el Aprendizaje (DUA)',barriers:'Barreras del contexto',role:'Rol',context:'Contexto',task:'Objetivo y tarea',objectives:'Objetivos',methodology:'Metodología',duration:'Duración',resources:'Recursos disponibles',requirements:'Revisión docente',format:'Formato de salida',aiTool:'Herramienta de IA',refinement:'Refinamiento y ajustes',criteria:'Criterios',qualityCriteria:'Criterios de calidad',constraints:'Restricciones y límites',levels:'Niveles de desempeño',activityType:'Tipo de actividad',specificCompetences:'Competencias específicas',assessmentCriteria:'Criterios de evaluación',basicKnowledge:'Saberes básicos',sourceText:'Texto de partida'},
-  'ca-valencia':{udl:'Disseny Universal per a l’Aprenentatge (DUA)',barriers:'Barreres del context',role:'Rol',context:'Context',task:'Objectiu i tasca',objectives:'Objectius',methodology:'Metodologia',duration:'Duració',resources:'Recursos disponibles',requirements:'Revisió docent',format:'Format d’eixida',aiTool:'Ferramenta d’IA',refinement:'Refinament i ajustos',criteria:'Criteris',qualityCriteria:'Criteris de qualitat',constraints:'Restriccions i límits',levels:'Nivells de rendiment',activityType:'Tipus d’activitat',specificCompetences:'Competències específiques',assessmentCriteria:'Criteris d’avaluació',basicKnowledge:'Sabers bàsics',sourceText:'Text de partida'},
-  ca:{udl:'Disseny Universal per a l’Aprenentatge (DUA)',barriers:'Barreres del context',role:'Rol',context:'Context',task:'Objectiu i tasca',objectives:'Objectius',methodology:'Metodologia',duration:'Durada',resources:'Recursos disponibles',requirements:'Revisió docent',format:'Format de sortida',aiTool:'Eina d’IA',refinement:'Refinament i ajustos',criteria:'Criteris',qualityCriteria:'Criteris de qualitat',constraints:'Restriccions i límits',levels:'Nivells de rendiment',activityType:'Tipus d’activitat',specificCompetences:'Competències específiques',assessmentCriteria:'Criteris d’avaluació',basicKnowledge:'Sabers bàsics',sourceText:'Text de partida'},
-  en:{udl:'Universal Design for Learning (UDL)',barriers:'Contextual barriers',role:'Role',context:'Context',task:'Objective and task',objectives:'Objectives',methodology:'Methodology',duration:'Duration',resources:'Available resources',requirements:'Teacher review',format:'Output format',aiTool:'AI tool',refinement:'Refinement and tweaks',criteria:'Criteria',qualityCriteria:'Quality criteria',constraints:'Constraints and limits',levels:'Performance levels',activityType:'Activity type',specificCompetences:'Specific competences',assessmentCriteria:'Assessment criteria',basicKnowledge:'Basic knowledge',sourceText:'Source text'}
+  es:{udl:'Diseño Universal para el Aprendizaje (DUA)',barriers:'Barreras del contexto',role:'Rol',context:'Contexto',task:'Objetivo y tarea',objectives:'Objetivos',methodology:'Metodología',duration:'Duración',resources:'Recursos disponibles',requirements:'Revisión docente',format:'Formato de salida',aiTool:'Herramienta de imagen',refinement:'Refinamiento y ajustes',criteria:'Criterios',qualityCriteria:'Criterios de calidad',constraints:'Restricciones y límites',levels:'Niveles de desempeño',activityType:'Tipo de actividad',specificCompetences:'Competencias específicas',assessmentCriteria:'Criterios de evaluación',basicKnowledge:'Saberes básicos',sourceText:'Texto de partida'},
+  'ca-valencia':{udl:'Disseny Universal per a l’Aprenentatge (DUA)',barriers:'Barreres del context',role:'Rol',context:'Context',task:'Objectiu i tasca',objectives:'Objectius',methodology:'Metodologia',duration:'Duració',resources:'Recursos disponibles',requirements:'Revisió docent',format:'Format d’eixida',aiTool:'Ferramenta d’imatge',refinement:'Refinament i ajustos',criteria:'Criteris',qualityCriteria:'Criteris de qualitat',constraints:'Restriccions i límits',levels:'Nivells de rendiment',activityType:'Tipus d’activitat',specificCompetences:'Competències específiques',assessmentCriteria:'Criteris d’avaluació',basicKnowledge:'Sabers bàsics',sourceText:'Text de partida'},
+  ca:{udl:'Disseny Universal per a l’Aprenentatge (DUA)',barriers:'Barreres del context',role:'Rol',context:'Context',task:'Objectiu i tasca',objectives:'Objectius',methodology:'Metodologia',duration:'Durada',resources:'Recursos disponibles',requirements:'Revisió docent',format:'Format de sortida',aiTool:'Eina d’imatge',refinement:'Refinament i ajustos',criteria:'Criteris',qualityCriteria:'Criteris de qualitat',constraints:'Restriccions i límits',levels:'Nivells de rendiment',activityType:'Tipus d’activitat',specificCompetences:'Competències específiques',assessmentCriteria:'Criteris d’avaluació',basicKnowledge:'Sabers bàsics',sourceText:'Text de partida'},
+  en:{udl:'Universal Design for Learning (UDL)',barriers:'Contextual barriers',role:'Role',context:'Context',task:'Objective and task',objectives:'Objectives',methodology:'Methodology',duration:'Duration',resources:'Available resources',requirements:'Teacher review',format:'Output format',aiTool:'Image tool',refinement:'Refinement and tweaks',criteria:'Criteria',qualityCriteria:'Quality criteria',constraints:'Constraints and limits',levels:'Performance levels',activityType:'Activity type',specificCompetences:'Specific competences',assessmentCriteria:'Assessment criteria',basicKnowledge:'Basic knowledge',sourceText:'Source text'}
 }
 const defaults: Record<Language, Record<DefaultText,string>> = {
   es:{role:'Actúa como docente especialista en',education:'educación y diseño de actividades para alumnado de',stage:'la etapa indicada',design:'Diseña una actividad sobre',rubric:'Crea una rúbrica para evaluar',checklist:'Crea una lista de cotejo para',h5p:'Diseña una actividad H5P de tipo',interactive:'interactivo',topic:'el tema indicado',draft:'Entrega un primer borrador revisable, no lo presentes como definitivo.',illustration:'Genera una ilustración educativa técnicamente precisa sobre',infographic:'Genera una infografía educativa clara sobre',mindMap:'Genera un mapa mental o esquema en Markdown (Mermaid) sobre',clear:'Usa instrucciones claras, observables y adecuadas al nivel.',viable:'Comprueba que la propuesta es viable con el tiempo y los recursos indicados.',verify:'Señala cualquier dato, fuente o supuesto que deba verificar la persona docente.',invent:'No inventes normativa, referencias ni información sobre el alumnado.',structured:'texto estructurado',easyReading:'Adapta a lectura fácil el siguiente texto.',biasCheck:'Revisa posibles sesgos de género, cultura o capacidad en el siguiente texto.',glossary:'Elabora un glosario de términos clave y apoyos visuales sobre',roleComm:'Actúa como tutor/a o miembro del equipo directivo del centro.',feedback:'Redacta un comentario de feedback formativo para el trabajo del alumnado.',familyNote:'Redacta una comunicación breve y clara para las familias.',tutoringScript:'Prepara un guion para una reunión o tutoría con una familia.',threeLevels:'Crea tres versiones (apoyo, base y ampliación) con el mismo objetivo de aprendizaje.',scorm:'Genera los archivos de un paquete SCORM 1.2 compatible con Moodle y Aules (imsmanifest.xml, index.html interactivo, CSS/JS e instrucciones para comprimirlo en un .zip) sobre',gift:'Genera un banco de preguntas en formato GIFT (Moodle/Aules) sobre',qti:'Genera un archivo de preguntas en formato QTI 2.1 (importable en Moodle/Aules) sobre',commonCartridge:'Genera un paquete Common Cartridge (IMS CC en .imscc) con la actividad y sus recursos sobre',workingWith:'Trabajo con alumnado de'},
@@ -418,6 +418,41 @@ const assessmentTexts: Record<Language, AssessmentTexts> = {
 }
 
 // Etiquetas de los campos propios de las plantillas visuales.
+// Indicaciones según la herramienta de imagen. ChatGPT, Gemini y Copilot generan
+// la imagen a partir del propio prompt; Midjourney y Canva funcionan mejor con
+// una descripción breve en una línea, así que se pide al asistente que la redacte.
+// {ratio} se sustituye por la relación de aspecto elegida.
+const imageToolTexts: Record<Language, Record<string,string>> = {
+  es: {
+    ChatGPT: 'Genera directamente la imagen. Si lleva texto, escríbelo exactamente igual que en las etiquetas indicadas y comprueba la ortografía.',
+    Gemini: 'Genera directamente la imagen. Mantén las etiquetas cortas y, si alguna sale mal escrita, avísame para corregirla.',
+    Copilot: 'Genera directamente la imagen con el creador de imágenes. Mantén las etiquetas cortas y, si alguna sale mal escrita, avísame para corregirla.',
+    Midjourney: 'No generes la imagen: escribe un prompt para Midjourney que la genere. Redáctalo en inglés, en una sola línea de menos de 60 palabras, con sujeto, estilo, composición, iluminación y paleta de colores, y termínalo con el parámetro --ar {ratio}. Si la imagen no debe llevar texto, añade --no text. Devuelve solo ese prompt.',
+    Canva: 'No generes la imagen: escribe un prompt para la IA de imágenes de Canva que la genere. Redáctalo como un único párrafo breve de menos de 300 caracteres, sin parámetros ni apartados, y sin texto dentro de la imagen: las etiquetas se añadirán después en Canva. Devuelve solo ese prompt.'
+  },
+  'ca-valencia': {
+    ChatGPT: 'Genera directament la imatge. Si porta text, escriu-lo exactament igual que en les etiquetes indicades i comprova l’ortografia.',
+    Gemini: 'Genera directament la imatge. Mantín les etiquetes curtes i, si alguna ix mal escrita, avisa’m per a corregir-la.',
+    Copilot: 'Genera directament la imatge amb el creador d’imatges. Mantín les etiquetes curtes i, si alguna ix mal escrita, avisa’m per a corregir-la.',
+    Midjourney: 'No generes la imatge: escriu un prompt per a Midjourney que la genere. Redacta’l en anglés, en una sola línia de menys de 60 paraules, amb subjecte, estil, composició, il·luminació i paleta de colors, i acaba’l amb el paràmetre --ar {ratio}. Si la imatge no ha de portar text, afig --no text. Torna només eixe prompt.',
+    Canva: 'No generes la imatge: escriu un prompt per a la IA d’imatges de Canva que la genere. Redacta’l com un únic paràgraf breu de menys de 300 caràcters, sense paràmetres ni apartats, i sense text dins de la imatge: les etiquetes s’afegiran després en Canva. Torna només eixe prompt.'
+  },
+  ca: {
+    ChatGPT: 'Genera directament la imatge. Si porta text, escriu-lo exactament igual que a les etiquetes indicades i comprova l’ortografia.',
+    Gemini: 'Genera directament la imatge. Mantén les etiquetes curtes i, si alguna surt mal escrita, avisa’m per corregir-la.',
+    Copilot: 'Genera directament la imatge amb el creador d’imatges. Mantén les etiquetes curtes i, si alguna surt mal escrita, avisa’m per corregir-la.',
+    Midjourney: 'No generis la imatge: escriu un prompt per a Midjourney que la generi. Redacta’l en anglès, en una sola línia de menys de 60 paraules, amb subjecte, estil, composició, il·luminació i paleta de colors, i acaba’l amb el paràmetre --ar {ratio}. Si la imatge no ha de portar text, afegeix --no text. Retorna només aquest prompt.',
+    Canva: 'No generis la imatge: escriu un prompt per a la IA d’imatges de Canva que la generi. Redacta’l com un únic paràgraf breu de menys de 300 caràcters, sense paràmetres ni apartats, i sense text dins de la imatge: les etiquetes s’afegiran després a Canva. Retorna només aquest prompt.'
+  },
+  en: {
+    ChatGPT: 'Generate the image directly. If it includes text, write it exactly as in the labels given and check the spelling.',
+    Gemini: 'Generate the image directly. Keep labels short and, if any come out misspelt, tell me so I can fix them.',
+    Copilot: 'Generate the image directly with the image creator. Keep labels short and, if any come out misspelt, tell me so I can fix them.',
+    Midjourney: 'Do not generate the image: write a Midjourney prompt that will generate it. Write it in English, on a single line of fewer than 60 words, covering subject, style, composition, lighting and colour palette, and end it with the parameter --ar {ratio}. If the image should have no text, add --no text. Return only that prompt.',
+    Canva: 'Do not generate the image: write a prompt for Canva’s AI image generator that will create it. Write it as a single short paragraph of fewer than 300 characters, with no parameters or sections, and no text inside the image: labels will be added afterwards in Canva. Return only that prompt.'
+  }
+}
+
 const extraLabels: Record<Language, Record<string,string>> = {
   es: {visualStyle:'Estilo visual', includeLabels:'Texto y etiquetas', aspectRatio:'Relación de aspecto', sections:'Apartados a incluir', branches:'Ramas principales'},
   'ca-valencia': {visualStyle:'Estil visual', includeLabels:'Text i etiquetes', aspectRatio:'Relació d’aspecte', sections:'Apartats a incloure', branches:'Branques principals'},
@@ -440,9 +475,7 @@ export function generatePrompt(template: PromptTemplate, values: Record<string,s
   const level=[value('level'),value('course')].filter(Boolean).join(' ')
   const commTemplates = new Set(['family-note','tutoring-script'])
   const roleDefault = commTemplates.has(template.id) ? d.roleComm : `${d.role} ${value('subject')||d.education} ${level||d.stage}.`
-  const rawTool=(values['aiTool']||'').trim()
-  const tool=rawTool&&rawTool!=='Sin preferencia'?localizeOption(rawTool,language):''
-  lines.push(`## ${l.role}\n${value('role')||roleDefault}${tool?`\n${l.aiTool}: ${tool}.`:''}`)
+  lines.push(`## ${l.role}\n${value('role')||roleDefault}`)
   if(value('context')||level||value('curriculumContext')) lines.push(`## ${l.context}\n${level?`${d.workingWith} ${level}.`:''}\n${value('curriculumContext')}\n${value('context')}`.trim())
   if(value('curriculumCompetences')) lines.push(`## ${l.specificCompetences}\n${value('curriculumCompetences')}`)
   // Encargo propio de cada plantilla; las que no tienen uno usan la tarea
@@ -490,6 +523,11 @@ export function generatePrompt(template: PromptTemplate, values: Record<string,s
   const principles=template.id==='udl-matrix'&&!chosenPrinciples.length?Object.keys(u.principles):chosenPrinciples
   if(principles.length) lines.push(`## ${l.udl}\n${u.intro}\n${principles.map(item=>`- ${u.principles[item]}`).join('\n')}`)
   if(value('barriers')) lines.push(`## ${l.barriers}\n${value('barriers')}\n${u.barriers}`)
+  // Solo las plantillas de imagen ofrecen el campo; se ignora en prompts antiguos
+  // guardados con una herramienta en otras plantillas.
+  const tool=template.fields.some(field=>field.id==='aiTool')?(values['aiTool']||'').trim():''
+  const toolText=imageToolTexts[language][tool]
+  if(toolText) lines.push(`## ${l.aiTool}: ${tool}\n${toolText.replace('{ratio}',(values['aspectRatio']||'1:1').split(' ')[0])}`)
   if(value('refinement')) lines.push(`## ${l.refinement}\n${value('refinement')}`)
   const returnText = language === 'en' ? 'Return the result in' : language === 'es' ? 'Devuelve el resultado en' : language === 'ca-valencia' ? 'Retorna el resultat en' : 'Retorna el resultat en'
   const review = udlTemplates.has(template.id) ? u.checks : principles.length ? [...reviews[language][reviewTypes[template.id]||'generic'], ...u.checks.slice(0,2)] : reviews[language][reviewTypes[template.id]||'generic']

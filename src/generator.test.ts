@@ -177,15 +177,25 @@ describe('generatePrompt', () => {
     expect(cc).toContain('Common Cartridge')
   })
 
-  it('incluye la herramienta de IA elegida y omite "Sin preferencia"', () => {
-    const withTool = generatePrompt(template('lesson'), { level: 'Primaria', aiTool: 'ChatGPT', outputFormat: 'Texto' }, 'es')
-    expect(withTool).toContain('Herramienta de IA: ChatGPT.')
+  it('adapta las plantillas de imagen a la herramienta elegida', () => {
+    const midjourney = generatePrompt(template('scientific-illustration'), { topic: 'la célula', aspectRatio: '16:9 horizontal', aiTool: 'Midjourney', outputFormat: 'Texto' }, 'es')
+    expect(midjourney).toContain('## Herramienta de imagen: Midjourney')
+    expect(midjourney).toContain('--ar 16:9')
+    expect(midjourney).not.toContain('{ratio}')
 
-    const noTool = generatePrompt(template('lesson'), { level: 'Primaria', aiTool: 'Sin preferencia', outputFormat: 'Texto' }, 'es')
-    expect(noTool).not.toContain('Herramienta de IA')
+    const canva = generatePrompt(template('infographic'), { topic: 'el agua', aiTool: 'Canva', outputFormat: 'Texto' }, 'ca-valencia')
+    expect(canva).toContain('IA d’imatges de Canva')
 
-    const caTool = generatePrompt(template('lesson'), { level: 'Primaria', aiTool: 'Gemini', outputFormat: 'Texto' }, 'ca')
-    expect(caTool).toContain('Eina d’IA: Gemini.')
+    const gemini = generatePrompt(template('infographic'), { topic: 'water', aiTool: 'Gemini', outputFormat: 'Texto' }, 'en')
+    expect(gemini).toContain('Generate the image directly')
+
+    const noTool = generatePrompt(template('infographic'), { topic: 'el agua', aiTool: 'Sin preferencia', outputFormat: 'Texto' }, 'es')
+    expect(noTool).not.toContain('Herramienta de imagen')
+  })
+
+  it('ignora la herramienta en plantillas de texto, aunque venga de un prompt guardado', () => {
+    const lesson = generatePrompt(template('lesson'), { level: 'Primaria', aiTool: 'ChatGPT', outputFormat: 'Texto' }, 'es')
+    expect(lesson).not.toContain('ChatGPT')
   })
 
   it('añade el bloque de refinamiento solo cuando se indica', () => {

@@ -107,7 +107,7 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
     ,templateScientificIllustration: language === 'en' ? 'Scientific illustration' : language === 'es' ? 'Ilustración científica' : 'Il·lustració científica'
     ,templateInfographic: language === 'en' ? 'Educational infographic' : language === 'es' ? 'Infografía educativa' : 'Infografia educativa'
     ,templateMindMap: language === 'en' ? 'Mind map / diagram' : language === 'es' ? 'Mapa mental / esquema' : 'Mapa mental / esquema'
-    ,aiTool: language === 'en' ? 'AI tool' : language === 'es' ? 'Herramienta de IA' : (language === 'ca' ? 'Eina d’IA' : 'Ferramenta d’IA')
+    ,aiTool: language === 'en' ? 'Image tool' : language === 'es' ? 'Herramienta de imagen' : (language === 'ca' ? 'Eina d’imatge' : 'Ferramenta d’imatge')
     ,refinement: language === 'en' ? 'Refinement and tweaks' : language === 'es' ? 'Refinamiento y ajustes' : 'Refinament i ajustos'
     ,visualStyle: language === 'en' ? 'Visual style' : language === 'es' ? 'Estilo visual' : 'Estil visual'
     ,includeLabels: language === 'en' ? 'Text and labels' : language === 'es' ? 'Texto y etiquetas' : 'Text i etiquetes'

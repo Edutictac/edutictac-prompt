@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
-import { aiTargets, aiTargetUrl, followUps, orderedAiTargets } from './followUps'
+import { describe, expect, it, vi } from 'vitest'
+import { aiTargets, aiTargetUrl, followUps, orderedAiTargets, preferredAiTarget, rememberAiTarget } from './followUps'
 import { templates } from './templates'
 import type { Language } from './types'
 
@@ -35,5 +35,17 @@ describe('peticiones de seguimiento', () => {
 
   it('añade peticiones propias del juego HTML', () => {
     expect(followUps('html-game', 'digital', 'es')[0]).toContain('JavaScript')
+  })
+
+  it('pone primero la herramienta elegida o, si no, la última abierta', () => {
+    const store = new Map<string, string>()
+    vi.stubGlobal('localStorage', { getItem: (key: string) => store.get(key) ?? null, setItem: (key: string, value: string) => store.set(key, value) })
+    expect(preferredAiTarget('')).toBe('')
+    rememberAiTarget('Claude')
+    expect(preferredAiTarget('')).toBe('Claude')
+    expect(preferredAiTarget('Midjourney')).toBe('Claude')
+    expect(preferredAiTarget('Gemini')).toBe('Gemini')
+    expect(orderedAiTargets(preferredAiTarget(''))[0].id).toBe('Claude')
+    vi.unstubAllGlobals()
   })
 })

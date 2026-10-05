@@ -48,10 +48,12 @@ const promptingFields: TemplateField[] = [
   {id:'refinement', type:'textarea'}
 ]
 
-// Selector universal de herramienta de IA: se ofrece en todas las plantillas
-// para indicar a qué asistente va dirigido el prompt. El primer valor equivale
-// a no indicar ninguna y el generador lo omite.
-const aiToolField: TemplateField = {id:'aiTool', type:'select', options:['Sin preferencia','ChatGPT','Gemini','Claude','Copilot','Perplexity','Midjourney','DALL·E','Canva']}
+// Herramienta de generación de imágenes: solo en las plantillas que producen una
+// imagen, porque ahí cambia de verdad cómo debe redactarse el prompt. En las de
+// texto no aporta nada y el orden de «Abrir en» ya recuerda la última IA usada.
+// El primer valor equivale a no indicar ninguna y el generador lo omite.
+export const imageToolTemplates = ['scientific-illustration','infographic']
+const aiToolField: TemplateField = {id:'aiTool', type:'select', options:['Sin preferencia','ChatGPT','Gemini','Copilot','Midjourney','Canva']}
 
 // Diseño Universal para el Aprendizaje: los principios de las pautas CAST se
 // ofrecen en las plantillas que diseñan propuestas o materiales, y las
@@ -70,7 +72,7 @@ for (const template of templates) {
   if (barrierCategories.includes(template.category) && !template.fields.some(existing => existing.id === barriersField.id)) {
     template.fields.push({...barriersField})
   }
-  if (!template.fields.some(existing => existing.id === aiToolField.id)) {
+  if (imageToolTemplates.includes(template.id) && !template.fields.some(existing => existing.id === aiToolField.id)) {
     template.fields.unshift({...aiToolField})
   }
   for (const field of promptingFields) {
