@@ -40,3 +40,22 @@
 [data-theme="dark"] .after-prompt{border-color:var(--line)}
 [data-theme="dark"] .ai-buttons button,[data-theme="dark"] .follow-up-list button{background:#1c2a36;border-color:var(--line);color:#b8d2eb}
 [data-theme="dark"] .follow-ups small{color:#9fb3c8}
+/* Pantallas grandes: más ancho útil, formulario a dos columnas (los campos
+   cortos se emparejan y los textos largos ocupan toda la fila) y vista previa
+   fija a la vista mientras se rellena el formulario. */
+@media(min-width:1400px){
+.hero,.catalog,.workspace,.page{max-width:1560px}
+header{padding:0 max(24px,calc((100% - 1560px)/2))}
+footer{padding:24px max(24px,calc((100% - 1560px)/2))}
+.cards{grid-template-columns:repeat(6,1fr)}
+.workspace{grid-template-columns:minmax(600px,1.1fr) minmax(0,1fr)}
+.form-panel{display:grid;grid-template-columns:1fr 1fr;column-gap:18px;align-content:start}
+.form-panel>*{grid-column:1/-1}
+.form-panel>label.form-field:has(>input),.form-panel>label.form-field:has(>select:not([multiple])){grid-column:auto}
+.form-panel>label.form-field:has(>small){grid-column:1/-1}
+.form-panel .back,.form-panel .example-button{justify-self:start}
+.preview{position:sticky;top:96px;align-self:start;max-height:calc(100vh - 120px);overflow:auto}
+.preview .prompt-editor{height:max(400px,calc(100vh - 400px))}
+.preview.is-fullscreen{max-height:none}
+.preview.is-fullscreen .prompt-editor{height:auto}
+}
