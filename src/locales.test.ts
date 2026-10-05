@@ -56,4 +56,12 @@ describe('traducciones de la interfaz', () => {
     expect(translations.en.templateRubric).toBe('Rubric')
     expect(translations['ca-valencia'].templateChecklist).toBe('Llista de coteig')
   })
+
+  it('no deja textos en valenciano en la interfaz en castellano', () => {
+    const catalan = /[àèòç·’]/
+    const leftovers = Object.entries(translations.es).filter(([, value]) => catalan.test(value)).map(([key]) => key)
+    expect(leftovers).toEqual([])
+    expect(translations.es.level).toBe('Nivel educativo')
+    expect(translations.es.privacyHeading).toBe('Una herramienta al servicio del profesorado')
+  })
 })
