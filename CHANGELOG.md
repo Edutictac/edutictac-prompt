@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.9.0 - Formatos de documento
+
+- Añade PDF, ODT y DOCX a los formatos de salida de las plantillas compatibles.
+- Indica a la IA cómo preparar el archivo descargable o, si no puede generarlo, el contenido listo para exportar.
+
 ## 0.8.0 - Nuevas herramientas para el aula
 
 - Añade nueve plantillas: tutoría socrática, analogías, participación equitativa, mediación de conflictos, cuestionario tipo test con explicaciones, dilemas éticos, plan de estudio, entrevista histórica y tutoría de código.

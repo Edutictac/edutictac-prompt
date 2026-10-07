@@ -91,14 +91,16 @@ for (const template of templates) {
   }
 }
 
-// El formato de salida se ofrece siempre en último lugar. Admite PDF en todas
-// las plantillas salvo en las que producen su propio paquete o formato
-// (H5P, SCORM, GIFT, QTI y Common Cartridge).
+// Los formatos documentales se ofrecen en último lugar salvo en las plantillas
+// que producen su propio paquete o formato (H5P, SCORM, GIFT, QTI, CC y HTML).
 const ownFormatTemplates = ['h5p', 'scorm', 'gift', 'qti', 'common-cartridge', 'html-game']
+const documentFormats = ['PDF', 'ODT', 'DOCX']
 for (const template of templates) {
   const outputFormat = template.fields.find(field => field.id === 'outputFormat')
   if (!outputFormat) continue
-  if (!ownFormatTemplates.includes(template.id) && outputFormat.options && !outputFormat.options.includes('PDF')) outputFormat.options.push('PDF')
+  if (!ownFormatTemplates.includes(template.id) && outputFormat.options) {
+    for (const format of documentFormats) if (!outputFormat.options.includes(format)) outputFormat.options.push(format)
+  }
   template.fields = template.fields.filter(field => field.id !== 'outputFormat')
   template.fields.push(outputFormat)
 }
