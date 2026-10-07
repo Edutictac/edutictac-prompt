@@ -35,6 +35,15 @@ export const templates: PromptTemplate[] = [
   { id: 'mind-map', category: 'visual', icon: '🧠', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP','Universidad']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'branches',type:'textarea'},{id:'outputFormat',type:'select',options:['Markdown','Mermaid','Texto','PDF']}] },
   { id: 'udl-review', category: 'adaptation', icon: '◐', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'sourceText',type:'textarea'},{id:'objectives',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown','Tabla']}] },
   { id: 'udl-matrix', category: 'planning', icon: '▦', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'course',type:'text'},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'duration',type:'select',options:['Una sesión','Varias sesiones','Una semana','Varias semanas']},{id:'outputFormat',type:'select',options:['Tabla','Markdown','Texto']}] },
+  { id: 'student-tutor', category: 'content', icon: '💬', fields: [{id:'level',type:'select',options:['Primaria','ESO','Bachillerato','FP','Universidad']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'task',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown']}] },
+  { id: 'analogies', category: 'content', icon: '↔', fields: [{id:'level',type:'select',options:['Primaria','ESO','Bachillerato','FP','Universidad']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'task',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown','Lista']}] },
+  { id: 'participation', category: 'activities', icon: '◉', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'context',type:'textarea'},{id:'duration',type:'select',options:['15 minutos','30 minutos','45 minutos','55 minutos','Una sesión']},{id:'outputFormat',type:'select',options:['Texto','Markdown','Lista']}] },
+  { id: 'conflict-mediation', category: 'communication', icon: '🤝', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'context',type:'textarea'},{id:'task',type:'textarea'},{id:'constraints',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown','Lista']}] },
+  { id: 'multiple-choice', category: 'assessment', icon: '☷', fields: [{id:'level',type:'select',options:['Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'task',type:'textarea'},{id:'outputFormat',type:'select',options:['Markdown','Tabla','Texto']}] },
+  { id: 'ethical-dilemma', category: 'activities', icon: '⚖', fields: [{id:'level',type:'select',options:['Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown','Lista']}] },
+  { id: 'study-plan', category: 'planning', icon: '▦', fields: [{id:'level',type:'select',options:['ESO','Bachillerato','FP','Universidad']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'context',type:'textarea'},{id:'duration',type:'select',options:['Una semana','Varias semanas']},{id:'outputFormat',type:'select',options:['Tabla','Markdown','Texto']}] },
+  { id: 'historical-interview', category: 'content', icon: '◷', fields: [{id:'level',type:'select',options:['Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'task',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown']}] },
+  { id: 'code-coach', category: 'digital', icon: '⌘', fields: [{id:'level',type:'select',options:['Primaria','ESO','Bachillerato','FP','Universidad']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'sourceText',type:'textarea'},{id:'task',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown']}] },
 ]
 
 // El curso de IA recomienda completar siempre que sea posible el contexto,
@@ -134,5 +143,14 @@ export const simpleFieldIds: Record<string, string[]> = {
   'mind-map': ['level', 'subject', 'topic', 'objectives', 'outputFormat'],
   'udl-review': ['level', 'subject', 'sourceText', 'objectives', 'barriers', 'outputFormat'],
   'udl-matrix': ['level', 'subject', 'topic', 'objectives', 'udl', 'barriers', 'outputFormat'],
+  'student-tutor': ['level','subject','topic','task','outputFormat'],
+  analogies: ['level','subject','topic','task','outputFormat'],
+  participation: ['level','subject','topic','duration','outputFormat'],
+  'conflict-mediation': ['level','context','task','outputFormat'],
+  'multiple-choice': ['level','subject','topic','objectives','task','outputFormat'],
+  'ethical-dilemma': ['level','subject','topic','objectives','outputFormat'],
+  'study-plan': ['level','subject','topic','context','duration','outputFormat'],
+  'historical-interview': ['level','subject','topic','task','outputFormat'],
+  'code-coach': ['level','subject','topic','sourceText','task','outputFormat'],
   free: ['role', 'task', 'outputFormat']
 }

@@ -135,6 +135,15 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
     ,followUpsHint: language === 'en' ? 'The first answer is a draft. Copy one of these requests and paste it into the same conversation.' : language === 'es' ? 'La primera respuesta es un borrador. Copia una de estas peticiones y pégala en la misma conversación.' : (language === 'ca' ? 'La primera resposta és un esborrany. Copia una d’aquestes peticions i enganxa-la a la mateixa conversa.' : 'La primera resposta és un esborrany. Copia una d’estes peticions i enganxa-la en la mateixa conversa.')
     ,followUpCopied: language === 'en' ? 'Request copied: paste it into the same conversation.' : language === 'es' ? 'Petición copiada: pégala en la misma conversación.' : (language === 'ca' ? 'Petició copiada: enganxa-la a la mateixa conversa.' : 'Petició copiada: enganxa-la en la mateixa conversa.')
     ,templateUdlMatrix: language === 'en' ? 'UDL matrix' : language === 'es' ? 'Matriz DUA' : 'Matriu DUA'
+    ,templateStudentTutor: language === 'en' ? 'Socratic study tutor' : language === 'es' ? 'Tutoría socrática para estudiar' : language === 'ca' ? 'Tutoria socràtica per estudiar' : 'Tutoria socràtica per a estudiar'
+    ,templateAnalogies: language === 'en' ? 'Explain with analogies' : language === 'es' ? 'Explicar con analogías' : 'Explicar amb analogies'
+    ,templateParticipation: language === 'en' ? 'Equitable classroom participation' : language === 'es' ? 'Participación equitativa en el aula' : 'Participació equitativa a l’aula'
+    ,templateConflictMediation: language === 'en' ? 'Classroom conflict mediation' : language === 'es' ? 'Mediación de conflictos en el aula' : 'Mediació de conflictes a l’aula'
+    ,templateMultipleChoice: language === 'en' ? 'Multiple-choice quiz with explanations' : language === 'es' ? 'Cuestionario tipo test con explicaciones' : 'Qüestionari tipus test amb explicacions'
+    ,templateEthicalDilemma: language === 'en' ? 'Ethical dilemmas for discussion' : language === 'es' ? 'Dilemas éticos para debatir' : 'Dilemes ètics per a debatre'
+    ,templateStudyPlan: language === 'en' ? 'Weekly study plan' : language === 'es' ? 'Plan de estudio semanal' : 'Pla d’estudi setmanal'
+    ,templateHistoricalInterview: language === 'en' ? 'Interview a historical figure' : language === 'es' ? 'Entrevista a un personaje histórico' : 'Entrevista a un personatge històric'
+    ,templateCodeCoach: language === 'en' ? 'Code review tutor' : language === 'es' ? 'Tutor para revisar código' : 'Tutor per revisar codi'
     ,'placeholderSourceText-udl-review': language === 'en' ? 'Paste the activity you want to review (statement, steps, materials and how it is assessed)...' : language === 'es' ? 'Pega la actividad que quieres revisar (enunciado, pasos, materiales y cómo se evalúa)...' : language === 'ca' ? 'Enganxa l’activitat que vols revisar (enunciat, passos, materials i com s’avalua)...' : 'Enganxa ací l’activitat que vols revisar (enunciat, passos, materials i com s’avalua)...'
   })
 }

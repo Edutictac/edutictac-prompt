@@ -215,6 +215,60 @@ export const examples: Record<string, Example> = {
     es: { subject: 'Matemáticas', topic: 'Las fracciones', objectives: 'Representar, comparar y usar fracciones en situaciones cotidianas.', barriers: 'Parte del grupo aún no domina la lengua vehicular; poco material manipulativo.' },
     va: { subject: 'Matemàtiques', topic: 'Les fraccions', objectives: 'Representar, comparar i usar fraccions en situacions quotidianes.', barriers: 'Part del grup encara no domina la llengua vehicular; poc material manipulatiu.' },
     en: { subject: 'Mathematics', topic: 'Fractions', objectives: 'Represent, compare and use fractions in everyday situations.', barriers: 'Some learners are still learning the language of instruction; few manipulatives.' }
+  },
+  'student-tutor': {
+    options: { level: 'ESO' },
+    es: { subject: 'Matemáticas', topic: 'Ecuaciones de primer grado', task: 'No des la solución de golpe: haz una pregunta cada vez y ofrece una pista si me bloqueo.' },
+    va: { subject: 'Matemàtiques', topic: 'Equacions de primer grau', task: 'No dones la solució de colp: fes una pregunta cada vegada i ofereix una pista si em bloquege.' },
+    en: { subject: 'Mathematics', topic: 'Linear equations', task: 'Do not give the answer straight away: ask one question at a time and offer a hint if I get stuck.' }
+  },
+  analogies: {
+    options: { level: 'ESO' },
+    es: { subject: 'Biología y Geología', topic: 'La función de las mitocondrias', task: 'Relaciona las analogías con intereses cotidianos de adolescentes e indica sus límites.' },
+    va: { subject: 'Biologia i Geologia', topic: 'La funció dels mitocondris', task: 'Relaciona les analogies amb interessos quotidians d’adolescents i indica’n els límits.' },
+    en: { subject: 'Biology and Geology', topic: 'The role of mitochondria', task: 'Connect analogies to teenagers’ everyday interests and explain their limits.' }
+  },
+  participation: {
+    options: { level: 'ESO', duration: '30 minutos' },
+    es: { subject: 'Geografía e Historia', topic: 'Debatir sobre el uso del agua', context: 'Grupo numeroso; suelen intervenir siempre las mismas personas y parte del alumnado prefiere pensar antes de hablar.' },
+    va: { subject: 'Geografia i Història', topic: 'Debatre sobre l’ús de l’aigua', context: 'Grup nombrós; solen intervindre sempre les mateixes persones i part de l’alumnat preferix pensar abans de parlar.' },
+    en: { subject: 'Geography and History', topic: 'Debating water use', context: 'Large class; the same people usually speak, and some learners prefer time to think before speaking.' }
+  },
+  'conflict-mediation': {
+    options: { level: 'ESO' },
+    es: { context: 'Dos grupos discrepan sobre el reparto de tareas de un proyecto. No incluyas nombres ni presupongas quién tiene la culpa.', task: 'Prepara preguntas neutrales para escuchar a las partes, reparar el daño si lo hay y acordar pasos concretos.' },
+    va: { context: 'Dos grups discrepen sobre el repartiment de tasques d’un projecte. No inclogues noms ni pressuposes qui té la culpa.', task: 'Prepara preguntes neutrals per a escoltar les parts, reparar el dany si n’hi ha i acordar passos concrets.' },
+    en: { context: 'Two groups disagree about how project tasks were divided. Do not include names or assume who is at fault.', task: 'Prepare neutral questions to hear each side, repair harm if needed and agree on specific next steps.' }
+  },
+  'multiple-choice': {
+    options: { level: 'ESO' },
+    es: { subject: 'Física y Química', topic: 'Cambios de estado', objectives: 'Distinguir fusión, evaporación, condensación y solidificación.' },
+    va: { subject: 'Física i Química', topic: 'Canvis d’estat', objectives: 'Distingir fusió, evaporació, condensació i solidificació.' },
+    en: { subject: 'Physics and Chemistry', topic: 'Changes of state', objectives: 'Distinguish melting, evaporation, condensation and freezing.' }
+  },
+  'ethical-dilemma': {
+    options: { level: 'Bachillerato' },
+    es: { subject: 'Filosofía', topic: 'El uso de inteligencia artificial generativa en los deberes', objectives: 'Argumentar teniendo en cuenta autoría, aprendizaje, acceso equitativo y privacidad.' },
+    va: { subject: 'Filosofia', topic: 'L’ús d’intel·ligència artificial generativa en els deures', objectives: 'Argumentar tenint en compte autoria, aprenentatge, accés equitatiu i privacitat.' },
+    en: { subject: 'Philosophy', topic: 'Generative AI in homework', objectives: 'Reason about authorship, learning, fair access and privacy.' }
+  },
+  'study-plan': {
+    options: { level: 'Bachillerato', duration: 'Una semana' },
+    es: { subject: 'Historia', topic: 'Preparar un examen sobre la Revolución Industrial', context: 'Dispongo de una hora cada tarde de lunes a viernes. El miércoles tengo entrenamiento y necesito descansos breves.' },
+    va: { subject: 'Història', topic: 'Preparar un examen sobre la Revolució Industrial', context: 'Dispose d’una hora cada vesprada de dilluns a divendres. Dimecres tinc entrenament i necessite descansos breus.' },
+    en: { subject: 'History', topic: 'Preparing for a test on the Industrial Revolution', context: 'I have one hour each weekday evening. I have training on Wednesday and need short breaks.' }
+  },
+  'historical-interview': {
+    options: { level: 'ESO' },
+    es: { subject: 'Geografía e Historia', topic: 'Marie Curie', task: 'Responde como entrevistada y diferencia los hechos documentados de lo que no se sabe.' },
+    va: { subject: 'Geografia i Història', topic: 'Marie Curie', task: 'Respon com a entrevistada i diferencia els fets documentats d’allò que no se sap.' },
+    en: { subject: 'Geography and History', topic: 'Marie Curie', task: 'Answer as the interviewee and distinguish documented facts from what is unknown.' }
+  },
+  'code-coach': {
+    options: { level: 'ESO' },
+    es: { subject: 'Tecnología y Digitalización', topic: 'Un programa Python que calcula una media', sourceText: 'notas = [6, 8, 10]\nmedia = sum(notas) / len(nota)\nprint(media)', task: 'No reescribas el código entero: explica el error y dame una pista para corregirlo.' },
+    va: { subject: 'Tecnologia i Digitalització', topic: 'Un programa Python que calcula una mitjana', sourceText: 'notes = [6, 8, 10]\nmitjana = sum(notes) / len(nota)\nprint(mitjana)', task: 'No reescrigues tot el codi: explica l’error i dona’m una pista per a corregir-lo.' },
+    en: { subject: 'Technology and Digital Skills', topic: 'A Python program that calculates an average', sourceText: 'marks = [6, 8, 10]\naverage = sum(marks) / len(mark)\nprint(average)', task: 'Do not rewrite all the code: explain the error and give me a hint to fix it.' }
   }
 }
 
