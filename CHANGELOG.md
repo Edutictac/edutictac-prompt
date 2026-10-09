@@ -1,6 +1,11 @@
 # Changelog
 
 
+## 0.10.1 - Tema y privacidad
+
+- Botón ☾/☀ en la cabecera para alternar entre modo claro y oscuro con un clic (sustituye al desplegable; sigue el sistema hasta el primer clic).
+- El texto de privacidad explica el inicio de sesión y la sincronización con el servidor de la comunidad, y enlaza a la política completa de edutictac.es.
+
 ## 0.10.0 - Educación de personas adultas
 
 - Añade «Educación de personas adultas» como nivel en todas las plantillas, con traducción a valenciano, catalán e inglés.

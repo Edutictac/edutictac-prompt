@@ -59,3 +59,7 @@ footer{padding:24px max(24px,calc((100% - 1560px)/2))}
 .preview.is-fullscreen{max-height:none}
 .preview.is-fullscreen .prompt-editor{height:auto}
 }
+.theme-toggle{width:34px;height:32px;padding:0;border:1px solid #d8e0ea;border-radius:7px;background:#fff;color:#47627c;font-size:16px;line-height:1;cursor:pointer}
+.theme-toggle:hover{border-color:#123c69;color:#123c69}
+[data-theme="dark"] .theme-toggle{background:var(--panel);border-color:var(--line);color:var(--warn)}
+[data-theme="dark"] .theme-toggle:hover{border-color:var(--accent)}
