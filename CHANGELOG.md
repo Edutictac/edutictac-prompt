@@ -1,6 +1,11 @@
 # Changelog
 
 
+## 0.14.0 - Guía de ayuda
+
+- Nueva sección «Ayuda» en el menú, con una guía corta en los cuatro idiomas: primer prompt en tres pasos, campos que más mejoran el resultado (con ejemplo antes/después), abrir en una IA, biblioteca, cuenta y sincronización, buen uso y preguntas frecuentes.
+- Índice con enlaces a cada apartado y enlace directo a la guía con `#help`.
+
 ## 0.13.1 - Caso de Bachillerato en «Empieza aquí»
 
 - Nuevo caso de Bachillerato: dilema ético sobre una IA que decide el orden de las operaciones en un hospital (Filosofía, 1.º).
