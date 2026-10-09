@@ -105,6 +105,17 @@ for (const template of templates) {
   template.fields.push(outputFormat)
 }
 
+// Educación de personas adultas (FPA) como nivel más en todas las plantillas,
+// detrás de FP y antes de Universidad u Otro.
+export const ADULT_LEVEL = 'Educación de personas adultas'
+for (const template of templates) {
+  const options = template.fields.find(field => field.id === 'level')?.options
+  if (!options || options.includes(ADULT_LEVEL)) continue
+  const after = Math.max(options.indexOf('FP'), options.indexOf('Formación Profesional'))
+  const at = after >= 0 ? after + 1 : options.findIndex(option => option === 'Universidad' || option === 'Otro')
+  options.splice(at >= 0 ? at : options.length, 0, ADULT_LEVEL)
+}
+
 // Solo mostramos filtros que tienen al menos una herramienta publicada.
 // Así el catálogo no ofrece categorías vacías mientras se preparan futuras plantillas.
 export const categoryIds = ['all', ...new Set(templates.map(template => template.category))]
