@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { starters, starterTitle, starterValues } from './starters'
-import { templates } from './templates'
+import { ADULT_LEVEL, templates } from './templates'
 import type { Language } from './types'
 
 const languages: Language[] = ['es', 'ca-valencia', 'ca', 'en']
@@ -24,9 +24,13 @@ describe('starters', () => {
     }
   })
 
+  it('ofrece un caso por etapa, de Infantil a personas adultas', () => {
+    expect(starters.map(s => s.level)).toEqual(['Infantil', 'Primaria', 'ESO', 'FP', ADULT_LEVEL])
+  })
+
   it('el catalán central no hereda formas valencianas en los títulos', () => {
-    const trip = starters.find(s => s.id === 'family-trip-note')!
-    expect(starterTitle(trip, 'ca')).toContain('sortida')
-    expect(starterTitle(trip, 'ca-valencia')).toContain('eixida')
+    const quiz = starters.find(s => s.id === 'eso-cell-quiz')!
+    expect(starterTitle(quiz, 'ca')).toContain('a Aules')
+    expect(starterTitle(quiz, 'ca-valencia')).toContain('en Aules')
   })
 })

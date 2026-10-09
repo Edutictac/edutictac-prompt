@@ -1,6 +1,12 @@
 # Changelog
 
 
+## 0.13.0 - «Empieza aquí» por etapas
+
+- La sección «Empieza aquí» ofrece un caso por etapa: Infantil (proyecto del huerto), Primaria (rúbrica de exposición oral), ESO (cuestionario GIFT de la célula), FP (reto de una reclamación de cliente) y personas adultas (factura de la luz).
+- Se retiran el repaso GES y la nota a las familias de la portada; siguen disponibles como plantillas.
+- Las cinco tarjetas caben en una fila en escritorio.
+
 ## 0.12.1 - Abrir en IA desde la biblioteca
 
 - Cada prompt guardado muestra los botones «Abrir en…» (ChatGPT, Claude, Gemini, etc.) para lanzarlo directamente, con la IA preferida primero.

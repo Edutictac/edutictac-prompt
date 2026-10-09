@@ -1,7 +1,7 @@
 import { ADULT_LEVEL } from './templates'
 import type { Language } from './types'
 
-// Casos de la sección «Empieza aquí» de la portada. Cada uno abre una plantilla
+// Casos de la sección «Empieza aquí» de la portada, uno por etapa educativa. Cada uno abre una plantilla
 // con el formulario ya relleno. Igual que en examples.ts, las opciones usan el
 // valor original en castellano y el catalán central parte del texto valenciano.
 type Text = Record<string, string>
@@ -9,21 +9,12 @@ export type Starter = { id: string; templateId: string; icon: string; title: Tex
 
 export const starters: Starter[] = [
   {
-    id: 'fpa-electricity-bill', templateId: 'three-levels', icon: '€', level: ADULT_LEVEL,
-    title: { es: 'Leer una factura de la luz', va: 'Llegir una factura de la llum', en: 'Reading an electricity bill' },
-    options: { level: ADULT_LEVEL, outputFormat: 'Tabla' },
-    es: { subject: 'Ámbito científico-tecnológico', task: 'Leer e interpretar una factura de la luz real: consumo, potencia contratada, impuestos e importe total.', objectives: 'Localizar los datos clave de la factura, calcular el coste de un electrodoméstico y comparar dos tarifas.' },
-    va: { subject: 'Àmbit cientificotecnològic', task: 'Llegir i interpretar una factura de la llum real: consum, potència contractada, impostos i import total.', objectives: 'Localitzar les dades clau de la factura, calcular el cost d’un electrodomèstic i comparar dues tarifes.' },
-    en: { subject: 'Science and technology', task: 'Read and interpret a real electricity bill: usage, contracted power, taxes and total amount.', objectives: 'Find the key data on the bill, work out what an appliance costs to run and compare two tariffs.' }
-  },
-  {
-    id: 'fpa-ges-review', templateId: 'gift', icon: '☰', level: ADULT_LEVEL,
-    title: { es: 'Repaso para la prueba GES en Aules', va: 'Repàs per a la prova GES en Aules', ca: 'Repàs per a la prova GES a Aules', en: 'Exam review quiz for Moodle' },
-    options: { level: ADULT_LEVEL },
-    es: { subject: 'Ámbito social', topic: 'La Constitución española y la organización del Estado', objectives: 'Cuestionario de repaso de 15 preguntas, con retroalimentación en cada respuesta, para importar en Aules.' },
-    va: { subject: 'Àmbit social', topic: 'La Constitució espanyola i l’organització de l’Estat', objectives: 'Qüestionari de repàs de 15 preguntes, amb retroacció en cada resposta, per a importar en Aules.' },
-    ca: { objectives: 'Qüestionari de repàs de 15 preguntes, amb retroacció a cada resposta, per importar a Aules.' },
-    en: { subject: 'Social studies', topic: 'The Spanish Constitution and how the State is organised', objectives: '15-question review quiz with feedback on every answer, ready to import into Moodle.' }
+    id: 'infant-garden-project', templateId: 'project', icon: '✿', level: 'Infantil',
+    title: { es: 'Proyecto: el huerto de la escuela', va: 'Projecte: l’hort de l’escola', en: 'Project: the school garden' },
+    options: { level: 'Infantil', duration: 'Varias semanas' },
+    es: { subject: 'Descubrimiento y Exploración del Entorno (5 años)', topic: 'Plantamos y cuidamos el huerto de la escuela', objectives: 'Observar cómo crece una planta, ordenar las fases con imágenes, contar y comparar semillas y responsabilizarse por turnos del riego.' },
+    va: { subject: 'Descobriment i Exploració de l’Entorn (5 anys)', topic: 'Plantem i cuidem l’hort de l’escola', objectives: 'Observar com creix una planta, ordenar les fases amb imatges, comptar i comparar llavors i responsabilitzar-se per torns del reg.' },
+    en: { subject: 'Discovering the Environment (age 5)', topic: 'Planting and looking after the school garden', objectives: 'Watch a plant grow, put the stages in order with pictures, count and compare seeds and take turns watering.' }
   },
   {
     id: 'primary-oral-rubric', templateId: 'rubric', icon: '▤', level: 'Primaria',
@@ -35,12 +26,29 @@ export const starters: Starter[] = [
     en: { subject: 'English Language', activity: '3-minute oral presentation about a local animal', criteria: 'Content, organisation of ideas, voice and pace, use of visual aids, answering questions.' }
   },
   {
-    id: 'family-trip-note', templateId: 'family-note', icon: '✉', level: 'Primaria',
-    title: { es: 'Nota a las familias para una salida', va: 'Nota a les famílies per a una eixida', ca: 'Nota a les famílies per a una sortida', en: 'School trip letter to families' },
-    es: { role: 'Tutora de 3.º de Primaria', task: 'Comunicar una salida didáctica al museo de ciencias y pedir la autorización firmada.', constraints: 'Tono cercano, máximo 150 palabras, incluir fecha, horario y material.' },
-    va: { role: 'Tutora de 3r de Primària', task: 'Comunicar una eixida didàctica al museu de ciències i demanar l’autorització signada.', constraints: 'To proper, màxim 150 paraules, incloure data, horari i material.' },
-    ca: { task: 'Comunicar una sortida didàctica al museu de ciències i demanar l’autorització signada.' },
-    en: { role: 'Year 3 class teacher', task: 'Announce a school trip to the science museum and ask for signed permission.', constraints: 'Friendly tone, 150 words maximum, include date, times and what to bring.' }
+    id: 'eso-cell-quiz', templateId: 'gift', icon: '☰', level: 'ESO',
+    title: { es: 'Cuestionario de repaso en Aules', va: 'Qüestionari de repàs en Aules', ca: 'Qüestionari de repàs a Aules', en: 'Review quiz for Moodle' },
+    options: { level: 'ESO' },
+    es: { subject: 'Biología y Geología (1.º ESO)', topic: 'La célula: tipos, partes y funciones', objectives: 'Cuestionario de repaso de 15 preguntas, con retroalimentación en cada respuesta, para importar en Aules.' },
+    va: { subject: 'Biologia i Geologia (1r d’ESO)', topic: 'La cèl·lula: tipus, parts i funcions', objectives: 'Qüestionari de repàs de 15 preguntes, amb retroacció en cada resposta, per a importar en Aules.' },
+    ca: { subject: 'Biologia i Geologia (1r d’ESO)', objectives: 'Qüestionari de repàs de 15 preguntes, amb retroacció a cada resposta, per importar a Aules.' },
+    en: { subject: 'Biology and Geology (Year 8)', topic: 'The cell: types, parts and functions', objectives: '15-question review quiz with feedback on every answer, ready to import into Moodle.' }
+  },
+  {
+    id: 'fp-customer-complaint', templateId: 'challenge', icon: '⚙', level: 'FP',
+    title: { es: 'Reto: atender la reclamación de un cliente', va: 'Repte: atendre la reclamació d’un client', en: 'Challenge: handling a customer complaint' },
+    options: { level: 'FP' },
+    es: { subject: 'Comunicación empresarial y atención al cliente (CFGM Gestión Administrativa)', topic: 'Un cliente reclama por un pedido que llegó incompleto y con retraso', objectives: 'Analizar la reclamación, responder por escrito con un tono profesional, proponer una solución y registrar la incidencia según el protocolo de la empresa.' },
+    va: { subject: 'Comunicació empresarial i atenció al client (CFGM Gestió Administrativa)', topic: 'Un client reclama per una comanda que va arribar incompleta i amb retard', objectives: 'Analitzar la reclamació, respondre per escrit amb un to professional, proposar una solució i registrar la incidència segons el protocol de l’empresa.' },
+    en: { subject: 'Business communication and customer service (Administrative vocational course)', topic: 'A customer complains about an order that arrived late and incomplete', objectives: 'Analyse the complaint, write a professional reply, propose a solution and log the incident following company procedure.' }
+  },
+  {
+    id: 'fpa-electricity-bill', templateId: 'three-levels', icon: '€', level: ADULT_LEVEL,
+    title: { es: 'Leer una factura de la luz', va: 'Llegir una factura de la llum', en: 'Reading an electricity bill' },
+    options: { level: ADULT_LEVEL, outputFormat: 'Tabla' },
+    es: { subject: 'Ámbito científico-tecnológico', task: 'Leer e interpretar una factura de la luz real: consumo, potencia contratada, impuestos e importe total.', objectives: 'Localizar los datos clave de la factura, calcular el coste de un electrodoméstico y comparar dos tarifas.' },
+    va: { subject: 'Àmbit cientificotecnològic', task: 'Llegir i interpretar una factura de la llum real: consum, potència contractada, impostos i import total.', objectives: 'Localitzar les dades clau de la factura, calcular el cost d’un electrodomèstic i comparar dues tarifes.' },
+    en: { subject: 'Science and technology', task: 'Read and interpret a real electricity bill: usage, contracted power, taxes and total amount.', objectives: 'Find the key data on the bill, work out what an appliance costs to run and compare two tariffs.' }
   }
 ]
 
