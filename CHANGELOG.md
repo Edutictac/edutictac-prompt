@@ -1,6 +1,12 @@
 # Changelog
 
 
+## 0.11.0 - Sincronización automática
+
+- Con la sesión iniciada, cada prompt que guardas, duplicas o importas se sube solo a tu biblioteca del servidor.
+- Al entrar se descargan tus prompts y se suben los que estaban pendientes en el dispositivo.
+- Sin conexión los prompts se guardan en local y se suben solos al volver la red. El botón «Sincronizar» se mantiene para forzarlo.
+
 ## 0.10.1 - Tema y privacidad
 
 - Botón ☾/☀ en la cabecera para alternar entre modo claro y oscuro con un clic (sustituye al desplegable; sigue el sistema hasta el primer clic).
