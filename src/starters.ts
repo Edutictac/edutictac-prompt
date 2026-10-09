@@ -35,6 +35,15 @@ export const starters: Starter[] = [
     en: { subject: 'Biology and Geology (Year 8)', topic: 'The cell: types, parts and functions', objectives: '15-question review quiz with feedback on every answer, ready to import into Moodle.' }
   },
   {
+    id: 'bach-ai-dilemma', templateId: 'ethical-dilemma', icon: '⚖', level: 'Bachillerato',
+    title: { es: 'Dilema ético: la IA que decide', va: 'Dilema ètic: la IA que decidix', ca: 'Dilema ètic: la IA que decideix', en: 'Ethical dilemma: when AI decides' },
+    options: { level: 'Bachillerato' },
+    es: { subject: 'Filosofía (1.º Bachillerato)', topic: 'Un hospital usa una IA para decidir qué pacientes se operan primero', objectives: 'Identificar los valores en conflicto, argumentar una postura con razones de al menos dos teorías éticas y responder a las objeciones de la posición contraria.' },
+    va: { subject: 'Filosofia (1r de Batxillerat)', topic: 'Un hospital usa una IA per a decidir quins pacients s’operen primer', objectives: 'Identificar els valors en conflicte, argumentar una postura amb raons d’almenys dues teories ètiques i respondre a les objeccions de la posició contrària.' },
+    ca: { topic: 'Un hospital fa servir una IA per decidir quins pacients s’operen primer' },
+    en: { subject: 'Philosophy (Year 12)', topic: 'A hospital uses AI to decide which patients are operated on first', objectives: 'Identify the values in conflict, argue a position using at least two ethical theories and respond to objections from the opposing side.' }
+  },
+  {
     id: 'fp-customer-complaint', templateId: 'challenge', icon: '⚙', level: 'FP',
     title: { es: 'Reto: atender la reclamación de un cliente', va: 'Repte: atendre la reclamació d’un client', en: 'Challenge: handling a customer complaint' },
     options: { level: 'FP' },

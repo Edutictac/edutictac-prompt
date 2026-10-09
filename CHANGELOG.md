@@ -1,6 +1,11 @@
 # Changelog
 
 
+## 0.13.1 - Caso de Bachillerato en «Empieza aquí»
+
+- Nuevo caso de Bachillerato: dilema ético sobre una IA que decide el orden de las operaciones en un hospital (Filosofía, 1.º).
+- «Empieza aquí» muestra seis tarjetas, una por etapa, en una fila en escritorio.
+
 ## 0.13.0 - «Empieza aquí» por etapas
 
 - La sección «Empieza aquí» ofrece un caso por etapa: Infantil (proyecto del huerto), Primaria (rúbrica de exposición oral), ESO (cuestionario GIFT de la célula), FP (reto de una reclamación de cliente) y personas adultas (factura de la luz).

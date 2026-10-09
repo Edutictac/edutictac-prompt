@@ -67,4 +67,4 @@ footer{padding:24px max(24px,calc((100% - 1560px)/2))}
 .starter-card small{line-height:1.35}
 .editing-label{margin:8px 0 0;color:var(--muted);font-size:13px}
 .saved-ai{margin-top:12px}.saved-ai .eyebrow{margin:0 0 6px}.saved-ai .ai-buttons button{padding:6px 10px;font-size:.88rem}.saved-ai .copy-status{display:block;margin-top:6px;font-size:.88rem}
-.starters .cards{grid-template-columns:repeat(5,1fr)}@media(max-width:1100px){.starters .cards{grid-template-columns:repeat(3,1fr)}}@media(max-width:800px){.starters .cards{grid-template-columns:repeat(2,1fr)}}@media(max-width:480px){.starters .cards{grid-template-columns:1fr}}
+.starters .cards{grid-template-columns:repeat(6,1fr)}@media(max-width:1100px){.starters .cards{grid-template-columns:repeat(3,1fr)}}@media(max-width:800px){.starters .cards{grid-template-columns:repeat(2,1fr)}}@media(max-width:480px){.starters .cards{grid-template-columns:1fr}}

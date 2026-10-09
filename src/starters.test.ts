@@ -25,7 +25,7 @@ describe('starters', () => {
   })
 
   it('ofrece un caso por etapa, de Infantil a personas adultas', () => {
-    expect(starters.map(s => s.level)).toEqual(['Infantil', 'Primaria', 'ESO', 'FP', ADULT_LEVEL])
+    expect(starters.map(s => s.level)).toEqual(['Infantil', 'Primaria', 'ESO', 'Bachillerato', 'FP', ADULT_LEVEL])
   })
 
   it('el catalán central no hereda formas valencianas en los títulos', () => {
