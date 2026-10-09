@@ -1,6 +1,11 @@
 # Changelog
 
 
+## 0.12.0 - Editar prompts y «Empieza aquí»
+
+- Al abrir un prompt de la biblioteca y cambiarlo, «Actualizar» sobrescribe el original (y lo sincroniza) en lugar de crear un duplicado. «Guardar como nuevo» sigue creando una copia.
+- Nueva sección «Empieza aquí» en la portada con cuatro casos reales que abren el formulario ya relleno: factura de la luz (FPA), repaso de la prueba GES en Aules (FPA), rúbrica de una exposición oral (Primaria) y nota a las familias para una salida.
+
 ## 0.11.1 - Texto de portada
 
 - Quita «Tus datos se quedan en tu dispositivo» de la portada: con la sincronización ya no es exacto. El detalle está en Privacidad.
