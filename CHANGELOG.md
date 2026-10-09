@@ -1,6 +1,10 @@
 # Changelog
 
 
+## 0.11.1 - Texto de portada
+
+- Quita «Tus datos se quedan en tu dispositivo» de la portada: con la sincronización ya no es exacto. El detalle está en Privacidad.
+
 ## 0.11.0 - Sincronización automática
 
 - Con la sesión iniciada, cada prompt que guardas, duplicas o importas se sube solo a tu biblioteca del servidor.
