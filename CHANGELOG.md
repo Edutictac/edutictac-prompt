@@ -1,6 +1,11 @@
 # Changelog
 
 
+## 0.12.1 - Abrir en IA desde la biblioteca
+
+- Cada prompt guardado muestra los botones «Abrir en…» (ChatGPT, Claude, Gemini, etc.) para lanzarlo directamente, con la IA preferida primero.
+- El botón Copiar de la biblioteca confirma si se ha copiado.
+
 ## 0.12.0 - Editar prompts y «Empieza aquí»
 
 - Al abrir un prompt de la biblioteca y cambiarlo, «Actualizar» sobrescribe el original (y lo sincroniza) en lugar de crear un duplicado. «Guardar como nuevo» sigue creando una copia.

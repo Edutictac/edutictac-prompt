@@ -66,3 +66,4 @@ footer{padding:24px max(24px,calc((100% - 1560px)/2))}
 .starters{padding:0 24px 40px}.starters h2{margin:4px 0 6px}.starters .mode-hint{font-size:14px}
 .starter-card small{line-height:1.35}
 .editing-label{margin:8px 0 0;color:var(--muted);font-size:13px}
+.saved-ai{margin-top:12px}.saved-ai .eyebrow{margin:0 0 6px}.saved-ai .ai-buttons button{padding:6px 10px;font-size:.88rem}.saved-ai .copy-status{display:block;margin-top:6px;font-size:.88rem}
