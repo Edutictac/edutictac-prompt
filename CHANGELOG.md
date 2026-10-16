@@ -65,3 +65,15 @@
 - Importación/exportación JSON versionada y exportación Markdown.
 - Idiomas es, ca-valencia, ca y en.
 - Docker y documentación inicial.
+
+
+## 0.15.0 — Skills
+
+- Apartado integrado Skills: catálogo, editor visual, biblioteca privada e historial.
+- Seis Skills educativas con ejemplos en castellano y valenciano; interfaz en los cuatro idiomas existentes.
+- Parámetros tipados, Markdown seguro, conversión de prompts y resultados en la biblioteca actual.
+- Creación asistida y peticiones para asistentes existentes, incluido Copilot M365; API de inferencia opcional.
+- Paquetes Agent Skills para Codex/OpenCode y exportación de raíz para Agent Builder M365 (preview).
+- Validación de importaciones ZIP, revisión de confianza y bloqueo de herramientas/scripts.
+- Migración Dexie v2 aditiva; sincronización privada de Skills mediante API 0.2.0.
+- Documentación docente ES/VA y técnica; pruebas de regresión, permisos, UI y archivos maliciosos.

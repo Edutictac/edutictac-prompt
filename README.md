@@ -42,3 +42,21 @@ No introduzcas nombres ni datos personales del alumnado. Generar un prompt no ll
 - El currículum CV-LOMLOE incorpora perfils inicials d’Infantil, Primària (Coneixement del medi), ESO (Tecnologia i Matemàtiques) i selecció avançada de competències, criteris i sabers bàsics.
 - La categoria d’avaluació inclou rúbriques, escales de valoració, llistes de coteig, observació sistemàtica, portafolis, produccions, proves escrites, productes i exposicions.
 - Cada publicació de la PWA actualitza la versió de Workbox del `sw.js` i inclou un avís perquè la persona usuària puga actualitzar l’aplicació.
+
+## Skills (0.15.0)
+
+El apartado **Skills** integra catálogo educativo, editor visual, historial privado,
+conversión de prompts, preparación de peticiones y resultados en la biblioteca.
+Incluye seis habilidades educativas con ejemplos ES/VA. Exporta Agent Skills para
+Codex/OpenCode y un ZIP separado para Agent Builder de Microsoft 365 Copilot
+(Frontier preview, sujeto a disponibilidad en la organización).
+
+- [Guía docente](docs/SKILLS-USO.md) · [Guia docent en valencià](docs/SKILLS-US-VA.md)
+- [Arquitectura, seguridad y despliegue](docs/SKILLS-TECNICA.md)
+- [Inspección y plan de implementación](docs/SKILLS-PLAN.md)
+
+La inferencia directa es opcional: sin un proveedor configurado en la API se usa
+copiar/abrir el asistente (incluido Copilot M365) y pegar la respuesta. No se
+habilitan herramientas ni scripts. Los paquetes importados requieren revisión.
+La sincronización de Skills es explícita e independiente de la sincronización de
+prompts. No hay publicación comunitaria automática.
