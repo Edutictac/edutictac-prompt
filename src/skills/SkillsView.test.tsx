@@ -69,7 +69,7 @@ describe('Skills teacher workflows', () => {
     await user.click(screen.getByRole('button', { name: 'Duplicar' }))
     await waitFor(async () => expect(await db.skills.count()).toBe(2))
     await user.click(
-      screen.getAllByRole('button', { name: 'Ver y utilizar' })[0],
+      (await screen.findAllByRole('button', { name: 'Ver y utilizar' }))[0],
     )
     vi.spyOn(window, 'confirm').mockReturnValue(true)
     await user.click(screen.getByRole('button', { name: 'Eliminar' }))

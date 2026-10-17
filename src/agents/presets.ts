@@ -6,6 +6,7 @@ import {
   type AgentStage,
 } from '../skills/agents'
 import { wizardLocales } from './locales'
+import { basicLocales } from './basicLocales'
 export interface AgentPreset {
   id: string
   title: string
@@ -23,6 +24,10 @@ export function agentPresets(language: Language): AgentPreset[] {
     description: s.description,
     draft: {
       ...defaultAgentDraft(language),
+      ...(s.slug === 'crear-rubricas'
+        ? { rubricApproach: 'curricular' as const }
+        : {}),
+      audience: basicLocales[language].teacher,
       name:
         s.name.length <= 30
           ? s.name

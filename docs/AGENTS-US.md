@@ -2,9 +2,22 @@
 
 La secció s’anomena **Agents** en valencià i **Agentes** en castellà. El seu objectiu és ajudar el professorat a definir el comportament d’un agent especialitzat i adaptar-lo a nivells educatius i matèries diferents. La configuració es prepara en EduTicTac; l’agent es crea i s’utilitza després en Microsoft 365 amb els permisos del compte educatiu.
 
-## Un recorregut pràctic
+## Començar en mode bàsic
 
-1. Obri **Agents → Exemples** i tria un model, o entra en **Dissenyar agent** per a començar un agent personalitzat.
+L’entrada predeterminada és **Bàsic · Copilot M365**. No cal definir modes de conversa ni redactar instruccions completes.
+
+1. Tria una tasca: crear rúbriques, adaptar activitats, revisar recursos o preparar un tutor. **Vore tots els exemples** inclou el mentor SMART i els altres models.
+2. Adapta nivell, matèria, finalitat i destinataris. El context és opcional. **Ajustar nom i idiomes** permet canviar el nom i les llengües.
+3. Per a rúbriques, tria **Usar els meus criteris curriculars** (els aportaràs en M365 i l’agent els demanarà si falten) o **Proposar criteris docents per a revisar** (un esborrany identificat, sense atribuir-lo a normativa).
+4. Polsa **Preparar el meu agent** i revisa el resum. **Guardar en Els meus agents** conserva el disseny en este navegador; no crea ni publica res en Microsoft.
+5. Obri **Portar a Copilot M365**, seguix els passos i copia Nom, Descripció i Instruccions en els camps de Configurar. Pots copiar les instruccions sense desplegar tot el text. No les pegues en un xat ordinari esperant que s’instal·le l’agent.
+6. Afig allí els documents autoritzats i prova un cas habitual, un altre amb dades incompletes i un altre fora de la seua finalitat abans de compartir-lo.
+
+**Avançat** mostra l’editor complet, l’historial i **Compatibilitat** amb Codex/OpenCode. Alternar entre modes conserva els ajustos, inclosos els destinataris personalitzats. Canviar d’exemple demana confirmació si hi ha canvis o un disseny guardat obert. Canviar nivell o matèria no reescriu els criteris ni els exemples personalitzats.
+
+## Un recorregut pràctic en Avançat
+
+1. Activa **Avançat**, obri **Agents → Exemples** i tria un model, o entra en **Dissenyar agent** per a començar un agent personalitzat.
 2. Tria el **nivell educatiu** i escriu la **matèria, àmbit o especialitat**. Hi ha suggeriments, però el camp és lliure. S’admeten Infantil, Primària, ESO, Batxillerat, FP, persones adultes, música, dansa, educació superior i formació del professorat.
 3. Definix la funció de l’agent, qui l’utilitzarà i per a què ajudarà. El context del centre o curs és opcional.
 4. Revisa els **modes de treball**: quan s’activa cadascun i què ha de fer. Pots usar Revisor i Guia o afegir-ne altres.

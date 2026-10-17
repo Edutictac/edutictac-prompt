@@ -2,9 +2,22 @@
 
 La sección se llama **Agentes** en castellano y **Agents** en valenciano. Ayuda a preparar un agente especializado y adaptable a diferentes niveles y materias. La configuración se diseña en EduTicTac y se copia en **Microsoft 365 → Agentes → Crear agente → Configurar**.
 
-## Diseñar y adaptar
+## Empezar en modo básico
 
-1. Parte de **Ejemplos** o de **Diseñar agente**. Están disponibles un agente personalizado, un mentor SMART, un tutor de materia y seis modelos educativos.
+La entrada predeterminada es **Básico · Copilot M365**. No necesitas definir modos de conversación ni redactar instrucciones completas.
+
+1. Elige una tarea: crear rúbricas, adaptar actividades, revisar recursos o preparar un tutor. **Ver todos los ejemplos** incluye el mentor SMART y los demás modelos.
+2. Adapta nivel, materia, finalidad y destinatarios. El contexto es opcional. En **Ajustar nombre e idiomas** puedes cambiar el nombre y las lenguas.
+3. Para rúbricas, elige entre **Usar mis criterios curriculares** (los aportarás en M365 y el agente los pedirá si faltan) y **Proponer criterios docentes para revisar** (un borrador identificado, sin atribuirlo a normativa).
+4. Pulsa **Preparar mi agente** y revisa el resumen. **Guardar en Mis agentes** conserva el diseño en este navegador; no crea ni publica nada en Microsoft.
+5. Abre **Llevar a Copilot M365**. Sigue los pasos y copia Nombre, Descripción e Instrucciones en sus campos de Configurar. El botón de copiar instrucciones funciona sin desplegar todo el texto. No las pegues en un chat ordinario esperando que se instale el agente.
+6. Añade los documentos autorizados allí y prueba un caso habitual, uno con datos incompletos y otro fuera de su finalidad antes de compartirlo.
+
+**Avanzado** muestra el editor completo, el historial y **Compatibilidad** con Codex/OpenCode. Puedes alternar entre modos sin perder ajustes. Los destinatarios personalizados se conservan aunque no coincidan con las opciones del modo básico. Cambiar de ejemplo pide confirmación si hay cambios o un diseño guardado abierto. Cambiar nivel o materia no reescribe automáticamente criterios ni ejemplos personalizados.
+
+## Diseñar y adaptar en Avanzado
+
+1. Activa **Avanzado** y parte de **Ejemplos** o de **Diseñar agente**. Están disponibles un agente personalizado, un mentor SMART, un tutor de materia y seis modelos educativos.
 2. Selecciona nivel educativo y materia o especialidad. La materia admite texto libre y sugerencias. Se contemplan Infantil, Primaria, ESO, Bachillerato, FP, personas adultas, Música, Danza, educación superior y formación docente.
 3. Define función, destinatarios y finalidad. El centro o curso es opcional.
 4. Configura modos de trabajo: nombre, cuándo se activa cada uno y qué debe hacer. Por ejemplo, Revisor ante una propuesta redactada y Guía ante una idea inicial.

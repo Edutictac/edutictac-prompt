@@ -24,6 +24,7 @@ it('designs, saves, reopens, adapts and deletes a specialist agent', async () =>
   expect(
     screen.getByRole('heading', { name: 'Agentes', level: 1 }),
   ).toBeTruthy()
+  await user.click(screen.getByRole('button', { name: 'Avanzado' }))
   await user.selectOptions(
     screen.getByRole('combobox', { name: 'Ejemplos' }),
     'smart',
@@ -90,6 +91,7 @@ it('keeps Agent Skills packages in an explicitly separate compatibility section'
     />,
   )
   expect(screen.queryByRole('heading', { name: 'Agent Skills' })).toBeNull()
+  await user.click(screen.getByRole('button', { name: 'Avanzado' }))
   await user.click(screen.getByRole('button', { name: 'Compatibilidad' }))
   await screen.findByRole('heading', { name: 'Agent Skills' })
   expect(screen.getByText(/Un paquete de habilidad y un agente/)).toBeTruthy()
@@ -108,6 +110,7 @@ it('uses Valencian Agents naming and preserves unsaved changes between tabs', as
     />,
   )
   expect(screen.getByRole('heading', { name: 'Agents', level: 1 })).toBeTruthy()
+  await user.click(screen.getByRole('button', { name: 'Avançat' }))
   const subject = screen.getByRole('combobox', { name: /Matèria, àmbit/ })
   await user.type(subject, 'Llenguatge musical')
   await user.click(screen.getByRole('button', { name: 'Exemples' }))

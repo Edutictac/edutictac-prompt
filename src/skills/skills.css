@@ -1,6 +1,48 @@
 .skills-page {
   max-width: 1200px;
 }
+.basic-preset-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+.agents-page .mode-hint {
+  color: var(--muted, #637083);
+}
+.agents-page button {
+  min-height: 44px;
+}
+.basic-preset-grid button {
+  padding: 16px;
+  text-align: start;
+  border: 1px solid var(--line, #c4cdd9);
+  border-radius: 8px;
+  background: var(--panel, #fff);
+  color: inherit;
+}
+.basic-preset-grid button.active {
+  background: #123c69;
+  color: #fff;
+}
+.agents-page summary {
+  cursor: pointer;
+  padding: 12px 0;
+  font-weight: 600;
+}
+.agent-transfer {
+  margin: 20px 0;
+  border-top: 1px solid var(--line, #c4cdd9);
+}
+.agent-configuration:focus-visible {
+  outline: 3px solid #2466ac;
+  outline-offset: 4px;
+}
+@media (max-width: 600px) {
+  .basic-preset-grid {
+    grid-template-columns: 1fr;
+  }
+}
 .skill-tabs,
 .skill-filters,
 .skills-page .toolbar {
@@ -227,5 +269,46 @@
     margin-left: auto;
   }
 }
-.agent-builder{max-width:900px}.agent-builder h3{margin-top:32px}.agent-copy-field{border:1px solid var(--line,#c4cdd9);border-radius:8px;padding:16px;margin:16px 0}.agent-copy-field label{margin-top:0}.agent-builder .secondary{display:inline-block}.agent-configuration{margin-top:32px}.agent-builder .callout{font-size:.95rem}
-.agents-page>.skills-page{padding:0;max-width:100%}.agents-page>.lead{max-width:800px}.agents-page .agent-builder h2{font-size:1.4rem}.agents-page .agent-builder>p{max-width:800px}.agents-page .saved-card h2{margin-top:0}.agent-builder datalist{display:none}
+.agent-builder {
+  max-width: 900px;
+}
+.agent-builder h3 {
+  margin-top: 32px;
+}
+.agent-copy-field {
+  border: 1px solid var(--line, #c4cdd9);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+}
+.agent-copy-field label {
+  margin-top: 0;
+}
+.agent-builder .secondary {
+  display: inline-block;
+}
+.agent-configuration {
+  margin-top: 32px;
+}
+.agent-builder .callout {
+  font-size: 0.95rem;
+}
+.agents-page > .skills-page {
+  padding: 0;
+  max-width: 100%;
+}
+.agents-page > .lead {
+  max-width: 800px;
+}
+.agents-page .agent-builder h2 {
+  font-size: 1.4rem;
+}
+.agents-page .agent-builder > p {
+  max-width: 800px;
+}
+.agents-page .saved-card h2 {
+  margin-top: 0;
+}
+.agent-builder datalist {
+  display: none;
+}

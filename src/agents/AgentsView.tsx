@@ -10,6 +10,7 @@ import { agentGuide } from '../skills/agents'
 import { downloadSkillFile } from '../skills/files'
 import { agentPresets } from './presets'
 import { wizardLocales } from './locales'
+import { basicLocales } from './basicLocales'
 import {
   agentHistory,
   deleteAgent,
@@ -36,6 +37,9 @@ export default function AgentsView({
     language: Language,
   ) => Promise<void>
 }) {
+  const b = basicLocales[language]
+  const [basic, setBasic] = useState(true)
+  const [dirty, setDirty] = useState(false)
   const t = wizardLocales[language],
     owner = skillOwner(sub),
     presets = agentPresets(language)
@@ -43,14 +47,16 @@ export default function AgentsView({
       'design' | 'examples' | 'mine' | 'compatibility'
     >('design'),
     [items, setItems] = useState<SavedAgent[]>([]),
-    [draft, setDraft] = useState<AgentDraft>(() => defaultAgentDraft(language)),
+    [draft, setDraft] = useState<AgentDraft>(() =>
+      structuredClone(presets.find((p) => p.id === 'crear-rubricas')!.draft),
+    ),
     [source, setSource] = useState<Skill | undefined>(),
     [editing, setEditing] = useState<SavedAgent | undefined>(),
     [editorKey, setEditorKey] = useState(0),
     [notice, setNotice] = useState(''),
     [search, setSearch] = useState(''),
     [history, setHistory] = useState<AgentRevision[]>([]),
-    [presetId, setPresetId] = useState('custom')
+    [presetId, setPresetId] = useState('crear-rubricas')
   const refresh = async () => setItems(await listAgents(owner))
   const safe = async (work: () => Promise<void>) => {
     setNotice('')
@@ -69,6 +75,8 @@ export default function AgentsView({
   }, [owner])
   const open = (next: AgentDraft, existing?: SavedAgent, skill?: Skill) => {
     setDraft(structuredClone(next))
+    setDirty(false)
+    if (existing || skill) setPresetId('custom')
     setEditing(existing)
     setSource(skill)
     setEditorKey((k) => k + 1)
@@ -76,28 +84,57 @@ export default function AgentsView({
     setHistory([])
     setNotice('')
   }
+  const choosePreset = (id: string) => {
+    if (id === presetId) return
+    if ((dirty || editing) && !window.confirm(b.replace)) return
+    const preset = presets.find((p) => p.id === id)
+    if (preset) {
+      setPresetId(id)
+      open(preset.draft)
+    }
+  }
   return (
     <main className="page skills-page agents-page">
       <p className="eyebrow">EDUTICTAC PROMPT</p>
       <h1>{t.section}</h1>
-      <p className="lead">{t.intro}</p>
+      <p className="lead">{basic ? b.intro : t.intro}</p>
+      <div className="mode-switch" role="group" aria-label={b.mode}>
+        <button
+          className={basic ? 'active' : ''}
+          aria-pressed={basic}
+          onClick={() => {
+            setBasic(true)
+            if (tab === 'compatibility' || tab === 'examples') setTab('design')
+          }}
+        >
+          {b.basic}
+        </button>
+        <button
+          className={!basic ? 'active' : ''}
+          aria-pressed={!basic}
+          onClick={() => setBasic(false)}
+        >
+          {b.advanced}
+        </button>
+      </div>
       <nav className="skill-tabs" aria-label={t.section}>
-        {(['design', 'examples', 'mine', 'compatibility'] as const).map(
-          (key) => (
-            <button
-              key={key}
-              aria-current={tab === key ? 'page' : undefined}
-              className={tab === key ? 'active' : ''}
-              onClick={() => {
-                setTab(key)
-                setHistory([])
-                setNotice('')
-              }}
-            >
-              {t[key]}
-            </button>
-          ),
-        )}
+        {(basic
+          ? (['design', 'mine'] as const)
+          : (['design', 'examples', 'mine', 'compatibility'] as const)
+        ).map((key) => (
+          <button
+            key={key}
+            aria-current={tab === key ? 'page' : undefined}
+            className={tab === key ? 'active' : ''}
+            onClick={() => {
+              setTab(key)
+              setHistory([])
+              setNotice('')
+            }}
+          >
+            {basic && key === 'design' ? b.create : t[key]}
+          </button>
+        ))}
       </nav>
       {notice && (
         <p className="callout" role="status">
@@ -107,31 +144,82 @@ export default function AgentsView({
       {tab === 'design' && (
         <>
           <p className="mode-hint">{t.local}</p>
-          <label>
-            {t.examples}
-            <select
-              aria-label={t.examples}
-              value={presetId}
-              onChange={(e) => {
-                const preset = presets.find((p) => p.id === e.target.value)
-                if (preset) {
-                  setPresetId(preset.id)
-                  open(preset.draft)
-                }
-              }}
-            >
-              {presets.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.title}
-                </option>
-              ))}
-            </select>
-          </label>
+          {basic ? (
+            <section className="basic-presets" aria-label={b.choose}>
+              <h2>{b.choose}</h2>
+              <div className="basic-preset-grid">
+                {[
+                  'crear-rubricas',
+                  'adaptar-actividades-dua',
+                  'revisar-recursos-educativos',
+                  'tutor',
+                ].map((id) => {
+                  const p = presets.find((p) => p.id === id)!
+                  return (
+                    <button
+                      key={id}
+                      className={presetId === id ? 'active' : ''}
+                      aria-pressed={presetId === id}
+                      onClick={() => choosePreset(id)}
+                    >
+                      {p.title}
+                    </button>
+                  )
+                })}
+              </div>
+              <details>
+                <summary>{b.more}</summary>
+                <div className="skill-tabs">
+                  {presets
+                    .filter(
+                      (p) =>
+                        ![
+                          'crear-rubricas',
+                          'adaptar-actividades-dua',
+                          'revisar-recursos-educativos',
+                          'tutor',
+                        ].includes(p.id),
+                    )
+                    .map((p) => (
+                      <button
+                        key={p.id}
+                        aria-pressed={presetId === p.id}
+                        onClick={() => choosePreset(p.id)}
+                      >
+                        {p.title}
+                      </button>
+                    ))}
+                </div>
+              </details>
+              <p className="mode-hint">
+                {presets.find((p) => p.id === presetId)?.description}
+              </p>
+            </section>
+          ) : (
+            <label>
+              {t.examples}
+              <select
+                aria-label={t.examples}
+                value={presetId}
+                onChange={(e) => choosePreset(e.target.value)}
+              >
+                {presets.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.title}
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
           <AgentBuilder
             key={editorKey}
             language={language}
             initialDraft={draft}
-            onDraftChange={setDraft}
+            basic={basic}
+            onDraftChange={(next) => {
+              setDraft(next)
+              setDirty(true)
+            }}
             initialSkill={source}
             skills={source ? [source] : []}
             editing={Boolean(editing)}
@@ -160,8 +248,8 @@ export default function AgentsView({
                 <button
                   className="primary"
                   onClick={() => {
-                    setPresetId(p.id)
-                    open(p.draft)
+                    choosePreset(p.id)
+                    setTab('design')
                   }}
                 >
                   {t.useExample}
@@ -233,15 +321,17 @@ export default function AgentsView({
                             ? 'Descargar guía'
                             : 'Descarregar guia'}
                       </button>
-                      <button
-                        onClick={() =>
-                          void safe(async () =>
-                            setHistory(await agentHistory(a.id, owner)),
-                          )
-                        }
-                      >
-                        {t.history}
-                      </button>
+                      {!basic && (
+                        <button
+                          onClick={() =>
+                            void safe(async () =>
+                              setHistory(await agentHistory(a.id, owner)),
+                            )
+                          }
+                        >
+                          {t.history}
+                        </button>
+                      )}
                       <button
                         className="danger"
                         onClick={() => {

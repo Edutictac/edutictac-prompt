@@ -4,6 +4,7 @@ import { languages, type Skill } from './types'
 import { agentLocales } from './agentLocales'
 import { skillLocales } from './locales'
 import { wizardLocales } from '../agents/locales'
+import { basicLocales } from '../agents/basicLocales'
 export const agentLimits = {
   name: 30,
   description: 1000,
@@ -29,6 +30,7 @@ export interface WorkingMode {
   behavior: string
 }
 export interface AgentDraft {
+  rubricApproach?: 'curricular' | 'draft'
   name: string
   description: string
   course: string
@@ -225,6 +227,11 @@ export function buildAgentConfiguration(
   draft: AgentDraft,
   skill?: Skill,
 ): AgentConfiguration {
+  if (
+    draft.rubricApproach !== undefined &&
+    !['curricular', 'draft'].includes(draft.rubricApproach)
+  )
+    fail('invalid', 'rubricApproach')
   for (const [key, max] of [
     ['name', 30],
     ['description', 1000],
@@ -339,6 +346,12 @@ export function buildAgentConfiguration(
         `## ${w.customExamples} ${i + 1}\n${w.exampleInput}: ${e.input}\n${w.exampleOutput}: ${e.output}`,
     ),
   ]
+  if (draft.rubricApproach)
+    blocks.push(
+      draft.rubricApproach === 'draft'
+        ? basicLocales[l].draftRule
+        : basicLocales[l].curricularRule,
+    )
   if (skill) {
     blocks.push(
       `## ${t.skill}\n${skill.instructions}`,
