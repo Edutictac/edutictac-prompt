@@ -3,11 +3,31 @@ import { fail, validateDefinition } from './model'
 import { languages, type Skill } from './types'
 import { agentLocales } from './agentLocales'
 import { skillLocales } from './locales'
+import { wizardLocales } from '../agents/locales'
 export const agentLimits = {
   name: 30,
   description: 1000,
   instructions: 8000,
 } as const
+export const agentStages = [
+  'all',
+  'infant',
+  'primary',
+  'secondary',
+  'bach',
+  'fp',
+  'adult',
+  'music',
+  'dance',
+  'university',
+  'training',
+] as const
+export type AgentStage = (typeof agentStages)[number]
+export interface WorkingMode {
+  name: string
+  when: string
+  behavior: string
+}
 export interface AgentDraft {
   name: string
   description: string
@@ -15,7 +35,21 @@ export interface AgentDraft {
   purpose: string
   audience: string
   materials: string
-  responseLanguage: Language
+  responseLanguage: Language | 'auto'
+  instructionLanguage: Language
+  stage: AgentStage
+  subject: string
+  role: string
+  modes: WorkingMode[]
+  criteria: string
+  errors: string
+  responseFormat: string
+  tone: string
+  maxQuestions: number
+  oneAtATime: boolean
+  restrictions: string
+  examples: { input: string; output: string }[]
+  starterPrompts: string[]
 }
 export interface AgentConfiguration {
   name: string
@@ -45,7 +79,32 @@ export function defaultAgentDraft(
       skill?.resources
         .map((r) => r.path.replace('/', '-') + '.txt')
         .join('\n') || '',
-    responseLanguage: language,
+    responseLanguage: 'auto',
+    instructionLanguage: language,
+    stage: 'all',
+    subject: '',
+    role: wizardLocales[language].genericRole,
+    modes: [
+      {
+        name: wizardLocales[language].reviewMode,
+        when: wizardLocales[language].reviewWhen,
+        behavior: wizardLocales[language].reviewBehavior,
+      },
+      {
+        name: wizardLocales[language].guideMode,
+        when: wizardLocales[language].guideWhen,
+        behavior: wizardLocales[language].guideBehavior,
+      },
+    ],
+    criteria: '',
+    errors: '',
+    responseFormat: wizardLocales[language].defaultFormat,
+    tone: wizardLocales[language].defaultTone,
+    maxQuestions: 3,
+    oneAtATime: true,
+    restrictions: wizardLocales[language].defaultRestriction,
+    examples: [],
+    starterPrompts: [],
   }
 }
 const behavior: Record<
@@ -170,6 +229,13 @@ export function buildAgentConfiguration(
     ['name', 30],
     ['description', 1000],
     ['course', 200],
+    ['role', 300],
+    ['subject', 200],
+    ['criteria', 2500],
+    ['errors', 2000],
+    ['responseFormat', 1500],
+    ['tone', 500],
+    ['restrictions', 2500],
     ['purpose', 2000],
     ['audience', 500],
     ['materials', 4000],
@@ -177,33 +243,101 @@ export function buildAgentConfiguration(
     const value = draft[key]
     if (
       typeof value !== 'string' ||
-      (key !== 'materials' && !value.trim()) ||
+      (['name', 'description', 'purpose', 'audience', 'role'].includes(key) &&
+        !value.trim()) ||
       /\u0000/.test(value)
     )
       fail('invalid', key)
     if (value.length > max) fail('tooLong', key)
   }
-  if (!languages.includes(draft.responseLanguage))
+  if (
+    draft.responseLanguage !== 'auto' &&
+    !languages.includes(draft.responseLanguage)
+  )
     fail('invalid', 'responseLanguage')
+  if (
+    !languages.includes(draft.instructionLanguage) ||
+    !agentStages.includes(draft.stage)
+  )
+    fail('invalid')
+  if (
+    !Number.isInteger(draft.maxQuestions) ||
+    draft.maxQuestions < 1 ||
+    draft.maxQuestions > 5 ||
+    typeof draft.oneAtATime !== 'boolean'
+  )
+    fail('invalid', 'maxQuestions')
+  const entries = (items: unknown, max: number, field: string): unknown[] => {
+    if (!Array.isArray(items) || items.length > max) fail('invalid', field)
+    return items as unknown[]
+  }
+  const validText = (value: unknown, max: number, field: string) => {
+    if (
+      typeof value !== 'string' ||
+      !value.trim() ||
+      value.length > max ||
+      value.includes('\u0000')
+    )
+      fail('invalid', field)
+  }
+  for (const raw of entries(draft.modes, 6, 'modes')) {
+    if (!raw || typeof raw !== 'object') fail('invalid', 'modes')
+    const m = raw as WorkingMode
+    validText(m.name, 80, 'modes')
+    validText(m.when, 400, 'modes')
+    validText(m.behavior, 1200, 'modes')
+  }
+  for (const raw of entries(draft.examples, 8, 'examples')) {
+    if (!raw || typeof raw !== 'object') fail('invalid', 'examples')
+    const e = raw as { input: string; output: string }
+    validText(e.input, 1000, 'examples')
+    validText(e.output, 2000, 'examples')
+  }
+  for (const prompt of entries(draft.starterPrompts, 6, 'starterPrompts'))
+    validText(prompt, 500, 'starterPrompts')
   if (skill) {
     validateDefinition(skill)
     if (!skill.reviewed) fail('untrusted')
     if (skill.mode !== 'instructions') fail('external')
   }
-  const l = draft.responseLanguage,
+  const l =
+      draft.responseLanguage === 'auto'
+        ? draft.instructionLanguage
+        : draft.responseLanguage,
     t = behavior[l],
     labels = skillLocales[l],
+    w = wizardLocales[l],
     materials = draft.materials
       .split('\n')
       .map((s) => s.trim())
       .filter(Boolean)
   if (materials.length > 30) fail('tooLong', 'materials')
   const blocks = [
-    t.role,
+    `${w.role}: ${draft.role}`,
+    `${w.stage}: ${w[`stage_${draft.stage}`]}${draft.subject ? `\n${w.subject}: ${draft.subject}` : ''}`,
+    w.instructionStage,
     `${t.course}: ${draft.course.trim()}\n${t.purpose}: ${draft.purpose.trim()}\n${t.audience}: ${draft.audience.trim()}`,
     t.flow,
     t.knowledge,
-    `${t.language}: ${l}.`,
+    draft.responseLanguage === 'auto'
+      ? w.instructionAuto
+      : `${t.language}: ${l}.`,
+    w.instructionQuestions.replace('{n}', String(draft.maxQuestions)),
+    ...(draft.oneAtATime ? [w.instructionOne] : []),
+    ...(draft.modes.length
+      ? [
+          `## ${w.modes}\n${w.instructionModes}\n${draft.modes.map((m) => `### ${m.name}\n${w.modeWhen}: ${m.when}\n${w.modeBehavior}: ${m.behavior}`).join('\n\n')}`,
+        ]
+      : []),
+    ...(
+      ['criteria', 'errors', 'responseFormat', 'tone', 'restrictions'] as const
+    )
+      .filter((k) => draft[k].trim())
+      .map((k) => `## ${w[k]}\n${draft[k]}`),
+    ...draft.examples.map(
+      (e, i) =>
+        `## ${w.customExamples} ${i + 1}\n${w.exampleInput}: ${e.input}\n${w.exampleOutput}: ${e.output}`,
+    ),
   ]
   if (skill) {
     blocks.push(
@@ -252,15 +386,21 @@ export function buildAgentConfiguration(
     description: draft.description.trim(),
     instructions,
     materials,
-    starters: [
-      { name: t.start, message: starter[l][0] },
-      {
-        name: t.exercise,
-        message:
-          skill?.examples.find((e) => e.language === l)?.input || starter[l][1],
-      },
-      { name: t.missing, message: starter[l][2] },
-    ],
+    starters: draft.starterPrompts.length
+      ? draft.starterPrompts.map((message, i) => ({
+          name: [t.start, t.exercise, t.missing][i] || `${t.exercise} ${i + 1}`,
+          message,
+        }))
+      : [
+          { name: t.start, message: starter[l][0] },
+          {
+            name: t.exercise,
+            message:
+              skill?.examples.find((e) => e.language === l)?.input ||
+              starter[l][1],
+          },
+          { name: t.missing, message: starter[l][2] },
+        ],
   }
 }
 export function agentGuide(

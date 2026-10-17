@@ -54,16 +54,18 @@ import { skillLocales, type SkillTexts } from './locales'
 import Editor, { Markdown, ParameterInput } from './Editor'
 import './skills.css'
 import { downloadSkillFile } from './files'
-import AgentBuilder from './AgentBuilder'
-import { agentLocales } from './agentLocales'
 export default function SkillsView({
   language,
   sub,
   prompts,
   copy,
   onSaveResult,
+  onPrepareAgent,
+  embedded = false,
 }: {
   language: Language
+  onPrepareAgent?: (skill: Skill) => void
+  embedded?: boolean
   sub?: string
   prompts: SavedPrompt[]
   copy: (v: string) => Promise<boolean>
@@ -74,14 +76,12 @@ export default function SkillsView({
   ) => Promise<void>
 }) {
   const t = skillLocales[language],
-    a = agentLocales[language],
     owner = skillOwner(sub),
-    [tab, setTab] = useState<
-      'agents' | 'explore' | 'create' | 'mine' | 'transfer'
-    >('agents'),
+    [tab, setTab] = useState<'explore' | 'create' | 'mine' | 'transfer'>(
+      'explore',
+    ),
     [items, setItems] = useState<Skill[]>([]),
     [selected, setSelected] = useState<Skill | null>(null),
-    [agentBase, setAgentBase] = useState<Skill | undefined>(),
     [draft, setDraft] = useState<SkillDefinition | null>(null),
     [editorKey, setEditorKey] = useState(0),
     [editing, setEditing] = useState<Skill | undefined>(),
@@ -182,40 +182,31 @@ export default function SkillsView({
           ? b.updatedAt.localeCompare(a.updatedAt)
           : a.name.localeCompare(b.name, language),
       )
+  const Root = embedded ? 'section' : 'main'
   return (
-    <main className="page skills-page">
+    <Root className="page skills-page">
       <p className="eyebrow">EDUTICTAC PROMPT</p>
-      <h1>Skills</h1>
-      <p className="lead">{tab === 'agents' ? a.lead : t.intro}</p>
-      <p className="mode-hint">{tab === 'agents' ? a.localOnly : t.local}</p>
+      <h2>Agent Skills</h2>
+      <p className="lead">{t.intro}</p>
+      <p className="mode-hint">{t.local}</p>
       <nav className="skill-tabs" aria-label="Skills">
-        {(['agents', 'explore', 'create', 'mine', 'transfer'] as const).map(
-          (v) => (
-            <button
-              key={v}
-              aria-current={tab === v ? 'page' : undefined}
-              className={tab === v ? 'active' : ''}
-              onClick={() => changeTab(v)}
-            >
-              {v === 'agents' ? a.tab : t[v]}
-            </button>
-          ),
-        )}
+        {(['explore', 'create', 'mine', 'transfer'] as const).map((v) => (
+          <button
+            key={v}
+            aria-current={tab === v ? 'page' : undefined}
+            className={tab === v ? 'active' : ''}
+            onClick={() => changeTab(v)}
+          >
+            {t[v]}
+          </button>
+        ))}
       </nav>
       {notice && (
         <p className="callout" role="status">
           {notice}
         </p>
       )}
-      {tab === 'agents' ? (
-        <AgentBuilder
-          key={agentBase?.id || 'course'}
-          language={language}
-          skills={[...builtinSkills(language), ...items]}
-          initialSkill={agentBase}
-          copy={copy}
-        />
-      ) : draft ? (
+      {draft ? (
         <>
           <h2>{editing ? t.edit : t.create}</h2>
           {imported && <p className="warning">{t.reviewHint}</p>}
@@ -293,19 +284,25 @@ export default function SkillsView({
           </button>
           <h2>{selected.name}</h2>
           <p>{selected.description}</p>
-          <p>
-            <button
-              className="primary"
-              disabled={!selected.reviewed || selected.mode !== 'instructions'}
-              onClick={() => {
-                setAgentBase(selected)
-                setSelected(null)
-                setTab('agents')
-              }}
-            >
-              {a.fromSkill}
-            </button>
-          </p>
+          {onPrepareAgent && (
+            <p>
+              <button
+                className="primary"
+                disabled={
+                  !selected.reviewed || selected.mode !== 'instructions'
+                }
+                onClick={() => {
+                  onPrepareAgent?.(selected)
+                }}
+              >
+                {language === 'en'
+                  ? 'Prepare M365 agent'
+                  : language === 'es'
+                    ? 'Preparar agente M365'
+                    : 'Preparar agent M365'}
+              </button>
+            </p>
+          )}
           <p>
             {selected.author} · {selected.license} · {selected.version} ·{' '}
             {t[`lang_${selected.language}`]}
@@ -598,7 +595,7 @@ export default function SkillsView({
           <p className="mode-hint">* {t.copilotHint}</p>
         </>
       )}
-    </main>
+    </Root>
   )
 }
 type Safe = (work: () => Promise<void>) => Promise<void>

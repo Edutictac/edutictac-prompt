@@ -19,3 +19,14 @@
 - Pruebas de interfaz: preparación y copia de instrucciones, invalidación de la configuración al cambiar el curso y selección de comportamiento especializado.
 - Chromium a 1440 px (castellano) y 390 px (valenciano): formulario, generación, descarga Markdown y seis Skills todavía disponibles; sin errores JavaScript ni desbordamiento horizontal.
 - La configuración usa los campos normales de Agent Builder y no depende de Skills en Frontier. La disponibilidad y el uso efectivo en una cuenta edu.gva.es siguen pendientes de verificación con sus permisos/licencia.
+
+## 0.17.0 — Agentes / Agents
+
+- 126 pruebas frontend en 21 archivos, satisfactorias; build TypeScript/PWA correcto. Sin cambios de backend ni dependencias nuevas.
+- Migraciones v1→v3 y v2→v3 comprobadas: se conservan prompts y Skills; agents/agentRevisions son almacenes nuevos, separados.
+- Diseño: nueve modelos válidos en los cuatro idiomas, etapas y materias libres, modos editables, criterios, errores, respuestas, restricciones y autoidioma.
+- Biblioteca: guardar, reabrir, editar, duplicar, borrar con confirmación, revisiones, aislamiento por propietario y rechazo de ediciones obsoletas.
+- Comprobación específica de nomenclatura valenciana: Agents, Dissenyar agent, Els meus agents y Compatibilitat. Se conservan los cambios del formulario al cambiar de pestaña.
+- Chromium real: adaptación del modelo SMART a Primaria/Matemáticas y Primària/Matemàtiques, generación, guardado y reapertura conservando la materia. Escritorio ES a 1440 px y móvil VA a 390 px, sin errores JS ni desbordamiento horizontal. Se corrige el ajuste de la navegación móvil al nuevo nombre.
+- Ruta #agents canónica y alias #skills conservado. Los paquetes Codex/OpenCode quedan en Compatibilidad; los tests previos de intercambio permanecen satisfactorios.
+- Configurar y probar el agente dentro del tenant edu.gva.es requiere los permisos del usuario; no se afirma haber realizado esa prueba de cuenta.

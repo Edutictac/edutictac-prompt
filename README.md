@@ -65,3 +65,13 @@ En **0.16.0**, Skills abre **Agentes M365** para preparar agentes reutilizables
 que se configuran dentro de Microsoft 365. Incluye copia por campos y una
 [práctica para cursos con cuentas edu.gva.es](docs/AGENTES-M365-CURSOS.md).
 La disponibilidad real depende de los permisos/licencia de la cuenta educativa.
+
+## Agentes / Agents (0.17.0)
+
+La sección principal se llama **Agentes** en castellano y **Agents** en valenciano.
+Diseña comportamientos docentes adaptables a nivel y materia, con modos, criterios,
+errores, estructura de respuesta y límites. Mis agentes guarda diseños e historial
+locales por cuenta; M365 sigue siendo el lugar donde se crea y utiliza el agente.
+Los paquetes Agent Skills quedan en Compatibilidad y conservan su biblioteca.
+
+[Guía docente](docs/AGENTES-USO.md) · [Guia en valencià](docs/AGENTS-US.md).

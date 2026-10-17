@@ -1,7 +1,7 @@
 import type { Language } from '../types'
 const es = {
   tab: 'Agentes M365',
-  title: 'Prepara un agente para tu curso',
+  title: 'Diseña tu agente educativo',
   lead: 'Configura una vez su función, materiales y forma de responder. Después úsalo desde Agentes en Microsoft 365 con tu cuenta educativa.',
   access:
     'Comprueba primero que tu cuenta edu.gva.es muestra Agentes → Crear agente → Configurar. Las funciones disponibles dependen de los permisos y la licencia de tu organización.',
@@ -32,7 +32,7 @@ const es = {
   documentsHelp:
     'En Configurar → Conocimientos, añade únicamente los materiales autorizados y comprueba sus permisos. Copiar los nombres de los documentos no incorpora su contenido. Usa las fuentes que ofrezca tu cuenta (archivos, SharePoint, OneDrive o webs permitidas).',
   limits:
-    'Esta guía usa los campos habituales de Agent Builder. No requiere importar Skills en vista previa. El agente se crea dentro de M365; EduTicTac no accede a tu cuenta ni a tus cursos.',
+    'Al preparar la configuración tendrás los campos Nombre, Descripción, Instrucciones, Conocimientos y Preguntas iniciales para Microsoft 365. El agente se crea y se utiliza allí con tu cuenta educativa.',
   privacy:
     'Utiliza ejemplos sin datos personales del alumnado. Antes de compartir el agente, revisa quién podrá consultar los materiales que le añadas.',
   test: 'Probar antes de usar en el curso',
@@ -44,7 +44,7 @@ const es = {
   open: 'Abrir Microsoft 365 Copilot',
   fromSkill: 'Preparar un agente M365 con esta Skill',
   localOnly:
-    'El formulario y la guía se preparan en este navegador. Descarga la guía para conservarla; no se crea ni se publica ningún agente automáticamente.',
+    'Prepara y guarda tu diseño en Mis agentes. Después copia la configuración en M365 y prueba el agente antes de crearlo.',
   tooLong:
     'La configuración supera el límite del campo. Reduce el texto o los ejemplos antes de copiarlo.',
   invalid: 'Completa los campos obligatorios y revisa los límites.',
@@ -52,7 +52,7 @@ const es = {
     'Revisa primero las instrucciones y recursos de la Skill importada.',
   external:
     'Esta Skill necesita herramientas externas; no se puede convertir en un agente de instrucciones con esta guía.',
-  defaultName: 'Asistente del curso',
+  defaultName: 'Agente educativo',
   defaultDescription:
     'Ayuda a comprender los materiales del curso y a aplicarlos en tareas docentes.',
   defaultPurpose:
@@ -60,15 +60,15 @@ const es = {
   defaultAudience: 'Profesorado participante',
   setup: [
     '1. Define el agente',
-    '2. Copia la configuración en M365',
-    '3. Añade materiales y prueba',
+    'Configura el agente en M365',
+    'Añade conocimientos y prueba',
   ],
   savedSkills:
-    'Codex y OpenCode siguen disponibles mediante la exportación Agent Skills en Importar y exportar.',
+    'En Compatibilidad encontrarás las opciones avanzadas para Codex, OpenCode y paquetes Agent Skills.',
 }
 const va: typeof es = {
   tab: 'Agents M365',
-  title: 'Prepara un agent per al teu curs',
+  title: 'Dissenya el teu agent educatiu',
   lead: 'Configura una vegada la funció, els materials i la manera de respondre. Després usa’l des d’Agents en Microsoft 365 amb el teu compte educatiu.',
   access:
     'Comprova primer que el teu compte edu.gva.es mostra Agents → Crear agent → Configurar. Les funcions disponibles depenen dels permisos i la llicència de la teua organització.',
@@ -99,7 +99,7 @@ const va: typeof es = {
   documentsHelp:
     'En Configurar → Coneixements, afig només els materials autoritzats i comprova els permisos. Copiar els noms dels documents no n’incorpora el contingut. Usa les fonts que oferisca el teu compte (fitxers, SharePoint, OneDrive o webs permeses).',
   limits:
-    'Esta guia usa els camps habituals d’Agent Builder. No requerix importar Skills en vista prèvia. L’agent es crea dins de M365; EduTicTac no accedix al teu compte ni als teus cursos.',
+    'En preparar la configuració tindràs els camps Nom, Descripció, Instruccions, Coneixements i Preguntes inicials per a Microsoft 365. L’agent es crea i s’usa allí amb el teu compte educatiu.',
   privacy:
     'Utilitza exemples sense dades personals de l’alumnat. Abans de compartir l’agent, revisa qui podrà consultar els materials que hi afiges.',
   test: 'Provar abans d’usar en el curs',
@@ -111,7 +111,7 @@ const va: typeof es = {
   open: 'Obrir Microsoft 365 Copilot',
   fromSkill: 'Preparar un agent M365 amb esta Skill',
   localOnly:
-    'El formulari i la guia es preparen en este navegador. Descarrega la guia per a conservar-la; no es crea ni publica cap agent automàticament.',
+    'Prepara i guarda el disseny en Els meus agents. Després copia la configuració en M365 i prova l’agent abans de crear-lo.',
   tooLong:
     'La configuració supera el límit del camp. Reduïx el text o els exemples abans de copiar-lo.',
   invalid: 'Completa els camps obligatoris i revisa els límits.',
@@ -119,7 +119,7 @@ const va: typeof es = {
     'Revisa primer les instruccions i els recursos de la Skill importada.',
   external:
     'Esta Skill necessita ferramentes externes; no es pot convertir en un agent d’instruccions amb esta guia.',
-  defaultName: 'Assistent del curs',
+  defaultName: 'Agent educatiu',
   defaultDescription:
     'Ajuda a comprendre els materials del curs i a aplicar-los en tasques docents.',
   defaultPurpose:
@@ -127,15 +127,15 @@ const va: typeof es = {
   defaultAudience: 'Professorat participant',
   setup: [
     '1. Definix l’agent',
-    '2. Copia la configuració en M365',
-    '3. Afig materials i prova',
+    'Configura l’agent en M365',
+    'Afig coneixements i prova',
   ],
   savedSkills:
-    'Codex i OpenCode continuen disponibles mitjançant l’exportació Agent Skills en Importar i exportar.',
+    'En Compatibilitat trobaràs les opcions avançades per a Codex, OpenCode i paquets Agent Skills.',
 }
 const en: typeof es = {
   tab: 'M365 agents',
-  title: 'Prepare an agent for your course',
+  title: 'Design your educational agent',
   lead: 'Configure its purpose, materials and response style once. Then use it in Microsoft 365 Agents with your education account.',
   access:
     'First check that your edu.gva.es account shows Agents → New agent → Configure. Available features depend on your organization’s permissions and license.',
@@ -166,7 +166,7 @@ const en: typeof es = {
   documentsHelp:
     'In Configure → Knowledge, add authorized materials and check permissions. Copying document names does not add their content. Use the sources available to your account (files, SharePoint, OneDrive or permitted websites).',
   limits:
-    'This guide uses standard Agent Builder fields. It does not require preview Skill imports. Create the agent inside M365; EduTicTac does not access your account or courses.',
+    'Prepare Name, Description, Instructions, Knowledge and Starter Prompts for Microsoft 365. Create and use the agent there with your education account.',
   privacy:
     'Use examples without learner personal data. Before sharing the agent, review who can access the materials you add.',
   test: 'Test before using in the course',
@@ -178,14 +178,14 @@ const en: typeof es = {
   open: 'Open Microsoft 365 Copilot',
   fromSkill: 'Prepare an M365 agent with this Skill',
   localOnly:
-    'The form and guide are prepared in this browser. Download the guide to keep it; no agent is created or published automatically.',
+    'Prepare and save your design in My agents. Then copy the configuration into M365 and test the agent before creating it.',
   tooLong:
     'The configuration exceeds a field limit. Shorten the text or examples before copying.',
   invalid: 'Complete the required fields and check the limits.',
   untrusted: 'Review the imported Skill’s instructions and resources first.',
   external:
     'This Skill requires external tools and cannot be converted into an instruction agent with this guide.',
-  defaultName: 'Course assistant',
+  defaultName: 'Educational agent',
   defaultDescription:
     'Helps users understand course materials and apply them to teaching tasks.',
   defaultPurpose:
@@ -193,11 +193,11 @@ const en: typeof es = {
   defaultAudience: 'Teachers attending the course',
   setup: [
     '1. Define the agent',
-    '2. Copy the configuration into M365',
-    '3. Add materials and test',
+    'Configure the agent in M365',
+    'Add knowledge and test',
   ],
   savedSkills:
-    'Codex and OpenCode remain available through Agent Skills export in Import and export.',
+    'Compatibility contains advanced options for Codex, OpenCode and Agent Skills packages.',
 }
 export const agentLocales: Record<Language, typeof es> = {
   es,
@@ -211,13 +211,13 @@ export const agentLocales: Record<Language, typeof es> = {
       'Per exemple: guia del curs, criteris d’avaluació, exemples d’activitats. Aquí només anotem els noms; els documents s’afegeixen després dins de M365.',
     copy: 'Copiar aquest camp',
     limits:
-      'Aquesta guia usa els camps habituals d’Agent Builder. No requereix importar Skills en vista prèvia. L’agent es crea dins de M365; EduTicTac no accedeix al teu compte ni als teus cursos.',
+      'En preparar la configuració tindràs els camps Nom, Descripció, Instruccions, Coneixements i Preguntes inicials per a Microsoft 365. L’agent es crea i s’utilitza allà amb el teu compte educatiu.',
     external:
       'Aquesta Skill necessita eines externes; no es pot convertir en un agent d’instruccions amb aquesta guia.',
     setup: [
       '1. Defineix l’agent',
-      '2. Copia la configuració en M365',
-      '3. Afegeix materials i prova',
+      'Configura l’agent en M365',
+      'Afegeix coneixements i prova',
     ],
   },
   en,

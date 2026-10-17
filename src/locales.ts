@@ -156,3 +156,5 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
   })
 }
 export function detectLanguage(): Language { const value = localStorage.getItem('edutictac-language'); if (value === 'es'||value === 'ca'||value === 'ca-valencia'||value === 'en') return value; const browser = navigator.language.toLowerCase(); return browser.startsWith('en')?'en':browser.startsWith('ca')?'ca': 'es' }
+
+for(const language of ['es','ca-valencia','ca','en'] as Language[]) translations[language].agents=language==='es'?'Agentes':language==='en'?'Agents':'Agents'

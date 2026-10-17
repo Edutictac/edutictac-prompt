@@ -8,6 +8,7 @@ import {
 import { builtinSkills } from './seeds'
 import { languages } from './types'
 import { agentLocales } from './agentLocales'
+import { wizardLocales } from '../agents/locales'
 const course = (language: 'es' | 'ca-valencia' | 'ca' | 'en' = 'es') => ({
   ...defaultAgentDraft(language),
   course: 'Evaluación formativa',
@@ -19,7 +20,7 @@ describe('M365 educational agent configuration', () => {
     (l) => {
       const c = buildAgentConfiguration(course(l))
       expect(c.instructions).toContain('Evaluación formativa')
-      expect(c.instructions).toContain(l)
+      expect(c.instructions).toContain(wizardLocales[l].instructionAuto)
       expect(c.instructions.length).toBeLessThanOrEqual(
         agentLimits.instructions,
       )
@@ -61,7 +62,7 @@ describe('M365 educational agent configuration', () => {
     for (const patch of [
       { name: 'a'.repeat(31) },
       { description: 'a'.repeat(1001) },
-      { course: '' },
+      { purpose: '' },
     ])
       expect(() => buildAgentConfiguration({ ...course(), ...patch })).toThrow()
     expect(() =>

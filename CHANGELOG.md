@@ -85,3 +85,12 @@
 - Guía de práctica descargable y referencias en texto para añadir manualmente a conocimientos; sin acceso automático a cuentas ni materiales.
 - Validación de límites de Agent Builder, revisión de confianza y bloqueo de Skills con herramientas externas.
 - Mantiene catálogo, editor, bibliotecas y exportación Agent Skills para Codex/OpenCode y M365 preview.
+
+## 0.17.0 — Agentes / Agents
+
+- Renombra la sección principal: Agentes en castellano, Agents en valenciano, catalán e inglés; ruta #agents y compatibilidad con #skills.
+- Diseñador de comportamiento docente: función, nivel, materia, modos, criterios, errores, respuestas, tono, preguntas y límites.
+- Idioma de respuesta automático o fijo, independiente del de las instrucciones.
+- Nueve puntos de partida editables, incluido el mentor SMART inspirado en el ejemplo compartido por el docente.
+- Mis agentes con guardado local por cuenta, edición, duplicado, historial y eliminación confirmada.
+- Dexie v3 aditivo, conservando prompts y Skills; estas últimas permanecen en Compatibilidad.

@@ -80,7 +80,7 @@ describe('private Skills persistence', () => {
     old.close()
     await db.open()
     expect((await db.prompts.get('original'))?.prompt).toBe('No cambiar')
-    expect(db.verno).toBe(2)
+    expect(db.verno).toBe(3)
     expect(await listSkills(owner)).toEqual([])
   })
 })
