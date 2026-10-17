@@ -33,3 +33,7 @@ No introduïsques dades personals de l’alumnat. Revisa les instruccions import
 Les Skills es guarden en el navegador i se separen per compte. Usa perfils diferents en equips compartits i exporta còpies de seguretat. **Sincronitzar les meues Skills** és una acció explícita i requerix l’API nova; no puja les Skills creades sense sessió. L’historial complet és local i no hi ha sincronització en temps real. Eliminar una Skill sincronitzada requerix connexió i elimina la còpia remota; un altre dispositiu amb una còpia antiga podria tornar a pujar-la. Davant d’un conflicte, conserva les còpies exportades abans de decidir quina versió mantindre.
 
 Consulta també la [guia completa en castellà](SKILLS-USO.md) i la [documentació tècnica](SKILLS-TECNICA.md).
+
+## Agents M365 per als cursos (0.16.0)
+
+En entrar en Skills s’obri **Agents M365**. L’assistent prepara nom, descripció, instruccions permanents, materials previstos i preguntes inicials. Copia els camps en **M365 → Agents → Crear agent → Configurar**, afig els materials autoritzats en **Coneixements** i prova l’agent abans de crear-lo. En les sessions següents obri l’agent i escriu només la tasca nova. No cal importar un ZIP ni repetir tota la configuració en el xat. Els permisos i la llicència del compte edu.gva.es determinen què hi ha disponible. Descarrega la guia per a conservar la configuració abans d’eixir de la pestanya.

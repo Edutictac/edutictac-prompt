@@ -11,3 +11,11 @@
 - La inferencia está probada con transporte simulado, incluyendo errores y límites. No se configura un proveedor nuevo ni se envían datos a un modelo real durante las pruebas.
 - Compatibilidad estructural basada en especificación oficial. Quedan para los entornos correspondientes: ejecutar paquetes dentro de Codex/OpenCode, importar en un tenant M365 con Frontier y probar GIFT en un curso Moodle/Aules. No se afirma haber realizado esas pruebas.
 - Recorrido Chromium completo verificado: preparación de rúbrica, pegado y guardado del resultado en la biblioteca de prompts existente, descarga de ZIP, reimportación, guardado no confiable, confirmación de revisión y nueva preparación. Sin errores de JavaScript.
+
+## 0.16.0 — Agentes M365 para cursos
+
+- 112 pruebas frontend en 18 archivos, satisfactorias; TypeScript y build PWA correctos. Sin cambios en API ni migraciones.
+- Pruebas del generador de configuración: cuatro idiomas, límites de Agent Builder sin truncado, fuentes tratadas como nombres pendientes de añadir, parámetros/ejemplos conservados y bloqueo de Skills no revisadas o externas.
+- Pruebas de interfaz: preparación y copia de instrucciones, invalidación de la configuración al cambiar el curso y selección de comportamiento especializado.
+- Chromium a 1440 px (castellano) y 390 px (valenciano): formulario, generación, descarga Markdown y seis Skills todavía disponibles; sin errores JavaScript ni desbordamiento horizontal.
+- La configuración usa los campos normales de Agent Builder y no depende de Skills en Frontier. La disponibilidad y el uso efectivo en una cuenta edu.gva.es siguen pendientes de verificación con sus permisos/licencia.

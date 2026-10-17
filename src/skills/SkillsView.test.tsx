@@ -78,6 +78,7 @@ describe('Skills teacher workflows', () => {
   it('prepares a builtin in a separate response language and requires consent for Copilot', async () => {
     const user = userEvent.setup()
     mount()
+    await user.click(screen.getByRole('button', { name: 'Explorar' }))
     const card = (
       await screen.findByRole('heading', { name: 'Crear rúbricas' })
     ).closest('article')!

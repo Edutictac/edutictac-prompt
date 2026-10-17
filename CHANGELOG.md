@@ -77,3 +77,11 @@
 - Validación de importaciones ZIP, revisión de confianza y bloqueo de herramientas/scripts.
 - Migración Dexie v2 aditiva; sincronización privada de Skills mediante API 0.2.0.
 - Documentación docente ES/VA y técnica; pruebas de regresión, permisos, UI y archivos maliciosos.
+
+## 0.16.0 — Preparar agentes M365 para cursos
+
+- Entrada inicial Agentes M365 para configurar una vez un asistente del curso o un comportamiento educativo especializado.
+- Nombre, descripción, instrucciones permanentes, fuentes previstas y preguntas iniciales listos para copiar en los campos de Agent Builder.
+- Guía de práctica descargable y referencias en texto para añadir manualmente a conocimientos; sin acceso automático a cuentas ni materiales.
+- Validación de límites de Agent Builder, revisión de confianza y bloqueo de Skills con herramientas externas.
+- Mantiene catálogo, editor, bibliotecas y exportación Agent Skills para Codex/OpenCode y M365 preview.

@@ -80,3 +80,7 @@ Docker continúa sirviendo `dist` por nginx, sin cambio de puertos. Pages mantie
 - [Ollama: protocolo Chat Completions compatible](https://docs.ollama.com/api/openai-compatibility)
 
 Los límites de M365 pueden cambiar y su documentación condiciona la disponibilidad a Frontier/licencia/políticas. La app impone un subconjunto más pequeño y seguro. Verificar en el tenant antes de afirmar compatibilidad operativa.
+
+## Guía de agentes M365 (0.16.0)
+
+`AgentBuilder.tsx`, `agents.ts` y `agentLocales.ts` añaden un formulario de preparación para cursos. Se abre en la pestaña inicial Agentes M365 y desde una Skill revisada compatible. Produce campos separados para Agent Builder, preguntas iniciales y una guía Markdown descargable. No crea una sesión M365, no publica agentes ni conecta a cursos. Los recursos textuales pueden descargarse como `.txt` para añadirlos manualmente en Conocimientos; no se incrustan como supuestos documentos disponibles. No hay cambio de esquema ni backend. La [práctica docente](AGENTES-M365-CURSOS.md) describe configuración, materiales y prueba de aceptación dentro de la cuenta educativa.

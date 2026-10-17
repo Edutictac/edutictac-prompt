@@ -53,22 +53,9 @@ import {
 import { skillLocales, type SkillTexts } from './locales'
 import Editor, { Markdown, ParameterInput } from './Editor'
 import './skills.css'
-export function downloadSkillFile(
-  name: string,
-  data: string | Uint8Array,
-  type: string,
-) {
-  const blob = new Blob(
-      [typeof data === 'string' ? data : Uint8Array.from(data).buffer],
-      { type },
-    ),
-    url = URL.createObjectURL(blob),
-    a = document.createElement('a')
-  a.href = url
-  a.download = name
-  a.click()
-  setTimeout(() => URL.revokeObjectURL(url), 1000)
-}
+import { downloadSkillFile } from './files'
+import AgentBuilder from './AgentBuilder'
+import { agentLocales } from './agentLocales'
 export default function SkillsView({
   language,
   sub,
@@ -87,12 +74,14 @@ export default function SkillsView({
   ) => Promise<void>
 }) {
   const t = skillLocales[language],
+    a = agentLocales[language],
     owner = skillOwner(sub),
-    [tab, setTab] = useState<'explore' | 'create' | 'mine' | 'transfer'>(
-      'explore',
-    ),
+    [tab, setTab] = useState<
+      'agents' | 'explore' | 'create' | 'mine' | 'transfer'
+    >('agents'),
     [items, setItems] = useState<Skill[]>([]),
     [selected, setSelected] = useState<Skill | null>(null),
+    [agentBase, setAgentBase] = useState<Skill | undefined>(),
     [draft, setDraft] = useState<SkillDefinition | null>(null),
     [editorKey, setEditorKey] = useState(0),
     [editing, setEditing] = useState<Skill | undefined>(),
@@ -197,26 +186,36 @@ export default function SkillsView({
     <main className="page skills-page">
       <p className="eyebrow">EDUTICTAC PROMPT</p>
       <h1>Skills</h1>
-      <p className="lead">{t.intro}</p>
-      <p className="mode-hint">{t.local}</p>
+      <p className="lead">{tab === 'agents' ? a.lead : t.intro}</p>
+      <p className="mode-hint">{tab === 'agents' ? a.localOnly : t.local}</p>
       <nav className="skill-tabs" aria-label="Skills">
-        {(['explore', 'create', 'mine', 'transfer'] as const).map((v) => (
-          <button
-            key={v}
-            aria-current={tab === v ? 'page' : undefined}
-            className={tab === v ? 'active' : ''}
-            onClick={() => changeTab(v)}
-          >
-            {t[v]}
-          </button>
-        ))}
+        {(['agents', 'explore', 'create', 'mine', 'transfer'] as const).map(
+          (v) => (
+            <button
+              key={v}
+              aria-current={tab === v ? 'page' : undefined}
+              className={tab === v ? 'active' : ''}
+              onClick={() => changeTab(v)}
+            >
+              {v === 'agents' ? a.tab : t[v]}
+            </button>
+          ),
+        )}
       </nav>
       {notice && (
         <p className="callout" role="status">
           {notice}
         </p>
       )}
-      {draft ? (
+      {tab === 'agents' ? (
+        <AgentBuilder
+          key={agentBase?.id || 'course'}
+          language={language}
+          skills={[...builtinSkills(language), ...items]}
+          initialSkill={agentBase}
+          copy={copy}
+        />
+      ) : draft ? (
         <>
           <h2>{editing ? t.edit : t.create}</h2>
           {imported && <p className="warning">{t.reviewHint}</p>}
@@ -294,6 +293,19 @@ export default function SkillsView({
           </button>
           <h2>{selected.name}</h2>
           <p>{selected.description}</p>
+          <p>
+            <button
+              className="primary"
+              disabled={!selected.reviewed || selected.mode !== 'instructions'}
+              onClick={() => {
+                setAgentBase(selected)
+                setSelected(null)
+                setTab('agents')
+              }}
+            >
+              {a.fromSkill}
+            </button>
+          </p>
           <p>
             {selected.author} · {selected.license} · {selected.version} ·{' '}
             {t[`lang_${selected.language}`]}

@@ -60,3 +60,8 @@ copiar/abrir el asistente (incluido Copilot M365) y pegar la respuesta. No se
 habilitan herramientas ni scripts. Los paquetes importados requieren revisión.
 La sincronización de Skills es explícita e independiente de la sincronización de
 prompts. No hay publicación comunitaria automática.
+
+En **0.16.0**, Skills abre **Agentes M365** para preparar agentes reutilizables
+que se configuran dentro de Microsoft 365. Incluye copia por campos y una
+[práctica para cursos con cuentas edu.gva.es](docs/AGENTES-M365-CURSOS.md).
+La disponibilidad real depende de los permisos/licencia de la cuenta educativa.
