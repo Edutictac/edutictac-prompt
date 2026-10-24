@@ -144,58 +144,7 @@ export default function AgentsView({
       {tab === 'design' && (
         <>
           <p className="mode-hint">{t.local}</p>
-          {basic ? (
-            <section className="basic-presets" aria-label={b.choose}>
-              <h2>{b.choose}</h2>
-              <div className="basic-preset-grid">
-                {[
-                  'crear-rubricas',
-                  'adaptar-actividades-dua',
-                  'revisar-recursos-educativos',
-                  'tutor',
-                ].map((id) => {
-                  const p = presets.find((p) => p.id === id)!
-                  return (
-                    <button
-                      key={id}
-                      className={presetId === id ? 'active' : ''}
-                      aria-pressed={presetId === id}
-                      onClick={() => choosePreset(id)}
-                    >
-                      {p.title}
-                    </button>
-                  )
-                })}
-              </div>
-              <details>
-                <summary>{b.more}</summary>
-                <div className="skill-tabs">
-                  {presets
-                    .filter(
-                      (p) =>
-                        ![
-                          'crear-rubricas',
-                          'adaptar-actividades-dua',
-                          'revisar-recursos-educativos',
-                          'tutor',
-                        ].includes(p.id),
-                    )
-                    .map((p) => (
-                      <button
-                        key={p.id}
-                        aria-pressed={presetId === p.id}
-                        onClick={() => choosePreset(p.id)}
-                      >
-                        {p.title}
-                      </button>
-                    ))}
-                </div>
-              </details>
-              <p className="mode-hint">
-                {presets.find((p) => p.id === presetId)?.description}
-              </p>
-            </section>
-          ) : (
+          {!basic && (
             <label>
               {t.examples}
               <select

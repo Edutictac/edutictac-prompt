@@ -140,7 +140,9 @@ it('confirms replacing a changed draft and honours cancellation', async () => {
     'Mi materia',
   )
   const confirm = vi.spyOn(window, 'confirm').mockReturnValue(false)
-  await user.click(screen.getByRole('button', { name: 'Tutor de una materia' }))
+  await user.click(screen.getByRole('button', { name: 'Avanzado' }))
+  await user.selectOptions(screen.getByRole('combobox', { name: 'Ejemplos' }), 'tutor')
+  await user.click(screen.getByRole('button', { name: basicLocales.es.basic }))
   expect(confirm).toHaveBeenCalledOnce()
   expect(
     (
@@ -150,7 +152,9 @@ it('confirms replacing a changed draft and honours cancellation', async () => {
     ).value,
   ).toBe('Mi materia')
   confirm.mockReturnValue(true)
-  await user.click(screen.getByRole('button', { name: 'Tutor de una materia' }))
+  await user.click(screen.getByRole('button', { name: 'Avanzado' }))
+  await user.selectOptions(screen.getByRole('combobox', { name: 'Ejemplos' }), 'tutor')
+  await user.click(screen.getByRole('button', { name: basicLocales.es.basic }))
   expect(
     (
       screen.getByRole('combobox', {

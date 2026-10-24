@@ -589,7 +589,7 @@ export default function AgentBuilder({
             <p>
               <a
                 className="secondary"
-                href="https://m365.cloud.microsoft/chat"
+                href="https://m365.cloud.microsoft/agents/new"
                 target="_blank"
                 rel="noopener noreferrer"
               >
