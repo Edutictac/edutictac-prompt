@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.21.0 - Envío directo del encargo a EduCrea
+
+- «Usar en EduCrea» abre EduCrea con el encargo ya rellenado en Instrucciones, sin copiar y pegar.
+- El encargo viaja comprimido en el fragmento de la URL y se borra al recibirlo; si no cabe, se mantiene el flujo de portapapeles.
+
 ## 0.20.2 - Volver arriba al cambiar de sección
 
 - Al abrir cualquier pestaña (Inicio, Mi biblioteca, Agentes, Ayuda, Privacidad) o una plantilla, la página vuelve arriba en lugar de quedarse al final.

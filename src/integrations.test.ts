@@ -1,5 +1,16 @@
 import { describe, expect, it } from 'vitest'
-import { EDUCEREA_URL, eduCreaNewProjectUrl } from './integrations'
+import { EDUCEREA_URL, eduCreaHandoffUrl, eduCreaNewProjectUrl, encodePromptPayload } from './integrations'
+
+async function decode(payload: string): Promise<string> {
+  const [kind, data] = payload.split('.', 2)
+  const base64 = data.replace(/-/g, '+').replace(/_/g, '/').padEnd(data.length + (4 - data.length % 4) % 4, '=')
+  const bytes = Uint8Array.from(atob(base64), character => character.charCodeAt(0))
+  if (kind === 'z') {
+    const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate'))
+    return new TextDecoder().decode(await new Response(stream).arrayBuffer())
+  }
+  return new TextDecoder().decode(bytes)
+}
 
 describe('EduCrea bridge', () => {
   it('opens the guided creation with the bridge marker', () => {
@@ -13,5 +24,28 @@ describe('EduCrea bridge', () => {
 
   it('exposes the production URL by default', () => {
     expect(EDUCEREA_URL).toBe('https://educrea.edutictac.es')
+  })
+
+  it('builds the direct handoff URL with the prompt in the fragment', () => {
+    expect(eduCreaHandoffUrl('z.abc'))
+      .toBe('https://educrea.edutictac.es/eduprompt#encargo=z.abc')
+  })
+
+  it('encodes a prompt and round-trips it', async () => {
+    const text = 'Encargo de prueba con tildes: programación, evaluación y acción.'
+    const payload = await encodePromptPayload(text)
+    expect(payload).toMatch(/^[zr]\.[A-Za-z0-9_-]+$/)
+    await expect(decode(payload!)).resolves.toBe(text)
+  })
+
+  it('returns null when the payload would be too long', async () => {
+    const original = globalThis.CompressionStream
+    const text = 'x'.repeat(80_000)
+    globalThis.CompressionStream = undefined as unknown as typeof CompressionStream
+    try {
+      await expect(encodePromptPayload(text)).resolves.toBeNull()
+    } finally {
+      globalThis.CompressionStream = original
+    }
   })
 })
