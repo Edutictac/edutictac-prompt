@@ -1,5 +1,9 @@
 # Changelog
 
+## Sin publicar - Puente con EduCrea
+
+- Nuevo botón «Usar en EduCrea» en la vista previa: copia el prompt y abre la creación guiada de EduCrea para pegarlo en Instrucciones.
+- La URL de EduCrea se puede cambiar con `VITE_EDUCREA_URL`.
 
 ## 0.14.0 - Guía de ayuda
 
