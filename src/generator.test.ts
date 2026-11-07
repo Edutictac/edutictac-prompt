@@ -177,6 +177,23 @@ describe('generatePrompt', () => {
     expect(cc).toContain('Common Cartridge')
   })
 
+  it('incluye reglas GIFT para importar en Aules sin errores', () => {
+    const prompt = generatePrompt(template('gift'), {
+      topic: 'La Segunda República',
+      questionCount: '20',
+      questionTypes: 'Opción múltiple · Verdadero/Falso · Respuesta corta',
+      outputFormat: 'GIFT'
+    }, 'es')
+
+    expect(prompt).toContain('## Reglas para una importación correcta en Aules y Moodle')
+    expect(prompt).toContain('## Número de preguntas\n20')
+    expect(prompt).toContain('## Tipos de pregunta\nOpción múltiple · Verdadero/Falso · Respuesta corta')
+    expect(prompt).toContain('opción múltiple con una única respuesta correcta')
+    expect(prompt).toContain('No uses preguntas de emparejamiento con ->')
+    expect(prompt).toContain('No incluyas la revisión docente dentro del GIFT')
+    expect(prompt).toContain('## Formato de salida\nDevuelve el resultado en GIFT.')
+  })
+
   it('adapta las plantillas de imagen a la herramienta elegida', () => {
     const midjourney = generatePrompt(template('scientific-illustration'), { topic: 'la célula', aspectRatio: '16:9 horizontal', aiTool: 'Midjourney', outputFormat: 'Texto' }, 'es')
     expect(midjourney).toContain('## Herramienta de imagen: Midjourney')

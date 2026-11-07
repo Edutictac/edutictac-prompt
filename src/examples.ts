@@ -121,7 +121,7 @@ export const examples: Record<string, Example> = {
     en: { subject: 'English Language', topic: 'Irregular past tense verbs', gameItems: 'go → went\nsee → saw\nbuy → bought\nthink → thought' }
   },
   gift: {
-    options: { level: 'Bachillerato' },
+    options: { level: 'Bachillerato', questionCount: '20', questionTypes: 'Opción múltiple · Verdadero/Falso · Respuesta corta' },
     es: { subject: 'Historia de España', topic: 'La Segunda República', objectives: 'Repasar fechas, personajes y reformas principales.' },
     va: { subject: 'Història d’Espanya', topic: 'La Segona República', objectives: 'Repassar dates, personatges i reformes principals.' },
     en: { subject: 'History of Spain', topic: 'The Second Republic', objectives: 'Review key dates, figures and reforms.' }

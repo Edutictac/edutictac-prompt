@@ -28,7 +28,7 @@ export const starters: Starter[] = [
   {
     id: 'eso-cell-quiz', templateId: 'gift', icon: '☰', level: 'ESO',
     title: { es: 'Cuestionario de repaso en Aules', va: 'Qüestionari de repàs en Aules', ca: 'Qüestionari de repàs a Aules', en: 'Review quiz for Moodle' },
-    options: { level: 'ESO' },
+    options: { level: 'ESO', questionCount: '15', questionTypes: 'Opción múltiple · Verdadero/Falso · Respuesta corta' },
     es: { subject: 'Biología y Geología (1.º ESO)', topic: 'La célula: tipos, partes y funciones', objectives: 'Cuestionario de repaso de 15 preguntas, con retroalimentación en cada respuesta, para importar en Aules.' },
     va: { subject: 'Biologia i Geologia (1r d’ESO)', topic: 'La cèl·lula: tipus, parts i funcions', objectives: 'Qüestionari de repàs de 15 preguntes, amb retroacció en cada resposta, per a importar en Aules.' },
     ca: { subject: 'Biologia i Geologia (1r d’ESO)', objectives: 'Qüestionari de repàs de 15 preguntes, amb retroacció a cada resposta, per importar a Aules.' },

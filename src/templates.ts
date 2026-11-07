@@ -19,7 +19,7 @@ export const templates: PromptTemplate[] = [
   { id: 'scorm', category: 'digital', icon: '⊞', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'outputFormat',type:'select',options:['SCORM 1.2']}] },
   { id: 'html-game', category: 'digital', icon: '🎮', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'activityType',type:'multiselect',options:['Completar huecos','Memorizar y escribir','Emparejar','Ordenar','Clasificar','Opción múltiple']},{id:'gameItems',type:'textarea'},{id:'gameFeatures',type:'multiselect',options:['Niveles y trofeos','Ayuda para el alumnado','Menú docente oculto','Manual docente','Guardar sesión','Cargar contenido CSV']},{id:'outputFormat',type:'select',options:['HTML']}] },
 
-  { id: 'gift', category: 'digital', icon: '☰', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'outputFormat',type:'select',options:['GIFT']}] },
+  { id: 'gift', category: 'digital', icon: '☰', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'questionCount',type:'select',options:['10','15','20','30']},{id:'questionTypes',type:'multiselect',options:['Opción múltiple','Verdadero/Falso','Respuesta corta']},{id:'outputFormat',type:'select',options:['GIFT']}] },
   { id: 'qti', category: 'digital', icon: '◫', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'outputFormat',type:'select',options:['QTI 2.1']}] },
   { id: 'common-cartridge', category: 'digital', icon: '❏', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'topic',type:'text'},{id:'objectives',type:'textarea'},{id:'outputFormat',type:'select',options:['Common Cartridge']}] },
   { id: 'feedback', category: 'assessment', icon: '✍', fields: [{id:'level',type:'select',options:['Infantil','Primaria','ESO','Bachillerato','FP']},{id:'subject',type:'text'},{id:'task',type:'textarea'},{id:'criteria',type:'textarea'},{id:'outputFormat',type:'select',options:['Texto','Markdown']}] },
@@ -141,7 +141,7 @@ export const simpleFieldIds: Record<string, string[]> = {
   h5p: ['level', 'subject', 'topic', 'objectives', 'activityType', 'outputFormat'],
   scorm: ['level', 'subject', 'topic', 'objectives', 'outputFormat'],
   'html-game': ['level', 'subject', 'topic', 'activityType', 'gameItems', 'outputFormat'],
-  gift: ['level', 'subject', 'topic', 'objectives', 'outputFormat'],
+  gift: ['level', 'subject', 'topic', 'objectives', 'questionCount', 'questionTypes', 'outputFormat'],
   qti: ['level', 'subject', 'topic', 'objectives', 'outputFormat'],
   'common-cartridge': ['level', 'subject', 'topic', 'objectives', 'outputFormat'],
   feedback: ['level', 'subject', 'task', 'outputFormat'],
