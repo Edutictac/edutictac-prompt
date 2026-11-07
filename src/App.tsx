@@ -52,6 +52,7 @@ export default function App(){
  const [chipReady,setChipReady]=useState(false); const [central,setCentral]=useState(false); currentPromptLanguage=lang; applyPromptLanguage=setLang; currentPromptTheme=themeMode==='system'?'auto':themeMode; applyPromptTheme=(value)=>setThemeMode(value==='auto'?'system':value);
  const darkMode=themeMode==='dark'||(themeMode==='system'&&systemDark);
  useEffect(()=>{if(view==='agents')history.replaceState(null,'','#agents');else if(location.hash==='#agents'||location.hash==='#skills')history.replaceState(null,'',location.pathname+location.search+(view==='help'?'#help':''))},[view]);
+ useEffect(()=>{window.scrollTo(0,0)},[view]);
  useEffect(()=>{localStorage.setItem('edutictac-language',lang); void (async()=>{let cats=await db.categories.toArray();if(!cats.length){cats=[t.planning,t.assessment,t.activities,t.digital].map(name=>({id:uid(),name,createdAt:new Date().toISOString()}));await db.categories.bulkAdd(cats)}setCategories(cats);setSaved(await db.prompts.toArray())})()},[lang]);
  useEffect(()=>{localStorage.setItem('edutictac-theme',themeMode)},[themeMode]);
  useEffect(()=>{const media=window.matchMedia?.('(prefers-color-scheme: dark)');if(!media)return;const update=()=>setSystemDark(media.matches);media.addEventListener?.('change',update);return()=>media.removeEventListener?.('change',update)},[]);

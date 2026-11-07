@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.20.2 - Volver arriba al cambiar de sección
+
+- Al abrir cualquier pestaña (Inicio, Mi biblioteca, Agentes, Ayuda, Privacidad) o una plantilla, la página vuelve arriba en lugar de quedarse al final.
+
 ## 0.20.1 - Tema en el chip
 
 - El chip de EduTicTac también controla el tema (Auto, Claro, Oscuro) y la app lo aplica y lo guarda.
