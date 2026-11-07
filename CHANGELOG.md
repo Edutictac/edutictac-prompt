@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.19.1 - Chip de cuenta integrado
+
+- El chip de EduTicTac sigue el idioma de la app y permite cambiarlo desde su menú.
+- Los controles propios de idioma y sesión desaparecen de la cabecera cuando el chip está activo (si el chip no carga, vuelven como respaldo).
+- La sesión de la biblioteca remota de Prompt se traslada a «Mi biblioteca», separada del chip central de EduTicTac.
+- El CSS de la app ya no interfiere con el menú interno del chip.
+
 ## 0.19.0 - Puente con EduCrea, chip de cuenta y GIFT
 
 - Nuevo botón «Usar en EduCrea» en la vista previa: copia el prompt y abre la creación guiada de EduCrea para pegarlo en Instrucciones.

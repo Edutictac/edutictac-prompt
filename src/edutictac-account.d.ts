@@ -13,3 +13,9 @@ declare module 'react' {
     }
   }
 }
+
+declare global {
+  interface Window {
+    edutictacLanguage?: { languages: string[]; get: () => string; set: (value: string) => void }
+  }
+}

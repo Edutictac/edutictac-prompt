@@ -102,6 +102,8 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
     ,login: language === 'en' ? 'Sign in' : language === 'es' ? 'Iniciar sesión' : 'Inicia sessió'
     ,logout: language === 'en' ? 'Sign out' : language === 'es' ? 'Cerrar sesión' : 'Tanca la sessió'
     ,sync: language === 'en' ? 'Sync library' : language === 'es' ? 'Sincronizar biblioteca' : 'Sincronitza la biblioteca'
+    ,signedInAs: language === 'en' ? 'Library session: {name}' : language === 'es' ? 'Sesión de la biblioteca: {name}' : 'Sessió de la biblioteca: {name}'
+    ,libraryLoginHint: language === 'en' ? 'Sign in to sync your library across devices. The EduTicTac account chip is separate.' : language === 'es' ? 'Entra para sincronizar tu biblioteca entre dispositivos. El chip de EduTicTac es independiente.' : 'Entra per a sincronitzar la teua biblioteca entre dispositius. El xip d’EduTicTac és independent.'
     ,syncDownloaded: language === 'en' ? 'Your online library is ready.' : language === 'es' ? 'Tu biblioteca online ya está disponible.' : 'La teua biblioteca en línia ja està disponible.'
     ,syncUploaded: language === 'en' ? 'Local prompts uploaded to your library.' : language === 'es' ? 'Los prompts locales se han subido a tu biblioteca.' : 'Els prompts locals s’han pujat a la teua biblioteca.'
     ,syncFailed: language === 'en' ? 'The library could not be synchronized.' : language === 'es' ? 'No se ha podido sincronizar la biblioteca.' : 'No s’ha pogut sincronitzar la biblioteca.'
