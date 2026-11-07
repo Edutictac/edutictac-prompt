@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.20.0 - Sesión central de EduTicTac
+
+- La biblioteca de prompts usa la sesión central del chip de EduTicTac. El `sub` de Authentik (`hashed_user_id`) es el mismo en todos los proveedores, así que los prompts existentes conservan su propietario sin migración.
+- «Mi biblioteca» ya no pide una sesión aparte: muestra la sincronización cuando el chip tiene sesión y, si no, indica que se entre con el chip de la cabecera.
+- El chip recarga la página al entrar o salir para refrescar la sesión de la biblioteca.
+- La sesión OIDC propia de Prompt queda solo como respaldo si no hay Commons o si el servicio central no responde.
+
 ## 0.19.1 - Chip de cuenta integrado
 
 - El chip de EduTicTac sigue el idioma de la app y permite cambiarlo desde su menú.

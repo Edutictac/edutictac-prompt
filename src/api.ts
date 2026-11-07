@@ -4,7 +4,7 @@ const API_URL = (import.meta.env.VITE_PROMPT_API_URL || '').replace(/\/$/, '')
 const apiUrl = (path: string) => `${API_URL}${path}`
 
 export interface AuthUser { sub: string; name?: string; email?: string }
-export interface AuthState { authenticated: boolean; user: AuthUser | null }
+export interface AuthState { authenticated: boolean; user: AuthUser | null; central?: boolean }
 
 export async function apiRequest<T>(path: string, init?: RequestInit): Promise<T> {
   const response = await fetch(apiUrl(path), { ...init, credentials: 'include', headers: { 'Content-Type': 'application/json', ...(init?.headers || {}) } })
