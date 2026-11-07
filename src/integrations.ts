@@ -7,8 +7,9 @@ export function eduCreaNewProjectUrl(base: string = EDUCEREA_URL): string {
   return `${base.replace(/\/$/, '')}/projects?nuevo=1&desde=eduprompt`
 }
 
-export function eduCreaHandoffUrl(payload: string, base: string = EDUCEREA_URL): string {
-  return `${base.replace(/\/$/, '')}/eduprompt#encargo=${payload}`
+export function eduCreaHandoffUrl(payload: string, template = '', base: string = EDUCEREA_URL): string {
+  const suffix = template ? `&plantilla=${encodeURIComponent(template)}` : ''
+  return `${base.replace(/\/$/, '')}/eduprompt#encargo=${payload}${suffix}`
 }
 
 function base64url(bytes: Uint8Array): string {
@@ -32,7 +33,7 @@ export async function encodePromptPayload(text: string): Promise<string | null> 
   return raw.length <= MAX_HANDOFF_PAYLOAD ? raw : null
 }
 
-export async function eduCreaPromptUrl(prompt: string, base: string = EDUCEREA_URL): Promise<string | null> {
+export async function eduCreaPromptUrl(prompt: string, template = '', base: string = EDUCEREA_URL): Promise<string | null> {
   const payload = await encodePromptPayload(prompt)
-  return payload ? eduCreaHandoffUrl(payload, base) : null
+  return payload ? eduCreaHandoffUrl(payload, template, base) : null
 }

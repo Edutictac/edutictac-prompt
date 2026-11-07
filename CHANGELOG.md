@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.21.1 - Coherencia del tipo de producto
+
+- EduCrea recibe también la plantilla de EduTicTac Prompt y propone el producto equivalente: una situación de aprendizaje ya no aparece como ficha imprimible por defecto.
+
 ## 0.21.0 - Envío directo del encargo a EduCrea
 
 - «Usar en EduCrea» abre EduCrea con el encargo ya rellenado en Instrucciones, sin copiar y pegar.

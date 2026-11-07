@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { EDUCEREA_URL, eduCreaHandoffUrl, eduCreaNewProjectUrl, encodePromptPayload } from './integrations'
+import { EDUCEREA_URL, eduCreaHandoffUrl, eduCreaNewProjectUrl, eduCreaPromptUrl, encodePromptPayload } from './integrations'
 
 async function decode(payload: string): Promise<string> {
   const [kind, data] = payload.split('.', 2)
@@ -29,6 +29,17 @@ describe('EduCrea bridge', () => {
   it('builds the direct handoff URL with the prompt in the fragment', () => {
     expect(eduCreaHandoffUrl('z.abc'))
       .toBe('https://educrea.edutictac.es/eduprompt#encargo=z.abc')
+  })
+
+  it('sends the Prompt template so EduCrea can propose the matching product', () => {
+    expect(eduCreaHandoffUrl('z.abc', 'learning-situation'))
+      .toBe('https://educrea.edutictac.es/eduprompt#encargo=z.abc&plantilla=learning-situation')
+  })
+
+  it('includes the template in the direct URL', async () => {
+    const url = await eduCreaPromptUrl('Encargo de prueba', 'learning-situation')
+    expect(url).toContain('#encargo=')
+    expect(url).toContain('&plantilla=learning-situation')
   })
 
   it('encodes a prompt and round-trips it', async () => {
