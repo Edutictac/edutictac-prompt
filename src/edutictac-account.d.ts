@@ -17,5 +17,6 @@ declare module 'react' {
 declare global {
   interface Window {
     edutictacLanguage?: { languages: string[]; get: () => string; set: (value: string) => void }
+    edutictacTheme?: { read: () => string; remember: (value: string) => void }
   }
 }

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.20.1 - Tema en el chip
+
+- El chip de EduTicTac también controla el tema (Auto, Claro, Oscuro) y la app lo aplica y lo guarda.
+- El botón de tema propio se oculta cuando el chip está activo; si el chip no carga, vuelve como respaldo.
+
 ## 0.20.0 - Sesión central de EduTicTac
 
 - La biblioteca de prompts usa la sesión central del chip de EduTicTac. El `sub` de Authentik (`hashed_user_id`) es el mismo en todos los proveedores, así que los prompts existentes conservan su propietario sin migración.
