@@ -1,10 +1,11 @@
 # Changelog
 
-## Sin publicar - Puente con EduCrea y chip de cuenta
+## 0.19.0 - Puente con EduCrea, chip de cuenta y GIFT
 
 - Nuevo botón «Usar en EduCrea» en la vista previa: copia el prompt y abre la creación guiada de EduCrea para pegarlo en Instrucciones.
 - La URL de EduCrea se puede cambiar con `VITE_EDUCREA_URL`.
 - Chip de cuenta central de EduTicTac en la cabecera (se carga desde `commons.edutictac.es`); el login y el tema propios de Prompt se mantienen.
+- Plantilla GIFT: número y tipos de pregunta, y reglas para importar en Aules y Moodle sin errores.
 
 ## 0.14.0 - Guía de ayuda
 
