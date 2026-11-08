@@ -95,6 +95,7 @@ export default function App(){
         <div className="ett-footer__links">
           <a href="https://edutictac.es/">{t.home}</a>
           <a href="https://edutictac.es/privacitat.html">{t.privacy}</a>
+          <a href="https://edutictac.es/galetes.html">{t.cookies}</a>
           <a href="https://git.edutictac.es/Edutictac/edutictac-prompt">{t.source}</a>
           <a href="https://git.edutictac.es/Edutictac/edutictac-prompt/src/branch/master/LICENSE">AGPL-3.0</a>
         </div>
