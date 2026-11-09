@@ -185,7 +185,7 @@ la desaparición del aviso de 500 kB como criterio de éxito.
 - [x] Revisar ES/VA/CA/EN, móvil/escritorio, teclado, modo sin conexión, cambio de
   cuenta y actualización de la PWA desde la versión anterior.
 - [x] Actualizar README y documentación de arquitectura/sincronización.
-- [ ] Preparar versión, changelog y reversión. Publicar como tarea separada,
+- [x] Preparar versión, changelog y reversión. Publicar como tarea separada,
   siguiendo la memoria operativa y `scripts/publish-pages.sh`; verificar después
   la versión del service worker y un recorrido real de biblioteca.
 
@@ -213,7 +213,7 @@ resolverlo antes de seguir.
 | 4. Formulario | Hecho | `b8cddb5`; 206 pruebas |
 | 5. Generador y textos | Hecho | `8ba7da6`, `d6c70be`, `bc6cb58`; 210 pruebas |
 | 6. Agentes, Skills y carga | Hecho | `e027b52`, `398f6f0`; 210 pruebas |
-| 7. Verificación y publicación | Preparado | 212 pruebas; 0.24.0; publicación pendiente |
+| 7. Verificación y publicación | Hecho | `b19b789`; pages `e7d2a66`; 0.24.0 verificada |
 
 ## Registro de ejecución
 
@@ -383,3 +383,16 @@ resolverlo antes de seguir.
 - Pendiente antes de publicar: comprobación manual de teclado y prueba real de
   actualización de la PWA 0.23.3→0.24.0, que solo puede hacerse tras desplegar.
   La publicación se hará como tarea separada.
+
+### Publicación de 0.24.0 (2026-11-09)
+
+- Rama `refactor/estructura` fusionada en `master` (fast-forward) y publicada
+  como **0.24.0**. Commit de publicación `b19b789`; rama `pages` `e7d2a66`.
+- Verificación en producción: index HTTP 200, `sw.js` =
+  `edutictac-prompt-v0.24.0` y caché
+  `edutictac-prompt-v0.24.0-precache-v2`. Recorrido real en móvil 390:
+  crear, generar, guardar, reabrir, actualizar y comprobar una sola tarjeta en
+  la biblioteca; escritorio 1440 sin desbordamiento; recarga sin red correcta.
+- No se pudo reproducir la actualización desde 0.23.3 una vez desplegada la
+  0.24.0; el mecanismo de aviso y el registro del service worker no cambiaron.
+  Queda como comprobación manual para la próxima publicación.
