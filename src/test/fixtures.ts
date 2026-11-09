@@ -4,6 +4,7 @@ import type { Skill, SkillRevision } from '../skills/types'
 import { buildAgentConfiguration, defaultAgentDraft } from '../skills/agents'
 import { builtinSkills } from '../skills/seeds'
 import type { PromptDatabase } from '../db'
+import { LOCAL_OWNER } from '../prompts/repository'
 
 // Datos ficticios para las pruebas de comportamiento. Se cargan siempre en la
 // base IndexedDB simulada de cada archivo de test (fake-indexeddb), nunca en la
@@ -32,7 +33,7 @@ export function makePrompt(overrides: Partial<SavedPrompt> = {}): SavedPrompt {
     createdAt: FIXTURE_DATE,
     updatedAt: FIXTURE_DATE,
     syncStatus: 'local',
-    ownerId: FIXTURE_OWNER,
+    ownerId: LOCAL_OWNER,
     ...overrides,
   }
 }
@@ -41,7 +42,7 @@ export function makeAgent(overrides: Partial<SavedAgent> = {}): SavedAgent {
   const draft = { ...defaultAgentDraft('es'), name: 'Agente de prueba', purpose: 'Preparar una actividad de prueba.' }
   return {
     id: crypto.randomUUID(),
-    ownerId: FIXTURE_OWNER,
+    ownerId: LOCAL_OWNER,
     draft,
     configuration: buildAgentConfiguration(draft),
     revision: 1,
@@ -56,7 +57,7 @@ export function makeSkill(overrides: Partial<Skill> = {}): Skill {
   return {
     ...base,
     id: crypto.randomUUID(),
-    ownerId: FIXTURE_OWNER,
+    ownerId: LOCAL_OWNER,
     source: 'personal',
     status: 'ready',
     visibility: 'private',

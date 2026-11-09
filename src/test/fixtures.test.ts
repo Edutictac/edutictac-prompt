@@ -3,6 +3,7 @@ import 'fake-indexeddb/auto'
 import { afterEach, describe, expect, it } from 'vitest'
 import { db } from '../db'
 import { FIXTURE_OWNER, makePrompt, seedFixtures } from './fixtures'
+import { LOCAL_OWNER } from '../prompts/repository'
 
 afterEach(async () => {
   await Promise.all([
@@ -26,13 +27,13 @@ describe('datos ficticios de la base de prueba', () => {
     expect(await db.skills.count()).toBe(1)
     expect(await db.skillRevisions.count()).toBe(1)
 
-    expect((await db.prompts.get(fixtures.prompt.id))?.ownerId).toBe(FIXTURE_OWNER)
+    expect((await db.prompts.get(fixtures.prompt.id))?.ownerId).toBe(LOCAL_OWNER)
     expect((await db.prompts.get(fixtures.oldPrompt.id))?.values).toBeUndefined()
     expect((await db.agentRevisions.toArray())[0].snapshot.id).toBe(fixtures.agent.id)
   })
 
   it('permite crear prompts con propietario y estado distintos', async () => {
-    const synced = makePrompt({ syncStatus: 'synced', remoteId: 'remote-1', version: 4 })
+    const synced = makePrompt({ syncStatus: 'synced', remoteId: 'remote-1', version: 4, ownerId: FIXTURE_OWNER })
     const local = makePrompt({ syncStatus: 'local' })
 
     expect(synced.remoteId).toBe('remote-1')
