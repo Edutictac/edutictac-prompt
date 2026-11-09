@@ -148,14 +148,14 @@ seleccionados. Revisar teclado y pantallas de 390 y 1440 px.
 
 ## Paso 5 — Organizar el generador y sus textos
 
-- [ ] Conservar `generatePrompt(template, values, language)` como entrada pública.
-- [ ] Separar diccionarios, reglas de salida y construcción de bloques en
+- [x] Conservar `generatePrompt(template, values, language)` como entrada pública.
+- [x] Separar diccionarios, reglas de salida y construcción de bloques en
   `src/prompts/generator/`, evitando dependencias de React o de la base de datos.
-- [ ] Agrupar las instrucciones específicas por familias de plantillas cuando
+- [x] Agrupar las instrucciones específicas por familias de plantillas cuando
   compartan comportamiento real; evitar una jerarquía de clases por plantilla.
-- [ ] Revisar claves duplicadas entre etiquetas de campos, opciones y textos del
+- [x] Revisar claves duplicadas entre etiquetas de campos, opciones y textos del
   generador. Añadir comprobaciones de integridad de traducciones donde falten.
-- [ ] Extraer primero conservando las salidas exactas. Las mejoras del contenido
+- [x] Extraer primero conservando las salidas exactas. Las mejoras del contenido
   educativo se abordan después, con cambios explícitos de resultados esperados.
 
 **Terminado cuando:** pasan las comparaciones de salida y añadir una plantilla
@@ -211,7 +211,7 @@ resolverlo antes de seguir.
 | 2. Biblioteca y sincronización | Hecho | `b921c59`, `c38f95c`, `80b7714`; 193 pruebas |
 | 3. Aplicación y pantallas | Hecho | `ef6da2e`, `6449672`; 202 pruebas |
 | 4. Formulario | Hecho | `b8cddb5`; 206 pruebas |
-| 5. Generador y textos | Pendiente | |
+| 5. Generador y textos | Hecho | `8ba7da6`, `d6c70be`, `bc6cb58`; 210 pruebas |
 | 6. Agentes, Skills y carga | Pendiente | |
 | 7. Verificación y publicación | Pendiente | |
 
@@ -312,4 +312,23 @@ resolverlo antes de seguir.
   paso, y comprobación de que una selección con « · » sigue marcada al cambiar
   entre Paso a paso y Avanzado.
 - Verificación: lint, format:check, **206 pruebas en 37 archivos** y build
+  correctos. Sin publicar.
+
+### Paso 5 — Generador y textos (2026-11-09)
+
+- `8ba7da6`: referencia completa de salidas con 352 hashes (todas las
+  plantillas × 4 idiomas × variante vacía/ejemplo) en
+  `src/prompts/generator/outputs.golden.ts`, además de las 16 instantáneas ya
+  existentes. Sirve de red de seguridad para el refactor.
+- `d6c70be`: `src/generator.ts` queda como reexportación de una línea.
+  `generatePrompt` se mantiene como entrada pública en
+  `src/prompts/generator/index.ts`; diccionarios en `texts.ts`, lectura de
+  valores y currículo en `values.ts`, roles en `roles.ts`, encargos por
+  plantilla en `tasks.ts` y formatos de salida en `formats.ts`. Sin dependencias
+  de React ni de Dexie.
+- `bc6cb58`: comprobaciones de integridad de los diccionarios en los cuatro
+  idiomas (mismas claves, listas con la misma estructura y tipos de revisión
+  válidos).
+- Las salidas no cambian: pasan los 352 hashes y las 16 instantáneas.
+- Verificación: lint, format:check, **210 pruebas en 39 archivos** y build
   correctos. Sin publicar.
