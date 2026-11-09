@@ -118,14 +118,14 @@ antes de ejecutarla; no incluirla como efecto secundario de una extracción.
 
 ## Paso 3 — Separar la aplicación y las pantallas
 
-- [ ] Extraer cabecera, pie, catálogo, biblioteca, ayuda y diálogo de guardado a
+- [x] Extraer cabecera, pie, catálogo, biblioteca, ayuda y diálogo de guardado a
   componentes con contratos pequeños.
-- [ ] Extraer preferencias de idioma/tema y puente con el chip central a hooks
+- [x] Extraer preferencias de idioma/tema y puente con el chip central a hooks
   propios. Eliminar escrituras duplicadas de preferencias solo en un cambio
   funcional separado.
-- [ ] Centralizar el ciclo de registro y limpieza de eventos del chip y la PWA;
+- [x] Centralizar el ciclo de registro y limpieza de eventos del chip y la PWA;
   revisar también las variables globales que conectan cuenta y aplicación.
-- [ ] Mantener la navegación actual y los enlaces `#agents`, `#skills` y `#help`.
+- [x] Mantener la navegación actual y los enlaces `#agents`, `#skills` y `#help`.
 
 **Terminado cuando:** `App.tsx` coordina vistas y estado compartido, sin contener
 la implementación de cada pantalla. Probar navegación, idioma, tema, chip
@@ -209,7 +209,7 @@ resolverlo antes de seguir.
 | 0. Base y pruebas de comportamiento | Hecho | `75bccf1`; 174 pruebas; build OK |
 | 1. Formato, lint y documentación | Hecho | `ceac32f`, `899f339`, `9f00f74`; lint y build OK |
 | 2. Biblioteca y sincronización | Hecho | `b921c59`, `c38f95c`, `80b7714`; 193 pruebas |
-| 3. Aplicación y pantallas | Pendiente | |
+| 3. Aplicación y pantallas | Hecho | `ef6da2e`, `6449672`; 202 pruebas |
 | 4. Formulario | Pendiente | |
 | 5. Generador y textos | Pendiente | |
 | 6. Agentes, Skills y carga | Pendiente | |
@@ -280,3 +280,20 @@ resolverlo antes de seguir.
   cambio de cuenta, cierre de sesión, anónimos y archivo inválido sin escrituras.
 - Verificación: `npm run lint`, `npm run format:check`, **193 pruebas en 32
   archivos** y `npm run build` correctos. Sin publicar.
+
+### Paso 3 — Aplicación y pantallas (2026-11-09)
+
+- `ef6da2e`: extraídos a `src/components/` la cabecera, el pie, la portada con
+  catálogo y casos de inicio, la biblioteca, la ayuda, el diálogo de guardado y
+  los botones de IA. `App.tsx` baja de 1641 a 1068 líneas y coordina vistas.
+- Hooks en `src/app/`: `usePreferences` (idioma, tema, puentes del chip),
+  `useAuth` (cuenta y sesión central), `useAccountChip` (detección y limpieza del
+  chip) y `usePwaUpdate` (aviso y aplicación de la actualización). Las variables
+  globales del puente quedan encapsuladas en el módulo de preferencias.
+- `6449672`: eliminada la escritura duplicada de la preferencia de tema; queda
+  solo el efecto que distingue entre tema explícito y automático.
+- Navegación y enlaces `#agents`, `#skills` y `#help` sin cambios.
+- Pruebas nuevas: navegación, apertura desde `#help`, idioma/tema en la cabecera
+  propia, chip ausente/presente, eventos del chip y aviso de actualización.
+- Verificación: lint, format:check, **202 pruebas en 36 archivos** y build
+  correctos. Sin publicar.
