@@ -40,6 +40,7 @@ El plan de refactor gradual y su seguimiento están en [docs/PLAN-REFACTOR.md](d
 - La PWA funciona localment amb IndexedDB i continua disponible sense compte ni connexió.
 - Authentik està integrat mitjançant OIDC + PKCE. L’inici de sessió es fa des de `id.edutictac.es`.
 - La biblioteca remota és privada per usuari i està disponible en [prompts.edutictac.es](https://prompts.edutictac.es). La sincronització és automàtica en guardar, en iniciar sessió i en recuperar la connexió; el botó **Sincronitzar biblioteca** força la sincronització.
+- La biblioteca mostra només els prompts de la cuenta actual. Els prompts anònims queden en el dispositiu i no es pugen; els antics sense propietari es tracten com anònims i no s’adopten automàticament. Detalls a [docs/SINCRONIZACION.md](docs/SINCRONIZACION.md).
 - El backend és el repositori [`edutictac-prompt-api`](https://github.com/Edutictac/edutictac-prompt-api), amb còpia en Forgejo. Utilitza SQLite, cookies de sessió signades i el nucli compartit `edutictac-community`.
 - El catàleg només mostra categories que tenen ferramentes associades; les categories buides no apareixen.
 - Proves automatitzades: **174** en la PWA i **8** en l’API.

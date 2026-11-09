@@ -755,6 +755,14 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
         : language === 'es'
           ? 'No se ha podido sincronizar la biblioteca.'
           : 'No s’ha pogut sincronitzar la biblioteca.',
+    deleteFailed:
+      language === 'en'
+        ? 'The prompt could not be deleted on the server. It is kept so you can retry.'
+        : language === 'es'
+          ? 'No se ha podido borrar en el servidor. El prompt se conserva para reintentarlo.'
+          : language === 'ca'
+            ? 'No s’ha pogut borrar al servidor. El prompt es conserva per a reintentar-ho.'
+            : 'No s’ha pogut borrar en el servidor. El prompt es conserva per a reintentar-ho.',
     formMode: language === 'en' ? 'Form mode' : language === 'es' ? 'Modo del formulario' : 'Mode del formulari',
     simpleMode: language === 'en' ? 'Simple' : language === 'es' ? 'Sencillo' : 'Senzill',
     advancedMode: language === 'en' ? 'Advanced' : language === 'es' ? 'Avanzado' : 'Avançat',

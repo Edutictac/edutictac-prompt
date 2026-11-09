@@ -1,5 +1,4 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
-import { db, uid } from './db'
 import { templates, categoryIds, simpleFieldIds } from './templates'
 import { suggestionsFor } from './suggestions'
 import { detectLanguage, translations } from './locales'
@@ -11,15 +10,16 @@ import {
   valencianProfiles,
 } from './curriculum'
 import { guidedSteps, type GuidedStep } from './guided'
-import type { Category, ExportData, Language, PromptTemplate, SavedPrompt, TemplateField } from './types'
+import type { Category, Language, PromptTemplate, SavedPrompt, TemplateField } from './types'
 import { updateSW } from './pwa'
-import { authMe, deleteRemotePrompt, getRemotePrompts, login, logout, putRemotePrompt, type AuthUser } from './api'
+import { authMe, login, logout, type AuthUser } from './api'
 import { localizeOption } from './optionLocales'
 import { exampleValues } from './examples'
 import { starters, starterTitle, starterValues, type Starter } from './starters'
 import { aiTargetUrl, followUps, orderedAiTargets, preferredAiTarget, rememberAiTarget } from './followUps'
 import { helpGuide } from './help'
 import { EDUCEREA_URL, eduCreaNewProjectUrl, eduCreaPromptUrl } from './integrations'
+import { usePromptLibrary, type PromptLibraryEvent } from './prompts/usePromptLibrary'
 const AgentsView = lazy(() => import('./agents/AgentsView'))
 
 let currentPromptLanguage: Language = 'es'
@@ -93,6 +93,16 @@ const templateNameKeys: Record<string, string> = {
   'historical-interview': 'templateHistoricalInterview',
   'code-coach': 'templateCodeCoach',
   free: 'templateFree',
+}
+const eventNoticeKeys: Record<PromptLibraryEvent, string> = {
+  saved: 'savedOk',
+  updated: 'updatedOk',
+  deleteFailed: 'deleteFailed',
+  syncDownloaded: 'syncDownloaded',
+  syncUploaded: 'syncUploaded',
+  syncFailed: 'syncFailed',
+  importOk: 'importOk',
+  invalidFile: 'invalidFile',
 }
 const fieldNameKeys: Record<string, string> = {
   level: 'level',
@@ -208,19 +218,22 @@ export default function App() {
   const [selected, setSelected] = useState(templates[0])
   const [values, setValues] = useState<Record<string, string>>(initialValues(templates[0].id))
   const [prompt, setPrompt] = useState('')
-  const [saved, setSaved] = useState<SavedPrompt[]>([])
-  const [categories, setCategories] = useState<Category[]>([])
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('all')
   const [modal, setModal] = useState(false)
   const [notice, setNotice] = useState('')
   const [updateAvailable, setUpdateAvailable] = useState(false)
   const [user, setUser] = useState<AuthUser | null>(null)
-  const [syncBusy, setSyncBusy] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
-  const editing = saved.find((p) => p.id === editingId)
   const [chipReady, setChipReady] = useState(false)
   const [central, setCentral] = useState(false)
+  const library = usePromptLibrary({
+    user,
+    defaultCategories: [t.planning, t.assessment, t.activities, t.digital],
+    onEvent: (event) => setNotice(t[eventNoticeKeys[event]]),
+  })
+  const { saved, categories, syncBusy } = library
+  const editing = saved.find((p) => p.id === editingId)
   currentPromptLanguage = lang
   applyPromptLanguage = setLang
   currentPromptTheme = themeMode === 'system' ? 'auto' : themeMode
@@ -234,22 +247,6 @@ export default function App() {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [view])
-  useEffect(() => {
-    localStorage.setItem('edutictac-language', lang)
-    void (async () => {
-      let cats = await db.categories.toArray()
-      if (!cats.length) {
-        cats = [t.planning, t.assessment, t.activities, t.digital].map((name) => ({
-          id: uid(),
-          name,
-          createdAt: new Date().toISOString(),
-        }))
-        await db.categories.bulkAdd(cats)
-      }
-      setCategories(cats)
-      setSaved(await db.prompts.toArray())
-    })()
-  }, [lang])
   useEffect(() => {
     localStorage.setItem('edutictac-theme', themeMode)
   }, [themeMode])
@@ -276,13 +273,6 @@ export default function App() {
         setCentral(false)
       })
   }, [])
-  useEffect(() => {
-    if (!user) return
-    void syncFromRemote().then(pushPending)
-    const retry = () => void pushPending()
-    window.addEventListener('online', retry)
-    return () => window.removeEventListener('online', retry)
-  }, [user])
   useEffect(() => {
     currentPromptLanguage = lang
     try {
@@ -418,143 +408,34 @@ export default function App() {
     notes: string
     favorite: boolean
   }) {
-    let categoryId = meta.categoryId
-    const categoryName = meta.categoryName?.trim()
-    if (categoryName) {
-      const existing = categories.find((item) => item.name.toLocaleLowerCase() === categoryName.toLocaleLowerCase())
-      if (existing) categoryId = existing.id
-      else {
-        const created: Category = { id: uid(), name: categoryName, createdAt: new Date().toISOString() }
-        await db.categories.add(created)
-        setCategories((items) => [...items, created])
-        categoryId = created.id
-      }
-    }
-    const now = new Date().toISOString()
-    const item: SavedPrompt = {
-      id: uid(),
+    const created = await library.create({
       title: meta.title || templateName(selected.id),
       prompt,
       templateId: selected.id,
       values,
       language: lang,
-      categoryId,
+      categoryId: meta.categoryId,
+      categoryName: meta.categoryName,
       tags: meta.tags,
       notes: meta.notes,
       favorite: meta.favorite,
-      createdAt: now,
-      updatedAt: now,
-      version: 1,
-      syncStatus: 'local',
-    }
-    await db.prompts.add(item)
-    setSaved((x) => [item, ...x])
-    setEditingId(item.id)
+    })
+    setEditingId(created.id)
     setModal(false)
-    setNotice(t.savedOk)
-    void pushPending()
   }
   // Sobrescribe el prompt de la biblioteca que se está editando en lugar de crear una copia.
   async function update() {
     if (!editing) return
-    const item: SavedPrompt = {
-      ...editing,
-      prompt,
-      templateId: selected.id,
-      values,
-      language: lang,
-      updatedAt: new Date().toISOString(),
-      version: editing.version + 1,
-      syncStatus: editing.remoteId ? 'modified' : 'local',
-    }
-    await db.prompts.put(item)
-    setSaved((x) => x.map((p) => (p.id === item.id ? item : p)))
-    setNotice(t.updatedOk)
-    void pushPending()
+    await library.update(editing, { prompt, templateId: selected.id, values, language: lang })
   }
   async function remove(id: string) {
     const item = saved.find((p) => p.id === id)
-    if (user && item?.remoteId)
-      try {
-        await deleteRemotePrompt(item.remoteId)
-      } catch {
-        /* Keep the local copy if the network is unavailable. */
-      }
-    await db.prompts.delete(id)
-    setSaved((x) => x.filter((p) => p.id !== id))
-    if (id === editingId) setEditingId(null)
+    if (!item) return
+    const removed = await library.remove(item)
+    if (removed && id === editingId) setEditingId(null)
   }
   async function duplicate(item: SavedPrompt) {
-    const copy = {
-      ...item,
-      id: uid(),
-      remoteId: undefined,
-      ownerId: undefined,
-      syncStatus: 'local' as const,
-      title: `${item.title}${t.duplicateSuffix}`,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      version: 1,
-    }
-    await db.prompts.add(copy)
-    setSaved((x) => [copy, ...x])
-    void pushPending()
-  }
-  async function syncFromRemote() {
-    if (!user) return
-    setSyncBusy(true)
-    try {
-      const remote = (await getRemotePrompts()).prompts
-      for (const item of remote) {
-        const local = await db.prompts.get(item.id)
-        if (
-          !local ||
-          local.syncStatus === 'synced' ||
-          (local.syncStatus !== 'modified' && item.updatedAt >= local.updatedAt)
-        )
-          await db.prompts.put({ ...item, syncStatus: 'synced' })
-      }
-      setSaved(await db.prompts.toArray())
-      setNotice(t.syncDownloaded)
-    } catch {
-      setNotice(t.syncFailed)
-    } finally {
-      setSyncBusy(false)
-    }
-  }
-  // Sube en segundo plano los prompts pendientes; si falla, quedan como locales y el botón «Sincronizar» sigue disponible.
-  async function pushPending() {
-    if (!user) return
-    try {
-      let changed = false
-      for (const item of await db.prompts.toArray()) {
-        if (item.syncStatus === 'local' || item.syncStatus === 'modified' || !item.remoteId) {
-          await db.prompts.put(await putRemotePrompt(item))
-          changed = true
-        }
-      }
-      if (changed) setSaved(await db.prompts.toArray())
-    } catch {
-      /* Sin red: se reintenta al volver la conexión o al guardar de nuevo. */
-    }
-  }
-  async function syncLocal() {
-    if (!user) return
-    setSyncBusy(true)
-    try {
-      for (const item of await db.prompts.toArray()) {
-        if (item.syncStatus === 'local' || item.syncStatus === 'modified' || !item.remoteId) {
-          const synced = await putRemotePrompt(item)
-          await db.prompts.put(synced)
-        }
-      }
-      setSaved(await db.prompts.toArray())
-      setNotice(t.syncUploaded)
-    } catch {
-      setNotice(t.syncFailed)
-    } finally {
-      setSyncBusy(false)
-    }
+    await library.duplicate(item, t.duplicateSuffix)
   }
   function download(name: string, data: string, type = 'application/json') {
     const a = document.createElement('a')
@@ -563,35 +444,11 @@ export default function App() {
     a.click()
     URL.revokeObjectURL(a.href)
   }
-  async function exportAll() {
-    const data: ExportData = {
-      format: 'edutictac-prompts',
-      version: 1,
-      exportedAt: new Date().toISOString(),
-      categories,
-      tags: [...new Set(saved.flatMap((x) => x.tags))],
-      prompts: saved,
-    }
-    download('edutictac-prompts.json', JSON.stringify(data, null, 2))
+  function exportAll() {
+    download('edutictac-prompts.json', JSON.stringify(library.exportData(), null, 2))
   }
   function importFile(file: File) {
-    const reader = new FileReader()
-    reader.onload = async () => {
-      try {
-        const data = JSON.parse(String(reader.result)) as ExportData
-        if (data.format !== 'edutictac-prompts' || data.version !== 1 || !Array.isArray(data.prompts))
-          throw new Error('invalid')
-        for (const c of data.categories || []) if (!(await db.categories.get(c.id))) await db.categories.add(c)
-        for (const p of data.prompts) if (!(await db.prompts.get(p.id))) await db.prompts.add(p)
-        setSaved(await db.prompts.toArray())
-        setCategories(await db.categories.toArray())
-        setNotice(t.importOk)
-        void pushPending()
-      } catch {
-        setNotice(t.invalidFile)
-      }
-    }
-    reader.readAsText(file)
+    void library.importFile(file)
   }
   return (
     <div className="app" data-theme={darkMode ? 'dark' : 'light'}>
@@ -613,7 +470,7 @@ export default function App() {
             <>
               {user ? (
                 <>
-                  <button className="account-button" onClick={() => void syncLocal()} disabled={syncBusy}>
+                  <button className="account-button" onClick={() => void library.syncLocal()} disabled={syncBusy}>
                     {syncBusy ? '…' : t.sync}
                   </button>
                   <button className="account-button" onClick={logout}>
@@ -765,7 +622,7 @@ export default function App() {
           copyPrompt={copyPrompt}
           user={user}
           syncBusy={syncBusy}
-          onSync={syncLocal}
+          onSync={library.syncLocal}
           onLogin={login}
           central={central}
         />
@@ -785,25 +642,15 @@ export default function App() {
             prompts={saved}
             copy={copyPrompt}
             onSaveResult={async (title, text, language) => {
-              const now = new Date().toISOString()
-              const item: SavedPrompt = {
-                id: uid(),
+              await library.create({
                 title,
                 prompt: text,
                 templateId: 'free',
                 language,
                 tags: ['skill-result'],
+                notes: '',
                 favorite: false,
-                version: 1,
-                createdAt: now,
-                updatedAt: now,
-                syncStatus: 'local',
-                ownerId: user?.sub,
-              }
-              await db.prompts.add(item)
-              setSaved((x) => [item, ...x])
-              setNotice(t.savedOk)
-              void pushPending()
+              })
             }}
           />
         </Suspense>
