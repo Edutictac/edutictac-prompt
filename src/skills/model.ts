@@ -38,6 +38,7 @@ export function validateSlug(value: unknown): asserts value is string {
     fail('invalid', 'slug')
 }
 const text = (v: unknown, field: string, max: number, required = false): string => {
+  // eslint-disable-next-line no-control-regex -- Se rechaza el carácter nulo a propósito.
   if (typeof v !== 'string' || v.length > max || (required && !v.trim()) || /\u0000/.test(v)) fail('invalid', field)
   return v as string
 }

@@ -230,6 +230,7 @@ export function buildAgentConfiguration(draft: AgentDraft, skill?: Skill): Agent
     if (
       typeof value !== 'string' ||
       (['name', 'description', 'purpose', 'audience', 'role'].includes(key) && !value.trim()) ||
+      // eslint-disable-next-line no-control-regex -- Se rechaza el carácter nulo a propósito.
       /\u0000/.test(value)
     )
       fail('invalid', key)

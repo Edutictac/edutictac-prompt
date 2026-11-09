@@ -287,7 +287,9 @@ export default function App() {
     currentPromptLanguage = lang
     try {
       localStorage.setItem('edutictac-language', lang)
-    } catch {}
+    } catch {
+      /* La preferencia de idioma es opcional; la aplicación sigue funcionando. */
+    }
     document.documentElement.lang = lang === 'ca-valencia' ? 'ca-ES-valencia' : lang
     window.dispatchEvent(
       new CustomEvent('edutictac:langchange', { detail: { lang: lang === 'ca-valencia' ? 'va' : lang } }),
@@ -314,7 +316,9 @@ export default function App() {
           if (check() || ++tries >= 50) window.clearInterval(timer)
         }, 100)
       })
-      .catch(() => {})
+      .catch(() => {
+        /* El chip de cuenta es opcional; si no carga, se usa la cabecera propia. */
+      })
     return () => {
       cancelled = true
       window.clearInterval(timer)
@@ -327,7 +331,9 @@ export default function App() {
     try {
       if (themeMode === 'system') localStorage.removeItem('edutictac-theme')
       else localStorage.setItem('edutictac-theme', themeMode)
-    } catch {}
+    } catch {
+      /* La preferencia de tema es opcional; la aplicación sigue funcionando. */
+    }
     window.dispatchEvent(
       new CustomEvent('edutictac:themechange', { detail: { preference: themeMode === 'system' ? 'auto' : themeMode } }),
     )
@@ -399,7 +405,7 @@ export default function App() {
     try {
       copied = document.execCommand('copy')
     } catch {
-      copied = false
+      /* El comando antiguo no está disponible: se mantiene el valor inicial. */
     }
     document.body.removeChild(area)
     return copied
@@ -749,14 +755,12 @@ export default function App() {
         <Library
           t={t}
           saved={saved}
-          categories={categories}
           search={search}
           setSearch={setSearch}
           remove={remove}
           duplicate={duplicate}
           exportAll={exportAll}
           importFile={importFile}
-          choose={choose}
           openSavedPrompt={openSavedPrompt}
           copyPrompt={copyPrompt}
           user={user}
@@ -1088,7 +1092,9 @@ function CreateView({
     if (win) {
       try {
         win.opener = null
-      } catch {}
+      } catch {
+        /* Algunos navegadores no permiten modificar opener. */
+      }
     }
     const url = await eduCreaPromptUrl(prompt, selected.id, EDUCEREA_URL, { language, level: values.level })
     if (url && win) {
@@ -1096,12 +1102,16 @@ function CreateView({
         win.location.replace(url)
         setCopyState(t.useInEduCreaOpened)
         return
-      } catch {}
+      } catch {
+        /* Si no se puede abrir con el encargo, se copia al portapapeles. */
+      }
     }
     if (win) {
       try {
         win.close()
-      } catch {}
+      } catch {
+        /* La ventana pudo cerrarse ya. */
+      }
     }
     window.open(eduCreaNewProjectUrl(), '_blank', 'noopener')
     const copied = await copyPrompt(prompt)
@@ -1438,14 +1448,12 @@ function CurriculumElementsSelector({
 function Library({
   t,
   saved,
-  categories,
   search,
   setSearch,
   remove,
   duplicate,
   exportAll,
   importFile,
-  choose,
   openSavedPrompt,
   copyPrompt,
   user,
@@ -1456,14 +1464,12 @@ function Library({
 }: {
   t: Record<string, string>
   saved: SavedPrompt[]
-  categories: Category[]
   search: string
   setSearch: (v: string) => void
   remove: (id: string) => void
   duplicate: (p: SavedPrompt) => void
   exportAll: () => void
   importFile: (f: File) => void
-  choose: (id: string) => void
   openSavedPrompt: (p: SavedPrompt) => void
   copyPrompt: (text: string) => Promise<boolean>
   user: AuthUser | null

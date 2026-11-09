@@ -75,6 +75,7 @@ function safePath(path: string) {
     path.startsWith('/') ||
     path.includes('\\') ||
     path.split('/').some((s) => s === '.' || s === '..' || !s) ||
+    // eslint-disable-next-line no-control-regex -- Se rechazan caracteres de control y rutas ambiguas a propósito.
     /[\u0000-\u001f\u007f:%]/.test(path)
   )
     fail('unsafe')

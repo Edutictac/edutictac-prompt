@@ -58,6 +58,7 @@ export function generateGift(questions: GiftQuestion[]): string {
           !Number.isInteger(q.correct) ||
           q.correct < 0 ||
           q.correct >= q.options.length ||
+          // eslint-disable-next-line no-control-regex -- GIFT rechaza caracteres de control a propósito.
           [q.title, q.question, q.feedback, ...q.options].some((v) => v.length > 10000 || /[\u0000-\u0008]/.test(v))
         )
           fail('invalid', 'gift')
