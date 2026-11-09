@@ -12,9 +12,9 @@ comportamiento.
 Repositorio activo: `~/github/Edutictac/edutictac-prompt`. La copia
 `~/web/EduTicTacPrompt` no es la base de este trabajo.
 
-La sesión del CEIP Montgó del 9 de noviembre utiliza la versión publicada.
-Iniciar este trabajo después de la sesión, en una rama `refactor/estructura`,
-sin publicar cada extracción por separado.
+Antes de cambiar la interfaz, comprobar que no hay ninguna formación o
+comunicación en curso que use la versión publicada. Trabajar en una rama
+`refactor/estructura`, sin publicar cada extracción por separado.
 
 ## Diagnóstico comprobado
 
