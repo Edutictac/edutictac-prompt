@@ -11,13 +11,13 @@ import { AppHeader } from './components/AppHeader'
 import { AppFooter } from './components/AppFooter'
 import { HomeView } from './components/HomeView'
 import { Library } from './components/Library'
-import { HelpView } from './components/HelpView'
 import { SaveModal } from './components/SaveModal'
 import { CreateView } from './prompts/form/CreateView'
 import { getTemplateName } from './prompts/form/labels'
 import { usePromptDraft } from './prompts/form/usePromptDraft'
 import type { Starter } from './starters'
 const AgentsView = lazy(() => import('./agents/AgentsView'))
+const HelpView = lazy(() => import('./components/HelpView').then((module) => ({ default: module.HelpView })))
 const eventNoticeKeys: Record<PromptLibraryEvent, string> = {
   saved: 'savedOk',
   updated: 'updatedOk',
@@ -270,7 +270,17 @@ export default function App() {
           />
         </Suspense>
       )}
-      {view === 'help' && <HelpView t={t} language={lang} />}
+      {view === 'help' && (
+        <Suspense
+          fallback={
+            <main className="page" aria-busy="true">
+              {t.help}…
+            </main>
+          }
+        >
+          <HelpView t={t} language={lang} />
+        </Suspense>
+      )}
       {view === 'privacy' && (
         <main className="page">
           <p className="eyebrow">{t.privacy}</p>

@@ -33,17 +33,17 @@ describe('estructura de la aplicación', () => {
     await user.click(screen.getByRole('button', { name: 'Mi biblioteca' }))
     expect(screen.getByRole('heading', { name: 'Mi biblioteca', level: 1 })).toBeTruthy()
     await user.click(screen.getByRole('button', { name: 'Ayuda' }))
-    expect(screen.getByRole('heading', { name: 'Guía de uso', level: 1 })).toBeTruthy()
+    expect(await screen.findByRole('heading', { name: 'Guía de uso', level: 1 })).toBeTruthy()
     await user.click(screen.getByRole('button', { name: 'Privacidad' }))
     expect(screen.getByRole('heading', { name: 'Privacidad y uso responsable', level: 1 })).toBeTruthy()
     await user.click(screen.getByRole('button', { name: 'Inicio' }))
     expect(screen.getByRole('heading', { name: /Crea mejores prompts/ })).toBeTruthy()
   })
 
-  it('abre la ayuda directamente desde #help', () => {
+  it('abre la ayuda directamente desde #help', async () => {
     history.replaceState(null, '', '#help')
     render(<App />)
-    expect(screen.getByRole('heading', { name: 'Guía de uso', level: 1 })).toBeTruthy()
+    expect(await screen.findByRole('heading', { name: 'Guía de uso', level: 1 })).toBeTruthy()
   })
 
   it('usa la cabecera propia si el chip no está disponible y cambia idioma y tema', async () => {
