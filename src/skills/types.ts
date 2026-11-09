@@ -12,23 +12,8 @@ export const categories = [
   'other',
 ] as const
 export type SkillCategory = (typeof categories)[number]
-export const stages = [
-  'all',
-  'infant',
-  'primary',
-  'secondary',
-  'bach',
-  'fp',
-  'adult',
-] as const
-export const parameterTypes = [
-  'text',
-  'textarea',
-  'number',
-  'select',
-  'multiselect',
-  'boolean',
-] as const
+export const stages = ['all', 'infant', 'primary', 'secondary', 'bach', 'fp', 'adult'] as const
+export const parameterTypes = ['text', 'textarea', 'number', 'select', 'multiselect', 'boolean'] as const
 export type Value = string | number | boolean | string[]
 export interface Parameter {
   id: string

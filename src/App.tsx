@@ -1,5 +1,17 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
-import { db, uid } from './db'; import { templates, categoryIds, simpleFieldIds } from './templates'; import { suggestionsFor } from './suggestions'; import { detectLanguage, translations } from './locales'; import { generatePrompt } from './generator'; import { getCurriculumElements, joinCurriculumSelection, parseCurriculumSelection, valencianProfiles } from './curriculum'; import { guidedSteps, type GuidedStep } from './guided'; import type { Category, ExportData, Language, PromptTemplate, SavedPrompt, TemplateField } from './types'
+import { db, uid } from './db'
+import { templates, categoryIds, simpleFieldIds } from './templates'
+import { suggestionsFor } from './suggestions'
+import { detectLanguage, translations } from './locales'
+import { generatePrompt } from './generator'
+import {
+  getCurriculumElements,
+  joinCurriculumSelection,
+  parseCurriculumSelection,
+  valencianProfiles,
+} from './curriculum'
+import { guidedSteps, type GuidedStep } from './guided'
+import type { Category, ExportData, Language, PromptTemplate, SavedPrompt, TemplateField } from './types'
 import { updateSW } from './pwa'
 import { authMe, deleteRemotePrompt, getRemotePrompts, login, logout, putRemotePrompt, type AuthUser } from './api'
 import { localizeOption } from './optionLocales'
@@ -15,7 +27,7 @@ let applyPromptLanguage: ((value: Language) => void) | null = null
 if (typeof window !== 'undefined' && !window.edutictacLanguage) {
   window.edutictacLanguage = {
     languages: ['ca', 'va', 'es', 'en'],
-    get: () => currentPromptLanguage === 'ca-valencia' ? 'va' : currentPromptLanguage,
+    get: () => (currentPromptLanguage === 'ca-valencia' ? 'va' : currentPromptLanguage),
     set: (value: string) => {
       const mapped = value === 'va' ? 'ca-valencia' : value
       if (mapped !== 'es' && mapped !== 'ca' && mapped !== 'ca-valencia' && mapped !== 'en') return
@@ -37,56 +49,779 @@ if (typeof window !== 'undefined' && !window.edutictacTheme) {
   }
 }
 
-const templateNameKeys: Record<string,string> = {'learning-situation':'templateLearningSituation',lesson:'templateLesson',sequence:'templateSequence','competency-activity':'templateCompetencyActivity',project:'templateProject',challenge:'templateChallenge',rubric:'templateRubric',checklist:'templateChecklist','rating-scale':'templateRatingScale','systematic-observation':'templateSystematicObservation',portfolio:'templatePortfolio',production:'templateProduction','written-test':'templateWrittenTest',product:'templateProduct',presentation:'templatePresentation',h5p:'templateH5p',scorm:'templateScorm','html-game':'templateHtmlGame',gift:'templateGift',qti:'templateQti','common-cartridge':'templateCommonCartridge',feedback:'templateFeedback','three-levels':'templateThreeLevels','easy-reading':'templateEasyReading','bias-check':'templateBiasCheck','glossary-support':'templateGlossarySupport','family-note':'templateFamilyNote','tutoring-script':'templateTutoringScript','scientific-illustration':'templateScientificIllustration',infographic:'templateInfographic','mind-map':'templateMindMap','udl-review':'templateUdlReview','udl-matrix':'templateUdlMatrix','student-tutor':'templateStudentTutor',analogies:'templateAnalogies',participation:'templateParticipation','conflict-mediation':'templateConflictMediation','multiple-choice':'templateMultipleChoice','ethical-dilemma':'templateEthicalDilemma','study-plan':'templateStudyPlan','historical-interview':'templateHistoricalInterview','code-coach':'templateCodeCoach',free:'templateFree'}
-const fieldNameKeys: Record<string,string> = {level:'level',course:'course',subject:'subject',topic:'topic',objectives:'objectives',methodology:'methodology',duration:'duration',resources:'resources',outputFormat:'format',activity:'activity',criteria:'criteria',levels:'levels',activityType:'activityType',questionCount:'questionCount',questionTypes:'questionTypes',role:'role',context:'context',task:'task',constraints:'constraints',qualityCriteria:'qualityCriteria',sourceText:'sourceText',aiTool:'aiTool',refinement:'refinement',visualStyle:'visualStyle',includeLabels:'includeLabels',aspectRatio:'aspectRatio',sections:'sections',branches:'branches',gameItems:'gameItems',gameFeatures:'gameFeatures',udl:'udl',barriers:'barriers'}
-const getTemplateName = (id:string,t:Record<string,string>) => t[templateNameKeys[id]]||id
-const getFieldName = (id:string,t:Record<string,string>) => t[fieldNameKeys[id]]||id
-const getFieldPlaceholder = (id:string,t:Record<string,string>,templateId?:string) => (templateId?t[`placeholder${id.charAt(0).toUpperCase()}${id.slice(1)}-${templateId}`]:'')||t[`placeholder${id.charAt(0).toUpperCase()}${id.slice(1)}`]||''
+const templateNameKeys: Record<string, string> = {
+  'learning-situation': 'templateLearningSituation',
+  lesson: 'templateLesson',
+  sequence: 'templateSequence',
+  'competency-activity': 'templateCompetencyActivity',
+  project: 'templateProject',
+  challenge: 'templateChallenge',
+  rubric: 'templateRubric',
+  checklist: 'templateChecklist',
+  'rating-scale': 'templateRatingScale',
+  'systematic-observation': 'templateSystematicObservation',
+  portfolio: 'templatePortfolio',
+  production: 'templateProduction',
+  'written-test': 'templateWrittenTest',
+  product: 'templateProduct',
+  presentation: 'templatePresentation',
+  h5p: 'templateH5p',
+  scorm: 'templateScorm',
+  'html-game': 'templateHtmlGame',
+  gift: 'templateGift',
+  qti: 'templateQti',
+  'common-cartridge': 'templateCommonCartridge',
+  feedback: 'templateFeedback',
+  'three-levels': 'templateThreeLevels',
+  'easy-reading': 'templateEasyReading',
+  'bias-check': 'templateBiasCheck',
+  'glossary-support': 'templateGlossarySupport',
+  'family-note': 'templateFamilyNote',
+  'tutoring-script': 'templateTutoringScript',
+  'scientific-illustration': 'templateScientificIllustration',
+  infographic: 'templateInfographic',
+  'mind-map': 'templateMindMap',
+  'udl-review': 'templateUdlReview',
+  'udl-matrix': 'templateUdlMatrix',
+  'student-tutor': 'templateStudentTutor',
+  analogies: 'templateAnalogies',
+  participation: 'templateParticipation',
+  'conflict-mediation': 'templateConflictMediation',
+  'multiple-choice': 'templateMultipleChoice',
+  'ethical-dilemma': 'templateEthicalDilemma',
+  'study-plan': 'templateStudyPlan',
+  'historical-interview': 'templateHistoricalInterview',
+  'code-coach': 'templateCodeCoach',
+  free: 'templateFree',
+}
+const fieldNameKeys: Record<string, string> = {
+  level: 'level',
+  course: 'course',
+  subject: 'subject',
+  topic: 'topic',
+  objectives: 'objectives',
+  methodology: 'methodology',
+  duration: 'duration',
+  resources: 'resources',
+  outputFormat: 'format',
+  activity: 'activity',
+  criteria: 'criteria',
+  levels: 'levels',
+  activityType: 'activityType',
+  questionCount: 'questionCount',
+  questionTypes: 'questionTypes',
+  role: 'role',
+  context: 'context',
+  task: 'task',
+  constraints: 'constraints',
+  qualityCriteria: 'qualityCriteria',
+  sourceText: 'sourceText',
+  aiTool: 'aiTool',
+  refinement: 'refinement',
+  visualStyle: 'visualStyle',
+  includeLabels: 'includeLabels',
+  aspectRatio: 'aspectRatio',
+  sections: 'sections',
+  branches: 'branches',
+  gameItems: 'gameItems',
+  gameFeatures: 'gameFeatures',
+  udl: 'udl',
+  barriers: 'barriers',
+}
+const getTemplateName = (id: string, t: Record<string, string>) => t[templateNameKeys[id]] || id
+const getFieldName = (id: string, t: Record<string, string>) => t[fieldNameKeys[id]] || id
+const getFieldPlaceholder = (id: string, t: Record<string, string>, templateId?: string) =>
+  (templateId ? t[`placeholder${id.charAt(0).toUpperCase()}${id.slice(1)}-${templateId}`] : '') ||
+  t[`placeholder${id.charAt(0).toUpperCase()}${id.slice(1)}`] ||
+  ''
 // Si la plantilla no admite Markdown (H5P, SCORM, juego HTML...), su único
 // formato propio queda preseleccionado.
-const initialValues = (id:string): Record<string,string> => { const values=baseValues(id); const formats=templates.find(x=>x.id===id)?.fields.find(field=>field.id==='outputFormat')?.options; if(formats?.length&&!formats.includes(values.outputFormat)) values.outputFormat=formats[0]; return values }
-const baseValues = (id:string): Record<string,string> => id==='free'?{role:'',context:'',task:'',constraints:'',qualityCriteria:'',refinement:'',aiTool:'',udl:'',barriers:'',outputFormat:'Markdown',curriculumProfile:'',curriculumContext:'',curriculumCompetences:'',curriculumCriteria:'',curriculumKnowledge:''}:{level:'',course:'',subject:'',topic:'',objectives:'',methodology:'',duration:'',resources:'',visualStyle:'',includeLabels:'',aspectRatio:'',sections:'',branches:'',gameItems:'',gameFeatures:'',outputFormat:'Markdown',context:'',constraints:'',qualityCriteria:'',refinement:'',aiTool:'',udl:'',barriers:'',curriculumProfile:'',curriculumContext:'',curriculumCompetences:'',curriculumCriteria:'',curriculumKnowledge:''}
+const initialValues = (id: string): Record<string, string> => {
+  const values = baseValues(id)
+  const formats = templates.find((x) => x.id === id)?.fields.find((field) => field.id === 'outputFormat')?.options
+  if (formats?.length && !formats.includes(values.outputFormat)) values.outputFormat = formats[0]
+  return values
+}
+const baseValues = (id: string): Record<string, string> =>
+  id === 'free'
+    ? {
+        role: '',
+        context: '',
+        task: '',
+        constraints: '',
+        qualityCriteria: '',
+        refinement: '',
+        aiTool: '',
+        udl: '',
+        barriers: '',
+        outputFormat: 'Markdown',
+        curriculumProfile: '',
+        curriculumContext: '',
+        curriculumCompetences: '',
+        curriculumCriteria: '',
+        curriculumKnowledge: '',
+      }
+    : {
+        level: '',
+        course: '',
+        subject: '',
+        topic: '',
+        objectives: '',
+        methodology: '',
+        duration: '',
+        resources: '',
+        visualStyle: '',
+        includeLabels: '',
+        aspectRatio: '',
+        sections: '',
+        branches: '',
+        gameItems: '',
+        gameFeatures: '',
+        outputFormat: 'Markdown',
+        context: '',
+        constraints: '',
+        qualityCriteria: '',
+        refinement: '',
+        aiTool: '',
+        udl: '',
+        barriers: '',
+        curriculumProfile: '',
+        curriculumContext: '',
+        curriculumCompetences: '',
+        curriculumCriteria: '',
+        curriculumKnowledge: '',
+      }
 
-export default function App(){
- const [lang,setLang]=useState<Language>(detectLanguage()); const [themeMode,setThemeMode]=useState<'system'|'light'|'dark'>(()=>{const value=localStorage.getItem('edutictac-theme');return value==='light'||value==='dark'?value:'system'}); const [systemDark,setSystemDark]=useState(()=>window.matchMedia?.('(prefers-color-scheme: dark)').matches??false); const t=translations[lang]; const [view,setView]=useState<'home'|'create'|'library'|'privacy'|'help'|'agents'>(()=>(location.hash==='#agents'||location.hash==='#skills')?'agents':location.hash==='#help'?'help':'home'); const [selected,setSelected]=useState(templates[0]); const [values,setValues]=useState<Record<string,string>>(initialValues(templates[0].id)); const [prompt,setPrompt]=useState(''); const [saved,setSaved]=useState<SavedPrompt[]>([]); const [categories,setCategories]=useState<Category[]>([]); const [search,setSearch]=useState(''); const [category,setCategory]=useState('all'); const [modal,setModal]=useState(false); const [notice,setNotice]=useState(''); const [updateAvailable,setUpdateAvailable]=useState(false); const [user,setUser]=useState<AuthUser|null>(null); const [syncBusy,setSyncBusy]=useState(false); const [editingId,setEditingId]=useState<string|null>(null); const editing=saved.find(p=>p.id===editingId);
- const [chipReady,setChipReady]=useState(false); const [central,setCentral]=useState(false); currentPromptLanguage=lang; applyPromptLanguage=setLang; currentPromptTheme=themeMode==='system'?'auto':themeMode; applyPromptTheme=(value)=>setThemeMode(value==='auto'?'system':value);
- const darkMode=themeMode==='dark'||(themeMode==='system'&&systemDark);
- useEffect(()=>{if(view==='agents')history.replaceState(null,'','#agents');else if(location.hash==='#agents'||location.hash==='#skills')history.replaceState(null,'',location.pathname+location.search+(view==='help'?'#help':''))},[view]);
- useEffect(()=>{window.scrollTo(0,0)},[view]);
- useEffect(()=>{localStorage.setItem('edutictac-language',lang); void (async()=>{let cats=await db.categories.toArray();if(!cats.length){cats=[t.planning,t.assessment,t.activities,t.digital].map(name=>({id:uid(),name,createdAt:new Date().toISOString()}));await db.categories.bulkAdd(cats)}setCategories(cats);setSaved(await db.prompts.toArray())})()},[lang]);
- useEffect(()=>{localStorage.setItem('edutictac-theme',themeMode)},[themeMode]);
- useEffect(()=>{const media=window.matchMedia?.('(prefers-color-scheme: dark)');if(!media)return;const update=()=>setSystemDark(media.matches);media.addEventListener?.('change',update);return()=>media.removeEventListener?.('change',update)},[]);
- useEffect(()=>{const showUpdate=()=>setUpdateAvailable(true);window.addEventListener('pwa-update-available',showUpdate);return()=>window.removeEventListener('pwa-update-available',showUpdate)},[]);
- useEffect(()=>{void authMe().then(state=>{setUser(state.user);setCentral(state.central===true)}).catch(()=>{setUser(null);setCentral(false)})},[]);
- useEffect(()=>{if(!user)return;void syncFromRemote().then(pushPending);const retry=()=>void pushPending();window.addEventListener('online',retry);return()=>window.removeEventListener('online',retry)},[user]);
- useEffect(()=>{ currentPromptLanguage=lang; try{localStorage.setItem('edutictac-language',lang)}catch{} document.documentElement.lang=lang==='ca-valencia'?'ca-ES-valencia':lang; window.dispatchEvent(new CustomEvent('edutictac:langchange',{detail:{lang:lang==='ca-valencia'?'va':lang}})) },[lang]);
- useEffect(()=>{ if(!window.customElements)return; let timer=0; let cancelled=false; const check=()=>{ if(document.querySelector('edutictac-account nav.eta')){ setChipReady(true); document.documentElement.classList.add('has-account-chip'); return true } return false }; window.customElements.whenDefined('edutictac-account').then(()=>{ if(check()||cancelled)return; let tries=0; timer=window.setInterval(()=>{ if(check()||++tries>=50)window.clearInterval(timer) },100) }).catch(()=>{}); return ()=>{ cancelled=true; window.clearInterval(timer); document.documentElement.classList.remove('has-account-chip') } },[]);
- useEffect(()=>{ const value=themeMode==='system'?(systemDark?'dark':'light'):themeMode; document.documentElement.dataset.theme=value; try{ if(themeMode==='system')localStorage.removeItem('edutictac-theme'); else localStorage.setItem('edutictac-theme',themeMode) }catch{} window.dispatchEvent(new CustomEvent('edutictac:themechange',{detail:{preference:themeMode==='system'?'auto':themeMode}})) },[themeMode,systemDark]);
- const categoryLabel=(id:string)=>t[id]||id; const templateName=(id:string)=>getTemplateName(id,t); const visibleTemplates=useMemo(()=>templates.filter(x=>(category==='all'||x.category===category)&&templateName(x.id).toLowerCase().includes(search.toLowerCase())),[search,category,lang]);
- function choose(id:string){const temp=templates.find(x=>x.id===id)!;setSelected(temp);setValues(initialValues(temp.id));setPrompt('');setEditingId(null);setView('create')} function startFrom(starter:Starter){const temp=templates.find(x=>x.id===starter.templateId)!;setSelected(temp);setValues({...initialValues(temp.id),...starterValues(starter,lang)});setPrompt('');setEditingId(null);setView('create')}
- function openSavedPrompt(item:SavedPrompt){const temp=templates.find(x=>x.id===item.templateId);if(!temp){setNotice(t.noPrompts);return}setSelected(temp);setValues(item.values||initialValues(temp.id));setPrompt(item.prompt);setEditingId(item.id);setView('create')}
- function generate(){setPrompt(generatePrompt(selected,values,lang));setNotice('')}
- async function copyPrompt(text:string){if(!text)return false;try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text);return true}}catch{ /* Use the legacy fallback below. */ } const area=document.createElement('textarea');area.value=text;area.setAttribute('readonly','');area.style.position='fixed';area.style.opacity='0';area.style.pointerEvents='none';document.body.appendChild(area);area.focus();area.select();area.setSelectionRange(0,text.length);let copied=false;try{copied=document.execCommand('copy')}catch{copied=false}document.body.removeChild(area);return copied}
- async function save(meta:{title:string;categoryId?:string;categoryName?:string;tags:string[];notes:string;favorite:boolean}){let categoryId=meta.categoryId;const categoryName=meta.categoryName?.trim();if(categoryName){const existing=categories.find(item=>item.name.toLocaleLowerCase()===categoryName.toLocaleLowerCase());if(existing)categoryId=existing.id;else{const created:Category={id:uid(),name:categoryName,createdAt:new Date().toISOString()};await db.categories.add(created);setCategories(items=>[...items,created]);categoryId=created.id}}const now=new Date().toISOString(); const item:SavedPrompt={id:uid(),title:meta.title||templateName(selected.id),prompt,templateId:selected.id,values,language:lang,categoryId,tags:meta.tags,notes:meta.notes,favorite:meta.favorite,createdAt:now,updatedAt:now,version:1,syncStatus:'local'}; await db.prompts.add(item);setSaved(x=>[item,...x]);setEditingId(item.id);setModal(false);setNotice(t.savedOk);void pushPending()}
- // Sobrescribe el prompt de la biblioteca que se está editando en lugar de crear una copia.
- async function update(){if(!editing)return;const item:SavedPrompt={...editing,prompt,templateId:selected.id,values,language:lang,updatedAt:new Date().toISOString(),version:editing.version+1,syncStatus:editing.remoteId?'modified':'local'};await db.prompts.put(item);setSaved(x=>x.map(p=>p.id===item.id?item:p));setNotice(t.updatedOk);void pushPending()}
- async function remove(id:string){const item=saved.find(p=>p.id===id);if(user&&item?.remoteId)try{await deleteRemotePrompt(item.remoteId)}catch{/* Keep the local copy if the network is unavailable. */}await db.prompts.delete(id);setSaved(x=>x.filter(p=>p.id!==id));if(id===editingId)setEditingId(null)} async function duplicate(item:SavedPrompt){const copy={...item,id:uid(),remoteId:undefined,ownerId:undefined,syncStatus:'local' as const,title:`${item.title}${t.duplicateSuffix}`,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString(),version:1};await db.prompts.add(copy);setSaved(x=>[copy,...x]);void pushPending()}
- async function syncFromRemote(){if(!user)return;setSyncBusy(true);try{const remote=(await getRemotePrompts()).prompts;for(const item of remote){const local=await db.prompts.get(item.id);if(!local||local.syncStatus==='synced'||(local.syncStatus!=='modified'&&item.updatedAt>=local.updatedAt))await db.prompts.put({...item,syncStatus:'synced'})}setSaved(await db.prompts.toArray());setNotice(t.syncDownloaded)}catch{setNotice(t.syncFailed)}finally{setSyncBusy(false)}}
- // Sube en segundo plano los prompts pendientes; si falla, quedan como locales y el botón «Sincronizar» sigue disponible.
- async function pushPending(){if(!user)return;try{let changed=false;for(const item of await db.prompts.toArray()){if(item.syncStatus==='local'||item.syncStatus==='modified'||!item.remoteId){await db.prompts.put(await putRemotePrompt(item));changed=true}}if(changed)setSaved(await db.prompts.toArray())}catch{/* Sin red: se reintenta al volver la conexión o al guardar de nuevo. */}}
- async function syncLocal(){if(!user)return;setSyncBusy(true);try{for(const item of await db.prompts.toArray()){if(item.syncStatus==='local'||item.syncStatus==='modified'||!item.remoteId){const synced=await putRemotePrompt(item);await db.prompts.put(synced)}}setSaved(await db.prompts.toArray());setNotice(t.syncUploaded)}catch{setNotice(t.syncFailed)}finally{setSyncBusy(false)}}
- function download(name:string,data:string,type='application/json'){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type}));a.download=name;a.click();URL.revokeObjectURL(a.href)}
- async function exportAll(){const data:ExportData={format:'edutictac-prompts',version:1,exportedAt:new Date().toISOString(),categories,tags:[...new Set(saved.flatMap(x=>x.tags))],prompts:saved};download('edutictac-prompts.json',JSON.stringify(data,null,2))}
- function importFile(file:File){const reader=new FileReader();reader.onload=async()=>{try{const data=JSON.parse(String(reader.result)) as ExportData;if(data.format!=='edutictac-prompts'||data.version!==1||!Array.isArray(data.prompts))throw new Error('invalid');for(const c of data.categories||[])if(!(await db.categories.get(c.id)))await db.categories.add(c);for(const p of data.prompts)if(!(await db.prompts.get(p.id)))await db.prompts.add(p);setSaved(await db.prompts.toArray());setCategories(await db.categories.toArray());setNotice(t.importOk);void pushPending()}catch{setNotice(t.invalidFile)}};reader.readAsText(file)}
- return <div className="app" data-theme={darkMode?'dark':'light'}><header><button className="brand" onClick={()=>setView('home')}><span>TT</span><strong>{t.app}</strong></button><nav className="app-nav"><button onClick={()=>setView('home')}>{t.home}</button><button onClick={()=>setView('library')}>{t.library}</button><button onClick={()=>setView('agents')}>🧩 {t.agents}</button><button onClick={()=>setView('help')}>{t.help}</button><button onClick={()=>setView('privacy')}>{t.privacy}</button></nav><div className="header-options"><edutictac-account className="site-account" data-base="https://commons.edutictac.es" data-density="compact" />{!chipReady&&<>{user?<><button className="account-button" onClick={()=>void syncLocal()} disabled={syncBusy}>{syncBusy?'…':t.sync}</button><button className="account-button" onClick={logout}>{t.logout}</button></>:<button className="account-button" onClick={login}>{t.login}</button>}<select aria-label={t.language} value={lang} onChange={e=>setLang(e.target.value as Language)}><option value="es">ES</option><option value="ca-valencia">VA</option><option value="ca">CA</option><option value="en">EN</option></select><button className="theme-toggle" aria-label={`${t.theme}: ${darkMode?t.light:t.dark}`} title={darkMode?t.light:t.dark} onClick={()=>setThemeMode(darkMode?'light':'dark')}>{darkMode?'☀':'☾'}</button></>}</div></header>
- {notice&&<div className="notice" role="status">{notice}<button onClick={()=>setNotice('')}>×</button></div>}{updateAvailable&&<div className="update-banner" role="alert"><span>{t.updateAvailable}</span><button className="primary" onClick={()=>void updateSW(true)}>{t.updateButton}</button></div>}
- {view==='home'&&<main><section className="hero"><div><p className="eyebrow">EDUTICTAC COMMONS · LOCAL-FIRST</p><h1>{t.tagline}</h1><p className="lead">{t.lead}</p><button className="primary" onClick={()=>setView('create')}>{t.create} <span>→</span></button></div><div className="hero-card"><span>✦</span><h3>{t.choose}</h3><p>{templates.length} {t.toolsCount}</p><div className="mini-lines"><i/><i/><i/></div></div></section><section className="starters"><p className="eyebrow">{t.startHere}</p><h2>{t.startHereTitle}</h2><p className="mode-hint">{t.startHereHint}</p><div className="cards">{starters.map(x=><button className="tool-card starter-card" key={x.id} onClick={()=>startFrom(x)}><span className="tool-icon">{x.icon}</span><strong>{starterTitle(x,lang)}</strong><small>{localizeOption(x.level,lang)} · {templateName(x.templateId)}</small></button>)}</div></section><section className="catalog"><div className="section-heading"><div><p className="eyebrow">{t.catalog}</p><h2>{t.choose}</h2></div><input aria-label={t.search} placeholder={t.search} value={search} onChange={e=>setSearch(e.target.value)}/></div><div className="filters">{categoryIds.map(id=><button className={category===id?'active':''} onClick={()=>setCategory(id)} key={id}>{categoryLabel(id)}</button>)}</div><div className="cards">{visibleTemplates.map(x=><button className="tool-card" key={x.id} onClick={()=>choose(x.id)}><span className="tool-icon">{x.icon}</span><strong>{templateName(x.id)}</strong><small>{categoryLabel(x.category)}</small></button>)}</div></section></main>}
- {view==='create'&&<CreateView t={t} language={lang} selected={selected} values={values} setValues={setValues} prompt={prompt} setPrompt={setPrompt} generate={generate} setModal={setModal} choose={choose} copyPrompt={copyPrompt} clear={()=>{setValues(initialValues(selected.id));setPrompt('');setEditingId(null)}} editingTitle={editing?.title} update={update} />}
- {view==='library'&&<Library t={t} saved={saved} categories={categories} search={search} setSearch={setSearch} remove={remove} duplicate={duplicate} exportAll={exportAll} importFile={importFile} choose={choose} openSavedPrompt={openSavedPrompt} copyPrompt={copyPrompt} user={user} syncBusy={syncBusy} onSync={syncLocal} onLogin={login} central={central} />}
- {view==='agents'&&<Suspense fallback={<main className="page" aria-busy="true">{t.agents}…</main>}><AgentsView key={user?.sub||'local'} language={lang} sub={user?.sub} prompts={saved} copy={copyPrompt} onSaveResult={async(title,text,language)=>{const now=new Date().toISOString();const item:SavedPrompt={id:uid(),title,prompt:text,templateId:'free',language,tags:['skill-result'],favorite:false,version:1,createdAt:now,updatedAt:now,syncStatus:'local',ownerId:user?.sub};await db.prompts.add(item);setSaved(x=>[item,...x]);setNotice(t.savedOk);void pushPending()}}/></Suspense>}
- {view==='help'&&<HelpView t={t} language={lang}/>}
-{view==='privacy'&&<main className="page"><p className="eyebrow">{t.privacy}</p><h1>{t.privacyTitle}</h1><p>{t.privacyText}</p><p><a href="https://edutictac.es/privacitat.html" target="_blank" rel="noopener">{t.privacyPolicy}</a></p><h2>{t.privacyHeading}</h2><p>{t.privacyBody}</p><p className="callout">{t.warning}</p></main>}
- {modal&&<SaveModal t={t} categories={categories} onCancel={()=>setModal(false)} onSave={save}/>}<footer className="ett-footer">
+export default function App() {
+  const [lang, setLang] = useState<Language>(detectLanguage())
+  const [themeMode, setThemeMode] = useState<'system' | 'light' | 'dark'>(() => {
+    const value = localStorage.getItem('edutictac-theme')
+    return value === 'light' || value === 'dark' ? value : 'system'
+  })
+  const [systemDark, setSystemDark] = useState(
+    () => window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false,
+  )
+  const t = translations[lang]
+  const [view, setView] = useState<'home' | 'create' | 'library' | 'privacy' | 'help' | 'agents'>(() =>
+    location.hash === '#agents' || location.hash === '#skills' ? 'agents' : location.hash === '#help' ? 'help' : 'home',
+  )
+  const [selected, setSelected] = useState(templates[0])
+  const [values, setValues] = useState<Record<string, string>>(initialValues(templates[0].id))
+  const [prompt, setPrompt] = useState('')
+  const [saved, setSaved] = useState<SavedPrompt[]>([])
+  const [categories, setCategories] = useState<Category[]>([])
+  const [search, setSearch] = useState('')
+  const [category, setCategory] = useState('all')
+  const [modal, setModal] = useState(false)
+  const [notice, setNotice] = useState('')
+  const [updateAvailable, setUpdateAvailable] = useState(false)
+  const [user, setUser] = useState<AuthUser | null>(null)
+  const [syncBusy, setSyncBusy] = useState(false)
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const editing = saved.find((p) => p.id === editingId)
+  const [chipReady, setChipReady] = useState(false)
+  const [central, setCentral] = useState(false)
+  currentPromptLanguage = lang
+  applyPromptLanguage = setLang
+  currentPromptTheme = themeMode === 'system' ? 'auto' : themeMode
+  applyPromptTheme = (value) => setThemeMode(value === 'auto' ? 'system' : value)
+  const darkMode = themeMode === 'dark' || (themeMode === 'system' && systemDark)
+  useEffect(() => {
+    if (view === 'agents') history.replaceState(null, '', '#agents')
+    else if (location.hash === '#agents' || location.hash === '#skills')
+      history.replaceState(null, '', location.pathname + location.search + (view === 'help' ? '#help' : ''))
+  }, [view])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [view])
+  useEffect(() => {
+    localStorage.setItem('edutictac-language', lang)
+    void (async () => {
+      let cats = await db.categories.toArray()
+      if (!cats.length) {
+        cats = [t.planning, t.assessment, t.activities, t.digital].map((name) => ({
+          id: uid(),
+          name,
+          createdAt: new Date().toISOString(),
+        }))
+        await db.categories.bulkAdd(cats)
+      }
+      setCategories(cats)
+      setSaved(await db.prompts.toArray())
+    })()
+  }, [lang])
+  useEffect(() => {
+    localStorage.setItem('edutictac-theme', themeMode)
+  }, [themeMode])
+  useEffect(() => {
+    const media = window.matchMedia?.('(prefers-color-scheme: dark)')
+    if (!media) return
+    const update = () => setSystemDark(media.matches)
+    media.addEventListener?.('change', update)
+    return () => media.removeEventListener?.('change', update)
+  }, [])
+  useEffect(() => {
+    const showUpdate = () => setUpdateAvailable(true)
+    window.addEventListener('pwa-update-available', showUpdate)
+    return () => window.removeEventListener('pwa-update-available', showUpdate)
+  }, [])
+  useEffect(() => {
+    void authMe()
+      .then((state) => {
+        setUser(state.user)
+        setCentral(state.central === true)
+      })
+      .catch(() => {
+        setUser(null)
+        setCentral(false)
+      })
+  }, [])
+  useEffect(() => {
+    if (!user) return
+    void syncFromRemote().then(pushPending)
+    const retry = () => void pushPending()
+    window.addEventListener('online', retry)
+    return () => window.removeEventListener('online', retry)
+  }, [user])
+  useEffect(() => {
+    currentPromptLanguage = lang
+    try {
+      localStorage.setItem('edutictac-language', lang)
+    } catch {}
+    document.documentElement.lang = lang === 'ca-valencia' ? 'ca-ES-valencia' : lang
+    window.dispatchEvent(
+      new CustomEvent('edutictac:langchange', { detail: { lang: lang === 'ca-valencia' ? 'va' : lang } }),
+    )
+  }, [lang])
+  useEffect(() => {
+    if (!window.customElements) return
+    let timer = 0
+    let cancelled = false
+    const check = () => {
+      if (document.querySelector('edutictac-account nav.eta')) {
+        setChipReady(true)
+        document.documentElement.classList.add('has-account-chip')
+        return true
+      }
+      return false
+    }
+    window.customElements
+      .whenDefined('edutictac-account')
+      .then(() => {
+        if (check() || cancelled) return
+        let tries = 0
+        timer = window.setInterval(() => {
+          if (check() || ++tries >= 50) window.clearInterval(timer)
+        }, 100)
+      })
+      .catch(() => {})
+    return () => {
+      cancelled = true
+      window.clearInterval(timer)
+      document.documentElement.classList.remove('has-account-chip')
+    }
+  }, [])
+  useEffect(() => {
+    const value = themeMode === 'system' ? (systemDark ? 'dark' : 'light') : themeMode
+    document.documentElement.dataset.theme = value
+    try {
+      if (themeMode === 'system') localStorage.removeItem('edutictac-theme')
+      else localStorage.setItem('edutictac-theme', themeMode)
+    } catch {}
+    window.dispatchEvent(
+      new CustomEvent('edutictac:themechange', { detail: { preference: themeMode === 'system' ? 'auto' : themeMode } }),
+    )
+  }, [themeMode, systemDark])
+  const categoryLabel = (id: string) => t[id] || id
+  const templateName = (id: string) => getTemplateName(id, t)
+  const visibleTemplates = useMemo(
+    () =>
+      templates.filter(
+        (x) =>
+          (category === 'all' || x.category === category) &&
+          templateName(x.id).toLowerCase().includes(search.toLowerCase()),
+      ),
+    [search, category, lang],
+  )
+  function choose(id: string) {
+    const temp = templates.find((x) => x.id === id)!
+    setSelected(temp)
+    setValues(initialValues(temp.id))
+    setPrompt('')
+    setEditingId(null)
+    setView('create')
+  }
+  function startFrom(starter: Starter) {
+    const temp = templates.find((x) => x.id === starter.templateId)!
+    setSelected(temp)
+    setValues({ ...initialValues(temp.id), ...starterValues(starter, lang) })
+    setPrompt('')
+    setEditingId(null)
+    setView('create')
+  }
+  function openSavedPrompt(item: SavedPrompt) {
+    const temp = templates.find((x) => x.id === item.templateId)
+    if (!temp) {
+      setNotice(t.noPrompts)
+      return
+    }
+    setSelected(temp)
+    setValues(item.values || initialValues(temp.id))
+    setPrompt(item.prompt)
+    setEditingId(item.id)
+    setView('create')
+  }
+  function generate() {
+    setPrompt(generatePrompt(selected, values, lang))
+    setNotice('')
+  }
+  async function copyPrompt(text: string) {
+    if (!text) return false
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text)
+        return true
+      }
+    } catch {
+      /* Use the legacy fallback below. */
+    }
+    const area = document.createElement('textarea')
+    area.value = text
+    area.setAttribute('readonly', '')
+    area.style.position = 'fixed'
+    area.style.opacity = '0'
+    area.style.pointerEvents = 'none'
+    document.body.appendChild(area)
+    area.focus()
+    area.select()
+    area.setSelectionRange(0, text.length)
+    let copied = false
+    try {
+      copied = document.execCommand('copy')
+    } catch {
+      copied = false
+    }
+    document.body.removeChild(area)
+    return copied
+  }
+  async function save(meta: {
+    title: string
+    categoryId?: string
+    categoryName?: string
+    tags: string[]
+    notes: string
+    favorite: boolean
+  }) {
+    let categoryId = meta.categoryId
+    const categoryName = meta.categoryName?.trim()
+    if (categoryName) {
+      const existing = categories.find((item) => item.name.toLocaleLowerCase() === categoryName.toLocaleLowerCase())
+      if (existing) categoryId = existing.id
+      else {
+        const created: Category = { id: uid(), name: categoryName, createdAt: new Date().toISOString() }
+        await db.categories.add(created)
+        setCategories((items) => [...items, created])
+        categoryId = created.id
+      }
+    }
+    const now = new Date().toISOString()
+    const item: SavedPrompt = {
+      id: uid(),
+      title: meta.title || templateName(selected.id),
+      prompt,
+      templateId: selected.id,
+      values,
+      language: lang,
+      categoryId,
+      tags: meta.tags,
+      notes: meta.notes,
+      favorite: meta.favorite,
+      createdAt: now,
+      updatedAt: now,
+      version: 1,
+      syncStatus: 'local',
+    }
+    await db.prompts.add(item)
+    setSaved((x) => [item, ...x])
+    setEditingId(item.id)
+    setModal(false)
+    setNotice(t.savedOk)
+    void pushPending()
+  }
+  // Sobrescribe el prompt de la biblioteca que se está editando en lugar de crear una copia.
+  async function update() {
+    if (!editing) return
+    const item: SavedPrompt = {
+      ...editing,
+      prompt,
+      templateId: selected.id,
+      values,
+      language: lang,
+      updatedAt: new Date().toISOString(),
+      version: editing.version + 1,
+      syncStatus: editing.remoteId ? 'modified' : 'local',
+    }
+    await db.prompts.put(item)
+    setSaved((x) => x.map((p) => (p.id === item.id ? item : p)))
+    setNotice(t.updatedOk)
+    void pushPending()
+  }
+  async function remove(id: string) {
+    const item = saved.find((p) => p.id === id)
+    if (user && item?.remoteId)
+      try {
+        await deleteRemotePrompt(item.remoteId)
+      } catch {
+        /* Keep the local copy if the network is unavailable. */
+      }
+    await db.prompts.delete(id)
+    setSaved((x) => x.filter((p) => p.id !== id))
+    if (id === editingId) setEditingId(null)
+  }
+  async function duplicate(item: SavedPrompt) {
+    const copy = {
+      ...item,
+      id: uid(),
+      remoteId: undefined,
+      ownerId: undefined,
+      syncStatus: 'local' as const,
+      title: `${item.title}${t.duplicateSuffix}`,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      version: 1,
+    }
+    await db.prompts.add(copy)
+    setSaved((x) => [copy, ...x])
+    void pushPending()
+  }
+  async function syncFromRemote() {
+    if (!user) return
+    setSyncBusy(true)
+    try {
+      const remote = (await getRemotePrompts()).prompts
+      for (const item of remote) {
+        const local = await db.prompts.get(item.id)
+        if (
+          !local ||
+          local.syncStatus === 'synced' ||
+          (local.syncStatus !== 'modified' && item.updatedAt >= local.updatedAt)
+        )
+          await db.prompts.put({ ...item, syncStatus: 'synced' })
+      }
+      setSaved(await db.prompts.toArray())
+      setNotice(t.syncDownloaded)
+    } catch {
+      setNotice(t.syncFailed)
+    } finally {
+      setSyncBusy(false)
+    }
+  }
+  // Sube en segundo plano los prompts pendientes; si falla, quedan como locales y el botón «Sincronizar» sigue disponible.
+  async function pushPending() {
+    if (!user) return
+    try {
+      let changed = false
+      for (const item of await db.prompts.toArray()) {
+        if (item.syncStatus === 'local' || item.syncStatus === 'modified' || !item.remoteId) {
+          await db.prompts.put(await putRemotePrompt(item))
+          changed = true
+        }
+      }
+      if (changed) setSaved(await db.prompts.toArray())
+    } catch {
+      /* Sin red: se reintenta al volver la conexión o al guardar de nuevo. */
+    }
+  }
+  async function syncLocal() {
+    if (!user) return
+    setSyncBusy(true)
+    try {
+      for (const item of await db.prompts.toArray()) {
+        if (item.syncStatus === 'local' || item.syncStatus === 'modified' || !item.remoteId) {
+          const synced = await putRemotePrompt(item)
+          await db.prompts.put(synced)
+        }
+      }
+      setSaved(await db.prompts.toArray())
+      setNotice(t.syncUploaded)
+    } catch {
+      setNotice(t.syncFailed)
+    } finally {
+      setSyncBusy(false)
+    }
+  }
+  function download(name: string, data: string, type = 'application/json') {
+    const a = document.createElement('a')
+    a.href = URL.createObjectURL(new Blob([data], { type }))
+    a.download = name
+    a.click()
+    URL.revokeObjectURL(a.href)
+  }
+  async function exportAll() {
+    const data: ExportData = {
+      format: 'edutictac-prompts',
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      categories,
+      tags: [...new Set(saved.flatMap((x) => x.tags))],
+      prompts: saved,
+    }
+    download('edutictac-prompts.json', JSON.stringify(data, null, 2))
+  }
+  function importFile(file: File) {
+    const reader = new FileReader()
+    reader.onload = async () => {
+      try {
+        const data = JSON.parse(String(reader.result)) as ExportData
+        if (data.format !== 'edutictac-prompts' || data.version !== 1 || !Array.isArray(data.prompts))
+          throw new Error('invalid')
+        for (const c of data.categories || []) if (!(await db.categories.get(c.id))) await db.categories.add(c)
+        for (const p of data.prompts) if (!(await db.prompts.get(p.id))) await db.prompts.add(p)
+        setSaved(await db.prompts.toArray())
+        setCategories(await db.categories.toArray())
+        setNotice(t.importOk)
+        void pushPending()
+      } catch {
+        setNotice(t.invalidFile)
+      }
+    }
+    reader.readAsText(file)
+  }
+  return (
+    <div className="app" data-theme={darkMode ? 'dark' : 'light'}>
+      <header>
+        <button className="brand" onClick={() => setView('home')}>
+          <span>TT</span>
+          <strong>{t.app}</strong>
+        </button>
+        <nav className="app-nav">
+          <button onClick={() => setView('home')}>{t.home}</button>
+          <button onClick={() => setView('library')}>{t.library}</button>
+          <button onClick={() => setView('agents')}>🧩 {t.agents}</button>
+          <button onClick={() => setView('help')}>{t.help}</button>
+          <button onClick={() => setView('privacy')}>{t.privacy}</button>
+        </nav>
+        <div className="header-options">
+          <edutictac-account className="site-account" data-base="https://commons.edutictac.es" data-density="compact" />
+          {!chipReady && (
+            <>
+              {user ? (
+                <>
+                  <button className="account-button" onClick={() => void syncLocal()} disabled={syncBusy}>
+                    {syncBusy ? '…' : t.sync}
+                  </button>
+                  <button className="account-button" onClick={logout}>
+                    {t.logout}
+                  </button>
+                </>
+              ) : (
+                <button className="account-button" onClick={login}>
+                  {t.login}
+                </button>
+              )}
+              <select aria-label={t.language} value={lang} onChange={(e) => setLang(e.target.value as Language)}>
+                <option value="es">ES</option>
+                <option value="ca-valencia">VA</option>
+                <option value="ca">CA</option>
+                <option value="en">EN</option>
+              </select>
+              <button
+                className="theme-toggle"
+                aria-label={`${t.theme}: ${darkMode ? t.light : t.dark}`}
+                title={darkMode ? t.light : t.dark}
+                onClick={() => setThemeMode(darkMode ? 'light' : 'dark')}
+              >
+                {darkMode ? '☀' : '☾'}
+              </button>
+            </>
+          )}
+        </div>
+      </header>
+      {notice && (
+        <div className="notice" role="status">
+          {notice}
+          <button onClick={() => setNotice('')}>×</button>
+        </div>
+      )}
+      {updateAvailable && (
+        <div className="update-banner" role="alert">
+          <span>{t.updateAvailable}</span>
+          <button className="primary" onClick={() => void updateSW(true)}>
+            {t.updateButton}
+          </button>
+        </div>
+      )}
+      {view === 'home' && (
+        <main>
+          <section className="hero">
+            <div>
+              <p className="eyebrow">EDUTICTAC COMMONS · LOCAL-FIRST</p>
+              <h1>{t.tagline}</h1>
+              <p className="lead">{t.lead}</p>
+              <button className="primary" onClick={() => setView('create')}>
+                {t.create} <span>→</span>
+              </button>
+            </div>
+            <div className="hero-card">
+              <span>✦</span>
+              <h3>{t.choose}</h3>
+              <p>
+                {templates.length} {t.toolsCount}
+              </p>
+              <div className="mini-lines">
+                <i />
+                <i />
+                <i />
+              </div>
+            </div>
+          </section>
+          <section className="starters">
+            <p className="eyebrow">{t.startHere}</p>
+            <h2>{t.startHereTitle}</h2>
+            <p className="mode-hint">{t.startHereHint}</p>
+            <div className="cards">
+              {starters.map((x) => (
+                <button className="tool-card starter-card" key={x.id} onClick={() => startFrom(x)}>
+                  <span className="tool-icon">{x.icon}</span>
+                  <strong>{starterTitle(x, lang)}</strong>
+                  <small>
+                    {localizeOption(x.level, lang)} · {templateName(x.templateId)}
+                  </small>
+                </button>
+              ))}
+            </div>
+          </section>
+          <section className="catalog">
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow">{t.catalog}</p>
+                <h2>{t.choose}</h2>
+              </div>
+              <input
+                aria-label={t.search}
+                placeholder={t.search}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+            <div className="filters">
+              {categoryIds.map((id) => (
+                <button className={category === id ? 'active' : ''} onClick={() => setCategory(id)} key={id}>
+                  {categoryLabel(id)}
+                </button>
+              ))}
+            </div>
+            <div className="cards">
+              {visibleTemplates.map((x) => (
+                <button className="tool-card" key={x.id} onClick={() => choose(x.id)}>
+                  <span className="tool-icon">{x.icon}</span>
+                  <strong>{templateName(x.id)}</strong>
+                  <small>{categoryLabel(x.category)}</small>
+                </button>
+              ))}
+            </div>
+          </section>
+        </main>
+      )}
+      {view === 'create' && (
+        <CreateView
+          t={t}
+          language={lang}
+          selected={selected}
+          values={values}
+          setValues={setValues}
+          prompt={prompt}
+          setPrompt={setPrompt}
+          generate={generate}
+          setModal={setModal}
+          choose={choose}
+          copyPrompt={copyPrompt}
+          clear={() => {
+            setValues(initialValues(selected.id))
+            setPrompt('')
+            setEditingId(null)
+          }}
+          editingTitle={editing?.title}
+          update={update}
+        />
+      )}
+      {view === 'library' && (
+        <Library
+          t={t}
+          saved={saved}
+          categories={categories}
+          search={search}
+          setSearch={setSearch}
+          remove={remove}
+          duplicate={duplicate}
+          exportAll={exportAll}
+          importFile={importFile}
+          choose={choose}
+          openSavedPrompt={openSavedPrompt}
+          copyPrompt={copyPrompt}
+          user={user}
+          syncBusy={syncBusy}
+          onSync={syncLocal}
+          onLogin={login}
+          central={central}
+        />
+      )}
+      {view === 'agents' && (
+        <Suspense
+          fallback={
+            <main className="page" aria-busy="true">
+              {t.agents}…
+            </main>
+          }
+        >
+          <AgentsView
+            key={user?.sub || 'local'}
+            language={lang}
+            sub={user?.sub}
+            prompts={saved}
+            copy={copyPrompt}
+            onSaveResult={async (title, text, language) => {
+              const now = new Date().toISOString()
+              const item: SavedPrompt = {
+                id: uid(),
+                title,
+                prompt: text,
+                templateId: 'free',
+                language,
+                tags: ['skill-result'],
+                favorite: false,
+                version: 1,
+                createdAt: now,
+                updatedAt: now,
+                syncStatus: 'local',
+                ownerId: user?.sub,
+              }
+              await db.prompts.add(item)
+              setSaved((x) => [item, ...x])
+              setNotice(t.savedOk)
+              void pushPending()
+            }}
+          />
+        </Suspense>
+      )}
+      {view === 'help' && <HelpView t={t} language={lang} />}
+      {view === 'privacy' && (
+        <main className="page">
+          <p className="eyebrow">{t.privacy}</p>
+          <h1>{t.privacyTitle}</h1>
+          <p>{t.privacyText}</p>
+          <p>
+            <a href="https://edutictac.es/privacitat.html" target="_blank" rel="noopener">
+              {t.privacyPolicy}
+            </a>
+          </p>
+          <h2>{t.privacyHeading}</h2>
+          <p>{t.privacyBody}</p>
+          <p className="callout">{t.warning}</p>
+        </main>
+      )}
+      {modal && <SaveModal t={t} categories={categories} onCancel={() => setModal(false)} onSave={save} />}
+      <footer className="ett-footer">
         <p className="ett-footer__id">
           <span className="ett-footer__brand">EduTicTac</span>
           <span aria-hidden="true">·</span>
@@ -100,55 +835,953 @@ export default function App(){
           <a href="https://git.edutictac.es/Edutictac/edutictac-prompt">{t.source}</a>
           <a href="https://git.edutictac.es/Edutictac/edutictac-prompt/src/branch/master/LICENSE">AGPL-3.0</a>
         </div>
-      </footer></div>
+      </footer>
+    </div>
+  )
 }
 
-function FieldControl({field,t,language,values,setValues,templateId}:{field:TemplateField;t:Record<string,string>;language:Language;values:Record<string,string>;setValues:(v:Record<string,string>)=>void;templateId:string}){
- const Field=field.type==='multiselect'?'div':'label'
- return <Field className="form-field">{getFieldName(field.id,t)}{field.id==='topic'&&<small>{t.topicHint}</small>}{field.id==='udl'&&<small>{t.udlHint}</small>}{field.id==='barriers'&&<small>{t.barriersHint}</small>}{field.type==='textarea'?<textarea value={values[field.id]||''} placeholder={getFieldPlaceholder(field.id,t,templateId)} onChange={e=>setValues({...values,[field.id]:e.target.value})} rows={3}/>:field.type==='multiselect'?<span className="chip-group" role="group" aria-label={getFieldName(field.id,t)}>{field.options?.map(o=>{const chosen=(values[field.id]||'').split(' · ').filter(Boolean);const on=chosen.includes(o);return <button type="button" key={o} className={`chip${on?' active':''}`} aria-pressed={on} onClick={e=>{e.preventDefault();const next=field.options!.filter(x=>x===o?!on:chosen.includes(x));setValues({...values,[field.id]:next.join(' · ')})}}>{on?'✓ ':''}{localizeOption(o,language)}</button>})}</span>:field.type==='select'?<select value={values[field.id]||''} onChange={e=>setValues({...values,[field.id]:e.target.value})}><option value="">—</option>{field.options?.map(o=><option key={o} value={o}>{localizeOption(o,language)}</option>)}</select>:<input value={values[field.id]||''} placeholder={getFieldPlaceholder(field.id,t,templateId)} onChange={e=>setValues({...values,[field.id]:e.target.value})}/>}{suggestionsFor(field.id,language,values.level).length>0&&<span className="suggestions">{suggestionsFor(field.id,language,values.level).map(sg=><button type="button" key={sg} onClick={e=>{e.preventDefault();const cur=(values[field.id]||'').trim();setValues({...values,[field.id]:cur&&field.id!=='topic'?`${cur}; ${sg}`:sg})}}>{sg}</button>)}</span>}</Field>
+function FieldControl({
+  field,
+  t,
+  language,
+  values,
+  setValues,
+  templateId,
+}: {
+  field: TemplateField
+  t: Record<string, string>
+  language: Language
+  values: Record<string, string>
+  setValues: (v: Record<string, string>) => void
+  templateId: string
+}) {
+  const Field = field.type === 'multiselect' ? 'div' : 'label'
+  return (
+    <Field className="form-field">
+      {getFieldName(field.id, t)}
+      {field.id === 'topic' && <small>{t.topicHint}</small>}
+      {field.id === 'udl' && <small>{t.udlHint}</small>}
+      {field.id === 'barriers' && <small>{t.barriersHint}</small>}
+      {field.type === 'textarea' ? (
+        <textarea
+          value={values[field.id] || ''}
+          placeholder={getFieldPlaceholder(field.id, t, templateId)}
+          onChange={(e) => setValues({ ...values, [field.id]: e.target.value })}
+          rows={3}
+        />
+      ) : field.type === 'multiselect' ? (
+        <span className="chip-group" role="group" aria-label={getFieldName(field.id, t)}>
+          {field.options?.map((o) => {
+            const chosen = (values[field.id] || '').split(' · ').filter(Boolean)
+            const on = chosen.includes(o)
+            return (
+              <button
+                type="button"
+                key={o}
+                className={`chip${on ? ' active' : ''}`}
+                aria-pressed={on}
+                onClick={(e) => {
+                  e.preventDefault()
+                  const next = field.options!.filter((x) => (x === o ? !on : chosen.includes(x)))
+                  setValues({ ...values, [field.id]: next.join(' · ') })
+                }}
+              >
+                {on ? '✓ ' : ''}
+                {localizeOption(o, language)}
+              </button>
+            )
+          })}
+        </span>
+      ) : field.type === 'select' ? (
+        <select value={values[field.id] || ''} onChange={(e) => setValues({ ...values, [field.id]: e.target.value })}>
+          <option value="">—</option>
+          {field.options?.map((o) => (
+            <option key={o} value={o}>
+              {localizeOption(o, language)}
+            </option>
+          ))}
+        </select>
+      ) : (
+        <input
+          value={values[field.id] || ''}
+          placeholder={getFieldPlaceholder(field.id, t, templateId)}
+          onChange={(e) => setValues({ ...values, [field.id]: e.target.value })}
+        />
+      )}
+      {suggestionsFor(field.id, language, values.level).length > 0 && (
+        <span className="suggestions">
+          {suggestionsFor(field.id, language, values.level).map((sg) => (
+            <button
+              type="button"
+              key={sg}
+              onClick={(e) => {
+                e.preventDefault()
+                const cur = (values[field.id] || '').trim()
+                setValues({ ...values, [field.id]: cur && field.id !== 'topic' ? `${cur}; ${sg}` : sg })
+              }}
+            >
+              {sg}
+            </button>
+          ))}
+        </span>
+      )}
+    </Field>
+  )
 }
 
-const guidedKey=(block:string)=>`guided${block[0].toUpperCase()}${block.slice(1)}`
-const stepTitle=(step:GuidedStep,t:Record<string,string>)=>step.block?t[guidedKey(step.block)]||step.id:getFieldName(step.fields[0],t)
-const stepHelp=(step:GuidedStep,t:Record<string,string>)=>step.block?t[`${guidedKey(step.block)}Help`]||'':''
+const guidedKey = (block: string) => `guided${block[0].toUpperCase()}${block.slice(1)}`
+const stepTitle = (step: GuidedStep, t: Record<string, string>) =>
+  step.block ? t[guidedKey(step.block)] || step.id : getFieldName(step.fields[0], t)
+const stepHelp = (step: GuidedStep, t: Record<string, string>) =>
+  step.block ? t[`${guidedKey(step.block)}Help`] || '' : ''
 
-function GuidedSummary({t,language,selected,values,steps,onEdit}:{t:Record<string,string>;language:Language;selected:PromptTemplate;values:Record<string,string>;steps:GuidedStep[];onEdit:(index:number)=>void}){
- const rows=steps.map((step,index)=>({step,index,items:step.fields.map(id=>{const field=selected.fields.find(item=>item.id===id)!;const raw=(values[id]||'').trim();const value=!raw?'' : field.options?raw.split(' · ').filter(Boolean).map(option=>localizeOption(option,language)).join(' · '):raw;return {name:getFieldName(id,t),value}})}))
- const missing: string[]=[]
- if(selected.fields.some(field=>field.id==='level')&&!values.level)missing.push(getFieldName('level',t))
- if(selected.fields.some(field=>field.id==='topic')&&!values.topic)missing.push(getFieldName('topic',t))
- if(selected.fields.some(field=>field.id==='task')&&!values.task)missing.push(getFieldName('task',t))
- return <section className="guided-step guided-summary"><h2 className="guided-title">{t.summaryTitle}</h2><p className="guided-help">{t.summaryHelp}</p>{missing.length>0&&<p className="guided-missing">{t.summaryMissing.replace('{fields}',missing.join(', '))}</p>}<div className="summary-list">{rows.map(row=><div className="summary-row" key={row.step.id}><div className="summary-head"><strong>{stepTitle(row.step,t)}</strong><button type="button" className="summary-edit" onClick={()=>onEdit(row.index)}>{t.edit}</button></div>{row.items.some(item=>item.value)?<dl>{row.items.filter(item=>item.value).map(item=><div key={item.name}><dt>{item.name}</dt><dd>{item.value}</dd></div>)}</dl>:<p className="summary-empty">{t.summaryEmpty}</p>}</div>)}</div></section>
+function GuidedSummary({
+  t,
+  language,
+  selected,
+  values,
+  steps,
+  onEdit,
+}: {
+  t: Record<string, string>
+  language: Language
+  selected: PromptTemplate
+  values: Record<string, string>
+  steps: GuidedStep[]
+  onEdit: (index: number) => void
+}) {
+  const rows = steps.map((step, index) => ({
+    step,
+    index,
+    items: step.fields.map((id) => {
+      const field = selected.fields.find((item) => item.id === id)!
+      const raw = (values[id] || '').trim()
+      const value = !raw
+        ? ''
+        : field.options
+          ? raw
+              .split(' · ')
+              .filter(Boolean)
+              .map((option) => localizeOption(option, language))
+              .join(' · ')
+          : raw
+      return { name: getFieldName(id, t), value }
+    }),
+  }))
+  const missing: string[] = []
+  if (selected.fields.some((field) => field.id === 'level') && !values.level) missing.push(getFieldName('level', t))
+  if (selected.fields.some((field) => field.id === 'topic') && !values.topic) missing.push(getFieldName('topic', t))
+  if (selected.fields.some((field) => field.id === 'task') && !values.task) missing.push(getFieldName('task', t))
+  return (
+    <section className="guided-step guided-summary">
+      <h2 className="guided-title">{t.summaryTitle}</h2>
+      <p className="guided-help">{t.summaryHelp}</p>
+      {missing.length > 0 && (
+        <p className="guided-missing">{t.summaryMissing.replace('{fields}', missing.join(', '))}</p>
+      )}
+      <div className="summary-list">
+        {rows.map((row) => (
+          <div className="summary-row" key={row.step.id}>
+            <div className="summary-head">
+              <strong>{stepTitle(row.step, t)}</strong>
+              <button type="button" className="summary-edit" onClick={() => onEdit(row.index)}>
+                {t.edit}
+              </button>
+            </div>
+            {row.items.some((item) => item.value) ? (
+              <dl>
+                {row.items
+                  .filter((item) => item.value)
+                  .map((item) => (
+                    <div key={item.name}>
+                      <dt>{item.name}</dt>
+                      <dd>{item.value}</dd>
+                    </div>
+                  ))}
+              </dl>
+            ) : (
+              <p className="summary-empty">{t.summaryEmpty}</p>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+  )
 }
 
-function CreateView({t,language,selected,values,setValues,prompt,setPrompt,generate,setModal,choose,copyPrompt,clear,editingTitle,update}:{t:Record<string,string>;language:Language;selected:typeof templates[number];values:Record<string,string>;setValues:(v:Record<string,string>)=>void;prompt:string;setPrompt:(v:string)=>void;generate:()=>void;setModal:(v:boolean)=>void;choose:(id:string)=>void;copyPrompt:(text:string)=>Promise<boolean>;clear:()=>void;editingTitle?:string;update:()=>void}){
- const [copyState,setCopyState]=useState('')
- const [isFullscreen,setIsFullscreen]=useState(false)
- const [mode,setMode]=useState<'simple'|'advanced'|'guided'>(()=>{const saved=localStorage.getItem('edutictac-form-mode');return saved==='advanced'||saved==='guided'?saved:'simple'})
- const [stepIndex,setStepIndex]=useState(0)
- const steps=guidedSteps(selected)
- const changeMode=(next:'simple'|'advanced'|'guided')=>{setMode(next);try{localStorage.setItem('edutictac-form-mode',next)}catch{/* El modo es solo una preferencia de interfaz. */}}
- useEffect(()=>{setStepIndex(0)},[selected.id])
- const isAdvanced=mode==='advanced'
- const loadExample=()=>{const filled=Object.entries(values).some(([key,value])=>key!=='outputFormat'&&value.trim());if(filled&&!window.confirm(t.loadExampleConfirm))return;const example=exampleValues(selected.id,language);setValues({...initialValues(selected.id),...example});if(mode==='simple'&&Object.keys(example).some(key=>!simpleFieldIds[selected.id]?.includes(key)))changeMode('advanced');setPrompt('')}
- const visibleFields=selected.fields.filter(field=>isAdvanced||simpleFieldIds[selected.id]?.includes(field.id))
- const totalSteps=steps.length
- const atSummary=stepIndex>=totalSteps
- const currentStep=steps[Math.min(stepIndex,totalSteps-1)]
- const generateFromSummary=()=>{generate();if(window.matchMedia?.('(max-width:800px)').matches)window.setTimeout(()=>document.querySelector('.preview')?.scrollIntoView({behavior:'smooth',block:'start'}),60)}
- const openEduCrea=async()=>{if(!prompt)return;setCopyState('');const win=window.open('','_blank');if(win){try{win.opener=null}catch{}}const url=await eduCreaPromptUrl(prompt,selected.id,EDUCEREA_URL,{language,level:values.level});if(url&&win){try{win.location.replace(url);setCopyState(t.useInEduCreaOpened);return}catch{}}if(win){try{win.close()}catch{}}window.open(eduCreaNewProjectUrl(),'_blank','noopener');const copied=await copyPrompt(prompt);setCopyState(copied?t.useInEduCreaCopied:t.useInEduCreaCopyFailed)}
- return <main className="workspace"><aside className="form-panel"><button className="back" onClick={()=>choose(selected.id)}>← {t.choose}</button><p className="eyebrow">{t.create}</p><h1>{getTemplateName(selected.id,t)}</h1><div className="mode-switch" role="group" aria-label={t.formMode}><button className={mode==='simple'?'active':''} onClick={()=>changeMode('simple')}>{t.simpleMode}</button><button className={mode==='guided'?'active':''} onClick={()=>changeMode('guided')}>{t.guidedMode}</button><button className={mode==='advanced'?'active':''} onClick={()=>changeMode('advanced')}>{t.advancedMode}</button></div><p className="mode-hint">{mode==='advanced'?t.advancedModeHint:mode==='guided'?t.guidedModeHint:t.simpleModeHint}</p><button type="button" className="example-button" onClick={loadExample}>💡 {t.loadExample}</button>{mode==='guided'?(atSummary?<GuidedSummary t={t} language={language} selected={selected} values={values} steps={steps} onEdit={setStepIndex}/>:<section className="guided-step"><div className="guided-progress"><div className="guided-progress-text"><strong>{t.stepOf.replace('{current}',String(stepIndex+1)).replace('{total}',String(totalSteps))}</strong><span>{stepIndex+1===totalSteps?t.lastStep:t.stepsLeft.replace('{count}',String(totalSteps-stepIndex-1))}</span></div><div className="guided-bar" role="progressbar" aria-valuemin={1} aria-valuemax={totalSteps} aria-valuenow={stepIndex+1}><i style={{width:`${((stepIndex+1)/totalSteps)*100}%`}}/></div></div><h2 className="guided-title">{stepTitle(currentStep,t)}</h2>{stepHelp(currentStep,t)&&<p className="guided-help">{stepHelp(currentStep,t)}</p>}{currentStep.fields.includes('level')&&<CurriculumSelector t={t} language={language} values={values} setValues={setValues} advanced/>}{currentStep.fields.map(id=>{const field=selected.fields.find(item=>item.id===id)!;return <FieldControl key={id} field={field} t={t} language={language} values={values} setValues={setValues} templateId={selected.id}/>})}</section>):<><CurriculumSelector t={t} language={language} values={values} setValues={setValues} advanced/>{visibleFields.map(field=><FieldControl key={field.id} field={field} t={t} language={language} values={values} setValues={setValues} templateId={selected.id}/>)}</>}<p className="warning">ⓘ {t.warning}</p><div className="actions">{mode==='guided'?(atSummary?<><button className="primary" onClick={generateFromSummary}>{t.generate}</button><button className="secondary" onClick={()=>setStepIndex(totalSteps-1)}>{t.back}</button></>:<><button className="primary" onClick={()=>setStepIndex(index=>Math.min(index+1,totalSteps))}>{stepIndex+1===totalSteps?t.seeSummary:t.next}</button>{stepIndex>0&&<button className="secondary" onClick={()=>setStepIndex(index=>index-1)}>{t.back}</button>}<button type="button" className="skip-link" onClick={()=>setStepIndex(index=>Math.min(index+1,totalSteps))}>{t.skip}</button></>):<><button className="primary" onClick={generate}>{t.generate}</button><button className="secondary" onClick={clear}>{t.clear}</button></>}</div></aside><section className={`preview${isFullscreen?' is-fullscreen':''}`}><div className="preview-head"><div><p className="eyebrow">{t.preview}</p><h2>{getTemplateName(selected.id,t)}</h2><small>{t.editableHint}</small></div><div className="preview-tools"><span className="status-dot">{t.localStatus}</span><button className="secondary" onClick={()=>setIsFullscreen(value=>!value)} aria-label={isFullscreen?t.exitFullscreen:t.fullscreen}>{isFullscreen?'↙':'↗'} {isFullscreen?t.exitFullscreen:t.fullscreen}</button></div></div><textarea className="prompt-editor" aria-label={t.preview} value={prompt} placeholder={t.empty} onChange={e=>setPrompt(e.target.value)}/><div className="preview-actions"><button className="secondary" onClick={async()=>setCopyState(await copyPrompt(prompt)?t.copied:t.copyFailed)}>{t.copy}</button><button className="secondary" onClick={openEduCrea} title={t.useInEduCreaHint} disabled={!prompt}>{t.useInEduCrea}</button>{copyState&&<span className="copy-status" role="status">{copyState}</span>}{editingTitle?<><button className="primary" disabled={!prompt} onClick={update}>{t.update}</button><button className="secondary" disabled={!prompt} onClick={()=>setModal(true)}>{t.saveAsNew}</button></>:<button className="primary" disabled={!prompt} onClick={()=>setModal(true)}>{t.save}</button>}</div>{editingTitle&&<p className="editing-label">{t.editing} <strong>{editingTitle}</strong></p>}{prompt&&<div className="after-prompt"><div className="ai-launch"><p className="eyebrow">{t.openIn}</p><AiButtons t={t} prompt={prompt} aiTool={values.aiTool} copyPrompt={copyPrompt} onStatus={setCopyState}/></div><div className="follow-ups"><p className="eyebrow">{t.followUps}</p><small>{t.followUpsHint}</small><div className="follow-up-list">{followUps(selected.id,selected.category,language).map(text=><button type="button" key={text} onClick={async()=>setCopyState(await copyPrompt(text)?t.followUpCopied:t.copyFailed)}>{text}</button>)}</div></div></div>}</section></main>
+function CreateView({
+  t,
+  language,
+  selected,
+  values,
+  setValues,
+  prompt,
+  setPrompt,
+  generate,
+  setModal,
+  choose,
+  copyPrompt,
+  clear,
+  editingTitle,
+  update,
+}: {
+  t: Record<string, string>
+  language: Language
+  selected: (typeof templates)[number]
+  values: Record<string, string>
+  setValues: (v: Record<string, string>) => void
+  prompt: string
+  setPrompt: (v: string) => void
+  generate: () => void
+  setModal: (v: boolean) => void
+  choose: (id: string) => void
+  copyPrompt: (text: string) => Promise<boolean>
+  clear: () => void
+  editingTitle?: string
+  update: () => void
+}) {
+  const [copyState, setCopyState] = useState('')
+  const [isFullscreen, setIsFullscreen] = useState(false)
+  const [mode, setMode] = useState<'simple' | 'advanced' | 'guided'>(() => {
+    const saved = localStorage.getItem('edutictac-form-mode')
+    return saved === 'advanced' || saved === 'guided' ? saved : 'simple'
+  })
+  const [stepIndex, setStepIndex] = useState(0)
+  const steps = guidedSteps(selected)
+  const changeMode = (next: 'simple' | 'advanced' | 'guided') => {
+    setMode(next)
+    try {
+      localStorage.setItem('edutictac-form-mode', next)
+    } catch {
+      /* El modo es solo una preferencia de interfaz. */
+    }
+  }
+  useEffect(() => {
+    setStepIndex(0)
+  }, [selected.id])
+  const isAdvanced = mode === 'advanced'
+  const loadExample = () => {
+    const filled = Object.entries(values).some(([key, value]) => key !== 'outputFormat' && value.trim())
+    if (filled && !window.confirm(t.loadExampleConfirm)) return
+    const example = exampleValues(selected.id, language)
+    setValues({ ...initialValues(selected.id), ...example })
+    if (mode === 'simple' && Object.keys(example).some((key) => !simpleFieldIds[selected.id]?.includes(key)))
+      changeMode('advanced')
+    setPrompt('')
+  }
+  const visibleFields = selected.fields.filter((field) => isAdvanced || simpleFieldIds[selected.id]?.includes(field.id))
+  const totalSteps = steps.length
+  const atSummary = stepIndex >= totalSteps
+  const currentStep = steps[Math.min(stepIndex, totalSteps - 1)]
+  const generateFromSummary = () => {
+    generate()
+    if (window.matchMedia?.('(max-width:800px)').matches)
+      window.setTimeout(
+        () => document.querySelector('.preview')?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
+        60,
+      )
+  }
+  const openEduCrea = async () => {
+    if (!prompt) return
+    setCopyState('')
+    const win = window.open('', '_blank')
+    if (win) {
+      try {
+        win.opener = null
+      } catch {}
+    }
+    const url = await eduCreaPromptUrl(prompt, selected.id, EDUCEREA_URL, { language, level: values.level })
+    if (url && win) {
+      try {
+        win.location.replace(url)
+        setCopyState(t.useInEduCreaOpened)
+        return
+      } catch {}
+    }
+    if (win) {
+      try {
+        win.close()
+      } catch {}
+    }
+    window.open(eduCreaNewProjectUrl(), '_blank', 'noopener')
+    const copied = await copyPrompt(prompt)
+    setCopyState(copied ? t.useInEduCreaCopied : t.useInEduCreaCopyFailed)
+  }
+  return (
+    <main className="workspace">
+      <aside className="form-panel">
+        <button className="back" onClick={() => choose(selected.id)}>
+          ← {t.choose}
+        </button>
+        <p className="eyebrow">{t.create}</p>
+        <h1>{getTemplateName(selected.id, t)}</h1>
+        <div className="mode-switch" role="group" aria-label={t.formMode}>
+          <button className={mode === 'simple' ? 'active' : ''} onClick={() => changeMode('simple')}>
+            {t.simpleMode}
+          </button>
+          <button className={mode === 'guided' ? 'active' : ''} onClick={() => changeMode('guided')}>
+            {t.guidedMode}
+          </button>
+          <button className={mode === 'advanced' ? 'active' : ''} onClick={() => changeMode('advanced')}>
+            {t.advancedMode}
+          </button>
+        </div>
+        <p className="mode-hint">
+          {mode === 'advanced' ? t.advancedModeHint : mode === 'guided' ? t.guidedModeHint : t.simpleModeHint}
+        </p>
+        <button type="button" className="example-button" onClick={loadExample}>
+          💡 {t.loadExample}
+        </button>
+        {mode === 'guided' ? (
+          atSummary ? (
+            <GuidedSummary
+              t={t}
+              language={language}
+              selected={selected}
+              values={values}
+              steps={steps}
+              onEdit={setStepIndex}
+            />
+          ) : (
+            <section className="guided-step">
+              <div className="guided-progress">
+                <div className="guided-progress-text">
+                  <strong>
+                    {t.stepOf.replace('{current}', String(stepIndex + 1)).replace('{total}', String(totalSteps))}
+                  </strong>
+                  <span>
+                    {stepIndex + 1 === totalSteps
+                      ? t.lastStep
+                      : t.stepsLeft.replace('{count}', String(totalSteps - stepIndex - 1))}
+                  </span>
+                </div>
+                <div
+                  className="guided-bar"
+                  role="progressbar"
+                  aria-valuemin={1}
+                  aria-valuemax={totalSteps}
+                  aria-valuenow={stepIndex + 1}
+                >
+                  <i style={{ width: `${((stepIndex + 1) / totalSteps) * 100}%` }} />
+                </div>
+              </div>
+              <h2 className="guided-title">{stepTitle(currentStep, t)}</h2>
+              {stepHelp(currentStep, t) && <p className="guided-help">{stepHelp(currentStep, t)}</p>}
+              {currentStep.fields.includes('level') && (
+                <CurriculumSelector t={t} language={language} values={values} setValues={setValues} advanced />
+              )}
+              {currentStep.fields.map((id) => {
+                const field = selected.fields.find((item) => item.id === id)!
+                return (
+                  <FieldControl
+                    key={id}
+                    field={field}
+                    t={t}
+                    language={language}
+                    values={values}
+                    setValues={setValues}
+                    templateId={selected.id}
+                  />
+                )
+              })}
+            </section>
+          )
+        ) : (
+          <>
+            <CurriculumSelector t={t} language={language} values={values} setValues={setValues} advanced />
+            {visibleFields.map((field) => (
+              <FieldControl
+                key={field.id}
+                field={field}
+                t={t}
+                language={language}
+                values={values}
+                setValues={setValues}
+                templateId={selected.id}
+              />
+            ))}
+          </>
+        )}
+        <p className="warning">ⓘ {t.warning}</p>
+        <div className="actions">
+          {mode === 'guided' ? (
+            atSummary ? (
+              <>
+                <button className="primary" onClick={generateFromSummary}>
+                  {t.generate}
+                </button>
+                <button className="secondary" onClick={() => setStepIndex(totalSteps - 1)}>
+                  {t.back}
+                </button>
+              </>
+            ) : (
+              <>
+                <button className="primary" onClick={() => setStepIndex((index) => Math.min(index + 1, totalSteps))}>
+                  {stepIndex + 1 === totalSteps ? t.seeSummary : t.next}
+                </button>
+                {stepIndex > 0 && (
+                  <button className="secondary" onClick={() => setStepIndex((index) => index - 1)}>
+                    {t.back}
+                  </button>
+                )}
+                <button
+                  type="button"
+                  className="skip-link"
+                  onClick={() => setStepIndex((index) => Math.min(index + 1, totalSteps))}
+                >
+                  {t.skip}
+                </button>
+              </>
+            )
+          ) : (
+            <>
+              <button className="primary" onClick={generate}>
+                {t.generate}
+              </button>
+              <button className="secondary" onClick={clear}>
+                {t.clear}
+              </button>
+            </>
+          )}
+        </div>
+      </aside>
+      <section className={`preview${isFullscreen ? ' is-fullscreen' : ''}`}>
+        <div className="preview-head">
+          <div>
+            <p className="eyebrow">{t.preview}</p>
+            <h2>{getTemplateName(selected.id, t)}</h2>
+            <small>{t.editableHint}</small>
+          </div>
+          <div className="preview-tools">
+            <span className="status-dot">{t.localStatus}</span>
+            <button
+              className="secondary"
+              onClick={() => setIsFullscreen((value) => !value)}
+              aria-label={isFullscreen ? t.exitFullscreen : t.fullscreen}
+            >
+              {isFullscreen ? '↙' : '↗'} {isFullscreen ? t.exitFullscreen : t.fullscreen}
+            </button>
+          </div>
+        </div>
+        <textarea
+          className="prompt-editor"
+          aria-label={t.preview}
+          value={prompt}
+          placeholder={t.empty}
+          onChange={(e) => setPrompt(e.target.value)}
+        />
+        <div className="preview-actions">
+          <button
+            className="secondary"
+            onClick={async () => setCopyState((await copyPrompt(prompt)) ? t.copied : t.copyFailed)}
+          >
+            {t.copy}
+          </button>
+          <button className="secondary" onClick={openEduCrea} title={t.useInEduCreaHint} disabled={!prompt}>
+            {t.useInEduCrea}
+          </button>
+          {copyState && (
+            <span className="copy-status" role="status">
+              {copyState}
+            </span>
+          )}
+          {editingTitle ? (
+            <>
+              <button className="primary" disabled={!prompt} onClick={update}>
+                {t.update}
+              </button>
+              <button className="secondary" disabled={!prompt} onClick={() => setModal(true)}>
+                {t.saveAsNew}
+              </button>
+            </>
+          ) : (
+            <button className="primary" disabled={!prompt} onClick={() => setModal(true)}>
+              {t.save}
+            </button>
+          )}
+        </div>
+        {editingTitle && (
+          <p className="editing-label">
+            {t.editing} <strong>{editingTitle}</strong>
+          </p>
+        )}
+        {prompt && (
+          <div className="after-prompt">
+            <div className="ai-launch">
+              <p className="eyebrow">{t.openIn}</p>
+              <AiButtons t={t} prompt={prompt} aiTool={values.aiTool} copyPrompt={copyPrompt} onStatus={setCopyState} />
+            </div>
+            <div className="follow-ups">
+              <p className="eyebrow">{t.followUps}</p>
+              <small>{t.followUpsHint}</small>
+              <div className="follow-up-list">
+                {followUps(selected.id, selected.category, language).map((text) => (
+                  <button
+                    type="button"
+                    key={text}
+                    onClick={async () => setCopyState((await copyPrompt(text)) ? t.followUpCopied : t.copyFailed)}
+                  >
+                    {text}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </section>
+    </main>
+  )
 }
 
+function CurriculumSelector({
+  t,
+  language,
+  values,
+  setValues,
+  advanced,
+}: {
+  t: Record<string, string>
+  language: Language
+  values: Record<string, string>
+  setValues: (v: Record<string, string>) => void
+  advanced: boolean
+}) {
+  return (
+    <>
+      <label className="curriculum-selector">
+        {t.curriculum}
+        <small>{t.general}</small>
+        <select
+          value={values.curriculumProfile || ''}
+          onChange={(e) => {
+            const profile = valencianProfiles.find((item) => item.id === e.target.value)
+            setValues({
+              ...values,
+              curriculumProfile: e.target.value,
+              curriculumContext: profile ? `${t.curriculumName}: ${profile.labels[language]}.` : '',
+              level: profile?.level || values.level,
+              course: profile ? '' : values.course,
+              subject: (profile?.subject && profile.subjectLabels[language]) || values.subject,
+            })
+          }}
+        >
+          <option value="">{t.general}</option>
+          {valencianProfiles.map((profile) => (
+            <option value={profile.id} key={profile.id}>
+              {profile.labels[language]}
+            </option>
+          ))}
+        </select>
+      </label>
+      {advanced && <CurriculumElementsSelector t={t} language={language} values={values} setValues={setValues} />}
+    </>
+  )
+}
 
-function CurriculumSelector({t,language,values,setValues,advanced}:{t:Record<string,string>;language:Language;values:Record<string,string>;setValues:(v:Record<string,string>)=>void;advanced:boolean}){return <><label className="curriculum-selector">{t.curriculum}<small>{t.general}</small><select value={values.curriculumProfile||''} onChange={e=>{const profile=valencianProfiles.find(item=>item.id===e.target.value);setValues({...values,curriculumProfile:e.target.value,curriculumContext:profile?`${t.curriculumName}: ${profile.labels[language]}.`:'',level:profile?.level||values.level,course:profile?'':values.course,subject:(profile?.subject&&profile.subjectLabels[language])||values.subject})}}><option value="">{t.general}</option>{valencianProfiles.map(profile=><option value={profile.id} key={profile.id}>{profile.labels[language]}</option>)}</select></label>{advanced&&<CurriculumElementsSelector t={t} language={language} values={values} setValues={setValues}/>}</>}
+function CurriculumElementsSelector({
+  t,
+  language,
+  values,
+  setValues,
+}: {
+  t: Record<string, string>
+  language: Language
+  values: Record<string, string>
+  setValues: (v: Record<string, string>) => void
+}) {
+  const elements = getCurriculumElements(values.curriculumProfile || '', values.level, values.subject, language)
+  if (!elements)
+    return values.level && (values.curriculumProfile || values.subject) ? (
+      <div className="curriculum-elements-group">
+        <p className="eyebrow">{t.curriculumElements}</p>
+        <small>{t.curriculumEmpty}</small>
+      </div>
+    ) : null
+  const select = (
+    key: 'curriculumCompetences' | 'curriculumCriteria' | 'curriculumKnowledge',
+    label: string,
+    options: string[],
+  ) => {
+    const selected = parseCurriculumSelection(values[key] || '', options)
+    return (
+      <fieldset className="curriculum-elements">
+        <legend>{label}</legend>
+        <div className="curriculum-options">
+          {options.map((option) => (
+            <label className="curriculum-option" key={option}>
+              <input
+                type="checkbox"
+                checked={selected.includes(option)}
+                onChange={(e) => {
+                  const next = e.target.checked ? [...selected, option] : selected.filter((item) => item !== option)
+                  setValues({ ...values, [key]: joinCurriculumSelection(next) })
+                }}
+              />
+              <span>{option}</span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+    )
+  }
+  return (
+    <div className="curriculum-elements-group">
+      <p className="eyebrow">{t.curriculumElements}</p>
+      <small>{t.curriculumElementsHint}</small>
+      {select('curriculumCompetences', t.specificCompetences, elements.specificCompetences)}
+      {select('curriculumCriteria', t.assessmentCriteria, elements.assessmentCriteria)}
+      {select('curriculumKnowledge', t.basicKnowledge, elements.basicKnowledge)}
+    </div>
+  )
+}
 
-
-function CurriculumElementsSelector({t,language,values,setValues}:{t:Record<string,string>;language:Language;values:Record<string,string>;setValues:(v:Record<string,string>)=>void}){const elements=getCurriculumElements(values.curriculumProfile||'',values.level,values.subject,language);if(!elements)return values.level&&(values.curriculumProfile||values.subject)?<div className="curriculum-elements-group"><p className="eyebrow">{t.curriculumElements}</p><small>{t.curriculumEmpty}</small></div>:null;const select=(key:'curriculumCompetences'|'curriculumCriteria'|'curriculumKnowledge',label:string,options:string[])=>{const selected=parseCurriculumSelection(values[key]||'',options);return <fieldset className="curriculum-elements"><legend>{label}</legend><div className="curriculum-options">{options.map(option=><label className="curriculum-option" key={option}><input type="checkbox" checked={selected.includes(option)} onChange={e=>{const next=e.target.checked?[...selected,option]:selected.filter(item=>item!==option);setValues({...values,[key]:joinCurriculumSelection(next)})}}/><span>{option}</span></label>)}</div></fieldset>};return <div className="curriculum-elements-group"><p className="eyebrow">{t.curriculumElements}</p><small>{t.curriculumElementsHint}</small>{select('curriculumCompetences',t.specificCompetences,elements.specificCompetences)}{select('curriculumCriteria',t.assessmentCriteria,elements.assessmentCriteria)}{select('curriculumKnowledge',t.basicKnowledge,elements.basicKnowledge)}</div>}
-
-function Library({t,saved,categories,search,setSearch,remove,duplicate,exportAll,importFile,choose,openSavedPrompt,copyPrompt,user,syncBusy,onSync,onLogin,central}:{t:Record<string,string>;saved:SavedPrompt[];categories:Category[];search:string;setSearch:(v:string)=>void;remove:(id:string)=>void;duplicate:(p:SavedPrompt)=>void;exportAll:()=>void;importFile:(f:File)=>void;choose:(id:string)=>void;openSavedPrompt:(p:SavedPrompt)=>void;copyPrompt:(text:string)=>Promise<boolean>;user:AuthUser|null;syncBusy:boolean;onSync:()=>void;onLogin:()=>void;central:boolean}){const [status,setStatus]=useState<{id:string;text:string}|null>(null);const filtered=saved.filter(p=>`${p.title} ${p.prompt} ${p.tags.join(' ')} ${p.notes||''}`.toLowerCase().includes(search.toLowerCase()));return <main className="page library-page"><div className="library-title"><div><p className="eyebrow">EDUTICTAC PROMPT</p><h1>{t.library}</h1></div><div className="toolbar"><button className="secondary" onClick={exportAll}>{t.export} JSON</button><label className="secondary file-label">{t.import}<input type="file" accept=".json,application/json" onChange={e=>e.target.files?.[0]&&importFile(e.target.files[0])}/></label></div></div><div className="library-account">{user?<><span>{t.signedInAs.replace('{name}',user.name||user.email||'')}</span><button className="secondary" onClick={onSync} disabled={syncBusy}>{syncBusy?'…':t.sync}</button></>:central?<span>{t.libraryLoginHint}</span>:<><span>{t.libraryLoginHintLocal}</span><button className="primary" onClick={onLogin}>{t.login}</button></>}</div><input className="library-search" placeholder={t.librarySearch} value={search} onChange={e=>setSearch(e.target.value)}/>{filtered.length===0?<div className="empty">{t.noPrompts}</div>:<div className="saved-list">{filtered.map(p=><article className="saved-card" key={p.id}><div className="saved-main"><div className="saved-meta"><span>{p.favorite?'★':'☆'}</span><small>{p.language} · {p.templateId?getTemplateName(p.templateId,t):t.app}</small></div><h3>{p.title}</h3><p>{p.prompt.slice(0,220)}{p.prompt.length>220?'…':''}</p><div className="tag-row">{p.tags.map(tag=><span key={tag}>#{tag}</span>)}</div><div className="ai-launch saved-ai"><p className="eyebrow">{t.openIn}</p><AiButtons t={t} prompt={p.prompt} aiTool={p.values?.aiTool} copyPrompt={copyPrompt} onStatus={text=>setStatus({id:p.id,text})}/>{status?.id===p.id&&<span className="copy-status" role="status">{status.text}</span>}</div></div><div className="saved-actions"><button onClick={()=>openSavedPrompt(p)}>{t.edit}</button><button onClick={async()=>setStatus({id:p.id,text:await copyPrompt(p.prompt)?t.copied:t.copyFailed})}>{t.copy}</button><button onClick={()=>duplicate(p)}>{t.duplicate}</button><button onClick={()=>downloadMarkdown(p)}>{t.export} MD</button><button className="danger" onClick={()=>remove(p.id)}>{t.delete}</button></div></article>)}</div>}</main>}
+function Library({
+  t,
+  saved,
+  categories,
+  search,
+  setSearch,
+  remove,
+  duplicate,
+  exportAll,
+  importFile,
+  choose,
+  openSavedPrompt,
+  copyPrompt,
+  user,
+  syncBusy,
+  onSync,
+  onLogin,
+  central,
+}: {
+  t: Record<string, string>
+  saved: SavedPrompt[]
+  categories: Category[]
+  search: string
+  setSearch: (v: string) => void
+  remove: (id: string) => void
+  duplicate: (p: SavedPrompt) => void
+  exportAll: () => void
+  importFile: (f: File) => void
+  choose: (id: string) => void
+  openSavedPrompt: (p: SavedPrompt) => void
+  copyPrompt: (text: string) => Promise<boolean>
+  user: AuthUser | null
+  syncBusy: boolean
+  onSync: () => void
+  onLogin: () => void
+  central: boolean
+}) {
+  const [status, setStatus] = useState<{ id: string; text: string } | null>(null)
+  const filtered = saved.filter((p) =>
+    `${p.title} ${p.prompt} ${p.tags.join(' ')} ${p.notes || ''}`.toLowerCase().includes(search.toLowerCase()),
+  )
+  return (
+    <main className="page library-page">
+      <div className="library-title">
+        <div>
+          <p className="eyebrow">EDUTICTAC PROMPT</p>
+          <h1>{t.library}</h1>
+        </div>
+        <div className="toolbar">
+          <button className="secondary" onClick={exportAll}>
+            {t.export} JSON
+          </button>
+          <label className="secondary file-label">
+            {t.import}
+            <input
+              type="file"
+              accept=".json,application/json"
+              onChange={(e) => e.target.files?.[0] && importFile(e.target.files[0])}
+            />
+          </label>
+        </div>
+      </div>
+      <div className="library-account">
+        {user ? (
+          <>
+            <span>{t.signedInAs.replace('{name}', user.name || user.email || '')}</span>
+            <button className="secondary" onClick={onSync} disabled={syncBusy}>
+              {syncBusy ? '…' : t.sync}
+            </button>
+          </>
+        ) : central ? (
+          <span>{t.libraryLoginHint}</span>
+        ) : (
+          <>
+            <span>{t.libraryLoginHintLocal}</span>
+            <button className="primary" onClick={onLogin}>
+              {t.login}
+            </button>
+          </>
+        )}
+      </div>
+      <input
+        className="library-search"
+        placeholder={t.librarySearch}
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      {filtered.length === 0 ? (
+        <div className="empty">{t.noPrompts}</div>
+      ) : (
+        <div className="saved-list">
+          {filtered.map((p) => (
+            <article className="saved-card" key={p.id}>
+              <div className="saved-main">
+                <div className="saved-meta">
+                  <span>{p.favorite ? '★' : '☆'}</span>
+                  <small>
+                    {p.language} · {p.templateId ? getTemplateName(p.templateId, t) : t.app}
+                  </small>
+                </div>
+                <h3>{p.title}</h3>
+                <p>
+                  {p.prompt.slice(0, 220)}
+                  {p.prompt.length > 220 ? '…' : ''}
+                </p>
+                <div className="tag-row">
+                  {p.tags.map((tag) => (
+                    <span key={tag}>#{tag}</span>
+                  ))}
+                </div>
+                <div className="ai-launch saved-ai">
+                  <p className="eyebrow">{t.openIn}</p>
+                  <AiButtons
+                    t={t}
+                    prompt={p.prompt}
+                    aiTool={p.values?.aiTool}
+                    copyPrompt={copyPrompt}
+                    onStatus={(text) => setStatus({ id: p.id, text })}
+                  />
+                  {status?.id === p.id && (
+                    <span className="copy-status" role="status">
+                      {status.text}
+                    </span>
+                  )}
+                </div>
+              </div>
+              <div className="saved-actions">
+                <button onClick={() => openSavedPrompt(p)}>{t.edit}</button>
+                <button
+                  onClick={async () =>
+                    setStatus({ id: p.id, text: (await copyPrompt(p.prompt)) ? t.copied : t.copyFailed })
+                  }
+                >
+                  {t.copy}
+                </button>
+                <button onClick={() => duplicate(p)}>{t.duplicate}</button>
+                <button onClick={() => downloadMarkdown(p)}>{t.export} MD</button>
+                <button className="danger" onClick={() => remove(p.id)}>
+                  {t.delete}
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+    </main>
+  )
+}
 // Botones que copian el prompt y abren la IA elegida; la preferida (la del formulario o la última usada) va primero.
-function HelpView({t,language}:{t:Record<string,string>;language:Language}){const guide=helpGuide(language);return <main className="page help"><p className="eyebrow">{t.help}</p><h1>{guide.title}</h1><p className="help-lead">{guide.lead}</p><nav className="help-toc" aria-label={guide.contents}><strong>{guide.contents}</strong><ol>{guide.sections.map(s=><li key={s.id}><a href={`#help-${s.id}`} onClick={e=>{e.preventDefault();document.getElementById(`help-${s.id}`)?.scrollIntoView({behavior:'smooth'})}}>{s.title}</a></li>)}</ol></nav>{guide.sections.map(s=><section key={s.id} id={`help-${s.id}`} className="help-section"><h2>{s.title}</h2>{s.intro&&<p>{s.intro}</p>}{s.points&&<ul className={s.id==='faq'?'help-faq':''}>{s.points.map(([label,text])=><li key={label}><strong>{label}</strong> {text}</li>)}</ul>}{s.example&&<div className="help-example"><p><span>{guide.beforeLabel}</span>{s.example.before}</p><p><span>{guide.afterLabel}</span>{s.example.after}</p></div>}{s.tip&&<p className="callout">{s.tip}</p>}</section>)}</main>}
-function AiButtons({t,prompt,aiTool,copyPrompt,onStatus}:{t:Record<string,string>;prompt:string;aiTool?:string;copyPrompt:(text:string)=>Promise<boolean>;onStatus:(text:string)=>void}){const preferred=preferredAiTarget(aiTool||'');return <div className="ai-buttons">{orderedAiTargets(preferred).map(target=><button type="button" key={target.id} className={preferred===target.id?'preferred':''} onClick={async()=>{rememberAiTarget(target.id);const copying=copyPrompt(prompt);const url=aiTargetUrl(target,prompt);window.open(url,'_blank','noopener');const copied=await copying;onStatus((url.includes('q=')?t.openedWithPrompt:copied?t.openedPaste:t.copyFailed).replace('{name}',target.name))}}>{target.name} ↗</button>)}</div>}
-function downloadMarkdown(p:SavedPrompt){const blob=`# ${p.title}\n\n${p.prompt}\n\n${p.notes||''}`;const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([blob],{type:'text/markdown'}));a.download=`${p.title.replace(/\s+/g,'-').toLowerCase()}.md`;a.click()}
-function SaveModal({t,categories,onCancel,onSave}:{t:Record<string,string>;categories:Category[];onCancel:()=>void;onSave:(x:{title:string;categoryId?:string;categoryName?:string;tags:string[];notes:string;favorite:boolean})=>void}){const [title,setTitle]=useState('');const [categoryId,setCategoryId]=useState('');const [categoryName,setCategoryName]=useState('');const [tags,setTags]=useState('');const [notes,setNotes]=useState('');const [favorite,setFavorite]=useState(false);return <div className="modal-backdrop"><form className="modal" onSubmit={e=>{e.preventDefault();onSave({title,categoryId:categoryId||undefined,categoryName,tags:tags.split(',').map(x=>x.trim()).filter(Boolean),notes,favorite})}}><div className="modal-head"><h2>{t.save}</h2><button type="button" onClick={onCancel}>×</button></div><label>{t.title}<input autoFocus value={title} onChange={e=>setTitle(e.target.value)} placeholder={t.titlePlaceholder} required/></label><label>{t.category}<select value={categoryId} onChange={e=>setCategoryId(e.target.value)}><option value="">—</option>{categories.map(c=><option key={c.id} value={c.id}>{c.name}</option>)}</select><input value={categoryName} onChange={e=>setCategoryName(e.target.value)} placeholder={t.newCategoryPlaceholder} /></label><label>{t.tags}<input value={tags} onChange={e=>setTags(e.target.value)} placeholder={t.tagsPlaceholder}/></label><label>{t.notes}<textarea value={notes} onChange={e=>setNotes(e.target.value)}/></label><label className="check"><input type="checkbox" checked={favorite} onChange={e=>setFavorite(e.target.checked)}/>{t.favorite}</label><div className="modal-actions"><button type="button" className="secondary" onClick={onCancel}>{t.cancel}</button><button className="primary">{t.confirm}</button></div></form></div>}
+function HelpView({ t, language }: { t: Record<string, string>; language: Language }) {
+  const guide = helpGuide(language)
+  return (
+    <main className="page help">
+      <p className="eyebrow">{t.help}</p>
+      <h1>{guide.title}</h1>
+      <p className="help-lead">{guide.lead}</p>
+      <nav className="help-toc" aria-label={guide.contents}>
+        <strong>{guide.contents}</strong>
+        <ol>
+          {guide.sections.map((s) => (
+            <li key={s.id}>
+              <a
+                href={`#help-${s.id}`}
+                onClick={(e) => {
+                  e.preventDefault()
+                  document.getElementById(`help-${s.id}`)?.scrollIntoView({ behavior: 'smooth' })
+                }}
+              >
+                {s.title}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+      {guide.sections.map((s) => (
+        <section key={s.id} id={`help-${s.id}`} className="help-section">
+          <h2>{s.title}</h2>
+          {s.intro && <p>{s.intro}</p>}
+          {s.points && (
+            <ul className={s.id === 'faq' ? 'help-faq' : ''}>
+              {s.points.map(([label, text]) => (
+                <li key={label}>
+                  <strong>{label}</strong> {text}
+                </li>
+              ))}
+            </ul>
+          )}
+          {s.example && (
+            <div className="help-example">
+              <p>
+                <span>{guide.beforeLabel}</span>
+                {s.example.before}
+              </p>
+              <p>
+                <span>{guide.afterLabel}</span>
+                {s.example.after}
+              </p>
+            </div>
+          )}
+          {s.tip && <p className="callout">{s.tip}</p>}
+        </section>
+      ))}
+    </main>
+  )
+}
+function AiButtons({
+  t,
+  prompt,
+  aiTool,
+  copyPrompt,
+  onStatus,
+}: {
+  t: Record<string, string>
+  prompt: string
+  aiTool?: string
+  copyPrompt: (text: string) => Promise<boolean>
+  onStatus: (text: string) => void
+}) {
+  const preferred = preferredAiTarget(aiTool || '')
+  return (
+    <div className="ai-buttons">
+      {orderedAiTargets(preferred).map((target) => (
+        <button
+          type="button"
+          key={target.id}
+          className={preferred === target.id ? 'preferred' : ''}
+          onClick={async () => {
+            rememberAiTarget(target.id)
+            const copying = copyPrompt(prompt)
+            const url = aiTargetUrl(target, prompt)
+            window.open(url, '_blank', 'noopener')
+            const copied = await copying
+            onStatus(
+              (url.includes('q=') ? t.openedWithPrompt : copied ? t.openedPaste : t.copyFailed).replace(
+                '{name}',
+                target.name,
+              ),
+            )
+          }}
+        >
+          {target.name} ↗
+        </button>
+      ))}
+    </div>
+  )
+}
+function downloadMarkdown(p: SavedPrompt) {
+  const blob = `# ${p.title}\n\n${p.prompt}\n\n${p.notes || ''}`
+  const a = document.createElement('a')
+  a.href = URL.createObjectURL(new Blob([blob], { type: 'text/markdown' }))
+  a.download = `${p.title.replace(/\s+/g, '-').toLowerCase()}.md`
+  a.click()
+}
+function SaveModal({
+  t,
+  categories,
+  onCancel,
+  onSave,
+}: {
+  t: Record<string, string>
+  categories: Category[]
+  onCancel: () => void
+  onSave: (x: {
+    title: string
+    categoryId?: string
+    categoryName?: string
+    tags: string[]
+    notes: string
+    favorite: boolean
+  }) => void
+}) {
+  const [title, setTitle] = useState('')
+  const [categoryId, setCategoryId] = useState('')
+  const [categoryName, setCategoryName] = useState('')
+  const [tags, setTags] = useState('')
+  const [notes, setNotes] = useState('')
+  const [favorite, setFavorite] = useState(false)
+  return (
+    <div className="modal-backdrop">
+      <form
+        className="modal"
+        onSubmit={(e) => {
+          e.preventDefault()
+          onSave({
+            title,
+            categoryId: categoryId || undefined,
+            categoryName,
+            tags: tags
+              .split(',')
+              .map((x) => x.trim())
+              .filter(Boolean),
+            notes,
+            favorite,
+          })
+        }}
+      >
+        <div className="modal-head">
+          <h2>{t.save}</h2>
+          <button type="button" onClick={onCancel}>
+            ×
+          </button>
+        </div>
+        <label>
+          {t.title}
+          <input
+            autoFocus
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder={t.titlePlaceholder}
+            required
+          />
+        </label>
+        <label>
+          {t.category}
+          <select value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
+            <option value="">—</option>
+            {categories.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+              </option>
+            ))}
+          </select>
+          <input
+            value={categoryName}
+            onChange={(e) => setCategoryName(e.target.value)}
+            placeholder={t.newCategoryPlaceholder}
+          />
+        </label>
+        <label>
+          {t.tags}
+          <input value={tags} onChange={(e) => setTags(e.target.value)} placeholder={t.tagsPlaceholder} />
+        </label>
+        <label>
+          {t.notes}
+          <textarea value={notes} onChange={(e) => setNotes(e.target.value)} />
+        </label>
+        <label className="check">
+          <input type="checkbox" checked={favorite} onChange={(e) => setFavorite(e.target.checked)} />
+          {t.favorite}
+        </label>
+        <div className="modal-actions">
+          <button type="button" className="secondary" onClick={onCancel}>
+            {t.cancel}
+          </button>
+          <button className="primary">{t.confirm}</button>
+        </div>
+      </form>
+    </div>
+  )
+}

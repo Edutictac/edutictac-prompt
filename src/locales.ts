@@ -1,198 +1,1182 @@
 import type { Language } from './types'
-export const translations: Record<Language, Record<string,string>> = {
-  es: {app:'EduTicTac Prompt', tagline:'Crea mejores prompts educativos, sin complicaciones.',toolsCount:'24 herramientas educativas en evolución',home:'Inicio',create:'Crear',library:'Mi biblioteca',privacy:'Privacidad',cookies:'Cookies',terms:'Términos',source:'Código fuente',about:'Acerca de',search:'Buscar herramienta...',all:'Todas',planning:'Planificación docente',activities:'Actividades',assessment:'Evaluación',adaptation:'Adaptación',content:'Contenidos',digital:'Recursos digitales',communication:'Comunicación',free:'Constructor libre',generate:'Generar prompt',preview:'Vista previa del prompt',copy:'Copiar',save:'Guardar',clear:'Limpiar',saved:'Guardado',noPrompts:'Aún no tienes prompts guardados.',librarySearch:'Buscar en mi biblioteca...',title:'Título',category:'Categoría',tags:'Etiquetas (separadas por comas)',notes:'Notas',favorite:'Favorito',cancel:'Cancelar',confirm:'Guardar prompt',export:'Exportar',import:'Importar',delete:'Eliminar',duplicate:'Duplicar',language:'Idioma',theme:'Tema',system:'Automático',light:'Claro',dark:'Oscuro',warning:'No introduzcas nombres, datos personales ni información sensible del alumnado.',empty:'Completa el formulario para generar tu prompt.',savedOk:'Prompt guardado en tu biblioteca.',importOk:'Importación completada.',choose:'Elige una herramienta',privacyText:'Tus prompts se guardan en este dispositivo mediante IndexedDB y generar un prompt no llama a ninguna IA. Solo si inicias sesión con tu cuenta EduTicTac y sincronizas la biblioteca, se guardan también en el servidor de la comunidad (prompts.edutictac.es, en la Unión Europea), asociados a tu cuenta y visibles solo para ti.',privacyPolicy:'Política de privacidad completa'},
-  'ca-valencia': {app:'EduTicTac Prompt',tagline:'Crea millors prompts educatius, sense complicacions.',toolsCount:'24 ferramentes educatives en evolució',home:'Inici',create:'Crear',library:'La meua biblioteca',privacy:'Privacitat',cookies:'Galetes',terms:'Termes',source:'Codi font',about:'Quant a',search:'Buscar ferramenta...',all:'Totes',planning:'Planificació docent',activities:'Activitats',assessment:'Avaluació',adaptation:'Adaptació',content:'Continguts',digital:'Recursos digitals',communication:'Comunicació',free:'Constructor lliure',generate:'Generar prompt',preview:'Vista prèvia del prompt',copy:'Copiar',save:'Guardar',clear:'Netejar',saved:'Guardat',noPrompts:'Encara no tens prompts guardats.',librarySearch:'Buscar en la meua biblioteca...',title:'Títol',category:'Categoria',tags:'Etiquetes (separades per comes)',notes:'Notes',favorite:'Favorit',cancel:'Cancel·lar',confirm:'Guardar prompt',export:'Exportar',import:'Importar',delete:'Eliminar',duplicate:'Duplicar',language:'Idioma',theme:'Tema',system:'Automàtic',light:'Clar',dark:'Fosc',warning:'No introduïsques noms, dades personals ni informació sensible de l’alumnat.',empty:'Completa el formulari per a generar el teu prompt.',savedOk:'Prompt guardat en la teua biblioteca.',importOk:'Importació completada.',choose:'Tria una ferramenta',privacyText:'Els teus prompts es guarden en este dispositiu mitjançant IndexedDB i generar un prompt no crida cap IA. Només si inicies sessió amb el teu compte EduTicTac i sincronitzes la biblioteca, es guarden també en el servidor de la comunitat (prompts.edutictac.es, en la Unió Europea), associats al teu compte i visibles només per a tu.',privacyPolicy:'Política de privacitat completa'},
-  ca: {app:'EduTicTac Prompt',tagline:'Crea millors prompts educatius, sense complicacions.',toolsCount:'24 eines educatives en evolució',home:'Inici',create:'Crear',library:'La meva biblioteca',privacy:'Privacitat',cookies:'Galetes',terms:'Termes',source:'Codi font',about:'Quant a',search:'Cerca una eina...',all:'Totes',planning:'Planificació docent',activities:'Activitats',assessment:'Avaluació',adaptation:'Adaptació',content:'Continguts',digital:'Recursos digitals',communication:'Comunicació',free:'Constructor lliure',generate:'Genera el prompt',preview:'Vista prèvia del prompt',copy:'Copia',save:'Desa',clear:'Neteja',saved:'Desat',noPrompts:'Encara no tens prompts desats.',librarySearch:'Cerca a la meva biblioteca...',title:'Títol',category:'Categoria',tags:'Etiquetes (separades per comes)',notes:'Notes',favorite:'Preferit',cancel:'Cancel·la',confirm:'Desa el prompt',export:'Exporta',import:'Importa',delete:'Elimina',duplicate:'Duplica',language:'Llengua',theme:'Tema',system:'Automàtic',light:'Clar',dark:'Fosc',warning:'No introdueixis noms, dades personals ni informació sensible de l’alumnat.',empty:'Completa el formulari per generar el teu prompt.',savedOk:'Prompt desat a la teva biblioteca.',importOk:'Importació completada.',choose:'Tria una eina',privacyText:'Els teus prompts es desen en aquest dispositiu mitjançant IndexedDB i generar un prompt no crida cap IA. Només si inicies sessió amb el teu compte EduTicTac i sincronitzes la biblioteca, es desen també al servidor de la comunitat (prompts.edutictac.es, a la Unió Europea), associats al teu compte i visibles només per a tu.',privacyPolicy:'Política de privacitat completa'},
-  en: {app:'EduTicTac Prompt',tagline:'Create better educational prompts, simply.',toolsCount:'24 educational tools and growing',home:'Home',create:'Create',library:'My library',privacy:'Privacy',cookies:'Cookies',terms:'Terms',source:'Source code',about:'About',search:'Search tools...',all:'All',planning:'Lesson planning',activities:'Activities',assessment:'Assessment',adaptation:'Adaptation',content:'Content',digital:'Digital resources',communication:'Communication',free:'Free builder',generate:'Generate prompt',preview:'Prompt preview',copy:'Copy',save:'Save',clear:'Clear',saved:'Saved',noPrompts:'You have no saved prompts yet.',librarySearch:'Search my library...',title:'Title',category:'Category',tags:'Tags (comma separated)',notes:'Notes',favorite:'Favorite',cancel:'Cancel',confirm:'Save prompt',export:'Export',import:'Import',delete:'Delete',duplicate:'Duplicate',language:'Language',theme:'Theme',system:'Automatic',light:'Light',dark:'Dark',warning:'Do not enter names, personal data or sensitive student information.',empty:'Complete the form to generate your prompt.',savedOk:'Prompt saved to your library.',importOk:'Import complete.',choose:'Choose a tool',privacyText:'Your prompts are stored on this device using IndexedDB and generating a prompt does not call any AI. Only if you sign in with your EduTicTac account and sync your library are they also stored on the community server (prompts.edutictac.es, in the European Union), linked to your account and visible only to you.',privacyPolicy:'Full privacy policy'}
+export const translations: Record<Language, Record<string, string>> = {
+  es: {
+    app: 'EduTicTac Prompt',
+    tagline: 'Crea mejores prompts educativos, sin complicaciones.',
+    toolsCount: '24 herramientas educativas en evolución',
+    home: 'Inicio',
+    create: 'Crear',
+    library: 'Mi biblioteca',
+    privacy: 'Privacidad',
+    cookies: 'Cookies',
+    terms: 'Términos',
+    source: 'Código fuente',
+    about: 'Acerca de',
+    search: 'Buscar herramienta...',
+    all: 'Todas',
+    planning: 'Planificación docente',
+    activities: 'Actividades',
+    assessment: 'Evaluación',
+    adaptation: 'Adaptación',
+    content: 'Contenidos',
+    digital: 'Recursos digitales',
+    communication: 'Comunicación',
+    free: 'Constructor libre',
+    generate: 'Generar prompt',
+    preview: 'Vista previa del prompt',
+    copy: 'Copiar',
+    save: 'Guardar',
+    clear: 'Limpiar',
+    saved: 'Guardado',
+    noPrompts: 'Aún no tienes prompts guardados.',
+    librarySearch: 'Buscar en mi biblioteca...',
+    title: 'Título',
+    category: 'Categoría',
+    tags: 'Etiquetas (separadas por comas)',
+    notes: 'Notas',
+    favorite: 'Favorito',
+    cancel: 'Cancelar',
+    confirm: 'Guardar prompt',
+    export: 'Exportar',
+    import: 'Importar',
+    delete: 'Eliminar',
+    duplicate: 'Duplicar',
+    language: 'Idioma',
+    theme: 'Tema',
+    system: 'Automático',
+    light: 'Claro',
+    dark: 'Oscuro',
+    warning: 'No introduzcas nombres, datos personales ni información sensible del alumnado.',
+    empty: 'Completa el formulario para generar tu prompt.',
+    savedOk: 'Prompt guardado en tu biblioteca.',
+    importOk: 'Importación completada.',
+    choose: 'Elige una herramienta',
+    privacyText:
+      'Tus prompts se guardan en este dispositivo mediante IndexedDB y generar un prompt no llama a ninguna IA. Solo si inicias sesión con tu cuenta EduTicTac y sincronizas la biblioteca, se guardan también en el servidor de la comunidad (prompts.edutictac.es, en la Unión Europea), asociados a tu cuenta y visibles solo para ti.',
+    privacyPolicy: 'Política de privacidad completa',
+  },
+  'ca-valencia': {
+    app: 'EduTicTac Prompt',
+    tagline: 'Crea millors prompts educatius, sense complicacions.',
+    toolsCount: '24 ferramentes educatives en evolució',
+    home: 'Inici',
+    create: 'Crear',
+    library: 'La meua biblioteca',
+    privacy: 'Privacitat',
+    cookies: 'Galetes',
+    terms: 'Termes',
+    source: 'Codi font',
+    about: 'Quant a',
+    search: 'Buscar ferramenta...',
+    all: 'Totes',
+    planning: 'Planificació docent',
+    activities: 'Activitats',
+    assessment: 'Avaluació',
+    adaptation: 'Adaptació',
+    content: 'Continguts',
+    digital: 'Recursos digitals',
+    communication: 'Comunicació',
+    free: 'Constructor lliure',
+    generate: 'Generar prompt',
+    preview: 'Vista prèvia del prompt',
+    copy: 'Copiar',
+    save: 'Guardar',
+    clear: 'Netejar',
+    saved: 'Guardat',
+    noPrompts: 'Encara no tens prompts guardats.',
+    librarySearch: 'Buscar en la meua biblioteca...',
+    title: 'Títol',
+    category: 'Categoria',
+    tags: 'Etiquetes (separades per comes)',
+    notes: 'Notes',
+    favorite: 'Favorit',
+    cancel: 'Cancel·lar',
+    confirm: 'Guardar prompt',
+    export: 'Exportar',
+    import: 'Importar',
+    delete: 'Eliminar',
+    duplicate: 'Duplicar',
+    language: 'Idioma',
+    theme: 'Tema',
+    system: 'Automàtic',
+    light: 'Clar',
+    dark: 'Fosc',
+    warning: 'No introduïsques noms, dades personals ni informació sensible de l’alumnat.',
+    empty: 'Completa el formulari per a generar el teu prompt.',
+    savedOk: 'Prompt guardat en la teua biblioteca.',
+    importOk: 'Importació completada.',
+    choose: 'Tria una ferramenta',
+    privacyText:
+      'Els teus prompts es guarden en este dispositiu mitjançant IndexedDB i generar un prompt no crida cap IA. Només si inicies sessió amb el teu compte EduTicTac i sincronitzes la biblioteca, es guarden també en el servidor de la comunitat (prompts.edutictac.es, en la Unió Europea), associats al teu compte i visibles només per a tu.',
+    privacyPolicy: 'Política de privacitat completa',
+  },
+  ca: {
+    app: 'EduTicTac Prompt',
+    tagline: 'Crea millors prompts educatius, sense complicacions.',
+    toolsCount: '24 eines educatives en evolució',
+    home: 'Inici',
+    create: 'Crear',
+    library: 'La meva biblioteca',
+    privacy: 'Privacitat',
+    cookies: 'Galetes',
+    terms: 'Termes',
+    source: 'Codi font',
+    about: 'Quant a',
+    search: 'Cerca una eina...',
+    all: 'Totes',
+    planning: 'Planificació docent',
+    activities: 'Activitats',
+    assessment: 'Avaluació',
+    adaptation: 'Adaptació',
+    content: 'Continguts',
+    digital: 'Recursos digitals',
+    communication: 'Comunicació',
+    free: 'Constructor lliure',
+    generate: 'Genera el prompt',
+    preview: 'Vista prèvia del prompt',
+    copy: 'Copia',
+    save: 'Desa',
+    clear: 'Neteja',
+    saved: 'Desat',
+    noPrompts: 'Encara no tens prompts desats.',
+    librarySearch: 'Cerca a la meva biblioteca...',
+    title: 'Títol',
+    category: 'Categoria',
+    tags: 'Etiquetes (separades per comes)',
+    notes: 'Notes',
+    favorite: 'Preferit',
+    cancel: 'Cancel·la',
+    confirm: 'Desa el prompt',
+    export: 'Exporta',
+    import: 'Importa',
+    delete: 'Elimina',
+    duplicate: 'Duplica',
+    language: 'Llengua',
+    theme: 'Tema',
+    system: 'Automàtic',
+    light: 'Clar',
+    dark: 'Fosc',
+    warning: 'No introdueixis noms, dades personals ni informació sensible de l’alumnat.',
+    empty: 'Completa el formulari per generar el teu prompt.',
+    savedOk: 'Prompt desat a la teva biblioteca.',
+    importOk: 'Importació completada.',
+    choose: 'Tria una eina',
+    privacyText:
+      'Els teus prompts es desen en aquest dispositiu mitjançant IndexedDB i generar un prompt no crida cap IA. Només si inicies sessió amb el teu compte EduTicTac i sincronitzes la biblioteca, es desen també al servidor de la comunitat (prompts.edutictac.es, a la Unió Europea), associats al teu compte i visibles només per a tu.',
+    privacyPolicy: 'Política de privacitat completa',
+  },
+  en: {
+    app: 'EduTicTac Prompt',
+    tagline: 'Create better educational prompts, simply.',
+    toolsCount: '24 educational tools and growing',
+    home: 'Home',
+    create: 'Create',
+    library: 'My library',
+    privacy: 'Privacy',
+    cookies: 'Cookies',
+    terms: 'Terms',
+    source: 'Source code',
+    about: 'About',
+    search: 'Search tools...',
+    all: 'All',
+    planning: 'Lesson planning',
+    activities: 'Activities',
+    assessment: 'Assessment',
+    adaptation: 'Adaptation',
+    content: 'Content',
+    digital: 'Digital resources',
+    communication: 'Communication',
+    free: 'Free builder',
+    generate: 'Generate prompt',
+    preview: 'Prompt preview',
+    copy: 'Copy',
+    save: 'Save',
+    clear: 'Clear',
+    saved: 'Saved',
+    noPrompts: 'You have no saved prompts yet.',
+    librarySearch: 'Search my library...',
+    title: 'Title',
+    category: 'Category',
+    tags: 'Tags (comma separated)',
+    notes: 'Notes',
+    favorite: 'Favorite',
+    cancel: 'Cancel',
+    confirm: 'Save prompt',
+    export: 'Export',
+    import: 'Import',
+    delete: 'Delete',
+    duplicate: 'Duplicate',
+    language: 'Language',
+    theme: 'Theme',
+    system: 'Automatic',
+    light: 'Light',
+    dark: 'Dark',
+    warning: 'Do not enter names, personal data or sensitive student information.',
+    empty: 'Complete the form to generate your prompt.',
+    savedOk: 'Prompt saved to your library.',
+    importOk: 'Import complete.',
+    choose: 'Choose a tool',
+    privacyText:
+      'Your prompts are stored on this device using IndexedDB and generating a prompt does not call any AI. Only if you sign in with your EduTicTac account and sync your library are they also stored on the community server (prompts.edutictac.es, in the European Union), linked to your account and visible only to you.',
+    privacyPolicy: 'Full privacy policy',
+  },
 }
 for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
   Object.assign(translations[language], {
     curriculum: language === 'en' ? 'Curriculum profile (optional)' : 'Perfil curricular (opcional)',
     curriculumName: language === 'en' ? 'Curriculum profile' : 'Perfil curricular',
-    general: language === 'en' ? 'General mode: no curriculum profile' : language === 'ca-valencia' ? 'Mode general: sense perfil curricular' : language === 'ca' ? 'Mode general: sense perfil curricular' : 'Modo general: sin perfil curricular',
-    specificCompetences: language === 'en' ? 'Specific competences' : language === 'es' ? 'Competencias específicas' : language === 'ca' ? 'Competències específiques' : 'Competències específiques',
-    assessmentCriteria: language === 'en' ? 'Assessment criteria' : language === 'es' ? 'Criterios de evaluación' : language === 'ca' ? 'Criteris d’avaluació' : 'Criteris d’avaluació',
+    general:
+      language === 'en'
+        ? 'General mode: no curriculum profile'
+        : language === 'ca-valencia'
+          ? 'Mode general: sense perfil curricular'
+          : language === 'ca'
+            ? 'Mode general: sense perfil curricular'
+            : 'Modo general: sin perfil curricular',
+    specificCompetences:
+      language === 'en'
+        ? 'Specific competences'
+        : language === 'es'
+          ? 'Competencias específicas'
+          : language === 'ca'
+            ? 'Competències específiques'
+            : 'Competències específiques',
+    assessmentCriteria:
+      language === 'en'
+        ? 'Assessment criteria'
+        : language === 'es'
+          ? 'Criterios de evaluación'
+          : language === 'ca'
+            ? 'Criteris d’avaluació'
+            : 'Criteris d’avaluació',
     basicKnowledge: language === 'en' ? 'Basic knowledge' : language === 'es' ? 'Saberes básicos' : 'Sabers bàsics',
-    lead: language === 'en' ? 'Shape your classroom ideas with guided forms.' : language === 'es' ? 'Da forma a tus ideas para el aula con formularios guiados.' : language === 'ca' ? 'Dona forma a les teves idees per a l’aula amb formularis guiats.' : 'Dona forma a les teues idees per a l’aula amb formularis guiats.',
+    lead:
+      language === 'en'
+        ? 'Shape your classroom ideas with guided forms.'
+        : language === 'es'
+          ? 'Da forma a tus ideas para el aula con formularios guiados.'
+          : language === 'ca'
+            ? 'Dona forma a les teves idees per a l’aula amb formularis guiats.'
+            : 'Dona forma a les teues idees per a l’aula amb formularis guiats.',
     catalog: language === 'en' ? 'CATALOGUE' : language === 'es' ? 'CATÁLOGO' : 'CATÀLEG',
-    editing: language === 'en' ? 'Editing:' : language === 'es' ? 'Editando:' : language === 'ca' ? 'Editant:' : 'Editant:',
+    editing:
+      language === 'en' ? 'Editing:' : language === 'es' ? 'Editando:' : language === 'ca' ? 'Editant:' : 'Editant:',
     update: language === 'en' ? 'Update' : language === 'es' ? 'Actualizar' : 'Actualitza',
-    saveAsNew: language === 'en' ? 'Save as new' : language === 'es' ? 'Guardar como nuevo' : language === 'ca' ? 'Desa com a nou' : 'Guarda com a nou',
-    updatedOk: language === 'en' ? 'Prompt updated in your library.' : language === 'es' ? 'Prompt actualizado en tu biblioteca.' : language === 'ca' ? 'Prompt actualitzat a la teva biblioteca.' : 'Prompt actualitzat a la teua biblioteca.',
-    startHere: language === 'en' ? 'START HERE' : language === 'es' ? 'EMPIEZA AQUÍ' : language === 'ca' ? 'COMENÇA AQUÍ' : 'COMENÇA ACÍ',
-    startHereTitle: language === 'en' ? 'Real cases ready to go' : language === 'es' ? 'Casos reales listos para usar' : 'Casos reals a punt per a usar',
-    startHereHint: language === 'en' ? 'The form opens already filled in: adapt it to your group and generate the prompt.' : language === 'es' ? 'El formulario se abre ya relleno: adáptalo a tu grupo y genera el prompt.' : language === 'ca' ? 'El formulari s’obre ja emplenat: adapta’l al teu grup i genera el prompt.' : 'El formulari s’obri ja omplit: adapta’l al teu grup i genera el prompt.',
+    saveAsNew:
+      language === 'en'
+        ? 'Save as new'
+        : language === 'es'
+          ? 'Guardar como nuevo'
+          : language === 'ca'
+            ? 'Desa com a nou'
+            : 'Guarda com a nou',
+    updatedOk:
+      language === 'en'
+        ? 'Prompt updated in your library.'
+        : language === 'es'
+          ? 'Prompt actualizado en tu biblioteca.'
+          : language === 'ca'
+            ? 'Prompt actualitzat a la teva biblioteca.'
+            : 'Prompt actualitzat a la teua biblioteca.',
+    startHere:
+      language === 'en'
+        ? 'START HERE'
+        : language === 'es'
+          ? 'EMPIEZA AQUÍ'
+          : language === 'ca'
+            ? 'COMENÇA AQUÍ'
+            : 'COMENÇA ACÍ',
+    startHereTitle:
+      language === 'en'
+        ? 'Real cases ready to go'
+        : language === 'es'
+          ? 'Casos reales listos para usar'
+          : 'Casos reals a punt per a usar',
+    startHereHint:
+      language === 'en'
+        ? 'The form opens already filled in: adapt it to your group and generate the prompt.'
+        : language === 'es'
+          ? 'El formulario se abre ya relleno: adáptalo a tu grupo y genera el prompt.'
+          : language === 'ca'
+            ? 'El formulari s’obre ja emplenat: adapta’l al teu grup i genera el prompt.'
+            : 'El formulari s’obri ja omplit: adapta’l al teu grup i genera el prompt.',
     help: language === 'en' ? 'Help' : language === 'es' ? 'Ayuda' : 'Ajuda',
-    privacyTitle: language === 'en' ? 'Privacy and responsible use' : language === 'es' ? 'Privacidad y uso responsable' : language === 'ca' ? 'Privacitat i ús responsable' : 'Privacitat i ús responsable',
-    privacyHeading: language === 'en' ? 'A tool at the service of teachers' : language === 'es' ? 'Una herramienta al servicio del profesorado' : language === 'ca' ? 'Una eina al servei del professorat' : 'Una ferramenta al servici del professorat',
-    privacyBody: language === 'en' ? 'Always review AI responses, verify references and facts, check for possible bias, and adapt materials to your context. Do not automatically use responses for grading. Teaching responsibility always remains with you.' : language === 'es' ? 'Revisa siempre las respuestas de cualquier IA, verifica referencias y datos, comprueba posibles sesgos y adapta los materiales a tu contexto. No utilices las respuestas de forma automática para calificar. La responsabilidad docente siempre es tuya.' : language === 'ca' ? 'Revisa sempre les respostes de qualsevol IA, verifica referències i dades, comprova possibles biaixos i adapta els materials al teu context. No utilitzis automàticament les respostes per a qualificar. La responsabilitat docent sempre és teva.' : 'Revisa sempre les respostes de qualsevol IA, verifica referències i dades, comprova possibles biaixos i adapta els materials al teu context. No utilitzes automàticament les respostes per a qualificar. La responsabilitat docent sempre és teua.',
-    offline: language === 'en' ? 'Works without an account or connection' : language === 'es' ? 'Funciona sin cuenta y sin conexión' : language === 'ca' ? 'Funciona sense compte i sense connexió' : 'Funciona sense compte i sense connexió',
+    privacyTitle:
+      language === 'en'
+        ? 'Privacy and responsible use'
+        : language === 'es'
+          ? 'Privacidad y uso responsable'
+          : language === 'ca'
+            ? 'Privacitat i ús responsable'
+            : 'Privacitat i ús responsable',
+    privacyHeading:
+      language === 'en'
+        ? 'A tool at the service of teachers'
+        : language === 'es'
+          ? 'Una herramienta al servicio del profesorado'
+          : language === 'ca'
+            ? 'Una eina al servei del professorat'
+            : 'Una ferramenta al servici del professorat',
+    privacyBody:
+      language === 'en'
+        ? 'Always review AI responses, verify references and facts, check for possible bias, and adapt materials to your context. Do not automatically use responses for grading. Teaching responsibility always remains with you.'
+        : language === 'es'
+          ? 'Revisa siempre las respuestas de cualquier IA, verifica referencias y datos, comprueba posibles sesgos y adapta los materiales a tu contexto. No utilices las respuestas de forma automática para calificar. La responsabilidad docente siempre es tuya.'
+          : language === 'ca'
+            ? 'Revisa sempre les respostes de qualsevol IA, verifica referències i dades, comprova possibles biaixos i adapta els materials al teu context. No utilitzis automàticament les respostes per a qualificar. La responsabilitat docent sempre és teva.'
+            : 'Revisa sempre les respostes de qualsevol IA, verifica referències i dades, comprova possibles biaixos i adapta els materials al teu context. No utilitzes automàticament les respostes per a qualificar. La responsabilitat docent sempre és teua.',
+    offline:
+      language === 'en'
+        ? 'Works without an account or connection'
+        : language === 'es'
+          ? 'Funciona sin cuenta y sin conexión'
+          : language === 'ca'
+            ? 'Funciona sense compte i sense connexió'
+            : 'Funciona sense compte i sense connexió',
     localStatus: language === 'en' ? '● local' : '● local',
-    topicHint: language === 'en' ? 'Describe specifically what you want to work on.' : language === 'es' ? 'Describe de manera concreta qué quieres trabajar.' : language === 'ca' ? 'Descriu concretament què vols treballar.' : 'Descriu de manera concreta què vols treballar.',
-    topicSuggestionsHint: language === 'en' ? 'You can write your own topic or choose a suggestion from basic knowledge.' : language === 'es' ? 'Puedes escribir tu propio tema o elegir una sugerencia de los saberes básicos.' : 'Pots escriure el teu tema o triar un suggeriment dels sabers bàsics.',
-    curriculumElements: language === 'en' ? 'Optional curriculum elements' : language === 'es' ? 'Elementos curriculares opcionales' : 'Elements curriculars opcionals',
-    curriculumElementsHint: language === 'en' ? 'Tick the elements you want to include in the prompt.' : language === 'es' ? 'Marca los elementos que quieres incluir en el prompt.' : language === 'ca' ? 'Marca els elements que vols incloure al prompt.' : 'Marca els elements que vols incloure en el prompt.',
-    curriculumEmpty: language === 'en' ? 'No detailed curriculum elements are available for this stage and subject. The prompt will be generated with the rest of the data.' : language === 'es' ? 'No hay elementos curriculares detallados para esta etapa y materia. El prompt se generará con el resto de datos.' : language === 'ca' ? 'No hi ha elements curriculars detallats per a aquesta etapa i matèria. El prompt es generarà amb la resta de dades.' : 'No hi ha elements curriculars detallats per a esta etapa i matèria. El prompt es generarà amb la resta de dades.',
-    subjectsForStage: language === 'en' ? 'Subjects for this stage' : language === 'es' ? 'Materias disponibles para esta etapa' : 'Matèries disponibles per a esta etapa',
-    subjectHint: language === 'en' ? 'Optional suggestion; the free subject field remains available below.' : language === 'es' ? 'Sugerencia opcional; el campo libre de materia sigue disponible más abajo.' : 'Suggeriment opcional; el camp lliure de matèria continua disponible més avall.',
-    chooseSubject: language === 'en' ? 'Choose a subject' : language === 'es' ? 'Elige una materia' : 'Tria una matèria',
-    otherSubject: language === 'en' ? 'Other / write manually' : language === 'es' ? 'Otra / escribir manualmente' : 'Altra / escriure manualment',
-    writeSubject: language === 'en' ? 'Write a subject' : language === 'es' ? 'Escribe una materia' : 'Escriu una matèria',
-    invalidFile: language === 'en' ? 'Invalid file' : language === 'es' ? 'Archivo no válido' : language === 'ca' ? 'Fitxer no vàlid' : 'Fitxer no vàlid',
-    duplicateSuffix: language === 'en' ? ' (copy)' : language === 'es' ? ' (copia)' : language === 'ca' ? ' (còpia)' : ' (còpia)',
+    topicHint:
+      language === 'en'
+        ? 'Describe specifically what you want to work on.'
+        : language === 'es'
+          ? 'Describe de manera concreta qué quieres trabajar.'
+          : language === 'ca'
+            ? 'Descriu concretament què vols treballar.'
+            : 'Descriu de manera concreta què vols treballar.',
+    topicSuggestionsHint:
+      language === 'en'
+        ? 'You can write your own topic or choose a suggestion from basic knowledge.'
+        : language === 'es'
+          ? 'Puedes escribir tu propio tema o elegir una sugerencia de los saberes básicos.'
+          : 'Pots escriure el teu tema o triar un suggeriment dels sabers bàsics.',
+    curriculumElements:
+      language === 'en'
+        ? 'Optional curriculum elements'
+        : language === 'es'
+          ? 'Elementos curriculares opcionales'
+          : 'Elements curriculars opcionals',
+    curriculumElementsHint:
+      language === 'en'
+        ? 'Tick the elements you want to include in the prompt.'
+        : language === 'es'
+          ? 'Marca los elementos que quieres incluir en el prompt.'
+          : language === 'ca'
+            ? 'Marca els elements que vols incloure al prompt.'
+            : 'Marca els elements que vols incloure en el prompt.',
+    curriculumEmpty:
+      language === 'en'
+        ? 'No detailed curriculum elements are available for this stage and subject. The prompt will be generated with the rest of the data.'
+        : language === 'es'
+          ? 'No hay elementos curriculares detallados para esta etapa y materia. El prompt se generará con el resto de datos.'
+          : language === 'ca'
+            ? 'No hi ha elements curriculars detallats per a aquesta etapa i matèria. El prompt es generarà amb la resta de dades.'
+            : 'No hi ha elements curriculars detallats per a esta etapa i matèria. El prompt es generarà amb la resta de dades.',
+    subjectsForStage:
+      language === 'en'
+        ? 'Subjects for this stage'
+        : language === 'es'
+          ? 'Materias disponibles para esta etapa'
+          : 'Matèries disponibles per a esta etapa',
+    subjectHint:
+      language === 'en'
+        ? 'Optional suggestion; the free subject field remains available below.'
+        : language === 'es'
+          ? 'Sugerencia opcional; el campo libre de materia sigue disponible más abajo.'
+          : 'Suggeriment opcional; el camp lliure de matèria continua disponible més avall.',
+    chooseSubject:
+      language === 'en' ? 'Choose a subject' : language === 'es' ? 'Elige una materia' : 'Tria una matèria',
+    otherSubject:
+      language === 'en'
+        ? 'Other / write manually'
+        : language === 'es'
+          ? 'Otra / escribir manualmente'
+          : 'Altra / escriure manualment',
+    writeSubject:
+      language === 'en' ? 'Write a subject' : language === 'es' ? 'Escribe una materia' : 'Escriu una matèria',
+    invalidFile:
+      language === 'en'
+        ? 'Invalid file'
+        : language === 'es'
+          ? 'Archivo no válido'
+          : language === 'ca'
+            ? 'Fitxer no vàlid'
+            : 'Fitxer no vàlid',
+    duplicateSuffix:
+      language === 'en' ? ' (copy)' : language === 'es' ? ' (copia)' : language === 'ca' ? ' (còpia)' : ' (còpia)',
     copied: language === 'en' ? 'Copied' : language === 'es' ? 'Copiado' : 'Copiat',
-    copyFailed: language === 'en' ? 'Could not copy' : language === 'es' ? 'No se ha podido copiar' : 'No s’ha pogut copiar',
-    editableHint: language === 'en' ? 'Edit the generated prompt before copying or saving it.' : language === 'es' ? 'Edita el prompt generado antes de copiarlo o guardarlo.' : language === 'ca' ? 'Edita el prompt generat abans de copiar-lo o desar-lo.' : 'Edita el prompt generat abans de copiar-lo o guardar-lo.',
+    copyFailed:
+      language === 'en' ? 'Could not copy' : language === 'es' ? 'No se ha podido copiar' : 'No s’ha pogut copiar',
+    editableHint:
+      language === 'en'
+        ? 'Edit the generated prompt before copying or saving it.'
+        : language === 'es'
+          ? 'Edita el prompt generado antes de copiarlo o guardarlo.'
+          : language === 'ca'
+            ? 'Edita el prompt generat abans de copiar-lo o desar-lo.'
+            : 'Edita el prompt generat abans de copiar-lo o guardar-lo.',
     fullscreen: language === 'en' ? 'Full screen' : 'Pantalla completa',
-    exitFullscreen: language === 'en' ? 'Exit full screen' : language === 'es' ? 'Salir de pantalla completa' : 'Eixir de pantalla completa',
-    updateAvailable: language === 'en' ? 'A new version of the application is available.' : language === 'es' ? 'Hay una nueva versión de la aplicación.' : language === 'ca' ? 'Hi ha una nova versió de l’aplicació.' : 'Hi ha una nova versió de l’aplicació.',
-    updateButton: language === 'en' ? 'Update application' : language === 'es' ? 'Actualizar la aplicación' : language === 'ca' ? 'Actualitza l’aplicació' : 'Actualitza l’aplicació',
+    exitFullscreen:
+      language === 'en'
+        ? 'Exit full screen'
+        : language === 'es'
+          ? 'Salir de pantalla completa'
+          : 'Eixir de pantalla completa',
+    updateAvailable:
+      language === 'en'
+        ? 'A new version of the application is available.'
+        : language === 'es'
+          ? 'Hay una nueva versión de la aplicación.'
+          : language === 'ca'
+            ? 'Hi ha una nova versió de l’aplicació.'
+            : 'Hi ha una nova versió de l’aplicació.',
+    updateButton:
+      language === 'en'
+        ? 'Update application'
+        : language === 'es'
+          ? 'Actualizar la aplicación'
+          : language === 'ca'
+            ? 'Actualitza l’aplicació'
+            : 'Actualitza l’aplicació',
     edit: language === 'en' ? 'Edit' : language === 'es' ? 'Editar' : language === 'ca' ? 'Edita' : 'Edita',
-    placeholderCourse: language === 'en' ? 'E.g. 4th Primary' : language === 'es' ? 'Ex. 4.º de Primaria' : 'Ex. 4t de Primària',
-    placeholderSubject: language === 'en' ? 'E.g. Natural Sciences' : language === 'es' ? 'Ex. Ciencias de la Naturaleza' : 'Ex. Ciències Naturals',
-    placeholderTopic: language === 'en' ? 'E.g. Ecosystems in our local environment' : language === 'es' ? 'Ex. Los ecosistemas de nuestro entorno' : 'Ex. Els ecosistemes del nostre entorn',
-    placeholderObjectives: language === 'en' ? 'E.g. Understand, explain and apply the key ideas...' : language === 'es' ? 'Ex. Comprender, explicar y aplicar las ideas clave...' : 'Ex. Comprendre, explicar i aplicar les idees clau...',
-    placeholderContext: language === 'en' ? 'E.g. Heterogeneous group; some students need reading support...' : language === 'es' ? 'Ex. Grupo heterogéneo; parte del alumnado necesita apoyo lector...' : 'Ex. Grup heterogeni; part de l’alumnat necessita suport lector...',
-    placeholderConstraints: language === 'en' ? 'E.g. One 45-minute session, everyday materials, no personal data...' : language === 'es' ? 'Ex. Una sesión de 45 minutos, materiales cotidianos, sin datos personales...' : 'Ex. Una sessió de 45 minuts, materials quotidians, sense dades personals...',
-    placeholderQualityCriteria: language === 'en' ? 'E.g. Practical, inclusive, observable and easy to review...' : language === 'es' ? 'Ex. Práctico, inclusivo, observable y fácil de revisar...' : 'Ex. Pràctic, inclusiu, observable i fàcil de revisar...',
-    placeholderRole: language === 'en' ? 'E.g. Primary teacher specialising in active learning' : language === 'es' ? 'Ex. Docente de Primaria especialista en aprendizaje activo' : 'Ex. Docent de Primària especialista en aprenentatge actiu',
-    placeholderTask: language === 'en' ? 'E.g. Design a sequence of activities with a final product...' : language === 'es' ? 'Ex. Diseña una secuencia de actividades con un producto final...' : 'Ex. Dissenya una seqüència d’activitats amb un producte final...',
-    placeholderActivity: language === 'en' ? 'E.g. Debate on responsible use of social media' : language === 'es' ? 'Ex. Debate sobre el uso responsable de las redes sociales' : 'Ex. Debat sobre l’ús responsable de les xarxes socials',
-    placeholderCriteria: language === 'en' ? 'E.g. Argumentation, evidence and respectful participation...' : language === 'es' ? 'Ex. Argumentación, uso de evidencias y participación respetuosa...' : 'Ex. Argumentació, ús d’evidències i participació respectuosa...',
-    level: language === 'en' ? 'Educational level' : language === 'es' ? 'Nivel educativo' : language === 'ca' ? 'Nivell educatiu' : 'Nivell educatiu',
-    course: language === 'en' ? 'Course' : language === 'es' ? 'Curso' : 'Curs', subject: language === 'en' ? 'Subject' : language === 'es' ? 'Materia' : 'Matèria', topic: language === 'en' ? 'Topic' : 'Tema',
-    objectives: language === 'en' ? 'Objectives' : language === 'es' ? 'Objetivos' : 'Objectius', methodology: language === 'en' ? 'Methodology' : language === 'es' ? 'Metodología' : 'Metodologia', duration: language === 'en' ? 'Duration' : language === 'es' ? 'Duración' : 'Duració', resources: language === 'en' ? 'Available resources' : 'Recursos disponibles', format: language === 'en' ? 'Output format' : language === 'es' ? 'Formato de salida' : 'Format d’eixida', activity: language === 'en' ? 'Activity' : language === 'es' ? 'Actividad' : 'Activitat', criteria: language === 'en' ? 'Criteria' : language === 'es' ? 'Criterios' : 'Criteris', levels: language === 'en' ? 'Performance levels' : language === 'es' ? 'Niveles de desempeño' : 'Nivells de rendiment', activityType: language === 'en' ? 'Activity type' : language === 'es' ? 'Tipo de actividad' : 'Tipus d’activitat', questionCount: language === 'en' ? 'Number of questions' : language === 'es' ? 'Número de preguntas' : 'Nombre de preguntes', questionTypes: language === 'en' ? 'Question types' : language === 'es' ? 'Tipos de pregunta' : 'Tipus de pregunta', role: language === 'en' ? 'Role' : 'Rol', context: language === 'en' ? 'Group and situation context' : language === 'es' ? 'Contexto del grupo y la situación' : 'Context del grup i la situació', task: language === 'en' ? 'Task' : language === 'es' ? 'Tarea' : 'Tasca', constraints: language === 'en' ? 'Constraints and limits' : language === 'es' ? 'Restricciones y límites' : 'Restriccions i límits', qualityCriteria: language === 'en' ? 'Quality criteria' : language === 'es' ? 'Criterios de calidad' : 'Criteris de qualitat',
-    newCategoryPlaceholder: language === 'en' ? 'Write a new category (optional)' : language === 'es' ? 'Escribe una categoría nueva (opcional)' : language === 'ca' ? 'Escriu una categoria nova (opcional)' : 'Escriu una categoria nova (opcional)',
-    titlePlaceholder: language === 'en' ? 'E.g. Arduino rubric 4ESO' : language === 'es' ? 'Ex. Rúbrica Arduino 4.º ESO' : 'Ex. Rúbrica Arduino 4ESO',
-    tagsPlaceholder: language === 'en' ? '4ESO, Technology, PBL' : language === 'es' ? '4.º ESO, Tecnología, ABP' : '4ESO, Tecnologia, ABP',
-    templateLearningSituation: language === 'en' ? 'Learning situation' : language === 'es' ? 'Situación de aprendizaje' : language === 'ca' ? 'Situació d’aprenentatge' : 'Situació d’aprenentatge',
-    templateLesson: language === 'en' ? 'Class session' : language === 'es' ? 'Sesión de clase' : language === 'ca' ? 'Sessió de classe' : 'Sessió de classe',
-    templateSequence: language === 'en' ? 'Teaching sequence' : language === 'es' ? 'Secuencia didáctica' : language === 'ca' ? 'Seqüència didàctica' : 'Seqüència didàctica',
-    templateCompetencyActivity: language === 'en' ? 'Competency-based activity' : language === 'es' ? 'Actividad competencial' : language === 'ca' ? 'Activitat competencial' : 'Activitat competencial',
-    templateProject: language === 'en' ? 'PBL project' : language === 'es' ? 'Proyecto ABP' : language === 'ca' ? 'Projecte ABP' : 'Projecte ABP',
-    templateChallenge: language === 'en' ? 'Problem or challenge' : language === 'es' ? 'Problema o reto' : language === 'ca' ? 'Problema o repte' : 'Problema o repte',
+    placeholderCourse:
+      language === 'en' ? 'E.g. 4th Primary' : language === 'es' ? 'Ex. 4.º de Primaria' : 'Ex. 4t de Primària',
+    placeholderSubject:
+      language === 'en'
+        ? 'E.g. Natural Sciences'
+        : language === 'es'
+          ? 'Ex. Ciencias de la Naturaleza'
+          : 'Ex. Ciències Naturals',
+    placeholderTopic:
+      language === 'en'
+        ? 'E.g. Ecosystems in our local environment'
+        : language === 'es'
+          ? 'Ex. Los ecosistemas de nuestro entorno'
+          : 'Ex. Els ecosistemes del nostre entorn',
+    placeholderObjectives:
+      language === 'en'
+        ? 'E.g. Understand, explain and apply the key ideas...'
+        : language === 'es'
+          ? 'Ex. Comprender, explicar y aplicar las ideas clave...'
+          : 'Ex. Comprendre, explicar i aplicar les idees clau...',
+    placeholderContext:
+      language === 'en'
+        ? 'E.g. Heterogeneous group; some students need reading support...'
+        : language === 'es'
+          ? 'Ex. Grupo heterogéneo; parte del alumnado necesita apoyo lector...'
+          : 'Ex. Grup heterogeni; part de l’alumnat necessita suport lector...',
+    placeholderConstraints:
+      language === 'en'
+        ? 'E.g. One 45-minute session, everyday materials, no personal data...'
+        : language === 'es'
+          ? 'Ex. Una sesión de 45 minutos, materiales cotidianos, sin datos personales...'
+          : 'Ex. Una sessió de 45 minuts, materials quotidians, sense dades personals...',
+    placeholderQualityCriteria:
+      language === 'en'
+        ? 'E.g. Practical, inclusive, observable and easy to review...'
+        : language === 'es'
+          ? 'Ex. Práctico, inclusivo, observable y fácil de revisar...'
+          : 'Ex. Pràctic, inclusiu, observable i fàcil de revisar...',
+    placeholderRole:
+      language === 'en'
+        ? 'E.g. Primary teacher specialising in active learning'
+        : language === 'es'
+          ? 'Ex. Docente de Primaria especialista en aprendizaje activo'
+          : 'Ex. Docent de Primària especialista en aprenentatge actiu',
+    placeholderTask:
+      language === 'en'
+        ? 'E.g. Design a sequence of activities with a final product...'
+        : language === 'es'
+          ? 'Ex. Diseña una secuencia de actividades con un producto final...'
+          : 'Ex. Dissenya una seqüència d’activitats amb un producte final...',
+    placeholderActivity:
+      language === 'en'
+        ? 'E.g. Debate on responsible use of social media'
+        : language === 'es'
+          ? 'Ex. Debate sobre el uso responsable de las redes sociales'
+          : 'Ex. Debat sobre l’ús responsable de les xarxes socials',
+    placeholderCriteria:
+      language === 'en'
+        ? 'E.g. Argumentation, evidence and respectful participation...'
+        : language === 'es'
+          ? 'Ex. Argumentación, uso de evidencias y participación respetuosa...'
+          : 'Ex. Argumentació, ús d’evidències i participació respectuosa...',
+    level:
+      language === 'en'
+        ? 'Educational level'
+        : language === 'es'
+          ? 'Nivel educativo'
+          : language === 'ca'
+            ? 'Nivell educatiu'
+            : 'Nivell educatiu',
+    course: language === 'en' ? 'Course' : language === 'es' ? 'Curso' : 'Curs',
+    subject: language === 'en' ? 'Subject' : language === 'es' ? 'Materia' : 'Matèria',
+    topic: language === 'en' ? 'Topic' : 'Tema',
+    objectives: language === 'en' ? 'Objectives' : language === 'es' ? 'Objetivos' : 'Objectius',
+    methodology: language === 'en' ? 'Methodology' : language === 'es' ? 'Metodología' : 'Metodologia',
+    duration: language === 'en' ? 'Duration' : language === 'es' ? 'Duración' : 'Duració',
+    resources: language === 'en' ? 'Available resources' : 'Recursos disponibles',
+    format: language === 'en' ? 'Output format' : language === 'es' ? 'Formato de salida' : 'Format d’eixida',
+    activity: language === 'en' ? 'Activity' : language === 'es' ? 'Actividad' : 'Activitat',
+    criteria: language === 'en' ? 'Criteria' : language === 'es' ? 'Criterios' : 'Criteris',
+    levels:
+      language === 'en' ? 'Performance levels' : language === 'es' ? 'Niveles de desempeño' : 'Nivells de rendiment',
+    activityType: language === 'en' ? 'Activity type' : language === 'es' ? 'Tipo de actividad' : 'Tipus d’activitat',
+    questionCount:
+      language === 'en' ? 'Number of questions' : language === 'es' ? 'Número de preguntas' : 'Nombre de preguntes',
+    questionTypes: language === 'en' ? 'Question types' : language === 'es' ? 'Tipos de pregunta' : 'Tipus de pregunta',
+    role: language === 'en' ? 'Role' : 'Rol',
+    context:
+      language === 'en'
+        ? 'Group and situation context'
+        : language === 'es'
+          ? 'Contexto del grupo y la situación'
+          : 'Context del grup i la situació',
+    task: language === 'en' ? 'Task' : language === 'es' ? 'Tarea' : 'Tasca',
+    constraints:
+      language === 'en'
+        ? 'Constraints and limits'
+        : language === 'es'
+          ? 'Restricciones y límites'
+          : 'Restriccions i límits',
+    qualityCriteria:
+      language === 'en' ? 'Quality criteria' : language === 'es' ? 'Criterios de calidad' : 'Criteris de qualitat',
+    newCategoryPlaceholder:
+      language === 'en'
+        ? 'Write a new category (optional)'
+        : language === 'es'
+          ? 'Escribe una categoría nueva (opcional)'
+          : language === 'ca'
+            ? 'Escriu una categoria nova (opcional)'
+            : 'Escriu una categoria nova (opcional)',
+    titlePlaceholder:
+      language === 'en'
+        ? 'E.g. Arduino rubric 4ESO'
+        : language === 'es'
+          ? 'Ex. Rúbrica Arduino 4.º ESO'
+          : 'Ex. Rúbrica Arduino 4ESO',
+    tagsPlaceholder:
+      language === 'en'
+        ? '4ESO, Technology, PBL'
+        : language === 'es'
+          ? '4.º ESO, Tecnología, ABP'
+          : '4ESO, Tecnologia, ABP',
+    templateLearningSituation:
+      language === 'en'
+        ? 'Learning situation'
+        : language === 'es'
+          ? 'Situación de aprendizaje'
+          : language === 'ca'
+            ? 'Situació d’aprenentatge'
+            : 'Situació d’aprenentatge',
+    templateLesson:
+      language === 'en'
+        ? 'Class session'
+        : language === 'es'
+          ? 'Sesión de clase'
+          : language === 'ca'
+            ? 'Sessió de classe'
+            : 'Sessió de classe',
+    templateSequence:
+      language === 'en'
+        ? 'Teaching sequence'
+        : language === 'es'
+          ? 'Secuencia didáctica'
+          : language === 'ca'
+            ? 'Seqüència didàctica'
+            : 'Seqüència didàctica',
+    templateCompetencyActivity:
+      language === 'en'
+        ? 'Competency-based activity'
+        : language === 'es'
+          ? 'Actividad competencial'
+          : language === 'ca'
+            ? 'Activitat competencial'
+            : 'Activitat competencial',
+    templateProject:
+      language === 'en'
+        ? 'PBL project'
+        : language === 'es'
+          ? 'Proyecto ABP'
+          : language === 'ca'
+            ? 'Projecte ABP'
+            : 'Projecte ABP',
+    templateChallenge:
+      language === 'en'
+        ? 'Problem or challenge'
+        : language === 'es'
+          ? 'Problema o reto'
+          : language === 'ca'
+            ? 'Problema o repte'
+            : 'Problema o repte',
     templateRubric: language === 'en' ? 'Rubric' : 'Rúbrica',
-    templateChecklist: language === 'en' ? 'Checklist' : language === 'es' ? 'Lista de cotejo' : language === 'ca' ? 'Llista de verificació' : 'Llista de coteig',
-    templateRatingScale: language === 'en' ? 'Rating scale' : language === 'es' ? 'Escala de valoración' : 'Escala de valoració',
-    templateSystematicObservation: language === 'en' ? 'Systematic observation' : language === 'es' ? 'Observación sistemática' : 'Observació sistemàtica',
+    templateChecklist:
+      language === 'en'
+        ? 'Checklist'
+        : language === 'es'
+          ? 'Lista de cotejo'
+          : language === 'ca'
+            ? 'Llista de verificació'
+            : 'Llista de coteig',
+    templateRatingScale:
+      language === 'en' ? 'Rating scale' : language === 'es' ? 'Escala de valoración' : 'Escala de valoració',
+    templateSystematicObservation:
+      language === 'en'
+        ? 'Systematic observation'
+        : language === 'es'
+          ? 'Observación sistemática'
+          : 'Observació sistemàtica',
     templatePortfolio: language === 'en' ? 'Portfolio' : language === 'es' ? 'Portafolio' : 'Portafolis',
     templateProduction: language === 'en' ? 'Student production' : language === 'es' ? 'Producción' : 'Producció',
     templateWrittenTest: language === 'en' ? 'Written test' : language === 'es' ? 'Prueba escrita' : 'Prova escrita',
     templateProduct: language === 'en' ? 'Learning product' : language === 'es' ? 'Producto' : 'Producte',
     templatePresentation: language === 'en' ? 'Presentation' : language === 'es' ? 'Exposición' : 'Exposició',
-    templateH5p: language === 'en' ? 'H5P activity' : language === 'es' ? 'Actividad H5P' : 'Activitat H5P'
-    ,templateScorm: language === 'en' ? 'SCORM package' : language === 'es' ? 'Paquete SCORM' : 'Paquet SCORM'
-    ,templateGift: language === 'en' ? 'GIFT question bank' : language === 'es' ? 'Banco de preguntas GIFT' : 'Banc de preguntes GIFT'
-    ,templateQti: language === 'en' ? 'QTI 2.1 questions' : language === 'es' ? 'Preguntas QTI 2.1' : 'Preguntes QTI 2.1'
-    ,templateCommonCartridge: language === 'en' ? 'Common Cartridge package' : language === 'es' ? 'Paquete Common Cartridge' : 'Paquet Common Cartridge',
-    templateFree: language === 'en' ? 'Free builder' : language === 'es' ? 'Constructor libre' : language === 'ca' ? 'Constructor lliure' : 'Constructor lliure'
-    ,templateFeedback: language === 'en' ? 'Formative feedback' : language === 'es' ? 'Feedback formativo' : 'Feedback formatiu'
-    ,templateThreeLevels: language === 'en' ? 'One material, three levels' : language === 'es' ? 'Un material, tres niveles' : 'Un material, tres nivells'
-    ,templateFamilyNote: language === 'en' ? 'Family communication' : language === 'es' ? 'Comunicación a familias' : 'Comunicació a les famílies'
-    ,templateEasyReading: language === 'en' ? 'Easy reading' : language === 'es' ? 'Lectura fácil' : 'Lectura fàcil'
-    ,templateBiasCheck: language === 'en' ? 'Bias check' : language === 'es' ? 'Revisión de sesgos' : 'Revisió de biaixos'
-    ,templateGlossarySupport: language === 'en' ? 'Glossary and visual supports' : language === 'es' ? 'Glosario y apoyos visuales' : 'Glossari i suports visuals'
-    ,templateTutoringScript: language === 'en' ? 'Tutoring script' : language === 'es' ? 'Guion de tutoría' : 'Guió de tutoria'
-    ,sourceText: language === 'en' ? 'Source text' : language === 'es' ? 'Texto de partida' : 'Text de partida'
-    ,placeholderSourceText: language === 'en' ? 'Paste the text you want to adapt here (no personal data)...' : language === 'es' ? 'Pega aquí el texto que quieres adaptar (sin datos personales)...' : 'Enganxa ací el text que vols adaptar (sense dades personals)...'
-    ,'placeholderRole-family-note': language === 'en' ? 'E.g. 2nd Primary tutor or member of the leadership team' : language === 'es' ? 'Ex. Tutora de 2.º de Primaria o miembro del equipo directivo' : 'Ex. Tutora de 2n de Primària o membre de l’equip directiu'
-    ,'placeholderTask-family-note': language === 'en' ? 'E.g. Announce a school trip and ask for authorisation...' : language === 'es' ? 'Ex. Comunicar una salida didáctica y pedir la autorización...' : 'Ex. Comunicar una eixida didàctica i demanar l’autorització...'
-    ,'placeholderTask-tutoring-script': language === 'en' ? 'E.g. Prepare a meeting with a family about their child’s progress...' : language === 'es' ? 'Ex. Preparar una reunión con una familia sobre el aprovechamiento...' : 'Ex. Preparar una reunió amb una família sobre l’aprofitament...'
-    ,'placeholderTask-feedback': language === 'en' ? 'E.g. Feedback on a group prototype (no personal data)...' : language === 'es' ? 'Ex. Comentario sobre el prototipo de un grupo (sin datos personales)...' : 'Ex. Comentari sobre el prototip d’un grup (sense dades personals)...'
-    ,'placeholderTask-three-levels': language === 'en' ? 'E.g. Reading comprehension activity about ecosystems...' : language === 'es' ? 'Ex. Actividad de comprensión lectora sobre los ecosistemas...' : 'Ex. Activitat de comprensió lectora sobre els ecosistemes...'
-    ,login: language === 'en' ? 'Sign in' : language === 'es' ? 'Iniciar sesión' : 'Inicia sessió'
-    ,logout: language === 'en' ? 'Sign out' : language === 'es' ? 'Cerrar sesión' : 'Tanca la sessió'
-    ,sync: language === 'en' ? 'Sync library' : language === 'es' ? 'Sincronizar biblioteca' : 'Sincronitza la biblioteca'
-    ,signedInAs: language === 'en' ? 'Library session: {name}' : language === 'es' ? 'Sesión de la biblioteca: {name}' : 'Sessió de la biblioteca: {name}'
-    ,libraryLoginHint: language === 'en' ? 'Sign in with the EduTicTac account chip in the header to sync your library across devices.' : language === 'es' ? 'Inicia sesión con el chip de EduTicTac de la cabecera para sincronizar tu biblioteca entre dispositivos.' : 'Inicia sessió amb el xip d’EduTicTac de la capçalera per a sincronitzar la teua biblioteca entre dispositius.'
-    ,libraryLoginHintLocal: language === 'en' ? 'Sign in to sync your library across devices.' : language === 'es' ? 'Entra para sincronizar tu biblioteca entre dispositivos.' : 'Entra per a sincronitzar la teua biblioteca entre dispositius.'
-    ,syncDownloaded: language === 'en' ? 'Your online library is ready.' : language === 'es' ? 'Tu biblioteca online ya está disponible.' : 'La teua biblioteca en línia ja està disponible.'
-    ,syncUploaded: language === 'en' ? 'Local prompts uploaded to your library.' : language === 'es' ? 'Los prompts locales se han subido a tu biblioteca.' : 'Els prompts locals s’han pujat a la teua biblioteca.'
-    ,syncFailed: language === 'en' ? 'The library could not be synchronized.' : language === 'es' ? 'No se ha podido sincronizar la biblioteca.' : 'No s’ha pogut sincronitzar la biblioteca.'
-    ,formMode: language === 'en' ? 'Form mode' : language === 'es' ? 'Modo del formulario' : 'Mode del formulari'
-    ,simpleMode: language === 'en' ? 'Simple' : language === 'es' ? 'Sencillo' : 'Senzill'
-    ,advancedMode: language === 'en' ? 'Advanced' : language === 'es' ? 'Avanzado' : 'Avançat'
-    ,simpleModeHint: language === 'en' ? 'Start with the essential fields. You can add detail later.' : language === 'es' ? 'Empieza con los campos esenciales. Puedes añadir detalle después.' : 'Comença amb els camps essencials. Pots afegir detalls després.'
-    ,advancedModeHint: language === 'en' ? 'All fields are visible for more precise prompts.' : language === 'es' ? 'Todos los campos están visibles para crear prompts más precisos.' : 'Tots els camps estan visibles per a crear prompts més precisos.'
-    ,guidedMode: language === 'en' ? 'Step by step' : language === 'es' ? 'Paso a paso' : 'Pas a pas'
-    ,guidedModeHint: language === 'en' ? 'Answer one block per step and skip whatever you do not need. You always see how many steps are left.' : language === 'es' ? 'Responde un bloque en cada paso y salta lo que no necesites. Siempre ves cuántos pasos quedan.' : language === 'ca' ? 'Respon un bloc a cada pas i salta el que no necessitis. Sempre veus quants passos queden.' : 'Respon un bloc en cada pas i salta el que no necessites. Sempre veus quants passos queden.'
-    ,stepOf: language === 'en' ? 'Step {current} of {total}' : language === 'es' ? 'Paso {current} de {total}' : 'Pas {current} de {total}'
-    ,stepsLeft: language === 'en' ? 'Steps left: {count}' : language === 'es' ? 'Quedan {count} pasos' : 'Queden {count} passos'
-    ,lastStep: language === 'en' ? 'Last step' : language === 'es' ? 'Último paso' : 'Últim pas'
-    ,next: language === 'en' ? 'Next' : language === 'es' ? 'Siguiente' : 'Següent'
-    ,back: language === 'en' ? 'Back' : language === 'es' ? 'Anterior' : 'Anterior'
-    ,skip: language === 'en' ? 'Skip' : language === 'es' ? 'Saltar' : 'Saltar'
-    ,seeSummary: language === 'en' ? 'See summary' : language === 'es' ? 'Ver resumen' : 'Veure resum'
-    ,summaryTitle: language === 'en' ? 'Prompt summary' : language === 'es' ? 'Resumen del prompt' : 'Resum del prompt'
-    ,summaryHelp: language === 'en' ? 'Review what you have completed. You can go back to any block or generate the prompt now.' : language === 'es' ? 'Revisa lo que has completado. Puedes volver a cualquier bloque o generar ya el prompt.' : language === 'ca' ? 'Revisa el que has completat. Pots tornar a qualsevol bloc o generar ja el prompt.' : 'Revisa el que has completat. Pots tornar a qualsevol bloc o generar ja el prompt.'
-    ,summaryEmpty: language === 'en' ? 'Not completed (the default value will be used).' : language === 'es' ? 'Sin completar (se usará el valor por defecto).' : 'Sense completar (s’usarà el valor per defecte).'
-    ,summaryMissing: language === 'en' ? 'Recommended details missing: {fields}. You can still generate it.' : language === 'es' ? 'Faltan datos recomendados: {fields}. Puedes generarlo igualmente.' : language === 'ca' ? 'Falten dades recomanades: {fields}. El pots generar igualment.' : 'Falten dades recomanades: {fields}. El pots generar igualment.'
-    ,guidedAbout: language === 'en' ? 'Level and subject' : language === 'es' ? 'Nivel y materia' : 'Nivell i matèria'
-    ,guidedAboutHelp: language === 'en' ? 'Choose the stage and subject. If you pick a curriculum profile, the official elements are added.' : language === 'es' ? 'Indica la etapa y la materia. Si eliges un perfil curricular, se añadirán los elementos oficiales.' : language === 'ca' ? 'Indica l’etapa i la matèria. Si tries un perfil curricular, s’afegiran els elements oficials.' : 'Indica l’etapa i la matèria. Si tries un perfil curricular, s’afegiran els elements oficials.'
-    ,guidedTopic: language === 'en' ? 'Topic and content' : language === 'es' ? 'Tema y contenido' : 'Tema i contingut'
-    ,guidedTopicHelp: language === 'en' ? 'Write the topic or paste the source text. The more specific, the better the result.' : language === 'es' ? 'Escribe el tema o pega el texto de partida. Cuanto más concreto, mejor será el resultado.' : language === 'ca' ? 'Escriu el tema o enganxa el text de partida. Com més concret, millor serà el resultat.' : 'Escriu el tema o enganxa el text de partida. Com més concret, millor serà el resultat.'
-    ,guidedTask: language === 'en' ? 'Objective and task' : language === 'es' ? 'Objetivo y tarea' : 'Objectiu i tasca'
-    ,guidedTaskHelp: language === 'en' ? 'Explain what you want to achieve and for whom. This block guides the AI the most.' : language === 'es' ? 'Explica qué quieres conseguir y para quién. Es el bloque que más orienta a la IA.' : language === 'ca' ? 'Explica què vols aconseguir i per a qui. És el bloc que més orienta la IA.' : 'Explica què vols aconseguir i per a qui. És el bloc que més orienta la IA.'
-    ,guidedDesign: language === 'en' ? 'How the activity works' : language === 'es' ? 'Cómo será la actividad' : 'Com serà l’activitat'
-    ,guidedDesignHelp: language === 'en' ? 'Choose methodology, duration, resources and activity type.' : language === 'es' ? 'Elige metodología, duración, recursos y tipo de actividad.' : language === 'ca' ? 'Tria metodologia, durada, recursos i tipus d’activitat.' : 'Tria metodologia, duració, recursos i tipus d’activitat.'
-    ,guidedSupport: language === 'en' ? 'Accessibility and support' : language === 'es' ? 'Accesibilidad y apoyos' : 'Accessibilitat i suports'
-    ,guidedSupportHelp: language === 'en' ? 'Select UDL principles and describe barriers in the environment, not diagnoses or names.' : language === 'es' ? 'Marca los principios DUA y describe barreras del entorno, sin diagnósticos ni nombres.' : language === 'ca' ? 'Marca els principis DUA i descriu barreres de l’entorn, sense diagnòstics ni noms.' : 'Marca els principis DUA i descriu barreres de l’entorn, sense diagnòstics ni noms.'
-    ,guidedCriteria: language === 'en' ? 'Criteria and assessment' : language === 'es' ? 'Criterios y evaluación' : 'Criteris i avaluació'
-    ,guidedCriteriaHelp: language === 'en' ? 'Define how the result will be reviewed or what it must meet.' : language === 'es' ? 'Define cómo se revisará el resultado o qué debe cumplir.' : language === 'ca' ? 'Defineix com es revisarà el resultat o què ha de complir.' : 'Definix com es revisarà el resultat o què ha de complir.'
-    ,guidedLimits: language === 'en' ? 'Context and limits' : language === 'es' ? 'Contexto y límites' : 'Context i límits'
-    ,guidedLimitsHelp: language === 'en' ? 'Add context, constraints, quality criteria and tweaks. Everything is optional.' : language === 'es' ? 'Añade contexto, restricciones, criterios de calidad y ajustes. Todo es opcional.' : 'Afig context, restriccions, criteris de qualitat i ajustos. Tot és opcional.'
-    ,guidedFormat: language === 'en' ? 'Output format' : language === 'es' ? 'Formato de salida' : language === 'ca' ? 'Format de sortida' : 'Format d’eixida'
-    ,guidedFormatHelp: language === 'en' ? 'Choose how you want to receive the result.' : language === 'es' ? 'Elige cómo quieres recibir el resultado.' : 'Tria com vols rebre el resultat.'
-    ,toolsCount: language === 'en' ? 'educational tools and growing' : language === 'es' ? 'herramientas educativas en evolución' : language === 'ca' ? 'eines educatives en evolució' : 'ferramentes educatives en evolució'
-    ,visual: language === 'en' ? 'Image and visual' : language === 'es' ? 'Imagen y visual' : 'Imatge i visual'
-    ,templateScientificIllustration: language === 'en' ? 'Scientific illustration' : language === 'es' ? 'Ilustración científica' : 'Il·lustració científica'
-    ,templateInfographic: language === 'en' ? 'Educational infographic' : language === 'es' ? 'Infografía educativa' : 'Infografia educativa'
-    ,templateMindMap: language === 'en' ? 'Mind map / diagram' : language === 'es' ? 'Mapa mental / esquema' : 'Mapa mental / esquema'
-    ,aiTool: language === 'en' ? 'Image tool' : language === 'es' ? 'Herramienta de imagen' : (language === 'ca' ? 'Eina d’imatge' : 'Ferramenta d’imatge')
-    ,refinement: language === 'en' ? 'Refinement and tweaks' : language === 'es' ? 'Refinamiento y ajustes' : 'Refinament i ajustos'
-    ,visualStyle: language === 'en' ? 'Visual style' : language === 'es' ? 'Estilo visual' : 'Estil visual'
-    ,includeLabels: language === 'en' ? 'Text and labels' : language === 'es' ? 'Texto y etiquetas' : 'Text i etiquetes'
-    ,aspectRatio: language === 'en' ? 'Aspect ratio' : language === 'es' ? 'Relación de aspecto' : 'Relació d’aspecte'
-    ,sections: language === 'en' ? 'Sections to include' : language === 'es' ? 'Apartados a incluir' : 'Apartats a incloure'
-    ,branches: language === 'en' ? 'Main branches' : language === 'es' ? 'Ramas principales' : 'Branques principals'
-    ,placeholderRefinement: language === 'en' ? 'E.g. Add a Valencian version and a local example...' : language === 'es' ? 'Ex. Añade una versión en valenciano y un ejemplo local...' : 'Ex. Afig una versió en valencià i un exemple local...'
-    ,udl: language === 'en' ? 'Universal Design for Learning (UDL)' : language === 'es' ? 'Diseño Universal para el Aprendizaje (DUA)' : 'Disseny Universal per a l’Aprenentatge (DUA)'
-    ,udlHint: language === 'en' ? 'Choose the principles the AI should build into the design. Hold Ctrl or Cmd to select several.' : language === 'es' ? 'Elige los principios que la IA debe incorporar al diseño. Mantén Ctrl o Cmd para elegir varios.' : language === 'ca' ? 'Tria els principis que la IA ha d’incorporar al disseny. Mantén premuda la tecla Ctrl o Cmd per triar-ne diversos.' : 'Tria els principis que la IA ha d’incorporar al disseny. Mantín premuda la tecla Ctrl o Cmd per a triar-ne diversos.'
-    ,barriers: language === 'en' ? 'Contextual barriers' : language === 'es' ? 'Barreras del contexto' : 'Barreres del context'
-    ,barriersHint: language === 'en' ? 'Describe barriers in the environment, not diagnoses or names.' : language === 'es' ? 'Describe barreras del entorno, no diagnósticos ni nombres.' : language === 'ca' ? 'Descriu barreres de l’entorn, no diagnòstics ni noms.' : 'Descriu barreres de l’entorn, no diagnòstics ni noms.'
-    ,placeholderBarriers: language === 'en' ? 'E.g. Long texts with no visual support; some students are still learning the language of instruction...' : language === 'es' ? 'Ex. Textos largos sin apoyo visual; parte del alumnado aún no domina la lengua vehicular...' : language === 'ca' ? 'Ex. Textos llargs sense suport visual; part de l’alumnat encara no domina la llengua vehicular...' : 'Ex. Textos llargs sense suport visual; part de l’alumnat encara no domina la llengua vehicular...'
-    ,templateUdlReview: language === 'en' ? 'UDL review of an activity' : language === 'es' ? 'Revisión DUA de una actividad' : 'Revisió DUA d’una activitat'
-    ,templateHtmlGame: language === 'en' ? 'Interactive HTML game' : language === 'es' ? 'Juego HTML interactivo' : 'Joc HTML interactiu'
-    ,gameItems: language === 'en' ? 'Exercise content' : language === 'es' ? 'Contenido de los ejercicios' : 'Contingut dels exercicis'
-    ,gameFeatures: language === 'en' ? 'Game features' : language === 'es' ? 'Funciones del juego' : 'Funcions del joc'
-    ,'placeholderGameItems-html-game': language === 'en' ? 'E.g. One item per line: word, sentence or question with its answer (no personal data)...' : language === 'es' ? 'Ex. Un elemento por línea: palabra, frase o pregunta con su respuesta (sin datos personales)...' : (language === 'ca' ? 'Ex. Un element per línia: paraula, frase o pregunta amb la resposta (sense dades personals)...' : 'Ex. Un element per línia: paraula, frase o pregunta amb la resposta (sense dades personals)...')
-    ,'placeholderTopic-html-game': language === 'en' ? 'E.g. Words with the neutral vowel (a/e)' : language === 'es' ? 'Ex. Palabras con vocal neutra (a/e)' : 'Ex. Paraules amb vocal neutra (a/e)'
-    ,loadExample: language === 'en' ? 'Load an example' : language === 'es' ? 'Cargar un ejemplo' : 'Carrega un exemple'
-    ,loadExampleConfirm: language === 'en' ? 'The example will replace what you have written in the form. Continue?' : language === 'es' ? 'El ejemplo sustituirá lo que has escrito en el formulario. ¿Quieres continuar?' : (language === 'ca' ? 'L’exemple substituirà el que has escrit al formulari. Vols continuar?' : 'L’exemple substituirà el que has escrit en el formulari. Vols continuar?')
-    ,openIn: language === 'en' ? 'Open in' : language === 'es' ? 'Abrir en' : (language === 'ca' ? 'Obre a' : 'Obri en')
-    ,openedWithPrompt: language === 'en' ? '{name} opened with the prompt. It is also copied in case it arrives cut short.' : language === 'es' ? 'Se ha abierto {name} con el prompt. También está copiado por si llega recortado.' : (language === 'ca' ? 'S’ha obert {name} amb el prompt. També és copiat per si arriba retallat.' : 'S’ha obert {name} amb el prompt. També està copiat per si arriba retallat.')
-    ,openedPaste: language === 'en' ? 'Prompt copied: paste it into {name} with Ctrl+V.' : language === 'es' ? 'Prompt copiado: pégalo en {name} con Ctrl+V.' : 'Prompt copiat: enganxa’l a {name} amb Ctrl+V.'
-    ,useInEduCrea: language === 'en' ? 'Use in EduCrea' : language === 'es' ? 'Usar en EduCrea' : (language === 'ca' ? 'Usa en EduCrea' : 'Usar en EduCrea')
-    ,useInEduCreaHint: language === 'en' ? 'Opens EduCrea with the brief already filled in.' : language === 'es' ? 'Abre EduCrea con el encargo ya rellenado.' : (language === 'ca' ? 'Obri EduCrea amb l’encàrrec ja emplenat.' : 'Obri EduCrea amb l’encàrrec ja emplenat.')
-    ,useInEduCreaOpened: language === 'en' ? 'EduCrea has opened with the brief.' : language === 'es' ? 'EduCrea se ha abierto con el encargo.' : (language === 'ca' ? 'EduCrea s’ha obert amb l’encàrrec.' : 'EduCrea s’ha obert amb l’encàrrec.')
-    ,useInEduCreaCopied: language === 'en' ? 'The brief could not be sent directly. It has been copied: paste it into Instructions.' : language === 'es' ? 'No se ha podido enviar el encargo directamente. Se ha copiado: pégalo en Instrucciones.' : (language === 'ca' ? 'No s’ha pogut enviar l’encàrrec directament. S’ha copiat: enganxa’l a Instruccions.' : 'No s’ha pogut enviar l’encàrrec directament. S’ha copiat: enganxa’l en Instruccions.')
-    ,useInEduCreaCopyFailed: language === 'en' ? 'Could not send or copy the brief. Try again or copy the prompt by hand.' : language === 'es' ? 'No se ha podido enviar ni copiar el encargo. Vuelve a intentarlo o copia el prompt a mano.' : (language === 'ca' ? 'No s’ha pogut enviar ni copiar l’encàrrec. Torna-ho a provar o copia el prompt a mà.' : 'No s’ha pogut enviar ni copiar l’encàrrec. Torna-ho a provar o copia el prompt a mà.')
-    ,followUps: language === 'en' ? 'To refine the result' : language === 'es' ? 'Para afinar el resultado' : (language === 'ca' ? 'Per afinar el resultat' : 'Per a afinar el resultat')
-    ,followUpsHint: language === 'en' ? 'The first answer is a draft. Copy one of these requests and paste it into the same conversation.' : language === 'es' ? 'La primera respuesta es un borrador. Copia una de estas peticiones y pégala en la misma conversación.' : (language === 'ca' ? 'La primera resposta és un esborrany. Copia una d’aquestes peticions i enganxa-la a la mateixa conversa.' : 'La primera resposta és un esborrany. Copia una d’estes peticions i enganxa-la en la mateixa conversa.')
-    ,followUpCopied: language === 'en' ? 'Request copied: paste it into the same conversation.' : language === 'es' ? 'Petición copiada: pégala en la misma conversación.' : (language === 'ca' ? 'Petició copiada: enganxa-la a la mateixa conversa.' : 'Petició copiada: enganxa-la en la mateixa conversa.')
-    ,templateUdlMatrix: language === 'en' ? 'UDL matrix' : language === 'es' ? 'Matriz DUA' : 'Matriu DUA'
-    ,templateStudentTutor: language === 'en' ? 'Socratic study tutor' : language === 'es' ? 'Tutoría socrática para estudiar' : language === 'ca' ? 'Tutoria socràtica per estudiar' : 'Tutoria socràtica per a estudiar'
-    ,templateAnalogies: language === 'en' ? 'Explain with analogies' : language === 'es' ? 'Explicar con analogías' : 'Explicar amb analogies'
-    ,templateParticipation: language === 'en' ? 'Equitable classroom participation' : language === 'es' ? 'Participación equitativa en el aula' : 'Participació equitativa a l’aula'
-    ,templateConflictMediation: language === 'en' ? 'Classroom conflict mediation' : language === 'es' ? 'Mediación de conflictos en el aula' : 'Mediació de conflictes a l’aula'
-    ,templateMultipleChoice: language === 'en' ? 'Multiple-choice quiz with explanations' : language === 'es' ? 'Cuestionario tipo test con explicaciones' : 'Qüestionari tipus test amb explicacions'
-    ,templateEthicalDilemma: language === 'en' ? 'Ethical dilemmas for discussion' : language === 'es' ? 'Dilemas éticos para debatir' : 'Dilemes ètics per a debatre'
-    ,templateStudyPlan: language === 'en' ? 'Weekly study plan' : language === 'es' ? 'Plan de estudio semanal' : 'Pla d’estudi setmanal'
-    ,templateHistoricalInterview: language === 'en' ? 'Interview a historical figure' : language === 'es' ? 'Entrevista a un personaje histórico' : 'Entrevista a un personatge històric'
-    ,templateCodeCoach: language === 'en' ? 'Code review tutor' : language === 'es' ? 'Tutor para revisar código' : 'Tutor per revisar codi'
-    ,'placeholderSourceText-udl-review': language === 'en' ? 'Paste the activity you want to review (statement, steps, materials and how it is assessed)...' : language === 'es' ? 'Pega la actividad que quieres revisar (enunciado, pasos, materiales y cómo se evalúa)...' : language === 'ca' ? 'Enganxa l’activitat que vols revisar (enunciat, passos, materials i com s’avalua)...' : 'Enganxa ací l’activitat que vols revisar (enunciat, passos, materials i com s’avalua)...'
+    templateH5p: language === 'en' ? 'H5P activity' : language === 'es' ? 'Actividad H5P' : 'Activitat H5P',
+    templateScorm: language === 'en' ? 'SCORM package' : language === 'es' ? 'Paquete SCORM' : 'Paquet SCORM',
+    templateGift:
+      language === 'en'
+        ? 'GIFT question bank'
+        : language === 'es'
+          ? 'Banco de preguntas GIFT'
+          : 'Banc de preguntes GIFT',
+    templateQti:
+      language === 'en' ? 'QTI 2.1 questions' : language === 'es' ? 'Preguntas QTI 2.1' : 'Preguntes QTI 2.1',
+    templateCommonCartridge:
+      language === 'en'
+        ? 'Common Cartridge package'
+        : language === 'es'
+          ? 'Paquete Common Cartridge'
+          : 'Paquet Common Cartridge',
+    templateFree:
+      language === 'en'
+        ? 'Free builder'
+        : language === 'es'
+          ? 'Constructor libre'
+          : language === 'ca'
+            ? 'Constructor lliure'
+            : 'Constructor lliure',
+    templateFeedback:
+      language === 'en' ? 'Formative feedback' : language === 'es' ? 'Feedback formativo' : 'Feedback formatiu',
+    templateThreeLevels:
+      language === 'en'
+        ? 'One material, three levels'
+        : language === 'es'
+          ? 'Un material, tres niveles'
+          : 'Un material, tres nivells',
+    templateFamilyNote:
+      language === 'en'
+        ? 'Family communication'
+        : language === 'es'
+          ? 'Comunicación a familias'
+          : 'Comunicació a les famílies',
+    templateEasyReading: language === 'en' ? 'Easy reading' : language === 'es' ? 'Lectura fácil' : 'Lectura fàcil',
+    templateBiasCheck:
+      language === 'en' ? 'Bias check' : language === 'es' ? 'Revisión de sesgos' : 'Revisió de biaixos',
+    templateGlossarySupport:
+      language === 'en'
+        ? 'Glossary and visual supports'
+        : language === 'es'
+          ? 'Glosario y apoyos visuales'
+          : 'Glossari i suports visuals',
+    templateTutoringScript:
+      language === 'en' ? 'Tutoring script' : language === 'es' ? 'Guion de tutoría' : 'Guió de tutoria',
+    sourceText: language === 'en' ? 'Source text' : language === 'es' ? 'Texto de partida' : 'Text de partida',
+    placeholderSourceText:
+      language === 'en'
+        ? 'Paste the text you want to adapt here (no personal data)...'
+        : language === 'es'
+          ? 'Pega aquí el texto que quieres adaptar (sin datos personales)...'
+          : 'Enganxa ací el text que vols adaptar (sense dades personals)...',
+    'placeholderRole-family-note':
+      language === 'en'
+        ? 'E.g. 2nd Primary tutor or member of the leadership team'
+        : language === 'es'
+          ? 'Ex. Tutora de 2.º de Primaria o miembro del equipo directivo'
+          : 'Ex. Tutora de 2n de Primària o membre de l’equip directiu',
+    'placeholderTask-family-note':
+      language === 'en'
+        ? 'E.g. Announce a school trip and ask for authorisation...'
+        : language === 'es'
+          ? 'Ex. Comunicar una salida didáctica y pedir la autorización...'
+          : 'Ex. Comunicar una eixida didàctica i demanar l’autorització...',
+    'placeholderTask-tutoring-script':
+      language === 'en'
+        ? 'E.g. Prepare a meeting with a family about their child’s progress...'
+        : language === 'es'
+          ? 'Ex. Preparar una reunión con una familia sobre el aprovechamiento...'
+          : 'Ex. Preparar una reunió amb una família sobre l’aprofitament...',
+    'placeholderTask-feedback':
+      language === 'en'
+        ? 'E.g. Feedback on a group prototype (no personal data)...'
+        : language === 'es'
+          ? 'Ex. Comentario sobre el prototipo de un grupo (sin datos personales)...'
+          : 'Ex. Comentari sobre el prototip d’un grup (sense dades personals)...',
+    'placeholderTask-three-levels':
+      language === 'en'
+        ? 'E.g. Reading comprehension activity about ecosystems...'
+        : language === 'es'
+          ? 'Ex. Actividad de comprensión lectora sobre los ecosistemas...'
+          : 'Ex. Activitat de comprensió lectora sobre els ecosistemes...',
+    login: language === 'en' ? 'Sign in' : language === 'es' ? 'Iniciar sesión' : 'Inicia sessió',
+    logout: language === 'en' ? 'Sign out' : language === 'es' ? 'Cerrar sesión' : 'Tanca la sessió',
+    sync:
+      language === 'en' ? 'Sync library' : language === 'es' ? 'Sincronizar biblioteca' : 'Sincronitza la biblioteca',
+    signedInAs:
+      language === 'en'
+        ? 'Library session: {name}'
+        : language === 'es'
+          ? 'Sesión de la biblioteca: {name}'
+          : 'Sessió de la biblioteca: {name}',
+    libraryLoginHint:
+      language === 'en'
+        ? 'Sign in with the EduTicTac account chip in the header to sync your library across devices.'
+        : language === 'es'
+          ? 'Inicia sesión con el chip de EduTicTac de la cabecera para sincronizar tu biblioteca entre dispositivos.'
+          : 'Inicia sessió amb el xip d’EduTicTac de la capçalera per a sincronitzar la teua biblioteca entre dispositius.',
+    libraryLoginHintLocal:
+      language === 'en'
+        ? 'Sign in to sync your library across devices.'
+        : language === 'es'
+          ? 'Entra para sincronizar tu biblioteca entre dispositivos.'
+          : 'Entra per a sincronitzar la teua biblioteca entre dispositius.',
+    syncDownloaded:
+      language === 'en'
+        ? 'Your online library is ready.'
+        : language === 'es'
+          ? 'Tu biblioteca online ya está disponible.'
+          : 'La teua biblioteca en línia ja està disponible.',
+    syncUploaded:
+      language === 'en'
+        ? 'Local prompts uploaded to your library.'
+        : language === 'es'
+          ? 'Los prompts locales se han subido a tu biblioteca.'
+          : 'Els prompts locals s’han pujat a la teua biblioteca.',
+    syncFailed:
+      language === 'en'
+        ? 'The library could not be synchronized.'
+        : language === 'es'
+          ? 'No se ha podido sincronizar la biblioteca.'
+          : 'No s’ha pogut sincronitzar la biblioteca.',
+    formMode: language === 'en' ? 'Form mode' : language === 'es' ? 'Modo del formulario' : 'Mode del formulari',
+    simpleMode: language === 'en' ? 'Simple' : language === 'es' ? 'Sencillo' : 'Senzill',
+    advancedMode: language === 'en' ? 'Advanced' : language === 'es' ? 'Avanzado' : 'Avançat',
+    simpleModeHint:
+      language === 'en'
+        ? 'Start with the essential fields. You can add detail later.'
+        : language === 'es'
+          ? 'Empieza con los campos esenciales. Puedes añadir detalle después.'
+          : 'Comença amb els camps essencials. Pots afegir detalls després.',
+    advancedModeHint:
+      language === 'en'
+        ? 'All fields are visible for more precise prompts.'
+        : language === 'es'
+          ? 'Todos los campos están visibles para crear prompts más precisos.'
+          : 'Tots els camps estan visibles per a crear prompts més precisos.',
+    guidedMode: language === 'en' ? 'Step by step' : language === 'es' ? 'Paso a paso' : 'Pas a pas',
+    guidedModeHint:
+      language === 'en'
+        ? 'Answer one block per step and skip whatever you do not need. You always see how many steps are left.'
+        : language === 'es'
+          ? 'Responde un bloque en cada paso y salta lo que no necesites. Siempre ves cuántos pasos quedan.'
+          : language === 'ca'
+            ? 'Respon un bloc a cada pas i salta el que no necessitis. Sempre veus quants passos queden.'
+            : 'Respon un bloc en cada pas i salta el que no necessites. Sempre veus quants passos queden.',
+    stepOf:
+      language === 'en'
+        ? 'Step {current} of {total}'
+        : language === 'es'
+          ? 'Paso {current} de {total}'
+          : 'Pas {current} de {total}',
+    stepsLeft:
+      language === 'en' ? 'Steps left: {count}' : language === 'es' ? 'Quedan {count} pasos' : 'Queden {count} passos',
+    lastStep: language === 'en' ? 'Last step' : language === 'es' ? 'Último paso' : 'Últim pas',
+    next: language === 'en' ? 'Next' : language === 'es' ? 'Siguiente' : 'Següent',
+    back: language === 'en' ? 'Back' : language === 'es' ? 'Anterior' : 'Anterior',
+    skip: language === 'en' ? 'Skip' : language === 'es' ? 'Saltar' : 'Saltar',
+    seeSummary: language === 'en' ? 'See summary' : language === 'es' ? 'Ver resumen' : 'Veure resum',
+    summaryTitle: language === 'en' ? 'Prompt summary' : language === 'es' ? 'Resumen del prompt' : 'Resum del prompt',
+    summaryHelp:
+      language === 'en'
+        ? 'Review what you have completed. You can go back to any block or generate the prompt now.'
+        : language === 'es'
+          ? 'Revisa lo que has completado. Puedes volver a cualquier bloque o generar ya el prompt.'
+          : language === 'ca'
+            ? 'Revisa el que has completat. Pots tornar a qualsevol bloc o generar ja el prompt.'
+            : 'Revisa el que has completat. Pots tornar a qualsevol bloc o generar ja el prompt.',
+    summaryEmpty:
+      language === 'en'
+        ? 'Not completed (the default value will be used).'
+        : language === 'es'
+          ? 'Sin completar (se usará el valor por defecto).'
+          : 'Sense completar (s’usarà el valor per defecte).',
+    summaryMissing:
+      language === 'en'
+        ? 'Recommended details missing: {fields}. You can still generate it.'
+        : language === 'es'
+          ? 'Faltan datos recomendados: {fields}. Puedes generarlo igualmente.'
+          : language === 'ca'
+            ? 'Falten dades recomanades: {fields}. El pots generar igualment.'
+            : 'Falten dades recomanades: {fields}. El pots generar igualment.',
+    guidedAbout: language === 'en' ? 'Level and subject' : language === 'es' ? 'Nivel y materia' : 'Nivell i matèria',
+    guidedAboutHelp:
+      language === 'en'
+        ? 'Choose the stage and subject. If you pick a curriculum profile, the official elements are added.'
+        : language === 'es'
+          ? 'Indica la etapa y la materia. Si eliges un perfil curricular, se añadirán los elementos oficiales.'
+          : language === 'ca'
+            ? 'Indica l’etapa i la matèria. Si tries un perfil curricular, s’afegiran els elements oficials.'
+            : 'Indica l’etapa i la matèria. Si tries un perfil curricular, s’afegiran els elements oficials.',
+    guidedTopic: language === 'en' ? 'Topic and content' : language === 'es' ? 'Tema y contenido' : 'Tema i contingut',
+    guidedTopicHelp:
+      language === 'en'
+        ? 'Write the topic or paste the source text. The more specific, the better the result.'
+        : language === 'es'
+          ? 'Escribe el tema o pega el texto de partida. Cuanto más concreto, mejor será el resultado.'
+          : language === 'ca'
+            ? 'Escriu el tema o enganxa el text de partida. Com més concret, millor serà el resultat.'
+            : 'Escriu el tema o enganxa el text de partida. Com més concret, millor serà el resultat.',
+    guidedTask: language === 'en' ? 'Objective and task' : language === 'es' ? 'Objetivo y tarea' : 'Objectiu i tasca',
+    guidedTaskHelp:
+      language === 'en'
+        ? 'Explain what you want to achieve and for whom. This block guides the AI the most.'
+        : language === 'es'
+          ? 'Explica qué quieres conseguir y para quién. Es el bloque que más orienta a la IA.'
+          : language === 'ca'
+            ? 'Explica què vols aconseguir i per a qui. És el bloc que més orienta la IA.'
+            : 'Explica què vols aconseguir i per a qui. És el bloc que més orienta la IA.',
+    guidedDesign:
+      language === 'en'
+        ? 'How the activity works'
+        : language === 'es'
+          ? 'Cómo será la actividad'
+          : 'Com serà l’activitat',
+    guidedDesignHelp:
+      language === 'en'
+        ? 'Choose methodology, duration, resources and activity type.'
+        : language === 'es'
+          ? 'Elige metodología, duración, recursos y tipo de actividad.'
+          : language === 'ca'
+            ? 'Tria metodologia, durada, recursos i tipus d’activitat.'
+            : 'Tria metodologia, duració, recursos i tipus d’activitat.',
+    guidedSupport:
+      language === 'en'
+        ? 'Accessibility and support'
+        : language === 'es'
+          ? 'Accesibilidad y apoyos'
+          : 'Accessibilitat i suports',
+    guidedSupportHelp:
+      language === 'en'
+        ? 'Select UDL principles and describe barriers in the environment, not diagnoses or names.'
+        : language === 'es'
+          ? 'Marca los principios DUA y describe barreras del entorno, sin diagnósticos ni nombres.'
+          : language === 'ca'
+            ? 'Marca els principis DUA i descriu barreres de l’entorn, sense diagnòstics ni noms.'
+            : 'Marca els principis DUA i descriu barreres de l’entorn, sense diagnòstics ni noms.',
+    guidedCriteria:
+      language === 'en'
+        ? 'Criteria and assessment'
+        : language === 'es'
+          ? 'Criterios y evaluación'
+          : 'Criteris i avaluació',
+    guidedCriteriaHelp:
+      language === 'en'
+        ? 'Define how the result will be reviewed or what it must meet.'
+        : language === 'es'
+          ? 'Define cómo se revisará el resultado o qué debe cumplir.'
+          : language === 'ca'
+            ? 'Defineix com es revisarà el resultat o què ha de complir.'
+            : 'Definix com es revisarà el resultat o què ha de complir.',
+    guidedLimits:
+      language === 'en' ? 'Context and limits' : language === 'es' ? 'Contexto y límites' : 'Context i límits',
+    guidedLimitsHelp:
+      language === 'en'
+        ? 'Add context, constraints, quality criteria and tweaks. Everything is optional.'
+        : language === 'es'
+          ? 'Añade contexto, restricciones, criterios de calidad y ajustes. Todo es opcional.'
+          : 'Afig context, restriccions, criteris de qualitat i ajustos. Tot és opcional.',
+    guidedFormat:
+      language === 'en'
+        ? 'Output format'
+        : language === 'es'
+          ? 'Formato de salida'
+          : language === 'ca'
+            ? 'Format de sortida'
+            : 'Format d’eixida',
+    guidedFormatHelp:
+      language === 'en'
+        ? 'Choose how you want to receive the result.'
+        : language === 'es'
+          ? 'Elige cómo quieres recibir el resultado.'
+          : 'Tria com vols rebre el resultat.',
+    toolsCount:
+      language === 'en'
+        ? 'educational tools and growing'
+        : language === 'es'
+          ? 'herramientas educativas en evolución'
+          : language === 'ca'
+            ? 'eines educatives en evolució'
+            : 'ferramentes educatives en evolució',
+    visual: language === 'en' ? 'Image and visual' : language === 'es' ? 'Imagen y visual' : 'Imatge i visual',
+    templateScientificIllustration:
+      language === 'en'
+        ? 'Scientific illustration'
+        : language === 'es'
+          ? 'Ilustración científica'
+          : 'Il·lustració científica',
+    templateInfographic:
+      language === 'en'
+        ? 'Educational infographic'
+        : language === 'es'
+          ? 'Infografía educativa'
+          : 'Infografia educativa',
+    templateMindMap:
+      language === 'en' ? 'Mind map / diagram' : language === 'es' ? 'Mapa mental / esquema' : 'Mapa mental / esquema',
+    aiTool:
+      language === 'en'
+        ? 'Image tool'
+        : language === 'es'
+          ? 'Herramienta de imagen'
+          : language === 'ca'
+            ? 'Eina d’imatge'
+            : 'Ferramenta d’imatge',
+    refinement:
+      language === 'en'
+        ? 'Refinement and tweaks'
+        : language === 'es'
+          ? 'Refinamiento y ajustes'
+          : 'Refinament i ajustos',
+    visualStyle: language === 'en' ? 'Visual style' : language === 'es' ? 'Estilo visual' : 'Estil visual',
+    includeLabels: language === 'en' ? 'Text and labels' : language === 'es' ? 'Texto y etiquetas' : 'Text i etiquetes',
+    aspectRatio: language === 'en' ? 'Aspect ratio' : language === 'es' ? 'Relación de aspecto' : 'Relació d’aspecte',
+    sections:
+      language === 'en' ? 'Sections to include' : language === 'es' ? 'Apartados a incluir' : 'Apartats a incloure',
+    branches: language === 'en' ? 'Main branches' : language === 'es' ? 'Ramas principales' : 'Branques principals',
+    placeholderRefinement:
+      language === 'en'
+        ? 'E.g. Add a Valencian version and a local example...'
+        : language === 'es'
+          ? 'Ex. Añade una versión en valenciano y un ejemplo local...'
+          : 'Ex. Afig una versió en valencià i un exemple local...',
+    udl:
+      language === 'en'
+        ? 'Universal Design for Learning (UDL)'
+        : language === 'es'
+          ? 'Diseño Universal para el Aprendizaje (DUA)'
+          : 'Disseny Universal per a l’Aprenentatge (DUA)',
+    udlHint:
+      language === 'en'
+        ? 'Choose the principles the AI should build into the design. Hold Ctrl or Cmd to select several.'
+        : language === 'es'
+          ? 'Elige los principios que la IA debe incorporar al diseño. Mantén Ctrl o Cmd para elegir varios.'
+          : language === 'ca'
+            ? 'Tria els principis que la IA ha d’incorporar al disseny. Mantén premuda la tecla Ctrl o Cmd per triar-ne diversos.'
+            : 'Tria els principis que la IA ha d’incorporar al disseny. Mantín premuda la tecla Ctrl o Cmd per a triar-ne diversos.',
+    barriers:
+      language === 'en' ? 'Contextual barriers' : language === 'es' ? 'Barreras del contexto' : 'Barreres del context',
+    barriersHint:
+      language === 'en'
+        ? 'Describe barriers in the environment, not diagnoses or names.'
+        : language === 'es'
+          ? 'Describe barreras del entorno, no diagnósticos ni nombres.'
+          : language === 'ca'
+            ? 'Descriu barreres de l’entorn, no diagnòstics ni noms.'
+            : 'Descriu barreres de l’entorn, no diagnòstics ni noms.',
+    placeholderBarriers:
+      language === 'en'
+        ? 'E.g. Long texts with no visual support; some students are still learning the language of instruction...'
+        : language === 'es'
+          ? 'Ex. Textos largos sin apoyo visual; parte del alumnado aún no domina la lengua vehicular...'
+          : language === 'ca'
+            ? 'Ex. Textos llargs sense suport visual; part de l’alumnat encara no domina la llengua vehicular...'
+            : 'Ex. Textos llargs sense suport visual; part de l’alumnat encara no domina la llengua vehicular...',
+    templateUdlReview:
+      language === 'en'
+        ? 'UDL review of an activity'
+        : language === 'es'
+          ? 'Revisión DUA de una actividad'
+          : 'Revisió DUA d’una activitat',
+    templateHtmlGame:
+      language === 'en'
+        ? 'Interactive HTML game'
+        : language === 'es'
+          ? 'Juego HTML interactivo'
+          : 'Joc HTML interactiu',
+    gameItems:
+      language === 'en'
+        ? 'Exercise content'
+        : language === 'es'
+          ? 'Contenido de los ejercicios'
+          : 'Contingut dels exercicis',
+    gameFeatures: language === 'en' ? 'Game features' : language === 'es' ? 'Funciones del juego' : 'Funcions del joc',
+    'placeholderGameItems-html-game':
+      language === 'en'
+        ? 'E.g. One item per line: word, sentence or question with its answer (no personal data)...'
+        : language === 'es'
+          ? 'Ex. Un elemento por línea: palabra, frase o pregunta con su respuesta (sin datos personales)...'
+          : language === 'ca'
+            ? 'Ex. Un element per línia: paraula, frase o pregunta amb la resposta (sense dades personals)...'
+            : 'Ex. Un element per línia: paraula, frase o pregunta amb la resposta (sense dades personals)...',
+    'placeholderTopic-html-game':
+      language === 'en'
+        ? 'E.g. Words with the neutral vowel (a/e)'
+        : language === 'es'
+          ? 'Ex. Palabras con vocal neutra (a/e)'
+          : 'Ex. Paraules amb vocal neutra (a/e)',
+    loadExample: language === 'en' ? 'Load an example' : language === 'es' ? 'Cargar un ejemplo' : 'Carrega un exemple',
+    loadExampleConfirm:
+      language === 'en'
+        ? 'The example will replace what you have written in the form. Continue?'
+        : language === 'es'
+          ? 'El ejemplo sustituirá lo que has escrito en el formulario. ¿Quieres continuar?'
+          : language === 'ca'
+            ? 'L’exemple substituirà el que has escrit al formulari. Vols continuar?'
+            : 'L’exemple substituirà el que has escrit en el formulari. Vols continuar?',
+    openIn: language === 'en' ? 'Open in' : language === 'es' ? 'Abrir en' : language === 'ca' ? 'Obre a' : 'Obri en',
+    openedWithPrompt:
+      language === 'en'
+        ? '{name} opened with the prompt. It is also copied in case it arrives cut short.'
+        : language === 'es'
+          ? 'Se ha abierto {name} con el prompt. También está copiado por si llega recortado.'
+          : language === 'ca'
+            ? 'S’ha obert {name} amb el prompt. També és copiat per si arriba retallat.'
+            : 'S’ha obert {name} amb el prompt. També està copiat per si arriba retallat.',
+    openedPaste:
+      language === 'en'
+        ? 'Prompt copied: paste it into {name} with Ctrl+V.'
+        : language === 'es'
+          ? 'Prompt copiado: pégalo en {name} con Ctrl+V.'
+          : 'Prompt copiat: enganxa’l a {name} amb Ctrl+V.',
+    useInEduCrea:
+      language === 'en'
+        ? 'Use in EduCrea'
+        : language === 'es'
+          ? 'Usar en EduCrea'
+          : language === 'ca'
+            ? 'Usa en EduCrea'
+            : 'Usar en EduCrea',
+    useInEduCreaHint:
+      language === 'en'
+        ? 'Opens EduCrea with the brief already filled in.'
+        : language === 'es'
+          ? 'Abre EduCrea con el encargo ya rellenado.'
+          : language === 'ca'
+            ? 'Obri EduCrea amb l’encàrrec ja emplenat.'
+            : 'Obri EduCrea amb l’encàrrec ja emplenat.',
+    useInEduCreaOpened:
+      language === 'en'
+        ? 'EduCrea has opened with the brief.'
+        : language === 'es'
+          ? 'EduCrea se ha abierto con el encargo.'
+          : language === 'ca'
+            ? 'EduCrea s’ha obert amb l’encàrrec.'
+            : 'EduCrea s’ha obert amb l’encàrrec.',
+    useInEduCreaCopied:
+      language === 'en'
+        ? 'The brief could not be sent directly. It has been copied: paste it into Instructions.'
+        : language === 'es'
+          ? 'No se ha podido enviar el encargo directamente. Se ha copiado: pégalo en Instrucciones.'
+          : language === 'ca'
+            ? 'No s’ha pogut enviar l’encàrrec directament. S’ha copiat: enganxa’l a Instruccions.'
+            : 'No s’ha pogut enviar l’encàrrec directament. S’ha copiat: enganxa’l en Instruccions.',
+    useInEduCreaCopyFailed:
+      language === 'en'
+        ? 'Could not send or copy the brief. Try again or copy the prompt by hand.'
+        : language === 'es'
+          ? 'No se ha podido enviar ni copiar el encargo. Vuelve a intentarlo o copia el prompt a mano.'
+          : language === 'ca'
+            ? 'No s’ha pogut enviar ni copiar l’encàrrec. Torna-ho a provar o copia el prompt a mà.'
+            : 'No s’ha pogut enviar ni copiar l’encàrrec. Torna-ho a provar o copia el prompt a mà.',
+    followUps:
+      language === 'en'
+        ? 'To refine the result'
+        : language === 'es'
+          ? 'Para afinar el resultado'
+          : language === 'ca'
+            ? 'Per afinar el resultat'
+            : 'Per a afinar el resultat',
+    followUpsHint:
+      language === 'en'
+        ? 'The first answer is a draft. Copy one of these requests and paste it into the same conversation.'
+        : language === 'es'
+          ? 'La primera respuesta es un borrador. Copia una de estas peticiones y pégala en la misma conversación.'
+          : language === 'ca'
+            ? 'La primera resposta és un esborrany. Copia una d’aquestes peticions i enganxa-la a la mateixa conversa.'
+            : 'La primera resposta és un esborrany. Copia una d’estes peticions i enganxa-la en la mateixa conversa.',
+    followUpCopied:
+      language === 'en'
+        ? 'Request copied: paste it into the same conversation.'
+        : language === 'es'
+          ? 'Petición copiada: pégala en la misma conversación.'
+          : language === 'ca'
+            ? 'Petició copiada: enganxa-la a la mateixa conversa.'
+            : 'Petició copiada: enganxa-la en la mateixa conversa.',
+    templateUdlMatrix: language === 'en' ? 'UDL matrix' : language === 'es' ? 'Matriz DUA' : 'Matriu DUA',
+    templateStudentTutor:
+      language === 'en'
+        ? 'Socratic study tutor'
+        : language === 'es'
+          ? 'Tutoría socrática para estudiar'
+          : language === 'ca'
+            ? 'Tutoria socràtica per estudiar'
+            : 'Tutoria socràtica per a estudiar',
+    templateAnalogies:
+      language === 'en'
+        ? 'Explain with analogies'
+        : language === 'es'
+          ? 'Explicar con analogías'
+          : 'Explicar amb analogies',
+    templateParticipation:
+      language === 'en'
+        ? 'Equitable classroom participation'
+        : language === 'es'
+          ? 'Participación equitativa en el aula'
+          : 'Participació equitativa a l’aula',
+    templateConflictMediation:
+      language === 'en'
+        ? 'Classroom conflict mediation'
+        : language === 'es'
+          ? 'Mediación de conflictos en el aula'
+          : 'Mediació de conflictes a l’aula',
+    templateMultipleChoice:
+      language === 'en'
+        ? 'Multiple-choice quiz with explanations'
+        : language === 'es'
+          ? 'Cuestionario tipo test con explicaciones'
+          : 'Qüestionari tipus test amb explicacions',
+    templateEthicalDilemma:
+      language === 'en'
+        ? 'Ethical dilemmas for discussion'
+        : language === 'es'
+          ? 'Dilemas éticos para debatir'
+          : 'Dilemes ètics per a debatre',
+    templateStudyPlan:
+      language === 'en' ? 'Weekly study plan' : language === 'es' ? 'Plan de estudio semanal' : 'Pla d’estudi setmanal',
+    templateHistoricalInterview:
+      language === 'en'
+        ? 'Interview a historical figure'
+        : language === 'es'
+          ? 'Entrevista a un personaje histórico'
+          : 'Entrevista a un personatge històric',
+    templateCodeCoach:
+      language === 'en'
+        ? 'Code review tutor'
+        : language === 'es'
+          ? 'Tutor para revisar código'
+          : 'Tutor per revisar codi',
+    'placeholderSourceText-udl-review':
+      language === 'en'
+        ? 'Paste the activity you want to review (statement, steps, materials and how it is assessed)...'
+        : language === 'es'
+          ? 'Pega la actividad que quieres revisar (enunciado, pasos, materiales y cómo se evalúa)...'
+          : language === 'ca'
+            ? 'Enganxa l’activitat que vols revisar (enunciat, passos, materials i com s’avalua)...'
+            : 'Enganxa ací l’activitat que vols revisar (enunciat, passos, materials i com s’avalua)...',
   })
 }
-export function detectLanguage(): Language { const value = localStorage.getItem('edutictac-language'); if (value === 'es'||value === 'ca'||value === 'ca-valencia'||value === 'en') return value; const browser = navigator.language.toLowerCase(); return browser.startsWith('en')?'en':browser.startsWith('ca')?'ca': 'es' }
+export function detectLanguage(): Language {
+  const value = localStorage.getItem('edutictac-language')
+  if (value === 'es' || value === 'ca' || value === 'ca-valencia' || value === 'en') return value
+  const browser = navigator.language.toLowerCase()
+  return browser.startsWith('en') ? 'en' : browser.startsWith('ca') ? 'ca' : 'es'
+}
 
-for(const language of ['es','ca-valencia','ca','en'] as Language[]) translations[language].agents=language==='es'?'Agentes':language==='en'?'Agents':'Agents'
+for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[])
+  translations[language].agents = language === 'es' ? 'Agentes' : language === 'en' ? 'Agents' : 'Agents'

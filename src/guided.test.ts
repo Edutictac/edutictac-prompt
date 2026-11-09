@@ -11,8 +11,8 @@ describe('modo paso a paso', () => {
   it('reparte todos los campos de cada plantilla sin perder ni duplicar ninguno', () => {
     for (const template of templates) {
       const steps = guidedSteps(template)
-      const seen = steps.flatMap(step => step.fields)
-      expect([...seen].sort(), template.id).toEqual(template.fields.map(field => field.id).sort())
+      const seen = steps.flatMap((step) => step.fields)
+      expect([...seen].sort(), template.id).toEqual(template.fields.map((field) => field.id).sort())
       expect(new Set(seen).size, template.id).toBe(template.fields.length)
     }
   })
@@ -35,9 +35,24 @@ describe('modo paso a paso', () => {
   })
 
   it('traduce la navegación y el resumen del modo guiado', () => {
-    const keys = ['guidedMode', 'guidedModeHint', 'stepOf', 'stepsLeft', 'lastStep', 'next', 'back', 'skip', 'seeSummary', 'summaryTitle', 'summaryHelp', 'summaryEmpty', 'summaryMissing']
-    for (const language of languages) for (const key of keys) {
-      expect(translations[language][key], `${language}.${key}`).toBeTruthy()
-    }
+    const keys = [
+      'guidedMode',
+      'guidedModeHint',
+      'stepOf',
+      'stepsLeft',
+      'lastStep',
+      'next',
+      'back',
+      'skip',
+      'seeSummary',
+      'summaryTitle',
+      'summaryHelp',
+      'summaryEmpty',
+      'summaryMissing',
+    ]
+    for (const language of languages)
+      for (const key of keys) {
+        expect(translations[language][key], `${language}.${key}`).toBeTruthy()
+      }
   })
 })

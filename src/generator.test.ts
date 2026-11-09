@@ -2,21 +2,25 @@ import { describe, expect, it } from 'vitest'
 import { generatePrompt } from './generator'
 import { templates } from './templates'
 
-const template = (id: string) => templates.find(item => item.id === id)!
+const template = (id: string) => templates.find((item) => item.id === id)!
 
 describe('generatePrompt', () => {
   it('compone un encargo docente con los elementos del curso', () => {
-    const prompt = generatePrompt(template('lesson'), {
-      level: 'Primaria',
-      course: '4.º',
-      subject: 'Ciencias',
-      topic: 'Los ecosistemas',
-      context: 'Grupo heterogéneo de 24 alumnos con distintos niveles lectores.',
-      objectives: 'Comprender las relaciones de una cadena trófica.',
-      constraints: 'Una sesión de 45 minutos y sin dispositivos.',
-      qualityCriteria: 'Debe incluir una evidencia observable y una adaptación de apoyo.',
-      outputFormat: 'Markdown'
-    }, 'es')
+    const prompt = generatePrompt(
+      template('lesson'),
+      {
+        level: 'Primaria',
+        course: '4.º',
+        subject: 'Ciencias',
+        topic: 'Los ecosistemas',
+        context: 'Grupo heterogéneo de 24 alumnos con distintos niveles lectores.',
+        objectives: 'Comprender las relaciones de una cadena trófica.',
+        constraints: 'Una sesión de 45 minutos y sin dispositivos.',
+        qualityCriteria: 'Debe incluir una evidencia observable y una adaptación de apoyo.',
+        outputFormat: 'Markdown',
+      },
+      'es',
+    )
 
     expect(prompt).toContain('## Rol')
     expect(prompt).toContain('## Contexto')
@@ -30,12 +34,16 @@ describe('generatePrompt', () => {
   })
 
   it('aplica la tarea especializada de una rúbrica', () => {
-    const prompt = generatePrompt(template('rubric'), {
-      activity: 'debate sobre el cambio climático',
-      criteria: 'Argumentación y uso de fuentes.',
-      levels: '4',
-      outputFormat: 'Tabla Markdown'
-    }, 'es')
+    const prompt = generatePrompt(
+      template('rubric'),
+      {
+        activity: 'debate sobre el cambio climático',
+        criteria: 'Argumentación y uso de fuentes.',
+        levels: '4',
+        outputFormat: 'Tabla Markdown',
+      },
+      'es',
+    )
 
     expect(prompt).toContain('Crea una rúbrica para evaluar debate sobre el cambio climático.')
     expect(prompt).toContain('## Criterios\nArgumentación y uso de fuentes.')
@@ -43,11 +51,15 @@ describe('generatePrompt', () => {
   })
 
   it('incluye revisión, viabilidad y protección de datos', () => {
-    const prompt = generatePrompt(template('free'), {
-      role: 'Docente de Lengua',
-      task: 'Diseña una actividad de comprensión lectora.',
-      outputFormat: 'Texto'
-    }, 'es')
+    const prompt = generatePrompt(
+      template('free'),
+      {
+        role: 'Docente de Lengua',
+        task: 'Diseña una actividad de comprensión lectora.',
+        outputFormat: 'Texto',
+      },
+      'es',
+    )
 
     expect(prompt).toContain('Entrega un primer borrador revisable')
     expect(prompt).toContain('Comprueba que la propuesta es viable')
@@ -56,12 +68,16 @@ describe('generatePrompt', () => {
   })
 
   it('traduce las etiquetas principales al valenciano', () => {
-    const prompt = generatePrompt(template('free'), {
-      role: 'Docent',
-      task: 'Dissenya una activitat.',
-      qualityCriteria: 'Instruccions clares.',
-      outputFormat: 'Markdown'
-    }, 'ca-valencia')
+    const prompt = generatePrompt(
+      template('free'),
+      {
+        role: 'Docent',
+        task: 'Dissenya una activitat.',
+        qualityCriteria: 'Instruccions clares.',
+        outputFormat: 'Markdown',
+      },
+      'ca-valencia',
+    )
 
     expect(prompt).toContain('## Rol')
     expect(prompt).toContain('## Objectiu i tasca')
@@ -96,22 +112,30 @@ describe('generatePrompt', () => {
   })
 
   it('genera el feedback formatiu i la comunicació a famílies', () => {
-    const feedback = generatePrompt(template('feedback'), {
-      level: 'ESO',
-      subject: 'Tecnología',
-      task: 'comentario sobre el prototipo de un grupo',
-      criteria: 'Justificación y uso de fuentes.',
-      outputFormat: 'Texto'
-    }, 'es')
+    const feedback = generatePrompt(
+      template('feedback'),
+      {
+        level: 'ESO',
+        subject: 'Tecnología',
+        task: 'comentario sobre el prototipo de un grupo',
+        criteria: 'Justificación y uso de fuentes.',
+        outputFormat: 'Texto',
+      },
+      'es',
+    )
     expect(feedback).toContain('## Objetivo y tarea')
     expect(feedback).toContain('comentario sobre el prototipo de un grupo')
 
-    const family = generatePrompt(template('family-note'), {
-      role: 'Tutor de 2.º de ESO',
-      context: 'Comunicar una salida didáctica.',
-      task: 'Redacta una circular breve para las familias.',
-      outputFormat: 'Texto'
-    }, 'es')
+    const family = generatePrompt(
+      template('family-note'),
+      {
+        role: 'Tutor de 2.º de ESO',
+        context: 'Comunicar una salida didáctica.',
+        task: 'Redacta una circular breve para las familias.',
+        outputFormat: 'Texto',
+      },
+      'es',
+    )
     expect(family).toContain('## Rol')
     expect(family).toContain('Tutor de 2.º de ESO')
     expect(family).toContain('## Contexto')
@@ -119,13 +143,17 @@ describe('generatePrompt', () => {
   })
 
   it('adapta un texto a lectura fácil e incluye el texto de partida', () => {
-    const prompt = generatePrompt(template('easy-reading'), {
-      level: 'Primaria',
-      subject: 'Ciencias',
-      topic: 'Los ecosistemas',
-      sourceText: 'Los ecosistemas son sistemas formados por seres vivos...',
-      outputFormat: 'Texto'
-    }, 'es')
+    const prompt = generatePrompt(
+      template('easy-reading'),
+      {
+        level: 'Primaria',
+        subject: 'Ciencias',
+        topic: 'Los ecosistemas',
+        sourceText: 'Los ecosistemas son sistemas formados por seres vivos...',
+        outputFormat: 'Texto',
+      },
+      'es',
+    )
     expect(prompt).toContain('Adapta a lectura fácil el siguiente texto.')
     expect(prompt).toContain('## Texto de partida')
     expect(prompt).toContain('Los ecosistemas son sistemas formados por seres vivos')
@@ -178,12 +206,16 @@ describe('generatePrompt', () => {
   })
 
   it('incluye reglas GIFT para importar en Aules sin errores', () => {
-    const prompt = generatePrompt(template('gift'), {
-      topic: 'La Segunda República',
-      questionCount: '20',
-      questionTypes: 'Opción múltiple · Verdadero/Falso · Respuesta corta',
-      outputFormat: 'GIFT'
-    }, 'es')
+    const prompt = generatePrompt(
+      template('gift'),
+      {
+        topic: 'La Segunda República',
+        questionCount: '20',
+        questionTypes: 'Opción múltiple · Verdadero/Falso · Respuesta corta',
+        outputFormat: 'GIFT',
+      },
+      'es',
+    )
 
     expect(prompt).toContain('## Reglas para una importación correcta en Aules y Moodle')
     expect(prompt).toContain('## Número de preguntas\n20')
@@ -195,28 +227,52 @@ describe('generatePrompt', () => {
   })
 
   it('adapta las plantillas de imagen a la herramienta elegida', () => {
-    const midjourney = generatePrompt(template('scientific-illustration'), { topic: 'la célula', aspectRatio: '16:9 horizontal', aiTool: 'Midjourney', outputFormat: 'Texto' }, 'es')
+    const midjourney = generatePrompt(
+      template('scientific-illustration'),
+      { topic: 'la célula', aspectRatio: '16:9 horizontal', aiTool: 'Midjourney', outputFormat: 'Texto' },
+      'es',
+    )
     expect(midjourney).toContain('## Herramienta de imagen: Midjourney')
     expect(midjourney).toContain('--ar 16:9')
     expect(midjourney).not.toContain('{ratio}')
 
-    const canva = generatePrompt(template('infographic'), { topic: 'el agua', aiTool: 'Canva', outputFormat: 'Texto' }, 'ca-valencia')
+    const canva = generatePrompt(
+      template('infographic'),
+      { topic: 'el agua', aiTool: 'Canva', outputFormat: 'Texto' },
+      'ca-valencia',
+    )
     expect(canva).toContain('IA d’imatges de Canva')
 
-    const gemini = generatePrompt(template('infographic'), { topic: 'water', aiTool: 'Gemini', outputFormat: 'Texto' }, 'en')
+    const gemini = generatePrompt(
+      template('infographic'),
+      { topic: 'water', aiTool: 'Gemini', outputFormat: 'Texto' },
+      'en',
+    )
     expect(gemini).toContain('Generate the image directly')
 
-    const noTool = generatePrompt(template('infographic'), { topic: 'el agua', aiTool: 'Sin preferencia', outputFormat: 'Texto' }, 'es')
+    const noTool = generatePrompt(
+      template('infographic'),
+      { topic: 'el agua', aiTool: 'Sin preferencia', outputFormat: 'Texto' },
+      'es',
+    )
     expect(noTool).not.toContain('Herramienta de imagen')
   })
 
   it('ignora la herramienta en plantillas de texto, aunque venga de un prompt guardado', () => {
-    const lesson = generatePrompt(template('lesson'), { level: 'Primaria', aiTool: 'ChatGPT', outputFormat: 'Texto' }, 'es')
+    const lesson = generatePrompt(
+      template('lesson'),
+      { level: 'Primaria', aiTool: 'ChatGPT', outputFormat: 'Texto' },
+      'es',
+    )
     expect(lesson).not.toContain('ChatGPT')
   })
 
   it('añade el bloque de refinamiento solo cuando se indica', () => {
-    const prompt = generatePrompt(template('free'), { task: 'xy', refinement: 'Afig una versió en valencià.', outputFormat: 'Texto' }, 'ca-valencia')
+    const prompt = generatePrompt(
+      template('free'),
+      { task: 'xy', refinement: 'Afig una versió en valencià.', outputFormat: 'Texto' },
+      'ca-valencia',
+    )
     expect(prompt).toContain('## Refinament i ajustos')
     expect(prompt).toContain('Afig una versió en valencià.')
 
@@ -225,11 +281,19 @@ describe('generatePrompt', () => {
   })
 
   it('genera las tareas de las plantillas visuales', () => {
-    const ill = generatePrompt(template('scientific-illustration'), { topic: 'la cèl·lula', visualStyle: 'Diagrama técnico 2D', outputFormat: 'Texto' }, 'ca')
+    const ill = generatePrompt(
+      template('scientific-illustration'),
+      { topic: 'la cèl·lula', visualStyle: 'Diagrama técnico 2D', outputFormat: 'Texto' },
+      'ca',
+    )
     expect(ill).toContain('il·lustració educativa')
     expect(ill).toContain('la cèl·lula')
 
-    const infographic = generatePrompt(template('infographic'), { topic: 'el cicle de l’aigua', outputFormat: 'Texto' }, 'ca')
+    const infographic = generatePrompt(
+      template('infographic'),
+      { topic: 'el cicle de l’aigua', outputFormat: 'Texto' },
+      'ca',
+    )
     expect(infographic).toContain('infografia educativa')
 
     const mindMap = generatePrompt(template('mind-map'), { topic: 'els ecosistemes', outputFormat: 'Mermaid' }, 'es')
@@ -252,16 +316,41 @@ describe('generatePrompt', () => {
   })
 
   it('incluye los campos propios de las plantillas visuales', () => {
-    const prompt = generatePrompt(template('infographic'), { topic: 'el agua', sections: 'Estados del agua', visualStyle: 'Isométrica', aspectRatio: '1:1 cuadrado', outputFormat: 'Texto' }, 'ca-valencia')
+    const prompt = generatePrompt(
+      template('infographic'),
+      {
+        topic: 'el agua',
+        sections: 'Estados del agua',
+        visualStyle: 'Isométrica',
+        aspectRatio: '1:1 cuadrado',
+        outputFormat: 'Texto',
+      },
+      'ca-valencia',
+    )
     expect(prompt).toContain('## Apartats a incloure\nEstados del agua')
     expect(prompt).toContain('## Estil visual\nIsomètrica')
     expect(prompt).toContain('## Relació d’aspecte\n1:1 quadrat')
-    const mindMap = generatePrompt(template('mind-map'), { topic: 'ecosistemas', branches: 'Factores bióticos', outputFormat: 'Mermaid' }, 'es')
+    const mindMap = generatePrompt(
+      template('mind-map'),
+      { topic: 'ecosistemas', branches: 'Factores bióticos', outputFormat: 'Mermaid' },
+      'es',
+    )
     expect(mindMap).toContain('## Ramas principales\nFactores bióticos')
   })
 
   it('genera un juego HTML autocontenido con las funciones elegidas', () => {
-    const prompt = generatePrompt(template('html-game'), { level: 'Primaria', topic: 'la vocal neutra', activityType: 'Memorizar y escribir', gameItems: 'ANAGRAMA, anagram_, a', gameFeatures: 'Niveles y trofeos · Guardar sesión', outputFormat: 'HTML' }, 'ca-valencia')
+    const prompt = generatePrompt(
+      template('html-game'),
+      {
+        level: 'Primaria',
+        topic: 'la vocal neutra',
+        activityType: 'Memorizar y escribir',
+        gameItems: 'ANAGRAMA, anagram_, a',
+        gameFeatures: 'Niveles y trofeos · Guardar sesión',
+        outputFormat: 'HTML',
+      },
+      'ca-valencia',
+    )
     expect(prompt).toContain('Crea un únic fitxer HTML autocontingut')
     expect(prompt).toContain('Mecànica de joc: Memoritzar i escriure.')
     expect(prompt).toContain('## Contingut dels exercicis\nANAGRAMA, anagram_, a')
@@ -276,19 +365,36 @@ describe('generatePrompt', () => {
     expect(empty).toContain('Propose 20 items suited to the level')
     expect(empty).not.toContain('## Game features')
 
-    const several = generatePrompt(template('html-game'), { topic: 'fracciones', activityType: 'Emparejar · Ordenar', outputFormat: 'HTML' }, 'es')
+    const several = generatePrompt(
+      template('html-game'),
+      { topic: 'fracciones', activityType: 'Emparejar · Ordenar', outputFormat: 'HTML' },
+      'es',
+    )
     expect(several).toContain('Mecánicas de juego (combínalas o altérnalas entre ejercicios): Emparejar, Ordenar.')
   })
 
   it('añade los principios DUA elegidos y amplía la revisión docente', () => {
-    const prompt = generatePrompt(template('lesson'), { level: 'Primaria', topic: 'Los ecosistemas', udl: 'Representación · Acción y expresión', outputFormat: 'Texto' }, 'es')
+    const prompt = generatePrompt(
+      template('lesson'),
+      {
+        level: 'Primaria',
+        topic: 'Los ecosistemas',
+        udl: 'Representación · Acción y expresión',
+        outputFormat: 'Texto',
+      },
+      'es',
+    )
     expect(prompt).toContain('## Diseño Universal para el Aprendizaje (DUA)')
     expect(prompt).toContain('- Representación (el qué)')
     expect(prompt).toContain('- Acción y expresión (el cómo)')
     expect(prompt).not.toContain('Implicación (el porqué)')
     expect(prompt).toContain('al menos dos formas de acceder al contenido')
 
-    const plain = generatePrompt(template('lesson'), { level: 'Primaria', topic: 'Los ecosistemas', outputFormat: 'Texto' }, 'es')
+    const plain = generatePrompt(
+      template('lesson'),
+      { level: 'Primaria', topic: 'Los ecosistemas', outputFormat: 'Texto' },
+      'es',
+    )
     expect(plain).not.toContain('Diseño Universal')
     expect(plain).not.toContain('al menos dos formas')
 
@@ -298,7 +404,11 @@ describe('generatePrompt', () => {
   })
 
   it('incluye las barreras del contexto sin etiquetar al alumnado', () => {
-    const prompt = generatePrompt(template('rubric'), { activity: 'Debat', barriers: 'Textos llargs sense suport visual', outputFormat: 'Texto' }, 'ca-valencia')
+    const prompt = generatePrompt(
+      template('rubric'),
+      { activity: 'Debat', barriers: 'Textos llargs sense suport visual', outputFormat: 'Texto' },
+      'ca-valencia',
+    )
     expect(prompt).toContain('## Barreres del context\nTextos llargs sense suport visual\nAnticipa estes barreres')
 
     const empty = generatePrompt(template('rubric'), { activity: 'Debat', outputFormat: 'Texto' }, 'ca-valencia')
@@ -306,7 +416,11 @@ describe('generatePrompt', () => {
   })
 
   it('genera la revisión DUA y la matriz DUA con su propio bloque de revisión', () => {
-    const review = generatePrompt(template('udl-review'), { sourceText: 'Llegir el tema i respondre deu preguntes.', outputFormat: 'Texto' }, 'ca')
+    const review = generatePrompt(
+      template('udl-review'),
+      { sourceText: 'Llegir el tema i respondre deu preguntes.', outputFormat: 'Texto' },
+      'ca',
+    )
     expect(review).toContain('des del Disseny Universal per a l’Aprenentatge')
     expect(review).toContain('Llegir el tema i respondre deu preguntes.')
     expect(review).toContain('Mantén el mateix objectiu i nivell d’exigència')

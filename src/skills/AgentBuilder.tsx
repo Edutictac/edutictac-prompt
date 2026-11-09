@@ -46,25 +46,16 @@ export default function AgentBuilder({
     labels = skillLocales[language],
     w = wizardLocales[language],
     subjectId = useId()
-  const [draft, setDraft] = useState(() =>
-      structuredClone(
-        initialDraft || defaultAgentDraft(language, initialSkill),
-      ),
-    ),
+  const [draft, setDraft] = useState(() => structuredClone(initialDraft || defaultAgentDraft(language, initialSkill))),
     [skillId, setSkillId] = useState(initialSkill?.id || ''),
-    [configuration, setConfiguration] = useState<AgentConfiguration | null>(
-      null,
-    ),
+    [configuration, setConfiguration] = useState<AgentConfiguration | null>(null),
     [notice, setNotice] = useState(''),
     [saving, setSaving] = useState(false)
   useEffect(() => {
     if (configuration) resultRef.current?.focus()
   }, [configuration])
   const skill = skills.find((s) => s.id === skillId) || initialSkill
-  const update = <K extends keyof AgentDraft>(
-    field: K,
-    value: AgentDraft[K],
-  ) => {
+  const update = <K extends keyof AgentDraft>(field: K, value: AgentDraft[K]) => {
     const next = { ...draft, [field]: value }
     setDraft(next)
     onDraftChange?.(next)
@@ -108,8 +99,7 @@ export default function AgentBuilder({
           ? w.context
           : key === 'restrictions'
             ? w.restrictions
-            : ((w as Record<string, unknown>)[key] as string) ||
-              t[key as 'name']}
+            : ((w as Record<string, unknown>)[key] as string) || t[key as 'name']}
         {[
           'course',
           'purpose',
@@ -143,13 +133,7 @@ export default function AgentBuilder({
         )}
         {area ? (
           <textarea
-            required={[
-              'name',
-              'description',
-              'purpose',
-              'audience',
-              'role',
-            ].includes(key)}
+            required={['name', 'description', 'purpose', 'audience', 'role'].includes(key)}
             maxLength={limits[key]}
             value={draft[key]}
             rows={key === 'materials' ? 4 : 3}
@@ -157,13 +141,7 @@ export default function AgentBuilder({
           />
         ) : (
           <input
-            required={[
-              'name',
-              'description',
-              'purpose',
-              'audience',
-              'role',
-            ].includes(key)}
+            required={['name', 'description', 'purpose', 'audience', 'role'].includes(key)}
             list={key === 'subject' ? subjectId : undefined}
             maxLength={limits[key]}
             value={draft[key]}
@@ -203,9 +181,7 @@ export default function AgentBuilder({
           try {
             const normalized = {
               ...draft,
-              starterPrompts: draft.starterPrompts
-                .map((v) => v.trim())
-                .filter(Boolean),
+              starterPrompts: draft.starterPrompts.map((v) => v.trim()).filter(Boolean),
             }
             setDraft(normalized)
             onDraftChange?.(normalized)
@@ -222,11 +198,7 @@ export default function AgentBuilder({
         }}
       >
         {basic ? (
-          <BasicAgentFields
-            draft={draft}
-            language={language}
-            onChange={update}
-          />
+          <BasicAgentFields draft={draft} language={language} onChange={update} />
         ) : (
           <>
             <h3>{w.identity}</h3>
@@ -253,17 +225,9 @@ export default function AgentBuilder({
                   >
                     <option value="">{t.courseOnly}</option>
                     {skills.map((s) => (
-                      <option
-                        value={s.id}
-                        key={s.id}
-                        disabled={!s.reviewed || s.mode !== 'instructions'}
-                      >
+                      <option value={s.id} key={s.id} disabled={!s.reviewed || s.mode !== 'instructions'}>
                         {s.name}
-                        {!s.reviewed
-                          ? ` · ${t.untrusted}`
-                          : s.mode === 'external'
-                            ? ` · ${labels.externalMode}`
-                            : ''}
+                        {!s.reviewed ? ` · ${t.untrusted}` : s.mode === 'external' ? ` · ${labels.externalMode}` : ''}
                       </option>
                     ))}
                   </select>
@@ -275,12 +239,7 @@ export default function AgentBuilder({
               {field('description', true)}
               <label>
                 {w.stage}
-                <select
-                  value={draft.stage}
-                  onChange={(e) =>
-                    update('stage', e.target.value as AgentDraft['stage'])
-                  }
-                >
+                <select value={draft.stage} onChange={(e) => update('stage', e.target.value as AgentDraft['stage'])}>
                   {agentStages.map((stage) => (
                     <option key={stage} value={stage}>
                       {w[`stage_${stage}`]}
@@ -306,24 +265,16 @@ export default function AgentBuilder({
                 <legend>{mode.name || `${w.modes} ${i + 1}`}</legend>
                 {(['name', 'when', 'behavior'] as const).map((key) => (
                   <label key={key}>
-                    {key === 'name'
-                      ? w.modeName
-                      : key === 'when'
-                        ? w.modeWhen
-                        : w.modeBehavior}
+                    {key === 'name' ? w.modeName : key === 'when' ? w.modeWhen : w.modeBehavior}
                     <textarea
                       required
                       rows={key === 'behavior' ? 3 : 2}
-                      maxLength={
-                        key === 'name' ? 80 : key === 'when' ? 400 : 1200
-                      }
+                      maxLength={key === 'name' ? 80 : key === 'when' ? 400 : 1200}
                       value={mode[key]}
                       onChange={(e) =>
                         update(
                           'modes',
-                          draft.modes.map((v, n) =>
-                            n === i ? { ...v, [key]: e.target.value } : v,
-                          ),
+                          draft.modes.map((v, n) => (n === i ? { ...v, [key]: e.target.value } : v)),
                         )
                       }
                     />
@@ -346,12 +297,7 @@ export default function AgentBuilder({
               className="secondary"
               type="button"
               disabled={draft.modes.length >= 6}
-              onClick={() =>
-                update('modes', [
-                  ...draft.modes,
-                  { name: '', when: '', behavior: '' },
-                ])
-              }
+              onClick={() => update('modes', [...draft.modes, { name: '', when: '', behavior: '' }])}
             >
               {w.addMode}
             </button>
@@ -363,12 +309,7 @@ export default function AgentBuilder({
                 <small>{b.curriculumHint}</small>
                 <select
                   value={draft.rubricApproach}
-                  onChange={(e) =>
-                    update(
-                      'rubricApproach',
-                      e.target.value as AgentDraft['rubricApproach'],
-                    )
-                  }
+                  onChange={(e) => update('rubricApproach', e.target.value as AgentDraft['rubricApproach'])}
                 >
                   <option value="curricular">{b.official}</option>
                   <option value="draft">{b.draft}</option>
@@ -389,18 +330,14 @@ export default function AgentBuilder({
                   max={5}
                   step={1}
                   value={draft.maxQuestions}
-                  onChange={(e) =>
-                    update('maxQuestions', Number(e.target.value))
-                  }
+                  onChange={(e) => update('maxQuestions', Number(e.target.value))}
                 />
               </label>
               <label>
                 {w.instructionLanguage}
                 <select
                   value={draft.instructionLanguage}
-                  onChange={(e) =>
-                    update('instructionLanguage', e.target.value as Language)
-                  }
+                  onChange={(e) => update('instructionLanguage', e.target.value as Language)}
                 >
                   {languages.map((l) => (
                     <option key={l} value={l}>
@@ -434,9 +371,7 @@ export default function AgentBuilder({
                         onChange={(e) =>
                           update(
                             'examples',
-                            draft.examples.map((v, n) =>
-                              n === i ? { ...v, [key]: e.target.value } : v,
-                            ),
+                            draft.examples.map((v, n) => (n === i ? { ...v, [key]: e.target.value } : v)),
                           )
                         }
                       />
@@ -459,12 +394,7 @@ export default function AgentBuilder({
                 type="button"
                 className="secondary"
                 disabled={draft.examples.length >= 8}
-                onClick={() =>
-                  update('examples', [
-                    ...draft.examples,
-                    { input: '', output: '' },
-                  ])
-                }
+                onClick={() => update('examples', [...draft.examples, { input: '', output: '' }])}
               >
                 {w.addExample}
               </button>
@@ -475,9 +405,7 @@ export default function AgentBuilder({
               <textarea
                 value={draft.starterPrompts.join('\n')}
                 rows={3}
-                onChange={(e) =>
-                  update('starterPrompts', e.target.value.split('\n'))
-                }
+                onChange={(e) => update('starterPrompts', e.target.value.split('\n'))}
               />
             </label>
             {field('materials', true)}
@@ -486,12 +414,7 @@ export default function AgentBuilder({
               {t.responseLanguage}
               <select
                 value={draft.responseLanguage}
-                onChange={(e) =>
-                  update(
-                    'responseLanguage',
-                    e.target.value as AgentDraft['responseLanguage'],
-                  )
-                }
+                onChange={(e) => update('responseLanguage', e.target.value as AgentDraft['responseLanguage'])}
               >
                 <option value="auto">{w.autoLanguage}</option>
                 {languages.map((l) => (
@@ -512,12 +435,7 @@ export default function AgentBuilder({
         </p>
       )}
       {configuration && (
-        <section
-          className="agent-configuration"
-          tabIndex={-1}
-          ref={resultRef}
-          aria-label={b.summary}
-        >
+        <section className="agent-configuration" tabIndex={-1} ref={resultRef} aria-label={b.summary}>
           {basic && (
             <>
               <h2>{b.summary}</h2>
@@ -529,13 +447,9 @@ export default function AgentBuilder({
               </p>
               <p>
                 {draft.audience} ·{' '}
-                {draft.responseLanguage === 'auto'
-                  ? w.autoLanguage
-                  : labels[`lang_${draft.responseLanguage}`]}
+                {draft.responseLanguage === 'auto' ? w.autoLanguage : labels[`lang_${draft.responseLanguage}`]}
               </p>
-              {draft.rubricApproach && (
-                <p>{draft.rubricApproach === 'draft' ? b.draft : b.official}</p>
-              )}
+              {draft.rubricApproach && <p>{draft.rubricApproach === 'draft' ? b.draft : b.official}</p>}
               <p className="mode-hint">{b.localHint}</p>
             </>
           )}
@@ -550,9 +464,7 @@ export default function AgentBuilder({
                     await onSave(draft, skill)
                   } catch (error) {
                     setNotice(
-                      error instanceof SkillError
-                        ? (w as Record<string, string>)[error.code] || w.invalid
-                        : w.invalid,
+                      error instanceof SkillError ? (w as Record<string, string>)[error.code] || w.invalid : w.invalid,
                     )
                   } finally {
                     setSaving(false)
@@ -603,12 +515,7 @@ export default function AgentBuilder({
                     <summary>{b.preview}</summary>
                     <label>
                       {t[key]}
-                      <textarea
-                        aria-label={t[key]}
-                        readOnly
-                        rows={10}
-                        value={configuration[key]}
-                      />
+                      <textarea aria-label={t[key]} readOnly rows={10} value={configuration[key]} />
                     </label>
                     <small>
                       {configuration[key].length} / {agentLimits[key]}
@@ -668,11 +575,7 @@ export default function AgentBuilder({
                 <button
                   className="secondary"
                   onClick={() =>
-                    downloadSkillFile(
-                      r.path.replace('/', '-') + '.txt',
-                      r.content,
-                      'text/plain;charset=utf-8',
-                    )
+                    downloadSkillFile(r.path.replace('/', '-') + '.txt', r.content, 'text/plain;charset=utf-8')
                   }
                 >
                   {labels.download}: {r.path} (.txt)

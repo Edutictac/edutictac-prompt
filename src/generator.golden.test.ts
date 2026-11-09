@@ -6,7 +6,7 @@ import type { Language } from './types'
 // Salidas de referencia del generador. Durante el refactor deben permanecer
 // idénticas byte a byte salvo que se decida y documente un cambio de contenido.
 // Se comparan con instantáneas para detectar cualquier variación no prevista.
-const template = (id: string) => templates.find(item => item.id === id)!
+const template = (id: string) => templates.find((item) => item.id === id)!
 const languages: Language[] = ['es', 'ca-valencia', 'ca', 'en']
 
 const cases: Record<string, Record<string, string>> = {
@@ -28,7 +28,8 @@ const cases: Record<string, Record<string, string>> = {
     curriculumProfile: 'cv-primaria-coneixement-del-medi-natural-social-i-cultural',
     curriculumCompetences: 'Plantear y responder preguntas sobre el entorno.\nIdentificar problemas ambientales.',
     curriculumCriteria: 'Formular predicciones y explicaciones.',
-    curriculumKnowledge: 'Cultura científica · Iniciación a la actividad científica.\nSocietats i territoris · Sostenibilidad.'
+    curriculumKnowledge:
+      'Cultura científica · Iniciación a la actividad científica.\nSocietats i territoris · Sostenibilidad.',
   },
   gift: {
     level: 'ESO',
@@ -37,7 +38,7 @@ const cases: Record<string, Record<string, string>> = {
     objectives: 'Operar con fracciones equivalentes.',
     questionCount: '10',
     questionTypes: 'Opción múltiple · Verdadero/Falso',
-    outputFormat: 'GIFT'
+    outputFormat: 'GIFT',
   },
   infographic: {
     level: 'Primaria',
@@ -47,7 +48,7 @@ const cases: Record<string, Record<string, string>> = {
     visualStyle: 'Infografía plana',
     aspectRatio: '1:1 cuadrado',
     aiTool: 'ChatGPT',
-    outputFormat: 'Markdown'
+    outputFormat: 'Markdown',
   },
   feedback: {
     level: 'ESO',
@@ -55,8 +56,8 @@ const cases: Record<string, Record<string, string>> = {
     task: 'comentario sobre el prototipo de un grupo',
     criteria: 'Justificación y uso de fuentes.',
     context: 'Trabajo cooperativo de tres sesiones.',
-    outputFormat: 'Texto'
-  }
+    outputFormat: 'Texto',
+  },
 }
 
 describe('salidas de referencia del generador', () => {

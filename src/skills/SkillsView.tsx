@@ -3,22 +3,8 @@ import type { Language, SavedPrompt } from '../types'
 import { db } from '../db'
 import { aiTargets, aiTargetUrl, rememberAiTarget } from '../followUps'
 import { builtinSkills } from './seeds'
-import {
-  blankDefinition,
-  defaultValues,
-  SkillError,
-  slugify,
-  validateDefinition,
-} from './model'
-import {
-  deleteSkill,
-  duplicateSkill,
-  importSkill,
-  listSkills,
-  revisions,
-  saveSkill,
-  skillOwner,
-} from './repository'
+import { blankDefinition, defaultValues, SkillError, slugify, validateDefinition } from './model'
+import { deleteSkill, duplicateSkill, importSkill, listSkills, revisions, saveSkill, skillOwner } from './repository'
 import {
   categories,
   languages,
@@ -28,19 +14,8 @@ import {
   type SkillRevision,
   type Value,
 } from './types'
-import {
-  exportPackage,
-  importPackage,
-  ZIP_LIMIT,
-  type PackageTarget,
-} from './packages'
-import {
-  assistedPrompt,
-  generateGift,
-  parseProposal,
-  prepareExecution,
-  type GiftQuestion,
-} from './execution'
+import { exportPackage, importPackage, ZIP_LIMIT, type PackageTarget } from './packages'
+import { assistedPrompt, generateGift, parseProposal, prepareExecution, type GiftQuestion } from './execution'
 import {
   deleteRemoteSkill,
   getCapabilities,
@@ -69,17 +44,11 @@ export default function SkillsView({
   sub?: string
   prompts: SavedPrompt[]
   copy: (v: string) => Promise<boolean>
-  onSaveResult: (
-    title: string,
-    text: string,
-    language: Language,
-  ) => Promise<void>
+  onSaveResult: (title: string, text: string, language: Language) => Promise<void>
 }) {
   const t = skillLocales[language],
     owner = skillOwner(sub),
-    [tab, setTab] = useState<'explore' | 'create' | 'mine' | 'transfer'>(
-      'explore',
-    ),
+    [tab, setTab] = useState<'explore' | 'create' | 'mine' | 'transfer'>('explore'),
     [items, setItems] = useState<Skill[]>([]),
     [selected, setSelected] = useState<Skill | null>(null),
     [draft, setDraft] = useState<SkillDefinition | null>(null),
@@ -109,11 +78,7 @@ export default function SkillsView({
   useEffect(() => {
     void safe(refresh)
   }, [owner])
-  const newDraft = (
-    d: SkillDefinition,
-    existing?: Skill,
-    isImported = false,
-  ) => {
+  const newDraft = (d: SkillDefinition, existing?: Skill, isImported = false) => {
     setSelected(null)
     setHistory([])
     setEditorKey((k) => k + 1)
@@ -130,11 +95,7 @@ export default function SkillsView({
     if (next === 'create') newDraft(blankDefinition(language))
   }
   const exported = async (skill: Skill, target: PackageTarget) => {
-    downloadSkillFile(
-      `${skill.slug}-${target}.zip`,
-      exportPackage(skill, target),
-      'application/zip',
-    )
+    downloadSkillFile(`${skill.slug}-${target}.zip`, exportPackage(skill, target), 'application/zip')
   }
   const sync = async () => {
     // Explicit action only; never auto-upload imported or local-device skills.
@@ -145,8 +106,7 @@ export default function SkillsView({
     const incoming = (await remoteSkills()).skills
     for (const raw of incoming) {
       const d = validateDefinition(raw)
-      if (raw.ownerId !== owner || raw.source === 'builtin')
-        throw new SkillError('permission')
+      if (raw.ownerId !== owner || raw.source === 'builtin') throw new SkillError('permission')
       const local = await db.skills.get(raw.id)
       if (local && local.ownerId !== owner) throw new SkillError('permission')
       if (!local || raw.revision > local.revision) {
@@ -173,14 +133,10 @@ export default function SkillsView({
           (category === 'all' || s.category === category) &&
           (stage === 'all' || s.stage === 'all' || s.stage === stage) &&
           (definitionLanguage === 'all' || s.language === definitionLanguage) &&
-          `${s.name} ${s.description} ${s.tags.join(' ')}`
-            .toLocaleLowerCase()
-            .includes(query.toLocaleLowerCase()),
+          `${s.name} ${s.description} ${s.tags.join(' ')}`.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
       )
       .sort((a, b) =>
-        sort === 'recent'
-          ? b.updatedAt.localeCompare(a.updatedAt)
-          : a.name.localeCompare(b.name, language),
+        sort === 'recent' ? b.updatedAt.localeCompare(a.updatedAt) : a.name.localeCompare(b.name, language),
       )
   const Root = embedded ? 'section' : 'main'
   return (
@@ -223,13 +179,7 @@ export default function SkillsView({
                   procedure: d.procedure.filter((v) => v.trim()),
                 }
                 if (imported && !editing) await importSkill(normalized, owner)
-                else
-                  await saveSkill(
-                    normalized,
-                    owner,
-                    editing,
-                    editing?.reviewed ?? true,
-                  )
+                else await saveSkill(normalized, owner, editing, editing?.reviewed ?? true)
                 await refresh()
                 changeTab('mine')
                 setNotice(t.saved)
@@ -238,12 +188,7 @@ export default function SkillsView({
           />
           <details>
             <summary>{t.ai}</summary>
-            <AiCreator
-              language={language}
-              copy={copy}
-              safe={safe}
-              open={(d) => newDraft(d)}
-            />
+            <AiCreator language={language} copy={copy} safe={safe} open={(d) => newDraft(d)} />
           </details>
           <details>
             <summary>{t.fromPrompt}</summary>
@@ -288,9 +233,7 @@ export default function SkillsView({
             <p>
               <button
                 className="primary"
-                disabled={
-                  !selected.reviewed || selected.mode !== 'instructions'
-                }
+                disabled={!selected.reviewed || selected.mode !== 'instructions'}
                 onClick={() => {
                   onPrepareAgent?.(selected)
                 }}
@@ -304,8 +247,7 @@ export default function SkillsView({
             </p>
           )}
           <p>
-            {selected.author} · {selected.license} · {selected.version} ·{' '}
-            {t[`lang_${selected.language}`]}
+            {selected.author} · {selected.license} · {selected.version} · {t[`lang_${selected.language}`]}
           </p>
           <Markdown text={selected.instructions} />
           <h3>{t.procedure}</h3>
@@ -348,11 +290,7 @@ export default function SkillsView({
             </details>
           ))}
           <div className="toolbar">
-            {selected.source !== 'builtin' && (
-              <button onClick={() => newDraft(selected, selected)}>
-                {t.edit}
-              </button>
-            )}
+            {selected.source !== 'builtin' && <button onClick={() => newDraft(selected, selected)}>{t.edit}</button>}
             <button
               onClick={() =>
                 void safe(async () => {
@@ -365,23 +303,11 @@ export default function SkillsView({
             >
               {t.duplicate}
             </button>
-            <button
-              onClick={() => void safe(() => exported(selected, 'agents'))}
-            >
-              {t.exportAgents}
-            </button>
-            <button onClick={() => void safe(() => exported(selected, 'm365'))}>
-              {t.exportM365}
-            </button>
+            <button onClick={() => void safe(() => exported(selected, 'agents'))}>{t.exportAgents}</button>
+            <button onClick={() => void safe(() => exported(selected, 'm365'))}>{t.exportM365}</button>
             {selected.source !== 'builtin' && (
               <>
-                <button
-                  onClick={() =>
-                    void safe(async () =>
-                      setHistory(await revisions(selected.id, owner)),
-                    )
-                  }
-                >
+                <button onClick={() => void safe(async () => setHistory(await revisions(selected.id, owner)))}>
                   {t.history}
                 </button>
                 <button
@@ -389,8 +315,7 @@ export default function SkillsView({
                   onClick={() => {
                     if (window.confirm(t.confirmDelete))
                       void safe(async () => {
-                        if (selected.synced)
-                          await deleteRemoteSkill(selected.id)
+                        if (selected.synced) await deleteRemoteSkill(selected.id)
                         await deleteSkill(selected.id, owner)
                         setSelected(null)
                         await refresh()
@@ -405,17 +330,11 @@ export default function SkillsView({
           </div>
           {history.map((r) => (
             <p key={r.key}>
-              {t.revision} {r.revision} · {r.snapshot.version} ·{' '}
-              {r.snapshot.updatedAt}{' '}
+              {t.revision} {r.revision} · {r.snapshot.version} · {r.snapshot.updatedAt}{' '}
               <button
                 onClick={() =>
                   void safe(async () => {
-                    const next = await saveSkill(
-                      r.snapshot,
-                      owner,
-                      selected,
-                      r.snapshot.reviewed,
-                    )
+                    const next = await saveSkill(r.snapshot, owner, selected, r.snapshot.reviewed)
                     setSelected(next)
                     setHistory([])
                     await refresh()
@@ -442,9 +361,7 @@ export default function SkillsView({
             }}
             onSaveResult={onSaveResult}
           />
-          {selected.slug === 'crear-cuestionarios-aules' && (
-            <GiftEditor language={language} safe={safe} />
-          )}
+          {selected.slug === 'crear-cuestionarios-aules' && <GiftEditor language={language} safe={safe} />}
         </>
       ) : tab === 'transfer' ? (
         <>
@@ -461,9 +378,7 @@ export default function SkillsView({
                 if (file)
                   void safe(async () => {
                     if (file.size > ZIP_LIMIT) throw new SkillError('size')
-                    const d = importPackage(
-                      new Uint8Array(await file.arrayBuffer()),
-                    )
+                    const d = importPackage(new Uint8Array(await file.arrayBuffer()))
                     newDraft(d, undefined, true)
                   })
               }}
@@ -476,14 +391,8 @@ export default function SkillsView({
               <article className="saved-card" key={s.id}>
                 <strong>{s.name}</strong>
                 <div className="toolbar">
-                  <button
-                    onClick={() => void safe(() => exported(s, 'agents'))}
-                  >
-                    {t.exportAgents}
-                  </button>
-                  <button onClick={() => void safe(() => exported(s, 'm365'))}>
-                    {t.exportM365}
-                  </button>
+                  <button onClick={() => void safe(() => exported(s, 'agents'))}>{t.exportAgents}</button>
+                  <button onClick={() => void safe(() => exported(s, 'm365'))}>{t.exportM365}</button>
                 </div>
               </article>
             ))}
@@ -506,10 +415,7 @@ export default function SkillsView({
             </label>
             <label>
               {t.category}
-              <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              >
+              <select value={category} onChange={(e) => setCategory(e.target.value)}>
                 <option value="all">{t.all}</option>
                 {categories.map((c) => (
                   <option key={c} value={c}>
@@ -530,10 +436,7 @@ export default function SkillsView({
             </label>
             <label>
               {t.language}
-              <select
-                value={definitionLanguage}
-                onChange={(e) => setDefinitionLanguage(e.target.value)}
-              >
+              <select value={definitionLanguage} onChange={(e) => setDefinitionLanguage(e.target.value)}>
                 <option value="all">{t.all}</option>
                 {languages.map((l) => (
                   <option key={l} value={l}>
@@ -558,28 +461,15 @@ export default function SkillsView({
                   🧩
                 </span>
                 <small>
-                  {
-                    t[
-                      s.source === 'builtin'
-                        ? 'builtin'
-                        : s.source === 'imported'
-                          ? 'imported'
-                          : 'personal'
-                    ]
-                  }{' '}
-                  · {t[`cat_${s.category}`]}
+                  {t[s.source === 'builtin' ? 'builtin' : s.source === 'imported' ? 'imported' : 'personal']} ·{' '}
+                  {t[`cat_${s.category}`]}
                 </small>
                 <h2>{s.name}</h2>
                 <p>{s.description}</p>
                 <small>
-                  {s.author} · {t[`lang_${s.language}`]} · v{s.version} ·{' '}
-                  {s.license}
+                  {s.author} · {t[`lang_${s.language}`]} · v{s.version} · {s.license}
                 </small>
-                <small>
-                  {s.mode === 'instructions'
-                    ? 'Codex · OpenCode · M365*'
-                    : t.externalMode}
-                </small>
+                <small>{s.mode === 'instructions' ? 'Codex · OpenCode · M365*' : t.externalMode}</small>
                 <button
                   className="primary"
                   onClick={() => {
@@ -630,14 +520,10 @@ function useProviders(language: Language) {
             aria-label={skillLocales[language].provider}
             value={`${provider}:${model}`}
             onChange={(e) => {
-              const p = providers.find((p) =>
-                p.models.some((m) => `${p.id}:${m}` === e.target.value),
-              )
+              const p = providers.find((p) => p.models.some((m) => `${p.id}:${m}` === e.target.value))
               if (p) {
                 setProvider(p.id)
-                setModel(
-                  p.models.find((m) => `${p.id}:${m}` === e.target.value)!,
-                )
+                setModel(p.models.find((m) => `${p.id}:${m}` === e.target.value)!)
               }
             }}
           >
@@ -673,21 +559,13 @@ function ExternalButtons({
     <>
       <p>{t.externalHint}</p>
       <label className="check">
-        <input
-          type="checkbox"
-          checked={consent}
-          onChange={(e) => setConsent(e.target.checked)}
-        />
+        <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
         {t.consent}
       </label>
       <div className="toolbar">
         <button
           disabled={!text}
-          onClick={() =>
-            void safe(async () =>
-              setStatus((await copy(text)) ? t.copied : t.copyFailed),
-            )
-          }
+          onClick={() => void safe(async () => setStatus((await copy(text)) ? t.copied : t.copyFailed))}
         >
           {t.copy}
         </button>
@@ -809,37 +687,17 @@ function Runner({
       {prepared && (
         <>
           <h3>{t.prepared}</h3>
-          <textarea
-            readOnly
-            rows={12}
-            aria-label={t.prepared}
-            value={prepared}
-          />
-          <ExternalButtons
-            text={prepared}
-            language={language}
-            copy={copy}
-            safe={safe}
-          />
+          <textarea readOnly rows={12} aria-label={t.prepared} value={prepared} />
+          <ExternalButtons text={prepared} language={language} copy={copy} safe={safe} />
           <p>{t.copilotHint}</p>
-          <button
-            onClick={() =>
-              void safe(() =>
-                onSaveResult(skill.name, prepared, responseLanguage),
-              )
-            }
-          >
+          <button onClick={() => void safe(() => onSaveResult(skill.name, prepared, responseLanguage))}>
             {t.savePrepared}
           </button>
           {p.providers.length ? (
             <>
               {p.select}
               <label className="check">
-                <input
-                  type="checkbox"
-                  checked={consent}
-                  onChange={(e) => setConsent(e.target.checked)}
-                />
+                <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
                 {t.consent}
               </label>
               <button
@@ -849,17 +707,7 @@ function Runner({
                   void safe(async () => {
                     setBusy(true)
                     try {
-                      setResult(
-                        (
-                          await inferSkill(
-                            skill,
-                            values,
-                            responseLanguage,
-                            p.provider,
-                            p.model,
-                          )
-                        ).text,
-                      )
+                      setResult((await inferSkill(skill, values, responseLanguage, p.provider, p.model)).text)
                     } finally {
                       setBusy(false)
                     }
@@ -874,34 +722,19 @@ function Runner({
           )}
           <label>
             {t.result}
-            <textarea
-              rows={10}
-              maxLength={200000}
-              value={result}
-              onChange={(e) => setResult(e.target.value)}
-            />
+            <textarea rows={10} maxLength={200000} value={result} onChange={(e) => setResult(e.target.value)} />
           </label>
           <Markdown text={result} />
           <div className="toolbar">
             <button
               disabled={!result.trim()}
-              onClick={() =>
-                void safe(() =>
-                  onSaveResult(skill.name, result, responseLanguage),
-                )
-              }
+              onClick={() => void safe(() => onSaveResult(skill.name, result, responseLanguage))}
             >
               {t.saveResult}
             </button>
             <button
               disabled={!result}
-              onClick={() =>
-                downloadSkillFile(
-                  `${skill.slug}-result.md`,
-                  result,
-                  'text/markdown',
-                )
-              }
+              onClick={() => downloadSkillFile(`${skill.slug}-result.md`, result, 'text/markdown')}
             >
               {t.download}
             </button>
@@ -954,12 +787,7 @@ function AiCreator({
           }}
         />
       </label>
-      <button
-        className="secondary"
-        onClick={() =>
-          void safe(async () => setText(assistedPrompt(goal, language)))
-        }
-      >
+      <button className="secondary" onClick={() => void safe(async () => setText(assistedPrompt(goal, language)))}>
         {t.prepareAi}
       </button>
       {text && (
@@ -968,21 +796,12 @@ function AiCreator({
             {t.prepared}
             <textarea readOnly rows={6} value={text} />
           </label>
-          <ExternalButtons
-            text={text}
-            language={language}
-            copy={copy}
-            safe={safe}
-          />
+          <ExternalButtons text={text} language={language} copy={copy} safe={safe} />
           {p.providers.length > 0 && (
             <>
               {p.select}
               <label className="check">
-                <input
-                  type="checkbox"
-                  checked={consent}
-                  onChange={(e) => setConsent(e.target.checked)}
-                />
+                <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
                 {t.consent}
               </label>
               <button
@@ -991,12 +810,7 @@ function AiCreator({
                   void safe(async () => {
                     setBusy(true)
                     try {
-                      const result = await proposeSkill(
-                        goal,
-                        language,
-                        p.provider,
-                        p.model,
-                      )
+                      const result = await proposeSkill(goal, language, p.provider, p.model)
                       open(parseProposal(result.text))
                     } finally {
                       setBusy(false)
@@ -1012,12 +826,7 @@ function AiCreator({
       )}
       <label>
         {t.proposal}
-        <textarea
-          maxLength={200000}
-          value={proposal}
-          onChange={(e) => setProposal(e.target.value)}
-          rows={6}
-        />
+        <textarea maxLength={200000} value={proposal} onChange={(e) => setProposal(e.target.value)} rows={6} />
       </label>
       <button
         className="secondary"
@@ -1039,8 +848,7 @@ function GiftEditor({ language, safe }: { language: Language; safe: Safe }) {
       feedback: '',
     }),
     [questions, setQuestions] = useState<GiftQuestion[]>([blank()])
-  const update = (i: number, q: GiftQuestion) =>
-    setQuestions(questions.map((v, n) => (n === i ? q : v)))
+  const update = (i: number, q: GiftQuestion) => setQuestions(questions.map((v, n) => (n === i ? q : v)))
   return (
     <details>
       <summary>{t.gift}</summary>
@@ -1052,15 +860,8 @@ function GiftEditor({ language, safe }: { language: Language; safe: Safe }) {
           </legend>
           {(['title', 'question', 'feedback'] as const).map((k) => (
             <label key={k}>
-              {k === 'title'
-                ? t.questionTitle
-                : k === 'question'
-                  ? t.question
-                  : t.feedback}
-              <input
-                value={q[k]}
-                onChange={(e) => update(i, { ...q, [k]: e.target.value })}
-              />
+              {k === 'title' ? t.questionTitle : k === 'question' ? t.question : t.feedback}
+              <input value={q[k]} onChange={(e) => update(i, { ...q, [k]: e.target.value })} />
             </label>
           ))}
           {q.options.map((o, n) => (
@@ -1071,9 +872,7 @@ function GiftEditor({ language, safe }: { language: Language; safe: Safe }) {
                 onChange={(e) =>
                   update(i, {
                     ...q,
-                    options: q.options.map((v, x) =>
-                      x === n ? e.target.value : v,
-                    ),
+                    options: q.options.map((v, x) => (x === n ? e.target.value : v)),
                   })
                 }
               />
@@ -1081,12 +880,7 @@ function GiftEditor({ language, safe }: { language: Language; safe: Safe }) {
           ))}
           <label>
             {t.correct}
-            <select
-              value={q.correct}
-              onChange={(e) =>
-                update(i, { ...q, correct: Number(e.target.value) })
-              }
-            >
+            <select value={q.correct} onChange={(e) => update(i, { ...q, correct: Number(e.target.value) })}>
               {q.options.map((_, n) => (
                 <option key={n} value={n}>
                   {t.answer} {n + 1}
@@ -1094,27 +888,15 @@ function GiftEditor({ language, safe }: { language: Language; safe: Safe }) {
               ))}
             </select>
           </label>
-          <button
-            onClick={() => setQuestions(questions.filter((_, n) => n !== i))}
-          >
-            {t.deleteItem}
-          </button>
+          <button onClick={() => setQuestions(questions.filter((_, n) => n !== i))}>{t.deleteItem}</button>
         </fieldset>
       ))}
       <div className="toolbar">
-        <button onClick={() => setQuestions([...questions, blank()])}>
-          {t.add}
-        </button>
+        <button onClick={() => setQuestions([...questions, blank()])}>{t.add}</button>
         <button
           className="primary"
           onClick={() =>
-            void safe(async () =>
-              downloadSkillFile(
-                'aules.gift',
-                generateGift(questions),
-                'text/plain;charset=utf-8',
-              ),
-            )
+            void safe(async () => downloadSkillFile('aules.gift', generateGift(questions), 'text/plain;charset=utf-8'))
           }
         >
           {t.downloadGift}

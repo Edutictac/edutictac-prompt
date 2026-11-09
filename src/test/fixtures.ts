@@ -81,7 +81,13 @@ export async function seedFixtures(db: PromptDatabase): Promise<FixtureSet> {
   const prompt = makePrompt({ categoryId: category.id })
   // Prompt anterior al formulario actual: sin `values`, para comprobar que se
   // sigue abriendo y editando con los valores iniciales de la plantilla.
-  const oldPrompt = makePrompt({ title: 'Prompt antiguo', values: undefined, templateId: 'free', syncStatus: 'synced', remoteId: 'remote-old' })
+  const oldPrompt = makePrompt({
+    title: 'Prompt antiguo',
+    values: undefined,
+    templateId: 'free',
+    syncStatus: 'synced',
+    remoteId: 'remote-old',
+  })
   const agent = makeAgent()
   const skill = makeSkill()
   const agentRevision: AgentRevision = {
@@ -98,13 +104,17 @@ export async function seedFixtures(db: PromptDatabase): Promise<FixtureSet> {
     revision: skill.revision,
     snapshot: skill,
   }
-  await db.transaction('rw', [db.prompts, db.categories, db.agents, db.agentRevisions, db.skills, db.skillRevisions], async () => {
-    await db.categories.put(category)
-    await db.prompts.bulkPut([prompt, oldPrompt])
-    await db.agents.put(agent)
-    await db.agentRevisions.put(agentRevision)
-    await db.skills.put(skill)
-    await db.skillRevisions.put(skillRevision)
-  })
+  await db.transaction(
+    'rw',
+    [db.prompts, db.categories, db.agents, db.agentRevisions, db.skills, db.skillRevisions],
+    async () => {
+      await db.categories.put(category)
+      await db.prompts.bulkPut([prompt, oldPrompt])
+      await db.agents.put(agent)
+      await db.agentRevisions.put(agentRevision)
+      await db.skills.put(skill)
+      await db.skillRevisions.put(skillRevision)
+    },
+  )
   return { category, prompt, oldPrompt, agent, skill }
 }

@@ -8,9 +8,9 @@ const languages: Language[] = ['es', 'ca-valencia', 'ca', 'en']
 describe('starters', () => {
   it('apunta a plantillas existentes y rellena solo campos de esa plantilla', () => {
     for (const starter of starters) {
-      const template = templates.find(t => t.id === starter.templateId)
+      const template = templates.find((t) => t.id === starter.templateId)
       expect(template, starter.id).toBeDefined()
-      const fields = new Map(template!.fields.map(f => [f.id, f]))
+      const fields = new Map(template!.fields.map((f) => [f.id, f]))
       for (const language of languages) {
         const values = starterValues(starter, language)
         for (const [key, value] of Object.entries(values)) {
@@ -25,11 +25,11 @@ describe('starters', () => {
   })
 
   it('ofrece un caso por etapa, de Infantil a personas adultas', () => {
-    expect(starters.map(s => s.level)).toEqual(['Infantil', 'Primaria', 'ESO', 'Bachillerato', 'FP', ADULT_LEVEL])
+    expect(starters.map((s) => s.level)).toEqual(['Infantil', 'Primaria', 'ESO', 'Bachillerato', 'FP', ADULT_LEVEL])
   })
 
   it('el catalán central no hereda formas valencianas en los títulos', () => {
-    const quiz = starters.find(s => s.id === 'eso-cell-quiz')!
+    const quiz = starters.find((s) => s.id === 'eso-cell-quiz')!
     expect(starterTitle(quiz, 'ca')).toContain('a Aules')
     expect(starterTitle(quiz, 'ca-valencia')).toContain('en Aules')
   })

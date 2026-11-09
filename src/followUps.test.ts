@@ -3,7 +3,7 @@ import { aiTargets, aiTargetUrl, followUps, orderedAiTargets, preferredAiTarget,
 import { templates } from './templates'
 import type { Language } from './types'
 
-const target = (id: string) => aiTargets.find(item => item.id === id)!
+const target = (id: string) => aiTargets.find((item) => item.id === id)!
 
 describe('abrir el prompt en un asistente', () => {
   it('pasa el prompt en el enlace cuando el asistente lo admite', () => {
@@ -19,7 +19,7 @@ describe('abrir el prompt en un asistente', () => {
 
   it('pone primero el asistente elegido en el formulario', () => {
     expect(orderedAiTargets('Gemini')[0].id).toBe('Gemini')
-    expect(orderedAiTargets('Sin preferencia').map(item => item.id)).toEqual(aiTargets.map(item => item.id))
+    expect(orderedAiTargets('Sin preferencia').map((item) => item.id)).toEqual(aiTargets.map((item) => item.id))
   })
 })
 
@@ -27,7 +27,7 @@ describe('peticiones de seguimiento', () => {
   it('ofrece las mismas peticiones en todos los idiomas para cada plantilla', () => {
     const languages: Language[] = ['es', 'ca-valencia', 'ca', 'en']
     for (const template of templates) {
-      const counts = languages.map(language => followUps(template.id, template.category, language).length)
+      const counts = languages.map((language) => followUps(template.id, template.category, language).length)
       expect(new Set(counts).size).toBe(1)
       expect(counts[0]).toBeGreaterThanOrEqual(3)
     }
@@ -39,7 +39,10 @@ describe('peticiones de seguimiento', () => {
 
   it('pone primero la herramienta elegida o, si no, la última abierta', () => {
     const store = new Map<string, string>()
-    vi.stubGlobal('localStorage', { getItem: (key: string) => store.get(key) ?? null, setItem: (key: string, value: string) => store.set(key, value) })
+    vi.stubGlobal('localStorage', {
+      getItem: (key: string) => store.get(key) ?? null,
+      setItem: (key: string, value: string) => store.set(key, value),
+    })
     expect(preferredAiTarget('')).toBe('')
     rememberAiTarget('Claude')
     expect(preferredAiTarget('')).toBe('Claude')

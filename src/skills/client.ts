@@ -7,8 +7,7 @@ export interface Provider {
   name: string
   models: string[]
 }
-export const getCapabilities = () =>
-  apiRequest<{ providers: Provider[] }>('/api/skills/capabilities')
+export const getCapabilities = () => apiRequest<{ providers: Provider[] }>('/api/skills/capabilities')
 export const inferSkill = (
   skill: Skill,
   values: Record<string, Value>,
@@ -29,12 +28,7 @@ export const inferSkill = (
       prepared: prepareExecution(skill, values, language),
     }),
   })
-export const proposeSkill = (
-  goal: string,
-  language: Language,
-  provider: string,
-  model: string,
-) =>
+export const proposeSkill = (goal: string, language: Language, provider: string, model: string) =>
   apiRequest<{ text: string }>('/api/skills/infer', {
     method: 'POST',
     body: JSON.stringify({

@@ -8,22 +8,13 @@ afterEach(cleanup)
 it('prepares per-field configuration, copies once and invalidates it after a course change', async () => {
   const user = userEvent.setup(),
     copy = vi.fn().mockResolvedValue(true)
-  render(
-    <AgentBuilder language="es" skills={builtinSkills('es')} copy={copy} />,
-  )
-  await user.type(
-    screen.getByRole('textbox', { name: /Contexto del centro o curso/ }),
-    'Curso de evaluación',
-  )
-  await user.click(
-    screen.getByRole('button', { name: 'Preparar configuración' }),
-  )
+  render(<AgentBuilder language="es" skills={builtinSkills('es')} copy={copy} />)
+  await user.type(screen.getByRole('textbox', { name: /Contexto del centro o curso/ }), 'Curso de evaluación')
+  await user.click(screen.getByRole('button', { name: 'Preparar configuración' }))
   const instructions = screen.getByRole('textbox', {
     name: 'Instrucciones del agente',
   })
-  expect((instructions as HTMLTextAreaElement).value).toContain(
-    'Curso de evaluación',
-  )
+  expect((instructions as HTMLTextAreaElement).value).toContain('Curso de evaluación')
   await user.click(
     screen.getByRole('button', {
       name: 'Copiar este campo: Instrucciones del agente',
@@ -31,13 +22,8 @@ it('prepares per-field configuration, copies once and invalidates it after a cou
   )
   expect(copy).toHaveBeenCalledWith((instructions as HTMLTextAreaElement).value)
   expect(screen.getByText('Copiado.')).toBeTruthy()
-  await user.type(
-    screen.getByRole('textbox', { name: /Contexto del centro o curso/ }),
-    ' nuevo',
-  )
-  expect(
-    screen.queryByRole('textbox', { name: 'Instrucciones del agente' }),
-  ).toBeNull()
+  await user.type(screen.getByRole('textbox', { name: /Contexto del centro o curso/ }), ' nuevo')
+  expect(screen.queryByRole('textbox', { name: 'Instrucciones del agente' })).toBeNull()
 })
 it('offers course and specialized agents without allowing unreviewed or external skills', async () => {
   const skills = builtinSkills('es'),
@@ -45,10 +31,7 @@ it('offers course and specialized agents without allowing unreviewed or external
   render(
     <AgentBuilder
       language="es"
-      skills={[
-        ...skills,
-        { ...skills[0], id: 'imported', name: 'Importada', reviewed: false },
-      ]}
+      skills={[...skills, { ...skills[0], id: 'imported', name: 'Importada', reviewed: false }]}
       copy={async () => true}
     />,
   )
@@ -63,13 +46,8 @@ it('offers course and specialized agents without allowing unreviewed or external
     ).disabled,
   ).toBe(true)
   await user.selectOptions(basis, skills[0].id)
-  await user.type(
-    screen.getByRole('textbox', { name: /Contexto del centro o curso/ }),
-    'Curso de rúbricas',
-  )
-  await user.click(
-    screen.getByRole('button', { name: 'Preparar configuración' }),
-  )
+  await user.type(screen.getByRole('textbox', { name: /Contexto del centro o curso/ }), 'Curso de rúbricas')
+  await user.click(screen.getByRole('button', { name: 'Preparar configuración' }))
   expect(
     (
       screen.getByRole('textbox', {

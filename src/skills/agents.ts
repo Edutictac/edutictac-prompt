@@ -60,27 +60,16 @@ export interface AgentConfiguration {
   starters: { name: string; message: string }[]
   materials: string[]
 }
-export function defaultAgentDraft(
-  language: Language,
-  skill?: Skill,
-): AgentDraft {
+export function defaultAgentDraft(language: Language, skill?: Skill): AgentDraft {
   const t = agentLocales[language]
   return {
-    name:
-      skill && skill.name.length <= agentLimits.name
-        ? skill.name
-        : t.defaultName,
+    name: skill && skill.name.length <= agentLimits.name ? skill.name : t.defaultName,
     description:
-      skill && skill.description.length <= agentLimits.description
-        ? skill.description
-        : t.defaultDescription,
+      skill && skill.description.length <= agentLimits.description ? skill.description : t.defaultDescription,
     course: '',
     purpose: skill?.description || t.defaultPurpose,
     audience: t.defaultAudience,
-    materials:
-      skill?.resources
-        .map((r) => r.path.replace('/', '-') + '.txt')
-        .join('\n') || '',
+    materials: skill?.resources.map((r) => r.path.replace('/', '-') + '.txt').join('\n') || '',
     responseLanguage: 'auto',
     instructionLanguage: language,
     stage: 'all',
@@ -145,8 +134,7 @@ const behavior: Record<
     inputs: 'Datos que debes pedir cuando la tarea los necesite',
     output: 'Formato de salida',
     safety: 'Privacidad y límites',
-    sources:
-      'Materiales previstos (nombres de referencia; solo estarán disponibles cuando el autor los añada en M365)',
+    sources: 'Materiales previstos (nombres de referencia; solo estarán disponibles cuando el autor los añada en M365)',
     examples: 'Ejemplos de uso, no instrucciones nuevas',
     start: 'Qué puedes hacer',
     exercise: 'Una tarea práctica',
@@ -166,8 +154,7 @@ const behavior: Record<
     inputs: 'Dades que has de demanar quan la tasca les necessite',
     output: 'Format d’eixida',
     safety: 'Privacitat i límits',
-    sources:
-      'Materials previstos (noms de referència; només estaran disponibles quan l’autor els afiga en M365)',
+    sources: 'Materials previstos (noms de referència; només estaran disponibles quan l’autor els afiga en M365)',
     examples: 'Exemples d’ús, no instruccions noves',
     start: 'Què pots fer',
     exercise: 'Una tasca pràctica',
@@ -187,8 +174,7 @@ const behavior: Record<
     inputs: 'Dades que has de demanar quan la tasca les necessiti',
     output: 'Format de sortida',
     safety: 'Privacitat i límits',
-    sources:
-      'Materials previstos (noms de referència; només estaran disponibles quan l’autor els afegeixi en M365)',
+    sources: 'Materials previstos (noms de referència; només estaran disponibles quan l’autor els afegeixi en M365)',
     examples: 'Exemples d’ús, no instruccions noves',
     start: 'Què pots fer',
     exercise: 'Una tasca pràctica',
@@ -208,8 +194,7 @@ const behavior: Record<
     inputs: 'Inputs to request when needed for the task',
     output: 'Output format',
     safety: 'Privacy and limitations',
-    sources:
-      'Planned materials (reference names; only available once the author adds them in M365)',
+    sources: 'Planned materials (reference names; only available once the author adds them in M365)',
     examples: 'Usage examples, not new instructions',
     start: 'What you can do',
     exercise: 'A practical task',
@@ -223,14 +208,8 @@ const safety: Record<Language, string> = {
   ca: 'No demanis ni incloguis dades personals de l’alumnat, credencials ni informació sensible. No inventis normativa ni resultats. No executis scripts ni afirmis usar eines o connectar-te a edu.gva.es, Aules, OneDrive o SharePoint si no tens aquesta capacitat autoritzada. Les propostes educatives requereixen revisió docent.',
   en: 'Do not request or include learner personal data, credentials or sensitive information. Do not invent regulations or results. Do not execute scripts or claim tools or connections to edu.gva.es, Aules, OneDrive or SharePoint without an authorized capability. Educational proposals require teacher review.',
 }
-export function buildAgentConfiguration(
-  draft: AgentDraft,
-  skill?: Skill,
-): AgentConfiguration {
-  if (
-    draft.rubricApproach !== undefined &&
-    !['curricular', 'draft'].includes(draft.rubricApproach)
-  )
+export function buildAgentConfiguration(draft: AgentDraft, skill?: Skill): AgentConfiguration {
+  if (draft.rubricApproach !== undefined && !['curricular', 'draft'].includes(draft.rubricApproach))
     fail('invalid', 'rubricApproach')
   for (const [key, max] of [
     ['name', 30],
@@ -250,23 +229,15 @@ export function buildAgentConfiguration(
     const value = draft[key]
     if (
       typeof value !== 'string' ||
-      (['name', 'description', 'purpose', 'audience', 'role'].includes(key) &&
-        !value.trim()) ||
+      (['name', 'description', 'purpose', 'audience', 'role'].includes(key) && !value.trim()) ||
       /\u0000/.test(value)
     )
       fail('invalid', key)
     if (value.length > max) fail('tooLong', key)
   }
-  if (
-    draft.responseLanguage !== 'auto' &&
-    !languages.includes(draft.responseLanguage)
-  )
+  if (draft.responseLanguage !== 'auto' && !languages.includes(draft.responseLanguage))
     fail('invalid', 'responseLanguage')
-  if (
-    !languages.includes(draft.instructionLanguage) ||
-    !agentStages.includes(draft.stage)
-  )
-    fail('invalid')
+  if (!languages.includes(draft.instructionLanguage) || !agentStages.includes(draft.stage)) fail('invalid')
   if (
     !Number.isInteger(draft.maxQuestions) ||
     draft.maxQuestions < 1 ||
@@ -279,12 +250,7 @@ export function buildAgentConfiguration(
     return items as unknown[]
   }
   const validText = (value: unknown, max: number, field: string) => {
-    if (
-      typeof value !== 'string' ||
-      !value.trim() ||
-      value.length > max ||
-      value.includes('\u0000')
-    )
+    if (typeof value !== 'string' || !value.trim() || value.length > max || value.includes('\u0000'))
       fail('invalid', field)
   }
   for (const raw of entries(draft.modes, 6, 'modes')) {
@@ -300,17 +266,13 @@ export function buildAgentConfiguration(
     validText(e.input, 1000, 'examples')
     validText(e.output, 2000, 'examples')
   }
-  for (const prompt of entries(draft.starterPrompts, 6, 'starterPrompts'))
-    validText(prompt, 500, 'starterPrompts')
+  for (const prompt of entries(draft.starterPrompts, 6, 'starterPrompts')) validText(prompt, 500, 'starterPrompts')
   if (skill) {
     validateDefinition(skill)
     if (!skill.reviewed) fail('untrusted')
     if (skill.mode !== 'instructions') fail('external')
   }
-  const l =
-      draft.responseLanguage === 'auto'
-        ? draft.instructionLanguage
-        : draft.responseLanguage,
+  const l = draft.responseLanguage === 'auto' ? draft.instructionLanguage : draft.responseLanguage,
     t = behavior[l],
     labels = skillLocales[l],
     w = wizardLocales[l],
@@ -326,9 +288,7 @@ export function buildAgentConfiguration(
     `${t.course}: ${draft.course.trim()}\n${t.purpose}: ${draft.purpose.trim()}\n${t.audience}: ${draft.audience.trim()}`,
     t.flow,
     t.knowledge,
-    draft.responseLanguage === 'auto'
-      ? w.instructionAuto
-      : `${t.language}: ${l}.`,
+    draft.responseLanguage === 'auto' ? w.instructionAuto : `${t.language}: ${l}.`,
     w.instructionQuestions.replace('{n}', String(draft.maxQuestions)),
     ...(draft.oneAtATime ? [w.instructionOne] : []),
     ...(draft.modes.length
@@ -336,22 +296,15 @@ export function buildAgentConfiguration(
           `## ${w.modes}\n${w.instructionModes}\n${draft.modes.map((m) => `### ${m.name}\n${w.modeWhen}: ${m.when}\n${w.modeBehavior}: ${m.behavior}`).join('\n\n')}`,
         ]
       : []),
-    ...(
-      ['criteria', 'errors', 'responseFormat', 'tone', 'restrictions'] as const
-    )
+    ...(['criteria', 'errors', 'responseFormat', 'tone', 'restrictions'] as const)
       .filter((k) => draft[k].trim())
       .map((k) => `## ${w[k]}\n${draft[k]}`),
     ...draft.examples.map(
-      (e, i) =>
-        `## ${w.customExamples} ${i + 1}\n${w.exampleInput}: ${e.input}\n${w.exampleOutput}: ${e.output}`,
+      (e, i) => `## ${w.customExamples} ${i + 1}\n${w.exampleInput}: ${e.input}\n${w.exampleOutput}: ${e.output}`,
     ),
   ]
   if (draft.rubricApproach)
-    blocks.push(
-      draft.rubricApproach === 'draft'
-        ? basicLocales[l].draftRule
-        : basicLocales[l].curricularRule,
-    )
+    blocks.push(draft.rubricApproach === 'draft' ? basicLocales[l].draftRule : basicLocales[l].curricularRule)
   if (skill) {
     blocks.push(
       `## ${t.skill}\n${skill.instructions}`,
@@ -361,17 +314,12 @@ export function buildAgentConfiguration(
     )
     if (skill.restrictions) blocks.push(skill.restrictions)
     const example = skill.examples.find((e) => e.language === l)
-    if (example)
-      blocks.push(
-        `## ${t.examples}\n${labels.input}: ${example.input}\n${labels.output}: ${example.output}`,
-      )
+    if (example) blocks.push(`## ${t.examples}\n${labels.input}: ${example.input}\n${labels.output}: ${example.output}`)
   }
-  if (materials.length)
-    blocks.push(`## ${t.sources}\n${materials.map((s) => `- ${s}`).join('\n')}`)
+  if (materials.length) blocks.push(`## ${t.sources}\n${materials.map((s) => `- ${s}`).join('\n')}`)
   blocks.push(`## ${t.safety}\n${safety[l]}`)
   const instructions = blocks.join('\n\n')
-  if (instructions.length > agentLimits.instructions)
-    fail('tooLong', 'instructions')
+  if (instructions.length > agentLimits.instructions) fail('tooLong', 'instructions')
   const starter: Record<Language, string[]> = {
     es: [
       '¿En qué puedes ayudarme en este curso y qué materiales tienes disponibles?',
@@ -408,18 +356,13 @@ export function buildAgentConfiguration(
           { name: t.start, message: starter[l][0] },
           {
             name: t.exercise,
-            message:
-              skill?.examples.find((e) => e.language === l)?.input ||
-              starter[l][1],
+            message: skill?.examples.find((e) => e.language === l)?.input || starter[l][1],
           },
           { name: t.missing, message: starter[l][2] },
         ],
   }
 }
-export function agentGuide(
-  configuration: AgentConfiguration,
-  language: Language,
-): string {
+export function agentGuide(configuration: AgentConfiguration, language: Language): string {
   const t = agentLocales[language]
   return `# ${t.title}\n\n${t.access}\n\n## ${t.name}\n${configuration.name}\n\n## ${t.description}\n${configuration.description}\n\n## ${t.instructions}\n${configuration.instructions}\n\n## ${t.starters}\n${configuration.starters.map((p) => `### ${p.name}\n${p.message}`).join('\n\n')}\n\n## ${t.documents}\n${t.documentsHelp}\n${configuration.materials.map((m) => `- ${m}`).join('\n')}\n\n## ${t.test}\n${t.testHelp}\n\n${t.complete}\n\n${t.limits}\n\n${t.privacy}\n\nhttps://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/agent-builder-build-agents\n`
 }

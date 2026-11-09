@@ -1,12 +1,6 @@
 import { strFromU8, strToU8, unzipSync, zipSync } from 'fflate'
 import { parseDocument, stringify } from 'yaml'
-import {
-  blankDefinition,
-  fail,
-  resourcePath,
-  validateDefinition,
-  validateSlug,
-} from './model'
+import { blankDefinition, fail, resourcePath, validateDefinition, validateSlug } from './model'
 import { skillBody } from './execution'
 import type { SkillDefinition } from './types'
 export const ZIP_LIMIT = 2_000_000,
@@ -19,9 +13,7 @@ export function skillMarkdown(d: SkillDefinition) {
 }
 export function parseSkillMarkdown(markdown: string, folder?: string) {
   if (strToU8(markdown).length > FILE_LIMIT) fail('size')
-  const match = markdown
-    .replace(/\r\n/g, '\n')
-    .match(/^---\n([\s\S]*?)\n---\n([\s\S]+)$/)
+  const match = markdown.replace(/\r\n/g, '\n').match(/^---\n([\s\S]*?)\n---\n([\s\S]+)$/)
   if (!match) fail('invalid', 'SKILL.md')
   let value: Record<string, unknown>
   try {
@@ -31,29 +23,16 @@ export function parseSkillMarkdown(markdown: string, folder?: string) {
   } catch {
     return fail('invalid', 'SKILL.md')
   }
-  if (!value || typeof value !== 'object' || Array.isArray(value))
-    fail('invalid', 'SKILL.md')
+  if (!value || typeof value !== 'object' || Array.isArray(value)) fail('invalid', 'SKILL.md')
   if (
     Object.keys(value).some(
-      (k) =>
-        ![
-          'name',
-          'description',
-          'license',
-          'compatibility',
-          'metadata',
-          'allowed-tools',
-        ].includes(k),
+      (k) => !['name', 'description', 'license', 'compatibility', 'metadata', 'allowed-tools'].includes(k),
     )
   )
     fail('invalid', 'SKILL.md')
   validateSlug(value.name)
   if (folder && folder !== value.name) fail('invalid', 'slug')
-  if (
-    typeof value.description !== 'string' ||
-    !value.description.trim() ||
-    value.description.length > 1024
-  )
+  if (typeof value.description !== 'string' || !value.description.trim() || value.description.length > 1024)
     fail('invalid', 'description')
   for (const key of ['license', 'compatibility', 'allowed-tools'])
     if (
@@ -76,8 +55,7 @@ export function parseSkillMarkdown(markdown: string, folder?: string) {
     name: value.name as string,
     description: value.description as string,
     license: typeof value.license === 'string' ? value.license : 'NOASSERTION',
-    compatibility:
-      typeof value.compatibility === 'string' ? value.compatibility : '',
+    compatibility: typeof value.compatibility === 'string' ? value.compatibility : '',
     tools: Boolean(value['allowed-tools']),
     body: match![2].trim(),
   }
@@ -109,10 +87,7 @@ function inspect(bytes: Uint8Array) {
   const v = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength)
   let end = -1
   for (let i = bytes.length - 22; i >= Math.max(0, bytes.length - 65557); i--)
-    if (
-      v.getUint32(i, true) === 0x06054b50 &&
-      i + 22 + v.getUint16(i + 20, true) === bytes.length
-    ) {
+    if (v.getUint32(i, true) === 0x06054b50 && i + 22 + v.getUint16(i + 20, true) === bytes.length) {
       end = i
       break
     }
@@ -133,8 +108,7 @@ function inspect(bytes: Uint8Array) {
     total = 0
   const spans: [number, number][] = []
   for (let i = 0; i < count; i++) {
-    if (pos + 46 > end || v.getUint32(pos, true) !== 0x02014b50)
-      fail('invalid', 'ZIP')
+    if (pos + 46 > end || v.getUint32(pos, true) !== 0x02014b50) fail('invalid', 'ZIP')
     const flags = v.getUint16(pos + 8, true),
       method = v.getUint16(pos + 10, true),
       compressed = v.getUint32(pos + 20, true),
@@ -171,15 +145,10 @@ function inspect(bytes: Uint8Array) {
       start = local + 30 + ln + le
     if (
       start + compressed > offset ||
-      strFromU8(bytes.subarray(local + 30, local + 30 + ln)) !==
-        name + (directory ? '/' : '')
+      strFromU8(bytes.subarray(local + 30, local + 30 + ln)) !== name + (directory ? '/' : '')
     )
       fail('unsafe')
-    if (
-      !(flags & 8) &&
-      (v.getUint32(local + 18, true) !== compressed ||
-        v.getUint32(local + 22, true) !== size)
-    )
+    if (!(flags & 8) && (v.getUint32(local + 18, true) !== compressed || v.getUint32(local + 22, true) !== size))
       fail('unsafe')
     if (directory && size) fail('unsafe')
     spans.push([local, start + compressed])
@@ -190,14 +159,10 @@ function inspect(bytes: Uint8Array) {
   }
   if (pos !== end) fail('invalid', 'ZIP')
   spans.sort((a, b) => a[0] - b[0])
-  for (let i = 1; i < spans.length; i++)
-    if (spans[i][0] < spans[i - 1][1]) fail('unsafe')
+  for (let i = 1; i < spans.length; i++) if (spans[i][0] < spans[i - 1][1]) fail('unsafe')
   return entries
 }
-export function exportPackage(
-  input: SkillDefinition,
-  target: PackageTarget = 'agents',
-): Uint8Array {
+export function exportPackage(input: SkillDefinition, target: PackageTarget = 'agents'): Uint8Array {
   const d = validateDefinition(input),
     md = skillMarkdown(d)
   if (target === 'm365' && skillBody(d).length >= 20000) fail('m365Limit')
@@ -223,19 +188,14 @@ export function importPackage(bytes: Uint8Array): SkillDefinition {
       files = unzipSync(bytes)
     for (const [path, b] of Object.entries(files)) {
       const meta = headers.get(path.replace(/\/$/, ''))
-      if (!meta || b.length !== meta.size || crc32(b) !== meta.crc)
-        fail('unsafe')
+      if (!meta || b.length !== meta.size || crc32(b) !== meta.crc) fail('unsafe')
     }
     const names = Object.keys(files).filter((p) => !p.endsWith('/')),
       skills = names.filter((p) => p === 'SKILL.md' || p.endsWith('/SKILL.md'))
     if (skills.length !== 1) fail('invalid', 'SKILL.md')
     const path = skills[0],
       root = path.slice(0, -8)
-    if (
-      root &&
-      !/^(?:\.agents\/skills\/)?[a-z0-9]+(?:-[a-z0-9]+)*\/$/.test(root)
-    )
-      fail('unsafe')
+    if (root && !/^(?:\.agents\/skills\/)?[a-z0-9]+(?:-[a-z0-9]+)*\/$/.test(root)) fail('unsafe')
     const md = parseSkillMarkdown(
       new TextDecoder('utf-8', { fatal: true }).decode(files[path]),
       root ? root.split('/').at(-2) : undefined,
@@ -263,13 +223,8 @@ export function importPackage(bytes: Uint8Array): SkillDefinition {
       mode: md.tools || md.compatibility ? 'external' : 'instructions',
     }
     if (files[root + 'edutictac.json']) {
-      const manifest = JSON.parse(
-        new TextDecoder('utf-8', { fatal: true }).decode(
-          files[root + 'edutictac.json'],
-        ),
-      )
-      if (manifest.format !== 'edutictac-skill' || manifest.schemaVersion !== 1)
-        fail('invalid')
+      const manifest = JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(files[root + 'edutictac.json']))
+      if (manifest.format !== 'edutictac-skill' || manifest.schemaVersion !== 1) fail('invalid')
       d = validateDefinition(manifest.definition)
       if (
         d.slug !== md.name ||
@@ -277,9 +232,7 @@ export function importPackage(bytes: Uint8Array): SkillDefinition {
         d.license !== md.license ||
         d.requirements !== md.compatibility ||
         skillBody(d).trim() !== md.body ||
-        JSON.stringify(
-          [...d.resources].sort((a, b) => a.path.localeCompare(b.path)),
-        ) !==
+        JSON.stringify([...d.resources].sort((a, b) => a.path.localeCompare(b.path))) !==
           JSON.stringify(resources.sort((a, b) => a.path.localeCompare(b.path)))
       )
         fail('invalid', 'manifest')
@@ -287,12 +240,7 @@ export function importPackage(bytes: Uint8Array): SkillDefinition {
     }
     return validateDefinition(d)
   } catch (e) {
-    if (
-      e instanceof Error &&
-      e.name === 'Error' &&
-      ['unsafe', 'size', 'invalid'].includes(e.message)
-    )
-      throw e
+    if (e instanceof Error && e.name === 'Error' && ['unsafe', 'size', 'invalid'].includes(e.message)) throw e
     return fail('invalid', 'ZIP')
   }
 }

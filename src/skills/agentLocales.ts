@@ -6,11 +6,9 @@ const es = {
   access:
     'Comprueba primero que tu cuenta edu.gva.es muestra Agentes → Crear agente → Configurar. Las funciones disponibles dependen de los permisos y la licencia de tu organización.',
   course: 'Curso o contexto de formación',
-  courseHint:
-    'Por ejemplo: evaluación formativa en Primaria, formación del profesorado.',
+  courseHint: 'Por ejemplo: evaluación formativa en Primaria, formación del profesorado.',
   purpose: '¿Para qué ayudará el agente?',
-  purposeHint:
-    'Por ejemplo: orientar al profesorado sobre los materiales del curso y ayudarle a diseñar una rúbrica.',
+  purposeHint: 'Por ejemplo: orientar al profesorado sobre los materiales del curso y ayudarle a diseñar una rúbrica.',
   audience: 'Personas destinatarias',
   audienceHint: 'Por ejemplo: profesorado participante en el curso.',
   materials: 'Materiales que añadirás en M365 (un nombre por línea)',
@@ -45,26 +43,17 @@ const es = {
   fromSkill: 'Preparar un agente M365 con esta Skill',
   localOnly:
     'Prepara y guarda tu diseño en Mis agentes. Después copia la configuración en M365 y prueba el agente antes de crearlo.',
-  tooLong:
-    'La configuración supera el límite del campo. Reduce el texto o los ejemplos antes de copiarlo.',
+  tooLong: 'La configuración supera el límite del campo. Reduce el texto o los ejemplos antes de copiarlo.',
   invalid: 'Completa los campos obligatorios y revisa los límites.',
-  untrusted:
-    'Revisa primero las instrucciones y recursos de la Skill importada.',
+  untrusted: 'Revisa primero las instrucciones y recursos de la Skill importada.',
   external:
     'Esta Skill necesita herramientas externas; no se puede convertir en un agente de instrucciones con esta guía.',
   defaultName: 'Agente educativo',
-  defaultDescription:
-    'Ayuda a comprender los materiales del curso y a aplicarlos en tareas docentes.',
-  defaultPurpose:
-    'Orientar sobre el curso y ayudar a producir recursos docentes prácticos a partir de sus materiales.',
+  defaultDescription: 'Ayuda a comprender los materiales del curso y a aplicarlos en tareas docentes.',
+  defaultPurpose: 'Orientar sobre el curso y ayudar a producir recursos docentes prácticos a partir de sus materiales.',
   defaultAudience: 'Profesorado participante',
-  setup: [
-    '1. Define el agente',
-    'Configura el agente en M365',
-    'Añade conocimientos y prueba',
-  ],
-  savedSkills:
-    'En Compatibilidad encontrarás las opciones avanzadas para Codex, OpenCode y paquetes Agent Skills.',
+  setup: ['1. Define el agente', 'Configura el agente en M365', 'Añade conocimientos y prueba'],
+  savedSkills: 'En Compatibilidad encontrarás las opciones avanzadas para Codex, OpenCode y paquetes Agent Skills.',
 }
 const va: typeof es = {
   tab: 'Agents M365',
@@ -73,11 +62,9 @@ const va: typeof es = {
   access:
     'Comprova primer que el teu compte edu.gva.es mostra Agents → Crear agent → Configurar. Les funcions disponibles depenen dels permisos i la llicència de la teua organització.',
   course: 'Curs o context de formació',
-  courseHint:
-    'Per exemple: avaluació formativa en Primària, formació del professorat.',
+  courseHint: 'Per exemple: avaluació formativa en Primària, formació del professorat.',
   purpose: 'Per a què ajudarà l’agent?',
-  purposeHint:
-    'Per exemple: orientar el professorat sobre els materials del curs i ajudar-lo a dissenyar una rúbrica.',
+  purposeHint: 'Per exemple: orientar el professorat sobre els materials del curs i ajudar-lo a dissenyar una rúbrica.',
   audience: 'Persones destinatàries',
   audienceHint: 'Per exemple: professorat participant en el curs.',
   materials: 'Materials que afegiràs en M365 (un nom per línia)',
@@ -112,26 +99,16 @@ const va: typeof es = {
   fromSkill: 'Preparar un agent M365 amb esta Skill',
   localOnly:
     'Prepara i guarda el disseny en Els meus agents. Després copia la configuració en M365 i prova l’agent abans de crear-lo.',
-  tooLong:
-    'La configuració supera el límit del camp. Reduïx el text o els exemples abans de copiar-lo.',
+  tooLong: 'La configuració supera el límit del camp. Reduïx el text o els exemples abans de copiar-lo.',
   invalid: 'Completa els camps obligatoris i revisa els límits.',
-  untrusted:
-    'Revisa primer les instruccions i els recursos de la Skill importada.',
-  external:
-    'Esta Skill necessita ferramentes externes; no es pot convertir en un agent d’instruccions amb esta guia.',
+  untrusted: 'Revisa primer les instruccions i els recursos de la Skill importada.',
+  external: 'Esta Skill necessita ferramentes externes; no es pot convertir en un agent d’instruccions amb esta guia.',
   defaultName: 'Agent educatiu',
-  defaultDescription:
-    'Ajuda a comprendre els materials del curs i a aplicar-los en tasques docents.',
-  defaultPurpose:
-    'Orientar sobre el curs i ajudar a produir recursos docents pràctics a partir dels materials.',
+  defaultDescription: 'Ajuda a comprendre els materials del curs i a aplicar-los en tasques docents.',
+  defaultPurpose: 'Orientar sobre el curs i ajudar a produir recursos docents pràctics a partir dels materials.',
   defaultAudience: 'Professorat participant',
-  setup: [
-    '1. Definix l’agent',
-    'Configura l’agent en M365',
-    'Afig coneixements i prova',
-  ],
-  savedSkills:
-    'En Compatibilitat trobaràs les opcions avançades per a Codex, OpenCode i paquets Agent Skills.',
+  setup: ['1. Definix l’agent', 'Configura l’agent en M365', 'Afig coneixements i prova'],
+  savedSkills: 'En Compatibilitat trobaràs les opcions avançades per a Codex, OpenCode i paquets Agent Skills.',
 }
 const en: typeof es = {
   tab: 'M365 agents',
@@ -140,11 +117,9 @@ const en: typeof es = {
   access:
     'First check that your edu.gva.es account shows Agents → New agent → Configure. Available features depend on your organization’s permissions and license.',
   course: 'Course or training context',
-  courseHint:
-    'For example: formative assessment in primary education, teacher training.',
+  courseHint: 'For example: formative assessment in primary education, teacher training.',
   purpose: 'What will the agent help with?',
-  purposeHint:
-    'For example: guide teachers through course materials and help them design a rubric.',
+  purposeHint: 'For example: guide teachers through course materials and help them design a rubric.',
   audience: 'Intended users',
   audienceHint: 'For example: teachers attending the course.',
   materials: 'Materials you will add in M365 (one name per line)',
@@ -179,25 +154,17 @@ const en: typeof es = {
   fromSkill: 'Prepare an M365 agent with this Skill',
   localOnly:
     'Prepare and save your design in My agents. Then copy the configuration into M365 and test the agent before creating it.',
-  tooLong:
-    'The configuration exceeds a field limit. Shorten the text or examples before copying.',
+  tooLong: 'The configuration exceeds a field limit. Shorten the text or examples before copying.',
   invalid: 'Complete the required fields and check the limits.',
   untrusted: 'Review the imported Skill’s instructions and resources first.',
-  external:
-    'This Skill requires external tools and cannot be converted into an instruction agent with this guide.',
+  external: 'This Skill requires external tools and cannot be converted into an instruction agent with this guide.',
   defaultName: 'Educational agent',
-  defaultDescription:
-    'Helps users understand course materials and apply them to teaching tasks.',
+  defaultDescription: 'Helps users understand course materials and apply them to teaching tasks.',
   defaultPurpose:
     'Guide participants through the course and help them produce practical teaching resources from its materials.',
   defaultAudience: 'Teachers attending the course',
-  setup: [
-    '1. Define the agent',
-    'Configure the agent in M365',
-    'Add knowledge and test',
-  ],
-  savedSkills:
-    'Compatibility contains advanced options for Codex, OpenCode and Agent Skills packages.',
+  setup: ['1. Define the agent', 'Configure the agent in M365', 'Add knowledge and test'],
+  savedSkills: 'Compatibility contains advanced options for Codex, OpenCode and Agent Skills packages.',
 }
 export const agentLocales: Record<Language, typeof es> = {
   es,
@@ -214,11 +181,7 @@ export const agentLocales: Record<Language, typeof es> = {
       'En preparar la configuració tindràs els camps Nom, Descripció, Instruccions, Coneixements i Preguntes inicials per a Microsoft 365. L’agent es crea i s’utilitza allà amb el teu compte educatiu.',
     external:
       'Aquesta Skill necessita eines externes; no es pot convertir en un agent d’instruccions amb aquesta guia.',
-    setup: [
-      '1. Defineix l’agent',
-      'Configura l’agent en M365',
-      'Afegeix coneixements i prova',
-    ],
+    setup: ['1. Defineix l’agent', 'Configura l’agent en M365', 'Afegeix coneixements i prova'],
   },
   en,
 }

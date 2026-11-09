@@ -1,10 +1,6 @@
 import type { Language } from '../types'
 import { builtinSkills } from '../skills/seeds'
-import {
-  defaultAgentDraft,
-  type AgentDraft,
-  type AgentStage,
-} from '../skills/agents'
+import { defaultAgentDraft, type AgentDraft, type AgentStage } from '../skills/agents'
 import { wizardLocales } from './locales'
 import { basicLocales } from './basicLocales'
 export interface AgentPreset {
@@ -24,9 +20,7 @@ export function agentPresets(language: Language): AgentPreset[] {
     description: s.description,
     draft: {
       ...defaultAgentDraft(language),
-      ...(s.slug === 'crear-rubricas'
-        ? { rubricApproach: 'curricular' as const }
-        : {}),
+      ...(s.slug === 'crear-rubricas' ? { rubricApproach: 'curricular' as const } : {}),
       audience: basicLocales[language].teacher,
       name:
         s.name.length <= 30
@@ -38,31 +32,20 @@ export function agentPresets(language: Language): AgentPreset[] {
               : 'Diseño de aprendizaje',
       description: s.description,
       purpose: s.description,
-      role: en
-        ? 'Specialist teacher mentor'
-        : va
-          ? 'Mentor docent especialitzat'
-          : 'Mentor docente especializado',
+      role: en ? 'Specialist teacher mentor' : va ? 'Mentor docent especialitzat' : 'Mentor docente especializado',
       criteria: s.instructions,
       restrictions: s.restrictions,
       responseFormat: s.procedure.join('\n'),
       examples: s.examples
         .filter((e) => e.language === (va ? 'ca-valencia' : 'es'))
         .map((e) => ({ input: e.input, output: e.output })),
-      starterPrompts: [
-        s.examples.find((e) => e.language === (va ? 'ca-valencia' : 'es'))!
-          .input,
-      ],
+      starterPrompts: [s.examples.find((e) => e.language === (va ? 'ca-valencia' : 'es'))!.input],
     },
   }))
   const smart = {
     ...base,
     name: t.smart,
-    audience: en
-      ? 'School management teams'
-      : va
-        ? 'Equips directius del centre'
-        : 'Equipos directivos del centro',
+    audience: en ? 'School management teams' : va ? 'Equips directius del centre' : 'Equipos directivos del centro',
     description: en
       ? 'Guides and reviews SMART objectives for school improvement.'
       : va
@@ -100,10 +83,7 @@ export function agentPresets(language: Language): AgentPreset[] {
         ? 'No inventes dades del centre ni línies base. No qüestiones la prioritat estratègica del centre. No proposes responsables ni dates concretes: demana’ls a l’equip directiu. No tractes dades personals identificables de l’alumnat.'
         : 'No inventes datos del centro ni líneas base. No cuestiones la prioridad estratégica del centro. No propongas responsables ni fechas concretas: pídelos al equipo directivo. No trates datos personales identificables del alumnado.',
     starterPrompts: en
-      ? [
-          'Review this objective: improve department coordination.',
-          'Help me formulate an objective to reduce dropout.',
-        ]
+      ? ['Review this objective: improve department coordination.', 'Help me formulate an objective to reduce dropout.']
       : va
         ? [
             'Revisa este objectiu: millorar la coordinació del departament.',
@@ -127,11 +107,7 @@ export function agentPresets(language: Language): AgentPreset[] {
       : va
         ? 'Guia l’aprenentatge d’una matèria amb preguntes i retroacció.'
         : 'Guía el aprendizaje de una materia con preguntas y retroalimentación.',
-    role: en
-      ? 'Patient subject tutor'
-      : va
-        ? 'Tutor pacient d’una matèria'
-        : 'Tutor paciente de una materia',
+    role: en ? 'Patient subject tutor' : va ? 'Tutor pacient d’una matèria' : 'Tutor paciente de una materia',
     stage: 'secondary' as AgentStage,
     subject: en ? 'Mathematics' : va ? 'Matemàtiques' : 'Matemáticas',
     purpose: en
@@ -168,10 +144,7 @@ export function agentPresets(language: Language): AgentPreset[] {
     ...educational,
   ]
 }
-export function subjectSuggestions(
-  stage: AgentStage,
-  language: Language,
-): string[] {
+export function subjectSuggestions(stage: AgentStage, language: Language): string[] {
   const en = language === 'en',
     va = language !== 'es' && !en
   if (stage === 'music')

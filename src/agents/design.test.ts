@@ -1,9 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import {
-  buildAgentConfiguration,
-  defaultAgentDraft,
-  agentStages,
-} from '../skills/agents'
+import { buildAgentConfiguration, defaultAgentDraft, agentStages } from '../skills/agents'
 import { agentPresets, subjectSuggestions } from './presets'
 import { wizardLocales } from './locales'
 import { languages } from '../skills/types'
@@ -39,13 +35,10 @@ describe('educational agent designer', () => {
   })
   it('supports auto response language and explicit language independently', () => {
     const d = defaultAgentDraft('es')
-    expect(buildAgentConfiguration(d).instructions).toContain(
-      wizardLocales.es.instructionAuto,
+    expect(buildAgentConfiguration(d).instructions).toContain(wizardLocales.es.instructionAuto)
+    expect(buildAgentConfiguration({ ...d, responseLanguage: 'ca-valencia' }).instructions).toContain(
+      'Idioma habitual de resposta: ca-valencia',
     )
-    expect(
-      buildAgentConfiguration({ ...d, responseLanguage: 'ca-valencia' })
-        .instructions,
-    ).toContain('Idioma habitual de resposta: ca-valencia')
   })
   it('validates new behavior fields and never silently truncates instructions', () => {
     const d = defaultAgentDraft('es')
@@ -57,9 +50,7 @@ describe('educational agent designer', () => {
       { examples: [{ input: '', output: 'a' }] },
       { starterPrompts: [''] },
     ])
-      expect(() =>
-        buildAgentConfiguration({ ...d, ...change } as typeof d),
-      ).toThrow()
+      expect(() => buildAgentConfiguration({ ...d, ...change } as typeof d)).toThrow()
     expect(() =>
       buildAgentConfiguration({
         ...d,
@@ -71,11 +62,8 @@ describe('educational agent designer', () => {
   })
   it('provides multilingual labels and free subject suggestions for all levels', () => {
     for (const l of languages) {
-      expect(Object.keys(wizardLocales[l]).sort()).toEqual(
-        Object.keys(wizardLocales.es).sort(),
-      )
-      for (const stage of agentStages)
-        expect(subjectSuggestions(stage, l).length).toBeGreaterThan(0)
+      expect(Object.keys(wizardLocales[l]).sort()).toEqual(Object.keys(wizardLocales.es).sort())
+      for (const stage of agentStages) expect(subjectSuggestions(stage, l).length).toBeGreaterThan(0)
     }
   })
 })

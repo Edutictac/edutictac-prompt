@@ -30,14 +30,18 @@ describe('sugerencias de campo', () => {
 describe('educación de personas adultas', () => {
   it('es un nivel de todas las plantillas con nivel', () => {
     for (const template of templates) {
-      const options = template.fields.find(field => field.id === 'level')?.options
+      const options = template.fields.find((field) => field.id === 'level')?.options
       if (options) expect(options, template.id).toContain(ADULT_LEVEL)
     }
   })
 
   it('añade la orientación para alumnado adulto al contexto', () => {
-    const gift = templates.find(template => template.id === 'gift')!
-    const values = { level: ADULT_LEVEL, topic: 'Leer una factura de la luz', outputFormat: gift.fields.find(field => field.id === 'outputFormat')!.options![0] }
+    const gift = templates.find((template) => template.id === 'gift')!
+    const values = {
+      level: ADULT_LEVEL,
+      topic: 'Leer una factura de la luz',
+      outputFormat: gift.fields.find((field) => field.id === 'outputFormat')!.options![0],
+    }
     expect(generatePrompt(gift, values, 'es')).toContain('no infantilice')
     expect(generatePrompt(gift, values, 'ca-valencia')).toContain('Educació de persones adultes')
     expect(generatePrompt(gift, { ...values, level: 'ESO' }, 'es')).not.toContain('no infantilice')

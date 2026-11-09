@@ -1,10 +1,21 @@
 import { describe, expect, it } from 'vitest'
-import { EDUCEREA_URL, eduCreaHandoffUrl, eduCreaLanguage, eduCreaLevel, eduCreaNewProjectUrl, eduCreaPromptUrl, encodePromptPayload } from './integrations'
+import {
+  EDUCEREA_URL,
+  eduCreaHandoffUrl,
+  eduCreaLanguage,
+  eduCreaLevel,
+  eduCreaNewProjectUrl,
+  eduCreaPromptUrl,
+  encodePromptPayload,
+} from './integrations'
 
 async function decode(payload: string): Promise<string> {
   const [kind, data] = payload.split('.', 2)
-  const base64 = data.replace(/-/g, '+').replace(/_/g, '/').padEnd(data.length + (4 - data.length % 4) % 4, '=')
-  const bytes = Uint8Array.from(atob(base64), character => character.charCodeAt(0))
+  const base64 = data
+    .replace(/-/g, '+')
+    .replace(/_/g, '/')
+    .padEnd(data.length + ((4 - (data.length % 4)) % 4), '=')
+  const bytes = Uint8Array.from(atob(base64), (character) => character.charCodeAt(0))
   if (kind === 'z') {
     const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate'))
     return new TextDecoder().decode(await new Response(stream).arrayBuffer())
@@ -18,8 +29,9 @@ describe('EduCrea bridge', () => {
   })
 
   it('accepts a configured base URL and trims trailing slashes', () => {
-    expect(eduCreaNewProjectUrl('https://beta.example.org/'))
-      .toBe('https://beta.example.org/projects?nuevo=1&desde=eduprompt')
+    expect(eduCreaNewProjectUrl('https://beta.example.org/')).toBe(
+      'https://beta.example.org/projects?nuevo=1&desde=eduprompt',
+    )
   })
 
   it('exposes the production URL by default', () => {
@@ -27,13 +39,13 @@ describe('EduCrea bridge', () => {
   })
 
   it('builds the direct handoff URL with the prompt in the fragment', () => {
-    expect(eduCreaHandoffUrl('z.abc'))
-      .toBe('https://educrea.edutictac.es/eduprompt#encargo=z.abc')
+    expect(eduCreaHandoffUrl('z.abc')).toBe('https://educrea.edutictac.es/eduprompt#encargo=z.abc')
   })
 
   it('sends the Prompt template so EduCrea can propose the matching product', () => {
-    expect(eduCreaHandoffUrl('z.abc', 'learning-situation'))
-      .toBe('https://educrea.edutictac.es/eduprompt#encargo=z.abc&plantilla=learning-situation')
+    expect(eduCreaHandoffUrl('z.abc', 'learning-situation')).toBe(
+      'https://educrea.edutictac.es/eduprompt#encargo=z.abc&plantilla=learning-situation',
+    )
   })
 
   it('includes the template in the direct URL', async () => {
@@ -43,8 +55,10 @@ describe('EduCrea bridge', () => {
   })
 
   it('sends the language and level in EduCrea terms', async () => {
-    const url = await eduCreaPromptUrl('Encargo', 'learning-situation', undefined,
-      { language: 'ca-valencia', level: 'ESO' })
+    const url = await eduCreaPromptUrl('Encargo', 'learning-situation', undefined, {
+      language: 'ca-valencia',
+      level: 'ESO',
+    })
     expect(url).toContain('&plantilla=learning-situation')
     expect(url).toContain('&idioma=va')
     expect(url).toContain('&nivel=secundaria')

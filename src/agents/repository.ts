@@ -3,8 +3,7 @@ import { buildAgentConfiguration, type AgentDraft } from '../skills/agents'
 import { fail } from '../skills/model'
 import type { Skill } from '../skills/types'
 import type { SavedAgent } from './types'
-export const listAgents = (ownerId: string) =>
-  db.agents.where('ownerId').equals(ownerId).toArray()
+export const listAgents = (ownerId: string) => db.agents.where('ownerId').equals(ownerId).toArray()
 export async function saveAgent(
   draft: AgentDraft,
   ownerId: string,

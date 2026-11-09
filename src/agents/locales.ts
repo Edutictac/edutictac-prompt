@@ -14,8 +14,7 @@ const es = {
   quality: '3. Criterios y respuestas',
   boundaries: '4. Conversación y límites',
   role: '¿Qué papel tendrá el agente?',
-  roleHint:
-    'Por ejemplo: mentor de evaluación, tutor de Matemáticas o revisor de actividades.',
+  roleHint: 'Por ejemplo: mentor de evaluación, tutor de Matemáticas o revisor de actividades.',
   stage: 'Nivel educativo',
   subject: 'Materia, ámbito o especialidad',
   subjectHint: 'Puedes elegir una sugerencia o escribir otra materia.',
@@ -29,26 +28,20 @@ const es = {
   reviewMode: 'Revisor',
   guideMode: 'Guía',
   reviewWhen: 'Cuando la persona aporta una propuesta ya redactada.',
-  guideWhen:
-    'Cuando la persona parte de una idea o necesita construir una propuesta.',
-  reviewBehavior:
-    'Analiza con los criterios definidos, explica los problemas y ofrece mejoras concretas.',
-  guideBehavior:
-    'Acompaña paso a paso y pregunta solo lo necesario para construir una propuesta útil.',
+  guideWhen: 'Cuando la persona parte de una idea o necesita construir una propuesta.',
+  reviewBehavior: 'Analiza con los criterios definidos, explica los problemas y ofrece mejoras concretas.',
+  guideBehavior: 'Acompaña paso a paso y pregunta solo lo necesario para construir una propuesta útil.',
   criteria: 'Criterios que aplicará',
-  criteriaHint:
-    'Un criterio por línea. Describe qué debe comprobar y cómo reconocer que se cumple.',
+  criteriaHint: 'Un criterio por línea. Describe qué debe comprobar y cómo reconocer que se cumple.',
   errors: 'Errores que debe detectar',
   errorsHint: 'Un error por línea, con una breve explicación o ejemplo.',
   responseFormat: 'Estructura de la respuesta',
-  responseHint:
-    'Un apartado por línea, en el orden en que quieres que responda.',
+  responseHint: 'Un apartado por línea, en el orden en que quieres que responda.',
   tone: 'Tono y trato',
   maxQuestions: 'Máximo de preguntas por turno',
   oneAtATime: 'Trabajar una sola propuesta cada vez',
   restrictions: 'Lo que no debe hacer',
-  restrictionsHint:
-    'Por ejemplo: no inventar datos ni normativa; no decidir por el equipo docente.',
+  restrictionsHint: 'Por ejemplo: no inventar datos ni normativa; no decidir por el equipo docente.',
   autoLanguage: 'El idioma en que le escriban',
   instructionLanguage: 'Idioma de las instrucciones',
   customExamples: 'Ejemplos para orientar al agente',
@@ -79,8 +72,7 @@ const es = {
   tutor: 'Tutor de una materia',
   generic: 'Agente personalizado',
   genericRole: 'Asistente educativo especializado',
-  defaultTone:
-    'Claro, constructivo y respetuoso. Explica los motivos y ofrece una alternativa concreta sin humillar.',
+  defaultTone: 'Claro, constructivo y respetuoso. Explica los motivos y ofrece una alternativa concreta sin humillar.',
   defaultRestriction:
     'No inventes datos, normativa ni fuentes. No decidas por el profesorado ni por el equipo directivo. Pide los datos imprescindibles y marca los supuestos.',
   stage_all: 'Cualquier nivel',
@@ -104,8 +96,7 @@ const es = {
     'Haz como máximo {n} preguntas por turno. Aprovecha las respuestas ya disponibles y evita cuestionarios largos.',
   instructionAuto:
     'Responde en el idioma en el que te escriba la persona; respeta cualquier cambio de idioma que solicite.',
-  noExamples:
-    'Puedes añadir un ejemplo de entrada y respuesta esperada para mostrar el criterio del agente.',
+  noExamples: 'Puedes añadir un ejemplo de entrada y respuesta esperada para mostrar el criterio del agente.',
   defaultFormat:
     'Diagnóstico breve\nAnálisis con los criterios indicados\nErrores detectados y explicación\nPropuesta de mejora\nSiguiente paso o pregunta necesaria',
   permission: 'Este diseño pertenece a otra cuenta.',
@@ -132,8 +123,7 @@ const va: typeof es = {
   quality: '3. Criteris i respostes',
   boundaries: '4. Conversa i límits',
   role: 'Quin paper tindrà l’agent?',
-  roleHint:
-    'Per exemple: mentor d’avaluació, tutor de Matemàtiques o revisor d’activitats.',
+  roleHint: 'Per exemple: mentor d’avaluació, tutor de Matemàtiques o revisor d’activitats.',
   stage: 'Nivell educatiu',
   subject: 'Matèria, àmbit o especialitat',
   subjectHint: 'Pots triar un suggeriment o escriure una altra matèria.',
@@ -147,15 +137,11 @@ const va: typeof es = {
   reviewMode: 'Revisor',
   guideMode: 'Guia',
   reviewWhen: 'Quan la persona aporta una proposta ja redactada.',
-  guideWhen:
-    'Quan la persona partix d’una idea o necessita construir una proposta.',
-  reviewBehavior:
-    'Analitza amb els criteris definits, explica els problemes i oferix millores concretes.',
-  guideBehavior:
-    'Acompanya pas a pas i pregunta només el que cal per a construir una proposta útil.',
+  guideWhen: 'Quan la persona partix d’una idea o necessita construir una proposta.',
+  reviewBehavior: 'Analitza amb els criteris definits, explica els problemes i oferix millores concretes.',
+  guideBehavior: 'Acompanya pas a pas i pregunta només el que cal per a construir una proposta útil.',
   criteria: 'Criteris que aplicarà',
-  criteriaHint:
-    'Un criteri per línia. Descriu què ha de comprovar i com reconéixer que es complix.',
+  criteriaHint: 'Un criteri per línia. Descriu què ha de comprovar i com reconéixer que es complix.',
   errors: 'Errors que ha de detectar',
   errorsHint: 'Un error per línia, amb explicació breu o exemple.',
   responseFormat: 'Estructura de la resposta',
@@ -164,8 +150,7 @@ const va: typeof es = {
   maxQuestions: 'Màxim de preguntes per torn',
   oneAtATime: 'Treballar una sola proposta cada vegada',
   restrictions: 'Què no ha de fer',
-  restrictionsHint:
-    'Per exemple: no inventar dades ni normativa; no decidir per l’equip docent.',
+  restrictionsHint: 'Per exemple: no inventar dades ni normativa; no decidir per l’equip docent.',
   autoLanguage: 'L’idioma en què li escriguen',
   instructionLanguage: 'Idioma de les instruccions',
   customExamples: 'Exemples per a orientar l’agent',
@@ -196,8 +181,7 @@ const va: typeof es = {
   tutor: 'Tutor d’una matèria',
   generic: 'Agent personalitzat',
   genericRole: 'Assistent educatiu especialitzat',
-  defaultTone:
-    'Clar, constructiu i respectuós. Explica els motius i oferix una alternativa concreta sense humiliar.',
+  defaultTone: 'Clar, constructiu i respectuós. Explica els motius i oferix una alternativa concreta sense humiliar.',
   defaultRestriction:
     'No inventes dades, normativa ni fonts. No decidisques pel professorat ni per l’equip directiu. Demana les dades imprescindibles i assenyala els supòsits.',
   stage_all: 'Qualsevol nivell',
@@ -219,16 +203,13 @@ const va: typeof es = {
     'Si reps diverses propostes, indica que les treballaràs d’una en una. Analitza la primera i espera abans de passar a la següent.',
   instructionQuestions:
     'Fes com a màxim {n} preguntes per torn. Aprofita les respostes disponibles i evita qüestionaris llargs.',
-  instructionAuto:
-    'Respon en l’idioma en què t’escriga la persona; respecta qualsevol canvi d’idioma que demane.',
-  noExamples:
-    'Pots afegir un exemple d’entrada i resposta esperada per a mostrar el criteri de l’agent.',
+  instructionAuto: 'Respon en l’idioma en què t’escriga la persona; respecta qualsevol canvi d’idioma que demane.',
+  noExamples: 'Pots afegir un exemple d’entrada i resposta esperada per a mostrar el criteri de l’agent.',
   defaultFormat:
     'Diagnòstic breu\nAnàlisi amb els criteris indicats\nErrors detectats i explicació\nProposta de millora\nPas següent o pregunta necessària',
   permission: 'Este disseny pertany a un altre compte.',
   conflict: 'El disseny ha canviat. Torna a obrir-lo abans de guardar.',
-  tooLong:
-    'El contingut supera un límit. Reduïx els camps indicats; les instruccions no es retallen automàticament.',
+  tooLong: 'El contingut supera un límit. Reduïx els camps indicats; les instruccions no es retallen automàticament.',
   invalid: 'Revisa els camps indicats.',
   restoreDone: 'Versió restaurada com a revisió nova.',
   copyFailed: 'No s’ha pogut copiar. Selecciona el text i copia’l manualment.',
@@ -248,8 +229,7 @@ const en: typeof es = {
   quality: '3. Criteria and responses',
   boundaries: '4. Conversation and limits',
   role: 'What role will the agent have?',
-  roleHint:
-    'For example: assessment mentor, mathematics tutor or activity reviewer.',
+  roleHint: 'For example: assessment mentor, mathematics tutor or activity reviewer.',
   stage: 'Education level',
   subject: 'Subject, area or specialty',
   subjectHint: 'Choose a suggestion or enter another subject.',
@@ -264,13 +244,10 @@ const en: typeof es = {
   guideMode: 'Guide',
   reviewWhen: 'When the user provides an existing draft.',
   guideWhen: 'When the user has an initial idea or needs to build a proposal.',
-  reviewBehavior:
-    'Apply the criteria, explain problems and offer concrete improvements.',
-  guideBehavior:
-    'Guide step by step and ask only what is needed to build a useful proposal.',
+  reviewBehavior: 'Apply the criteria, explain problems and offer concrete improvements.',
+  guideBehavior: 'Guide step by step and ask only what is needed to build a useful proposal.',
   criteria: 'Criteria to apply',
-  criteriaHint:
-    'One criterion per line. Describe what to check and how to recognize success.',
+  criteriaHint: 'One criterion per line. Describe what to check and how to recognize success.',
   errors: 'Errors to detect',
   errorsHint: 'One error per line, with a short explanation or example.',
   responseFormat: 'Response structure',
@@ -279,8 +256,7 @@ const en: typeof es = {
   maxQuestions: 'Maximum questions per turn',
   oneAtATime: 'Work on one proposal at a time',
   restrictions: 'What it must not do',
-  restrictionsHint:
-    'For example: do not invent data or regulations, or decide on behalf of teachers.',
+  restrictionsHint: 'For example: do not invent data or regulations, or decide on behalf of teachers.',
   autoLanguage: 'The language the user writes in',
   instructionLanguage: 'Instruction language',
   customExamples: 'Examples to guide the agent',
@@ -334,10 +310,8 @@ const en: typeof es = {
     'When given several proposals, explain you will work through them one at a time. Review the first and wait before continuing.',
   instructionQuestions:
     'Ask at most {n} questions per turn. Reuse information already available and avoid long questionnaires.',
-  instructionAuto:
-    'Respond in the language the user writes in and respect any requested language change.',
-  noExamples:
-    'Add an input and expected response example to demonstrate the agent’s judgment.',
+  instructionAuto: 'Respond in the language the user writes in and respect any requested language change.',
+  noExamples: 'Add an input and expected response example to demonstrate the agent’s judgment.',
   defaultFormat:
     'Brief diagnosis\nAnalysis against the criteria\nDetected errors and explanation\nImprovement proposal\nNext step or essential question',
   permission: 'This design belongs to another account.',
@@ -356,16 +330,11 @@ export const wizardLocales: Record<Language, typeof es> = {
     role: 'Quin paper tindrà l’agent?',
     subjectHint: 'Pots triar un suggeriment o escriure una altra matèria.',
     remove: 'Treure',
-    guideWhen:
-      'Quan la persona parteix d’una idea o necessita construir una proposta.',
-    reviewBehavior:
-      'Analitza amb els criteris definits, explica els problemes i ofereix millores concretes.',
-    guideBehavior:
-      'Acompanya pas a pas i pregunta només el que cal per construir una proposta útil.',
-    criteriaHint:
-      'Un criteri per línia. Descriu què ha de comprovar i com reconèixer que es compleix.',
-    restrictionsHint:
-      'Per exemple: no inventar dades ni normativa; no decidir per l’equip docent.',
+    guideWhen: 'Quan la persona parteix d’una idea o necessita construir una proposta.',
+    reviewBehavior: 'Analitza amb els criteris definits, explica els problemes i ofereix millores concretes.',
+    guideBehavior: 'Acompanya pas a pas i pregunta només el que cal per construir una proposta útil.',
+    criteriaHint: 'Un criteri per línia. Descriu què ha de comprovar i com reconèixer que es compleix.',
+    restrictionsHint: 'Per exemple: no inventar dades ni normativa; no decidir per l’equip docent.',
     autoLanguage: 'L’idioma en què li escriguin',
     saved: 'Disseny desat a Els meus agents.',
     save: 'Desar disseny',
@@ -379,8 +348,7 @@ export const wizardLocales: Record<Language, typeof es> = {
       'Adapta llenguatge, profunditat, exemples i suports al nivell i la matèria indicats. Si falta informació essencial del grup, pregunta-la sense demanar dades personals. No atribueixis competències o criteris oficials sense una font aportada.',
     instructionOne:
       'Si reps diverses propostes, indica que les treballaràs d’una en una. Analitza la primera i espera abans de passar a la següent.',
-    instructionAuto:
-      'Respon en l’idioma en què t’escrigui la persona; respecta qualsevol canvi d’idioma que demani.',
+    instructionAuto: 'Respon en l’idioma en què t’escrigui la persona; respecta qualsevol canvi d’idioma que demani.',
   },
   en,
 }

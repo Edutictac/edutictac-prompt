@@ -37,19 +37,8 @@ export function validateSlug(value: unknown): asserts value is string {
   )
     fail('invalid', 'slug')
 }
-const text = (
-  v: unknown,
-  field: string,
-  max: number,
-  required = false,
-): string => {
-  if (
-    typeof v !== 'string' ||
-    v.length > max ||
-    (required && !v.trim()) ||
-    /\u0000/.test(v)
-  )
-    fail('invalid', field)
+const text = (v: unknown, field: string, max: number, required = false): string => {
+  if (typeof v !== 'string' || v.length > max || (required && !v.trim()) || /\u0000/.test(v)) fail('invalid', field)
   return v as string
 }
 const list = (v: unknown, field: string, max: number): unknown[] => {
@@ -61,10 +50,7 @@ const obj = (v: unknown): Record<string, unknown> => {
   return v as Record<string, unknown>
 }
 export function resourcePath(path: string) {
-  if (
-    path !== path.trim() ||
-    !/^(references|assets)\/[a-zA-Z0-9_-]+\.(md|txt|csv|json)$/.test(path)
-  )
+  if (path !== path.trim() || !/^(references|assets)\/[a-zA-Z0-9_-]+\.(md|txt|csv|json)$/.test(path))
     fail('unsafe', 'resources')
   return path
 }
@@ -87,14 +73,8 @@ export function validateDefinition(input: unknown): SkillDefinition {
       ['__proto__', 'constructor', 'prototype'].includes(p.id)
     )
       fail('invalid', 'parameters')
-    if (
-      !parameterTypes.includes(p.type as never) ||
-      typeof p.required !== 'boolean'
-    )
-      fail('invalid', 'parameters')
-    const options = list(p.options, 'parameters', 100).map((o) =>
-      text(o, 'parameters', 200, true),
-    )
+    if (!parameterTypes.includes(p.type as never) || typeof p.required !== 'boolean') fail('invalid', 'parameters')
+    const options = list(p.options, 'parameters', 100).map((o) => text(o, 'parameters', 200, true))
     if (
       (['select', 'multiselect'].includes(String(p.type)) && !options.length) ||
       new Set(options).size !== options.length
@@ -113,28 +93,19 @@ export function validateDefinition(input: unknown): SkillDefinition {
         if (
           typeof p[k] !== 'number' ||
           !Number.isFinite(p[k]) ||
-          (k === 'maxLength' &&
-            (!Number.isInteger(p[k]) ||
-              (p[k] as number) < 1 ||
-              (p[k] as number) > 20000))
+          (k === 'maxLength' && (!Number.isInteger(p[k]) || (p[k] as number) < 1 || (p[k] as number) > 20000))
         )
           fail('invalid', 'parameters')
         result[k] = p[k] as number
       }
-    if (
-      result.min !== undefined &&
-      result.max !== undefined &&
-      result.min > result.max
-    )
-      fail('invalid', 'parameters')
+    if (result.min !== undefined && result.max !== undefined && result.min > result.max) fail('invalid', 'parameters')
     if (p.defaultValue !== undefined) {
       validateValue(result, p.defaultValue, false)
       result.defaultValue = p.defaultValue as Value
     }
     return result
   })
-  if (new Set(parameters.map((p) => p.id)).size !== parameters.length)
-    fail('invalid', 'parameters')
+  if (new Set(parameters.map((p) => p.id)).size !== parameters.length) fail('invalid', 'parameters')
   const resources = list(d.resources, 'resources', 30).map((raw) => {
     const r = obj(raw)
     return {
@@ -144,10 +115,7 @@ export function validateDefinition(input: unknown): SkillDefinition {
   })
   if (
     new Set(resources.map((r) => r.path)).size !== resources.length ||
-    resources.reduce(
-      (a, r) => a + new TextEncoder().encode(r.content).length,
-      0,
-    ) > 1000000
+    resources.reduce((a, r) => a + new TextEncoder().encode(r.content).length, 0) > 1000000
   )
     fail('invalid', 'resources')
   return {
@@ -163,9 +131,7 @@ export function validateDefinition(input: unknown): SkillDefinition {
     tags: list(d.tags, 'tags', 30).map((v) => text(v, 'tags', 50, true)),
     instructions: text(d.instructions, 'instructions', 50000, true),
     parameters,
-    procedure: list(d.procedure, 'procedure', 50).map((v) =>
-      text(v, 'procedure', 2000, true),
-    ),
+    procedure: list(d.procedure, 'procedure', 50).map((v) => text(v, 'procedure', 2000, true)),
     resources,
     examples: list(d.examples, 'examples', 30).map((raw) => {
       const e = obj(raw)
@@ -182,16 +148,8 @@ export function validateDefinition(input: unknown): SkillDefinition {
     mode: d.mode as SkillDefinition['mode'],
   }
 }
-export function validateValue(
-  p: Parameter,
-  value: unknown,
-  required = true,
-): void {
-  if (
-    value === undefined ||
-    value === '' ||
-    (Array.isArray(value) && !value.length)
-  ) {
+export function validateValue(p: Parameter, value: unknown, required = true): void {
+  if (value === undefined || value === '' || (Array.isArray(value) && !value.length)) {
     if (required && p.required) fail('required', p.name)
     return
   }
@@ -214,8 +172,7 @@ export function validateValue(
     )
       invalid()
   } else {
-    if (typeof value !== 'string' || value.length > (p.maxLength || 20000))
-      invalid()
+    if (typeof value !== 'string' || value.length > (p.maxLength || 20000)) invalid()
     if (p.type === 'select' && !p.options.includes(value as string)) invalid()
   }
 }
@@ -223,13 +180,10 @@ export const defaultValues = (d: SkillDefinition): Record<string, Value> =>
   Object.fromEntries(
     d.parameters.map((p) => [
       p.id,
-      p.defaultValue ??
-        (p.type === 'boolean' ? false : p.type === 'multiselect' ? [] : ''),
+      p.defaultValue ?? (p.type === 'boolean' ? false : p.type === 'multiselect' ? [] : ''),
     ]),
   )
-export function blankDefinition(
-  language: SkillDefinition['language'],
-): SkillDefinition {
+export function blankDefinition(language: SkillDefinition['language']): SkillDefinition {
   return {
     slug: '',
     name: '',
@@ -252,11 +206,7 @@ export function blankDefinition(
     mode: 'instructions',
   }
 }
-export function personalSkill(
-  d: SkillDefinition,
-  ownerId: string,
-  source: Skill['source'] = 'personal',
-): Skill {
+export function personalSkill(d: SkillDefinition, ownerId: string, source: Skill['source'] = 'personal'): Skill {
   return {
     ...validateDefinition(d),
     id: crypto.randomUUID(),

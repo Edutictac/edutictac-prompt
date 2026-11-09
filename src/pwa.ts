@@ -4,5 +4,5 @@ export const updateSW = registerSW({
   immediate: true,
   onNeedRefresh() {
     window.dispatchEvent(new Event('pwa-update-available'))
-  }
+  },
 })

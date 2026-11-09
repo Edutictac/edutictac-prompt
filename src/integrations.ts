@@ -12,10 +12,18 @@ export function eduCreaLanguage(language = ''): string {
 
 // EduCrea only offers four stages, so secondary and post-secondary values collapse.
 const EDUCEREA_LEVELS: Record<string, string> = {
-  infantil: 'infantil', primària: 'primaria', primaria: 'primaria',
-  eso: 'secundaria', bachillerato: 'secundaria',
-  fp: 'otros', 'formación profesional': 'otros', 'formacio professional': 'otros',
-  universidad: 'otros', otro: 'otros', altres: 'otros', others: 'otros',
+  infantil: 'infantil',
+  primària: 'primaria',
+  primaria: 'primaria',
+  eso: 'secundaria',
+  bachillerato: 'secundaria',
+  fp: 'otros',
+  'formación profesional': 'otros',
+  'formacio professional': 'otros',
+  universidad: 'otros',
+  otro: 'otros',
+  altres: 'otros',
+  others: 'otros',
 }
 
 export function eduCreaLevel(level = ''): string {
@@ -36,8 +44,12 @@ export function eduCreaNewProjectUrl(base: string = EDUCEREA_URL): string {
   return `${base.replace(/\/$/, '')}/projects?nuevo=1&desde=eduprompt`
 }
 
-export function eduCreaHandoffUrl(payload: string, template = '', base: string = EDUCEREA_URL,
-                                  meta: EduCreaMeta = {}): string {
+export function eduCreaHandoffUrl(
+  payload: string,
+  template = '',
+  base: string = EDUCEREA_URL,
+  meta: EduCreaMeta = {},
+): string {
   const params = bridgeParams(template, meta)
   return `${base.replace(/\/$/, '')}/eduprompt#encargo=${payload}${params ? `&${params}` : ''}`
 }
@@ -53,7 +65,9 @@ async function compressedPayload(text: string): Promise<string | null> {
   try {
     const stream = new Blob([text]).stream().pipeThrough(new CompressionStream('deflate'))
     return base64url(new Uint8Array(await new Response(stream).arrayBuffer()))
-  } catch { return null }
+  } catch {
+    return null
+  }
 }
 
 export async function encodePromptPayload(text: string): Promise<string | null> {
@@ -63,8 +77,12 @@ export async function encodePromptPayload(text: string): Promise<string | null> 
   return raw.length <= MAX_HANDOFF_PAYLOAD ? raw : null
 }
 
-export async function eduCreaPromptUrl(prompt: string, template = '', base: string = EDUCEREA_URL,
-                                       meta: EduCreaMeta = {}): Promise<string | null> {
+export async function eduCreaPromptUrl(
+  prompt: string,
+  template = '',
+  base: string = EDUCEREA_URL,
+  meta: EduCreaMeta = {},
+): Promise<string | null> {
   const payload = await encodePromptPayload(prompt)
   return payload ? eduCreaHandoffUrl(payload, template, base, meta) : null
 }

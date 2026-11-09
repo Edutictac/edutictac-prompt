@@ -13,32 +13,15 @@ afterEach(async () => {
 })
 it('designs, saves, reopens, adapts and deletes a specialist agent', async () => {
   const user = userEvent.setup()
-  render(
-    <AgentsView
-      language="es"
-      prompts={[]}
-      copy={async () => true}
-      onSaveResult={async () => {}}
-    />,
-  )
-  expect(
-    screen.getByRole('heading', { name: 'Agentes', level: 1 }),
-  ).toBeTruthy()
+  render(<AgentsView language="es" prompts={[]} copy={async () => true} onSaveResult={async () => {}} />)
+  expect(screen.getByRole('heading', { name: 'Agentes', level: 1 })).toBeTruthy()
   await user.click(screen.getByRole('button', { name: 'Avanzado' }))
-  await user.selectOptions(
-    screen.getByRole('combobox', { name: 'Ejemplos' }),
-    'smart',
-  )
-  await user.selectOptions(
-    screen.getByRole('combobox', { name: 'Nivel educativo' }),
-    'primary',
-  )
+  await user.selectOptions(screen.getByRole('combobox', { name: 'Ejemplos' }), 'smart')
+  await user.selectOptions(screen.getByRole('combobox', { name: 'Nivel educativo' }), 'primary')
   const subject = screen.getByRole('combobox', { name: /Materia, ámbito/ })
   await user.clear(subject)
   await user.type(subject, 'Matemáticas')
-  await user.click(
-    screen.getByRole('button', { name: 'Preparar configuración' }),
-  )
+  await user.click(screen.getByRole('button', { name: 'Preparar configuración' }))
   expect(
     (
       screen.getByRole('textbox', {
@@ -64,13 +47,8 @@ it('designs, saves, reopens, adapts and deletes a specialist agent', async () =>
       }) as HTMLInputElement
     ).value,
   ).toBe('Matemáticas')
-  await user.selectOptions(
-    screen.getByRole('combobox', { name: 'Nivel educativo' }),
-    'secondary',
-  )
-  await user.click(
-    screen.getByRole('button', { name: 'Preparar configuración' }),
-  )
+  await user.selectOptions(screen.getByRole('combobox', { name: 'Nivel educativo' }), 'secondary')
+  await user.click(screen.getByRole('button', { name: 'Preparar configuración' }))
   await user.click(screen.getByRole('button', { name: 'Guardar diseño' }))
   await screen.findByText('Diseño guardado en Mis agentes.')
   expect((await db.agents.toArray())[0].revision).toBe(2)
@@ -82,33 +60,17 @@ it('designs, saves, reopens, adapts and deletes a specialist agent', async () =>
 })
 it('keeps Agent Skills packages in an explicitly separate compatibility section', async () => {
   const user = userEvent.setup()
-  render(
-    <AgentsView
-      language="es"
-      prompts={[]}
-      copy={async () => true}
-      onSaveResult={async () => {}}
-    />,
-  )
+  render(<AgentsView language="es" prompts={[]} copy={async () => true} onSaveResult={async () => {}} />)
   expect(screen.queryByRole('heading', { name: 'Agent Skills' })).toBeNull()
   await user.click(screen.getByRole('button', { name: 'Avanzado' }))
   await user.click(screen.getByRole('button', { name: 'Compatibilidad' }))
   await screen.findByRole('heading', { name: 'Agent Skills' })
   expect(screen.getByText(/Un paquete de habilidad y un agente/)).toBeTruthy()
-  expect(
-    screen.getAllByRole('button', { name: 'Ver y utilizar' }),
-  ).toHaveLength(6)
+  expect(screen.getAllByRole('button', { name: 'Ver y utilizar' })).toHaveLength(6)
 })
 it('uses Valencian Agents naming and preserves unsaved changes between tabs', async () => {
   const user = userEvent.setup()
-  render(
-    <AgentsView
-      language="ca-valencia"
-      prompts={[]}
-      copy={async () => true}
-      onSaveResult={async () => {}}
-    />,
-  )
+  render(<AgentsView language="ca-valencia" prompts={[]} copy={async () => true} onSaveResult={async () => {}} />)
   expect(screen.getByRole('heading', { name: 'Agents', level: 1 })).toBeTruthy()
   await user.click(screen.getByRole('button', { name: 'Avançat' }))
   const subject = screen.getByRole('combobox', { name: /Matèria, àmbit/ })

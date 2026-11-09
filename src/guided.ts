@@ -6,19 +6,49 @@ import type { PromptTemplate } from './types'
 // previsto cae en un paso propio, de forma que nunca se pierde ninguno.
 export type GuidedBlock = 'about' | 'topic' | 'task' | 'design' | 'support' | 'criteria' | 'limits' | 'format'
 
-export const guidedBlockIds: GuidedBlock[] = ['about', 'topic', 'task', 'design', 'support', 'criteria', 'limits', 'format']
+export const guidedBlockIds: GuidedBlock[] = [
+  'about',
+  'topic',
+  'task',
+  'design',
+  'support',
+  'criteria',
+  'limits',
+  'format',
+]
 
 const fieldBlocks: Record<string, GuidedBlock> = {
-  level: 'about', course: 'about', subject: 'about',
-  topic: 'topic', sourceText: 'topic', activity: 'topic',
-  role: 'task', context: 'task', task: 'task', objectives: 'task',
-  methodology: 'design', duration: 'design', resources: 'design', activityType: 'design',
-  questionCount: 'design', questionTypes: 'design', gameItems: 'design', gameFeatures: 'design',
-  sections: 'design', branches: 'design', visualStyle: 'design', includeLabels: 'design', aspectRatio: 'design',
-  udl: 'support', barriers: 'support',
-  criteria: 'criteria', qualityCriteria: 'criteria', levels: 'criteria',
-  constraints: 'limits', refinement: 'limits',
-  outputFormat: 'format'
+  level: 'about',
+  course: 'about',
+  subject: 'about',
+  topic: 'topic',
+  sourceText: 'topic',
+  activity: 'topic',
+  role: 'task',
+  context: 'task',
+  task: 'task',
+  objectives: 'task',
+  methodology: 'design',
+  duration: 'design',
+  resources: 'design',
+  activityType: 'design',
+  questionCount: 'design',
+  questionTypes: 'design',
+  gameItems: 'design',
+  gameFeatures: 'design',
+  sections: 'design',
+  branches: 'design',
+  visualStyle: 'design',
+  includeLabels: 'design',
+  aspectRatio: 'design',
+  udl: 'support',
+  barriers: 'support',
+  criteria: 'criteria',
+  qualityCriteria: 'criteria',
+  levels: 'criteria',
+  constraints: 'limits',
+  refinement: 'limits',
+  outputFormat: 'format',
 }
 
 export interface GuidedStep {
@@ -38,9 +68,9 @@ export function guidedSteps(template: PromptTemplate): GuidedStep[] {
     }
     grouped.get(key)!.push(field.id)
   }
-  return order.map(key => ({
+  return order.map((key) => ({
     id: key,
-    block: guidedBlockIds.includes(key as GuidedBlock) ? key as GuidedBlock : undefined,
-    fields: grouped.get(key)!
+    block: guidedBlockIds.includes(key as GuidedBlock) ? (key as GuidedBlock) : undefined,
+    fields: grouped.get(key)!,
   }))
 }

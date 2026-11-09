@@ -1,14 +1,7 @@
 // @vitest-environment jsdom
 import 'fake-indexeddb/auto'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import {
-  cleanup,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-  within,
-} from '@testing-library/react'
+import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import SkillsView from './SkillsView'
 import { db } from '../db'
@@ -41,14 +34,8 @@ describe('Skills teacher workflows', () => {
     const user = userEvent.setup()
     mount()
     await user.click(screen.getByRole('button', { name: 'Crear' }))
-    await user.type(
-      screen.getByLabelText('Nombre', { exact: true }),
-      'Mi actividad',
-    )
-    await user.type(
-      screen.getByLabelText('Descripción', { exact: true }),
-      'Una capacidad docente',
-    )
+    await user.type(screen.getByLabelText('Nombre', { exact: true }), 'Mi actividad')
+    await user.type(screen.getByLabelText('Descripción', { exact: true }), 'Una capacidad docente')
     await user.type(
       screen.getByLabelText('Instrucciones', { exact: true }),
       'Propón actividades prácticas con los datos aportados.',
@@ -59,18 +46,13 @@ describe('Skills teacher workflows', () => {
     await user.click(screen.getByRole('button', { name: 'Ver y utilizar' }))
     await user.click(screen.getByRole('button', { name: 'Editar' }))
     await user.clear(screen.getByLabelText('Nombre', { exact: true }))
-    await user.type(
-      screen.getByLabelText('Nombre', { exact: true }),
-      'Actividad revisada',
-    )
+    await user.type(screen.getByLabelText('Nombre', { exact: true }), 'Actividad revisada')
     await user.click(screen.getByRole('button', { name: 'Guardar' }))
     await screen.findByRole('heading', { name: 'Actividad revisada' })
     await user.click(screen.getByRole('button', { name: 'Ver y utilizar' }))
     await user.click(screen.getByRole('button', { name: 'Duplicar' }))
     await waitFor(async () => expect(await db.skills.count()).toBe(2))
-    await user.click(
-      (await screen.findAllByRole('button', { name: 'Ver y utilizar' }))[0],
-    )
+    await user.click((await screen.findAllByRole('button', { name: 'Ver y utilizar' }))[0])
     vi.spyOn(window, 'confirm').mockReturnValue(true)
     await user.click(screen.getByRole('button', { name: 'Eliminar' }))
     await waitFor(async () => expect(await db.skills.count()).toBe(1))
@@ -79,44 +61,27 @@ describe('Skills teacher workflows', () => {
     const user = userEvent.setup()
     mount()
     await user.click(screen.getByRole('button', { name: 'Explorar' }))
-    const card = (
-      await screen.findByRole('heading', { name: 'Crear rúbricas' })
-    ).closest('article')!
-    await user.click(
-      within(card).getByRole('button', { name: 'Ver y utilizar' }),
+    const card = (await screen.findByRole('heading', { name: 'Crear rúbricas' })).closest('article')!
+    await user.click(within(card).getByRole('button', { name: 'Ver y utilizar' }))
+    await user.type(screen.getByLabelText(/Contexto y tarea/), 'Evaluar una exposición oral')
+    await user.selectOptions(screen.getByLabelText('Idioma de respuesta'), 'ca-valencia')
+    await user.click(screen.getAllByRole('button', { name: 'Preparar petición' }).at(-1)!)
+    expect((screen.getByLabelText('Petición preparada') as HTMLTextAreaElement).value).toContain(
+      '## Response language\nca-valencia',
     )
-    await user.type(
-      screen.getByLabelText(/Contexto y tarea/),
-      'Evaluar una exposición oral',
-    )
-    await user.selectOptions(
-      screen.getByLabelText('Idioma de respuesta'),
-      'ca-valencia',
-    )
-    await user.click(
-      screen.getAllByRole('button', { name: 'Preparar petición' }).at(-1)!,
-    )
-    expect(
-      (screen.getByLabelText('Petición preparada') as HTMLTextAreaElement)
-        .value,
-    ).toContain('## Response language\nca-valencia')
     const open = screen.getByRole('button', {
       name: /Copiar y abrir en Copilot M365/,
     })
     expect((open as HTMLButtonElement).disabled).toBe(true)
     await user.click(screen.getByLabelText(/autorizo enviarla/))
     expect((open as HTMLButtonElement).disabled).toBe(false)
-    expect(
-      screen.getByText(/No hay un proveedor de inferencia configurado/),
-    ).toBeTruthy()
+    expect(screen.getByText(/No hay un proveedor de inferencia configurado/)).toBeTruthy()
     await user.type(screen.getByLabelText(/Contexto y tarea/), ' modificada')
     expect(screen.queryByLabelText('Petición preparada')).toBeNull()
   })
   it('imports a package as an unsaved draft and requires review after saving', async () => {
     mount()
-    await userEvent.click(
-      screen.getByRole('button', { name: 'Importar y exportar' }),
-    )
+    await userEvent.click(screen.getByRole('button', { name: 'Importar y exportar' }))
     const zip = Uint8Array.from(exportPackage(builtinSkills('es')[0]))
     const file = new File([zip.buffer], 'rubricas.zip', {
       type: 'application/zip',
@@ -130,9 +95,7 @@ describe('Skills teacher workflows', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Guardar' }))
     await screen.findByText('Skill guardada.')
     expect((await db.skills.toArray())[0].reviewed).toBe(false)
-    await userEvent.click(
-      screen.getByRole('button', { name: 'Ver y utilizar' }),
-    )
+    await userEvent.click(screen.getByRole('button', { name: 'Ver y utilizar' }))
     expect(
       screen.getByRole('button', {
         name: 'He revisado las instrucciones y los recursos de esta Skill.',

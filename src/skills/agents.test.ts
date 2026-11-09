@@ -1,10 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import {
-  agentGuide,
-  agentLimits,
-  buildAgentConfiguration,
-  defaultAgentDraft,
-} from './agents'
+import { agentGuide, agentLimits, buildAgentConfiguration, defaultAgentDraft } from './agents'
 import { builtinSkills } from './seeds'
 import { languages } from './types'
 import { agentLocales } from './agentLocales'
@@ -15,21 +10,16 @@ const course = (language: 'es' | 'ca-valencia' | 'ca' | 'en' = 'es') => ({
   materials: 'Guía del curso\nCriterios de evaluación',
 })
 describe('M365 educational agent configuration', () => {
-  it.each(languages)(
-    'builds a reusable agent for a course in %s without needing preview Skill import',
-    (l) => {
-      const c = buildAgentConfiguration(course(l))
-      expect(c.instructions).toContain('Evaluación formativa')
-      expect(c.instructions).toContain(wizardLocales[l].instructionAuto)
-      expect(c.instructions.length).toBeLessThanOrEqual(
-        agentLimits.instructions,
-      )
-      expect(c.materials).toEqual(['Guía del curso', 'Criterios de evaluación'])
-      expect(c.starters).toHaveLength(3)
-      expect(agentGuide(c, l)).toContain(agentLocales[l].documentsHelp)
-      expect(c.instructions).not.toContain('SKILL.md')
-    },
-  )
+  it.each(languages)('builds a reusable agent for a course in %s without needing preview Skill import', (l) => {
+    const c = buildAgentConfiguration(course(l))
+    expect(c.instructions).toContain('Evaluación formativa')
+    expect(c.instructions).toContain(wizardLocales[l].instructionAuto)
+    expect(c.instructions.length).toBeLessThanOrEqual(agentLimits.instructions)
+    expect(c.materials).toEqual(['Guía del curso', 'Criterios de evaluación'])
+    expect(c.starters).toHaveLength(3)
+    expect(agentGuide(c, l)).toContain(agentLocales[l].documentsHelp)
+    expect(c.instructions).not.toContain('SKILL.md')
+  })
   it('reuses skill behavior and parameter descriptions, without claiming documents have been added', () => {
     const skill = {
       ...builtinSkills('es')[0],
@@ -51,19 +41,11 @@ describe('M365 educational agent configuration', () => {
   })
   it('rejects unreviewed imports and external requirements', () => {
     const skill = builtinSkills('es')[0]
-    expect(() =>
-      buildAgentConfiguration(course(), { ...skill, reviewed: false }),
-    ).toThrow('untrusted')
-    expect(() =>
-      buildAgentConfiguration(course(), { ...skill, mode: 'external' }),
-    ).toThrow('external')
+    expect(() => buildAgentConfiguration(course(), { ...skill, reviewed: false })).toThrow('untrusted')
+    expect(() => buildAgentConfiguration(course(), { ...skill, mode: 'external' })).toThrow('external')
   })
   it('enforces Agent Builder limits without truncating teacher instructions', () => {
-    for (const patch of [
-      { name: 'a'.repeat(31) },
-      { description: 'a'.repeat(1001) },
-      { purpose: '' },
-    ])
+    for (const patch of [{ name: 'a'.repeat(31) }, { description: 'a'.repeat(1001) }, { purpose: '' }])
       expect(() => buildAgentConfiguration({ ...course(), ...patch })).toThrow()
     expect(() =>
       buildAgentConfiguration(course(), {
@@ -87,9 +69,7 @@ describe('M365 educational agent configuration', () => {
   })
   it('has matching nonempty labels in all existing interface languages', () => {
     for (const l of languages) {
-      expect(Object.keys(agentLocales[l]).sort()).toEqual(
-        Object.keys(agentLocales.es).sort(),
-      )
+      expect(Object.keys(agentLocales[l]).sort()).toEqual(Object.keys(agentLocales.es).sort())
       expect(Object.values(agentLocales[l]).every(Boolean)).toBe(true)
     }
   })

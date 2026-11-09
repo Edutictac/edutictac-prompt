@@ -18,20 +18,49 @@ describe('traducciones de la interfaz', () => {
 
   it('incluye las cadenas de las zonas de interfaz traducibles', () => {
     const requiredKeys = [
-      'lead', 'catalog', 'toolsCount', 'privacyTitle', 'privacyHeading',
-      'privacyBody', 'offline', 'topicHint', 'curriculumElements',
-      'subjectsForStage', 'subjectHint', 'chooseSubject', 'invalidFile',
-      'titlePlaceholder', 'newCategoryPlaceholder', 'tagsPlaceholder',
-      'editableHint', 'fullscreen', 'exitFullscreen',
-      'updateAvailable', 'updateButton',
+      'lead',
+      'catalog',
+      'toolsCount',
+      'privacyTitle',
+      'privacyHeading',
+      'privacyBody',
+      'offline',
+      'topicHint',
+      'curriculumElements',
+      'subjectsForStage',
+      'subjectHint',
+      'chooseSubject',
+      'invalidFile',
+      'titlePlaceholder',
+      'newCategoryPlaceholder',
+      'tagsPlaceholder',
+      'editableHint',
+      'fullscreen',
+      'exitFullscreen',
+      'updateAvailable',
+      'updateButton',
       'edit',
-      'placeholderCourse', 'placeholderSubject', 'placeholderTopic',
-      'placeholderObjectives', 'placeholderContext', 'placeholderConstraints',
-      'placeholderQualityCriteria', 'placeholderRole', 'placeholderTask',
-      'placeholderActivity', 'placeholderCriteria',
-      'templateLearningSituation', 'templateLesson', 'templateSequence',
-      'templateCompetencyActivity', 'templateProject', 'templateChallenge',
-      'templateRubric', 'templateChecklist', 'templateH5p', 'templateFree'
+      'placeholderCourse',
+      'placeholderSubject',
+      'placeholderTopic',
+      'placeholderObjectives',
+      'placeholderContext',
+      'placeholderConstraints',
+      'placeholderQualityCriteria',
+      'placeholderRole',
+      'placeholderTask',
+      'placeholderActivity',
+      'placeholderCriteria',
+      'templateLearningSituation',
+      'templateLesson',
+      'templateSequence',
+      'templateCompetencyActivity',
+      'templateProject',
+      'templateChallenge',
+      'templateRubric',
+      'templateChecklist',
+      'templateH5p',
+      'templateFree',
     ]
 
     for (const key of requiredKeys) {
@@ -59,7 +88,9 @@ describe('traducciones de la interfaz', () => {
 
   it('no deja textos en valenciano en la interfaz en castellano', () => {
     const catalan = /[àèòç·’]/
-    const leftovers = Object.entries(translations.es).filter(([, value]) => catalan.test(value)).map(([key]) => key)
+    const leftovers = Object.entries(translations.es)
+      .filter(([, value]) => catalan.test(value))
+      .map(([key]) => key)
     expect(leftovers).toEqual([])
     expect(translations.es.level).toBe('Nivel educativo')
     expect(translations.es.privacyHeading).toBe('Una herramienta al servicio del profesorado')

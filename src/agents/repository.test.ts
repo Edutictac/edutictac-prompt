@@ -4,13 +4,7 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { db } from '../db'
 import { defaultAgentDraft } from '../skills/agents'
 import { builtinSkills } from '../skills/seeds'
-import {
-  agentHistory,
-  deleteAgent,
-  duplicateAgent,
-  listAgents,
-  saveAgent,
-} from './repository'
+import { agentHistory, deleteAgent, duplicateAgent, listAgents, saveAgent } from './repository'
 const draft = () => ({
   ...defaultAgentDraft('es'),
   stage: 'primary' as const,
@@ -25,11 +19,7 @@ afterEach(async () => {
 describe('saved agent designs', () => {
   it('saves, edits, duplicates, versions and deletes agents independently of Skills', async () => {
     const created = await saveAgent(draft(), 'one')
-    const updated = await saveAgent(
-      { ...created.draft, stage: 'adult', subject: 'Ciencias' },
-      'one',
-      created,
-    )
+    const updated = await saveAgent({ ...created.draft, stage: 'adult', subject: 'Ciencias' }, 'one', created)
     expect(updated.revision).toBe(2)
     expect(updated.configuration.instructions).toContain('Ciencias')
     expect(await agentHistory(created.id, 'one')).toHaveLength(2)
@@ -38,24 +28,18 @@ describe('saved agent designs', () => {
     expect(copy.draft.stage).toBe('adult')
     await deleteAgent(created.id, 'one')
     expect(await listAgents('one')).toHaveLength(1)
-    expect(
-      await db.agentRevisions.where('agentId').equals(created.id).count(),
-    ).toBe(0)
+    expect(await db.agentRevisions.where('agentId').equals(created.id).count()).toBe(0)
     expect(await db.skills.count()).toBe(0)
   })
   it('isolates owners and rejects stale updates', async () => {
     const created = await saveAgent(draft(), 'one')
     expect(await listAgents('two')).toEqual([])
-    await expect(saveAgent(created.draft, 'two', created)).rejects.toThrow(
-      'permission',
-    )
+    await expect(saveAgent(created.draft, 'two', created)).rejects.toThrow('permission')
     await expect(duplicateAgent(created, 'two')).rejects.toThrow('permission')
     await expect(deleteAgent(created.id, 'two')).rejects.toThrow('permission')
     await expect(agentHistory(created.id, 'two')).rejects.toThrow('permission')
     await saveAgent({ ...created.draft, subject: 'Lengua' }, 'one', created)
-    await expect(saveAgent(created.draft, 'one', created)).rejects.toThrow(
-      'conflict',
-    )
+    await expect(saveAgent(created.draft, 'one', created)).rejects.toThrow('conflict')
   })
   it('migrates v2 without losing prompts or personal Skills', async () => {
     db.close()
@@ -67,9 +51,7 @@ describe('saved agent designs', () => {
       skills: 'id,ownerId,slug,updatedAt',
       skillRevisions: 'key,skillId,ownerId',
     })
-    await old
-      .table('prompts')
-      .put({ id: 'p', title: 'Preservado', prompt: 'Texto original' })
+    await old.table('prompts').put({ id: 'p', title: 'Preservado', prompt: 'Texto original' })
     await old.table('skills').put({
       ...builtinSkills('es')[0],
       id: 's',

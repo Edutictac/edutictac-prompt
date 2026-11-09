@@ -1,19 +1,10 @@
 import type { Language } from '../types'
 import { fail, validateDefinition, validateValue } from './model'
-import {
-  languages,
-  type Skill,
-  type SkillDefinition,
-  type Value,
-} from './types'
+import { languages, type Skill, type SkillDefinition, type Value } from './types'
 export function skillBody(d: SkillDefinition): string {
   return `${d.instructions}\n\n## Procedure\n${d.procedure.map((v, i) => `${i + 1}. ${v}`).join('\n')}\n\n## Parameters\n${d.parameters.map((p) => `- ${p.id}: ${p.name}. ${p.description} (${p.type}${p.required ? ', required' : ''})${p.options.length ? ` Options: ${p.options.join(', ')}` : ''}${p.defaultValue !== undefined ? ` Default: ${JSON.stringify(p.defaultValue)}` : ''}`).join('\n')}\n\n## Output\n${d.outputFormat}\n\n## Safety\n${d.restrictions}\n\n${d.examples.map((e) => `## Example (${e.language})\nInput: ${e.input}\nOutput: ${e.output}`).join('\n\n')}\n\n${d.resources.map((r) => `Reference: [${r.path}](${r.path})`).join('\n')}`
 }
-export function prepareExecution(
-  skill: Skill,
-  values: Record<string, Value>,
-  responseLanguage: Language,
-): string {
+export function prepareExecution(skill: Skill, values: Record<string, Value>, responseLanguage: Language): string {
   const d = validateDefinition(skill)
   if (d.mode !== 'instructions') fail('external')
   if (!skill.reviewed) fail('untrusted')
@@ -67,9 +58,7 @@ export function generateGift(questions: GiftQuestion[]): string {
           !Number.isInteger(q.correct) ||
           q.correct < 0 ||
           q.correct >= q.options.length ||
-          [q.title, q.question, q.feedback, ...q.options].some(
-            (v) => v.length > 10000 || /[\u0000-\u0008]/.test(v),
-          )
+          [q.title, q.question, q.feedback, ...q.options].some((v) => v.length > 10000 || /[\u0000-\u0008]/.test(v))
         )
           fail('invalid', 'gift')
         return `::${giftEscape(q.title)}::${giftEscape(q.question)} {\n${q.options.map((o, i) => `${i === q.correct ? '=' : '~'}${giftEscape(o)}${i === q.correct && q.feedback ? `#${giftEscape(q.feedback)}` : ''}`).join('\n')}\n}`

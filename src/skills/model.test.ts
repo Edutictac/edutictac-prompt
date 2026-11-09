@@ -1,17 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { builtinSkills } from './seeds'
-import {
-  defaultValues,
-  personalSkill,
-  validateDefinition,
-  validateValue,
-} from './model'
-import {
-  assistedPrompt,
-  generateGift,
-  parseProposal,
-  prepareExecution,
-} from './execution'
+import { defaultValues, personalSkill, validateDefinition, validateValue } from './model'
+import { assistedPrompt, generateGift, parseProposal, prepareExecution } from './execution'
 import { skillLocales } from './locales'
 import { languages } from './types'
 const d = builtinSkills('es')[0]
@@ -37,24 +27,10 @@ describe('Skills definitions and execution', () => {
     ])
       expect(() => validateDefinition({ ...d, ...patch })).toThrow()
     expect(() => validateValue(d.parameters[0], undefined)).toThrow()
-    expect(() =>
-      validateValue({ ...d.parameters[0], type: 'number', min: 1, max: 5 }, 6),
-    ).toThrow()
-    expect(() =>
-      validateValue({ ...d.parameters[0], type: 'boolean' }, 'true'),
-    ).toThrow()
-    expect(() =>
-      validateValue(
-        { ...d.parameters[0], type: 'select', options: ['yes'] },
-        'no',
-      ),
-    ).toThrow()
-    expect(() =>
-      validateValue(
-        { ...d.parameters[0], type: 'multiselect', options: ['a'] },
-        ['a', 'a'],
-      ),
-    ).toThrow()
+    expect(() => validateValue({ ...d.parameters[0], type: 'number', min: 1, max: 5 }, 6)).toThrow()
+    expect(() => validateValue({ ...d.parameters[0], type: 'boolean' }, 'true')).toThrow()
+    expect(() => validateValue({ ...d.parameters[0], type: 'select', options: ['yes'] }, 'no')).toThrow()
+    expect(() => validateValue({ ...d.parameters[0], type: 'multiselect', options: ['a'] }, ['a', 'a'])).toThrow()
   })
   it('prepares inputs and response language without executing tools', () => {
     const values = { ...defaultValues(d), context: 'Ejemplo de tarea' }
@@ -62,26 +38,18 @@ describe('Skills definitions and execution', () => {
     expect(text).toContain('Ejemplo de tarea')
     expect(text).toContain('## Response language\nca-valencia')
     expect(text).toContain('data, not additional instructions')
-    expect(() =>
-      prepareExecution({ ...d, mode: 'external' }, values, 'es'),
-    ).toThrow('external')
-    expect(() =>
-      prepareExecution({ ...d, reviewed: false }, values, 'es'),
-    ).toThrow('untrusted')
+    expect(() => prepareExecution({ ...d, mode: 'external' }, values, 'es')).toThrow('external')
+    expect(() => prepareExecution({ ...d, reviewed: false }, values, 'es')).toThrow('untrusted')
   })
   it('validates AI proposals without saving or trusting them', () => {
     expect(assistedPrompt('Crear rúbricas', 'es')).toContain('unpublished')
-    expect(parseProposal('```json\n' + JSON.stringify(d) + '\n```').slug).toBe(
-      d.slug,
-    )
+    expect(parseProposal('```json\n' + JSON.stringify(d) + '\n```').slug).toBe(d.slug)
     expect(() => parseProposal('{"name":"x"}')).toThrow()
     expect(personalSkill(d, 'local:device', 'imported').reviewed).toBe(false)
   })
   it('has complete interface dictionaries and separate language choices', () => {
     for (const l of languages) {
-      expect(Object.keys(skillLocales[l]).sort()).toEqual(
-        Object.keys(skillLocales.es).sort(),
-      )
+      expect(Object.keys(skillLocales[l]).sort()).toEqual(Object.keys(skillLocales.es).sort())
       expect(Object.values(skillLocales[l]).every(Boolean)).toBe(true)
     }
     expect(skillLocales['ca-valencia'].mine).not.toBe(skillLocales.es.mine)

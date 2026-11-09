@@ -26,13 +26,16 @@ it('muestra los elementos curriculares también en modo sencillo al elegir un pe
   const user = userEvent.setup()
   render(<App />)
   await user.click(screen.getByRole('button', { name: /^Crear/ }))
-  await user.selectOptions(screen.getByRole('combobox', { name: /Perfil curricular/ }), 'cv-primaria-coneixement-del-medi-natural-social-i-cultural')
+  await user.selectOptions(
+    screen.getByRole('combobox', { name: /Perfil curricular/ }),
+    'cv-primaria-coneixement-del-medi-natural-social-i-cultural',
+  )
   expect(screen.getAllByRole('checkbox').length).toBeGreaterThan(0)
 })
 
 it('recorre el formulario bloque a bloque, deja saltar pasos y genera desde el resumen', async () => {
   const user = userEvent.setup()
-  const total = guidedSteps(templates.find(template => template.id === 'learning-situation')!).length
+  const total = guidedSteps(templates.find((template) => template.id === 'learning-situation')!).length
   render(<App />)
 
   await user.click(screen.getByRole('button', { name: /^Crear/ }))
@@ -40,7 +43,10 @@ it('recorre el formulario bloque a bloque, deja saltar pasos y genera desde el r
 
   expect(screen.getByText(`Paso 1 de ${total}`)).toBeTruthy()
   expect(screen.getByRole('heading', { name: 'Nivel y materia', level: 2 })).toBeTruthy()
-  await user.selectOptions(screen.getByRole('combobox', { name: /Perfil curricular/ }), 'cv-primaria-coneixement-del-medi-natural-social-i-cultural')
+  await user.selectOptions(
+    screen.getByRole('combobox', { name: /Perfil curricular/ }),
+    'cv-primaria-coneixement-del-medi-natural-social-i-cultural',
+  )
   const saberes = screen.getByRole('checkbox', { name: /Cultura científica · Iniciación a la actividad científica/ })
   await user.click(saberes)
   expect((saberes as HTMLInputElement).checked).toBe(true)

@@ -4,7 +4,7 @@ import { categoryIds, simpleFieldIds, templates } from './templates'
 describe('plantillas de prompts', () => {
   it('ofrece contexto, restricciones y criterios de calidad', () => {
     for (const template of templates) {
-      const fieldIds = template.fields.map(field => field.id)
+      const fieldIds = template.fields.map((field) => field.id)
 
       expect(fieldIds).toContain('context')
       expect(fieldIds).toContain('constraints')
@@ -14,21 +14,31 @@ describe('plantillas de prompts', () => {
 
   it('no duplica campos al preparar las plantillas', () => {
     for (const template of templates) {
-      const fieldIds = template.fields.map(field => field.id)
+      const fieldIds = template.fields.map((field) => field.id)
       expect(new Set(fieldIds).size).toBe(fieldIds.length)
     }
   })
 
   it('no ofrece categorías sin herramientas', () => {
-    const categoriesWithTemplates = new Set(templates.map(template => template.category))
+    const categoriesWithTemplates = new Set(templates.map((template) => template.category))
     expect(categoryIds).toEqual(['all', ...categoriesWithTemplates])
-    expect(categoryIds.slice(1).every(category => categoriesWithTemplates.has(category))).toBe(true)
+    expect(categoryIds.slice(1).every((category) => categoriesWithTemplates.has(category))).toBe(true)
   })
 
   it('inclou els instruments d’avaluació sol·licitats', () => {
-    expect(templates.map(template => template.id)).toEqual(expect.arrayContaining([
-      'rubric', 'rating-scale', 'checklist', 'systematic-observation', 'portfolio', 'production', 'written-test', 'product', 'presentation'
-    ]))
+    expect(templates.map((template) => template.id)).toEqual(
+      expect.arrayContaining([
+        'rubric',
+        'rating-scale',
+        'checklist',
+        'systematic-observation',
+        'portfolio',
+        'production',
+        'written-test',
+        'product',
+        'presentation',
+      ]),
+    )
   })
 
   it('define un modo sencillo con menos campos que el modo avanzado', () => {
@@ -40,7 +50,12 @@ describe('plantillas de prompts', () => {
 
   it('deja el formato de salida al final y admite PDF', () => {
     const ownFormats: Record<string, string[]> = {
-      scorm: ['SCORM 1.2'], h5p: ['H5P'], gift: ['GIFT'], qti: ['QTI 2.1'], 'common-cartridge': ['Common Cartridge'], 'html-game': ['HTML']
+      scorm: ['SCORM 1.2'],
+      h5p: ['H5P'],
+      gift: ['GIFT'],
+      qti: ['QTI 2.1'],
+      'common-cartridge': ['Common Cartridge'],
+      'html-game': ['HTML'],
     }
     for (const template of templates) {
       const last = template.fields[template.fields.length - 1]
@@ -54,41 +69,55 @@ describe('plantillas de prompts', () => {
   })
 
   it('activa les categories d’adaptació, continguts i comunicació', () => {
-    const ids = templates.map(template => template.id)
-    expect(ids).toEqual(expect.arrayContaining([
-      'feedback', 'three-levels', 'easy-reading', 'bias-check',
-      'glossary-support', 'family-note', 'tutoring-script', 'scorm',
-      'gift', 'qti', 'common-cartridge'
-    ]))
+    const ids = templates.map((template) => template.id)
+    expect(ids).toEqual(
+      expect.arrayContaining([
+        'feedback',
+        'three-levels',
+        'easy-reading',
+        'bias-check',
+        'glossary-support',
+        'family-note',
+        'tutoring-script',
+        'scorm',
+        'gift',
+        'qti',
+        'common-cartridge',
+      ]),
+    )
 
-    const categories = new Set(templates.map(template => template.category))
+    const categories = new Set(templates.map((template) => template.category))
     expect(categories.has('adaptation')).toBe(true)
     expect(categories.has('content')).toBe(true)
     expect(categories.has('communication')).toBe(true)
   })
 
   it('activa la categoría visual con las plantillas de imagen', () => {
-    const ids = templates.map(template => template.id)
+    const ids = templates.map((template) => template.id)
     expect(ids).toEqual(expect.arrayContaining(['scientific-illustration', 'infographic', 'mind-map']))
-    expect(new Set(templates.map(template => template.category)).has('visual')).toBe(true)
+    expect(new Set(templates.map((template) => template.category)).has('visual')).toBe(true)
     expect(categoryIds).toContain('visual')
   })
 
   it('ofrece el refinamiento en todas las plantillas y la herramienta solo en las de imagen', () => {
     for (const template of templates) {
-      const fieldIds = template.fields.map(field => field.id)
+      const fieldIds = template.fields.map((field) => field.id)
       expect(fieldIds, template.id).toContain('refinement')
-      expect(fieldIds.includes('aiTool'), template.id).toBe(['scientific-illustration', 'infographic'].includes(template.id))
+      expect(fieldIds.includes('aiTool'), template.id).toBe(
+        ['scientific-illustration', 'infographic'].includes(template.id),
+      )
     }
   })
 
   it('ofrece el DUA en las plantillas de diseño y las barreras también en evaluación y adaptación', () => {
     for (const template of templates) {
-      const fieldIds = template.fields.map(field => field.id)
+      const fieldIds = template.fields.map((field) => field.id)
       const designs = ['planning', 'activities', 'content', 'digital'].includes(template.category)
       expect(fieldIds.includes('udl'), template.id).toBe(designs)
-      expect(fieldIds.includes('barriers'), template.id).toBe(designs || ['assessment', 'adaptation'].includes(template.category))
+      expect(fieldIds.includes('barriers'), template.id).toBe(
+        designs || ['assessment', 'adaptation'].includes(template.category),
+      )
     }
-    expect(templates.map(template => template.id)).toEqual(expect.arrayContaining(['udl-review', 'udl-matrix']))
+    expect(templates.map((template) => template.id)).toEqual(expect.arrayContaining(['udl-review', 'udl-matrix']))
   })
 })

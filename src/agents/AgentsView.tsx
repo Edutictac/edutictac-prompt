@@ -11,13 +11,7 @@ import { downloadSkillFile } from '../skills/files'
 import { agentPresets } from './presets'
 import { wizardLocales } from './locales'
 import { basicLocales } from './basicLocales'
-import {
-  agentHistory,
-  deleteAgent,
-  duplicateAgent,
-  listAgents,
-  saveAgent,
-} from './repository'
+import { agentHistory, deleteAgent, duplicateAgent, listAgents, saveAgent } from './repository'
 import type { AgentRevision, SavedAgent } from './types'
 import '../skills/skills.css'
 export default function AgentsView({
@@ -31,11 +25,7 @@ export default function AgentsView({
   sub?: string
   prompts: SavedPrompt[]
   copy: (text: string) => Promise<boolean>
-  onSaveResult: (
-    title: string,
-    text: string,
-    language: Language,
-  ) => Promise<void>
+  onSaveResult: (title: string, text: string, language: Language) => Promise<void>
 }) {
   const b = basicLocales[language]
   const [basic, setBasic] = useState(true)
@@ -43,9 +33,7 @@ export default function AgentsView({
   const t = wizardLocales[language],
     owner = skillOwner(sub),
     presets = agentPresets(language)
-  const [tab, setTab] = useState<
-      'design' | 'examples' | 'mine' | 'compatibility'
-    >('design'),
+  const [tab, setTab] = useState<'design' | 'examples' | 'mine' | 'compatibility'>('design'),
     [items, setItems] = useState<SavedAgent[]>([]),
     [draft, setDraft] = useState<AgentDraft>(() =>
       structuredClone(presets.find((p) => p.id === 'crear-rubricas')!.draft),
@@ -63,11 +51,7 @@ export default function AgentsView({
     try {
       await work()
     } catch (error) {
-      setNotice(
-        error instanceof SkillError
-          ? (t as Record<string, string>)[error.code] || t.invalid
-          : t.invalid,
-      )
+      setNotice(error instanceof SkillError ? (t as Record<string, string>)[error.code] || t.invalid : t.invalid)
     }
   }
   useEffect(() => {
@@ -109,32 +93,27 @@ export default function AgentsView({
         >
           {b.basic}
         </button>
-        <button
-          className={!basic ? 'active' : ''}
-          aria-pressed={!basic}
-          onClick={() => setBasic(false)}
-        >
+        <button className={!basic ? 'active' : ''} aria-pressed={!basic} onClick={() => setBasic(false)}>
           {b.advanced}
         </button>
       </div>
       <nav className="skill-tabs" aria-label={t.section}>
-        {(basic
-          ? (['design', 'mine'] as const)
-          : (['design', 'examples', 'mine', 'compatibility'] as const)
-        ).map((key) => (
-          <button
-            key={key}
-            aria-current={tab === key ? 'page' : undefined}
-            className={tab === key ? 'active' : ''}
-            onClick={() => {
-              setTab(key)
-              setHistory([])
-              setNotice('')
-            }}
-          >
-            {basic && key === 'design' ? b.create : t[key]}
-          </button>
-        ))}
+        {(basic ? (['design', 'mine'] as const) : (['design', 'examples', 'mine', 'compatibility'] as const)).map(
+          (key) => (
+            <button
+              key={key}
+              aria-current={tab === key ? 'page' : undefined}
+              className={tab === key ? 'active' : ''}
+              onClick={() => {
+                setTab(key)
+                setHistory([])
+                setNotice('')
+              }}
+            >
+              {basic && key === 'design' ? b.create : t[key]}
+            </button>
+          ),
+        )}
       </nav>
       {notice && (
         <p className="callout" role="status">
@@ -147,11 +126,7 @@ export default function AgentsView({
           {!basic && (
             <label>
               {t.examples}
-              <select
-                aria-label={t.examples}
-                value={presetId}
-                onChange={(e) => choosePreset(e.target.value)}
-              >
+              <select aria-label={t.examples} value={presetId} onChange={(e) => choosePreset(e.target.value)}>
                 {presets.map((p) => (
                   <option key={p.id} value={p.id}>
                     {p.title}
@@ -229,8 +204,7 @@ export default function AgentsView({
                     <h2>{a.draft.name}</h2>
                     <p>{a.draft.description}</p>
                     <small>
-                      {t[`stage_${a.draft.stage}`]} · {a.draft.subject} ·{' '}
-                      {t.revision} {a.revision}
+                      {t[`stage_${a.draft.stage}`]} · {a.draft.subject} · {t.revision} {a.revision}
                     </small>
                     <div className="toolbar">
                       <button
@@ -271,13 +245,7 @@ export default function AgentsView({
                             : 'Descarregar guia'}
                       </button>
                       {!basic && (
-                        <button
-                          onClick={() =>
-                            void safe(async () =>
-                              setHistory(await agentHistory(a.id, owner)),
-                            )
-                          }
-                        >
+                        <button onClick={() => void safe(async () => setHistory(await agentHistory(a.id, owner)))}>
                           {t.history}
                         </button>
                       )}
@@ -307,12 +275,7 @@ export default function AgentsView({
                   void safe(async () => {
                     const current = items.find((a) => a.id === r.agentId)
                     if (!current) throw new SkillError('permission')
-                    await saveAgent(
-                      r.snapshot.draft,
-                      owner,
-                      current,
-                      r.snapshot.sourceSkill,
-                    )
+                    await saveAgent(r.snapshot.draft, owner, current, r.snapshot.sourceSkill)
                     await refresh()
                     setHistory([])
                     setNotice(t.restoreDone)
@@ -336,9 +299,7 @@ export default function AgentsView({
             prompts={prompts}
             copy={copy}
             onSaveResult={onSaveResult}
-            onPrepareAgent={(skill) =>
-              open(defaultAgentDraft(language, skill), undefined, skill)
-            }
+            onPrepareAgent={(skill) => open(defaultAgentDraft(language, skill), undefined, skill)}
           />
         </>
       )}

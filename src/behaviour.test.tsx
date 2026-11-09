@@ -70,8 +70,8 @@ describe('recorridos de la biblioteca', () => {
     await user.click(screen.getByRole('button', { name: 'Mi biblioteca' }))
     await screen.findByRole('heading', { name: 'Prompt antiguo' })
     const cards = screen.getAllByRole('article')
-    const oldCard = cards.find(card => card.textContent?.includes('Prompt antiguo'))!
-    await user.click(Array.from(oldCard.querySelectorAll('button')).find(button => button.textContent === 'Editar')!)
+    const oldCard = cards.find((card) => card.textContent?.includes('Prompt antiguo'))!
+    await user.click(Array.from(oldCard.querySelectorAll('button')).find((button) => button.textContent === 'Editar')!)
     expect(screen.getByRole('heading', { name: 'Constructor libre', level: 1 })).toBeTruthy()
   })
 
@@ -97,7 +97,13 @@ describe('recorridos de la biblioteca', () => {
     const user = userEvent.setup()
     await seedFixtures(db)
     let exported: Blob | undefined
-    Object.defineProperty(URL, 'createObjectURL', { configurable: true, value: vi.fn((blob: Blob) => { exported = blob; return 'blob:test' }) })
+    Object.defineProperty(URL, 'createObjectURL', {
+      configurable: true,
+      value: vi.fn((blob: Blob) => {
+        exported = blob
+        return 'blob:test'
+      }),
+    })
     Object.defineProperty(URL, 'revokeObjectURL', { configurable: true, value: vi.fn() })
     vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {})
     render(<App />)
@@ -106,7 +112,11 @@ describe('recorridos de la biblioteca', () => {
     await screen.findByRole('heading', { name: 'Prompt de prueba' })
     await user.click(screen.getByRole('button', { name: 'Exportar JSON' }))
     await waitFor(() => expect(exported).toBeTruthy())
-    const data = JSON.parse(await readBlob(exported!)) as { format: string; version: number; prompts: { id: string; title: string }[] }
+    const data = JSON.parse(await readBlob(exported!)) as {
+      format: string
+      version: number
+      prompts: { id: string; title: string }[]
+    }
     expect(data.format).toBe('edutictac-prompts')
     expect(data.version).toBe(1)
     expect(data.prompts).toHaveLength(2)

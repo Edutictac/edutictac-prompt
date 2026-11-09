@@ -42,10 +42,7 @@ export default function Editor({
     [d, setD] = useState(initial),
     [preview, setPreview] = useState(false),
     [busy, setBusy] = useState(false)
-  const set = <K extends keyof SkillDefinition>(
-    key: K,
-    value: SkillDefinition[K],
-  ) => setD({ ...d, [key]: value })
+  const set = <K extends keyof SkillDefinition>(key: K, value: SkillDefinition[K]) => setD({ ...d, [key]: value })
   const text = (
     key:
       | 'name'
@@ -71,21 +68,13 @@ export default function Editor({
         />
       ) : (
         <input
-          required={[
-            'name',
-            'slug',
-            'license',
-            'version',
-            'outputFormat',
-          ].includes(key)}
+          required={['name', 'slug', 'license', 'version', 'outputFormat'].includes(key)}
           value={d[key]}
           onChange={(e) =>
             setD({
               ...d,
               [key]: e.target.value,
-              ...(key === 'name' && (!d.slug || d.slug === slugify(d.name))
-                ? { slug: slugify(e.target.value) }
-                : {}),
+              ...(key === 'name' && (!d.slug || d.slug === slugify(d.name)) ? { slug: slugify(e.target.value) } : {}),
             })
           }
         />
@@ -124,12 +113,7 @@ export default function Editor({
         {text('description', true)}
         <label>
           {t.category}
-          <select
-            value={d.category}
-            onChange={(e) =>
-              set('category', e.target.value as SkillDefinition['category'])
-            }
-          >
+          <select value={d.category} onChange={(e) => set('category', e.target.value as SkillDefinition['category'])}>
             {categories.map((c) => (
               <option key={c} value={c}>
                 {t[`cat_${c}`]}
@@ -151,10 +135,7 @@ export default function Editor({
         </label>
         <label>
           {t.language}
-          <select
-            value={d.language}
-            onChange={(e) => set('language', e.target.value as Language)}
-          >
+          <select value={d.language} onChange={(e) => set('language', e.target.value as Language)}>
             {languages.map((l) => (
               <option key={l} value={l}>
                 {t[`lang_${l}`]}
@@ -164,12 +145,7 @@ export default function Editor({
         </label>
         <label>
           {t.stage}
-          <select
-            value={d.stage}
-            onChange={(e) =>
-              set('stage', e.target.value as SkillDefinition['stage'])
-            }
-          >
+          <select value={d.stage} onChange={(e) => set('stage', e.target.value as SkillDefinition['stage'])}>
             {stages.map((s) => (
               <option key={s} value={s}>
                 {t[`stage_${s}`]}
@@ -183,12 +159,7 @@ export default function Editor({
       </div>
       <h2>{t.instructions}</h2>
       {text('instructions', true)}
-      <button
-        type="button"
-        className="secondary"
-        aria-expanded={preview}
-        onClick={() => setPreview(!preview)}
-      >
+      <button type="button" className="secondary" aria-expanded={preview} onClick={() => setPreview(!preview)}>
         {t.preview}
       </button>
       {preview && <Markdown text={d.instructions} />}
@@ -199,13 +170,7 @@ export default function Editor({
           <div className="skill-fields">
             <label>
               {t.name}
-              <input
-                required
-                value={p.name}
-                onChange={(e) =>
-                  updateParameter(i, { ...p, name: e.target.value })
-                }
-              />
+              <input required value={p.name} onChange={(e) => updateParameter(i, { ...p, name: e.target.value })} />
             </label>
             <label>
               {t.id}
@@ -213,9 +178,7 @@ export default function Editor({
                 required
                 pattern="[a-z][a-z0-9_]{0,39}"
                 value={p.id}
-                onChange={(e) =>
-                  updateParameter(i, { ...p, id: e.target.value })
-                }
+                onChange={(e) => updateParameter(i, { ...p, id: e.target.value })}
               />
             </label>
             <label>
@@ -241,9 +204,7 @@ export default function Editor({
               {t.help}
               <input
                 value={p.description}
-                onChange={(e) =>
-                  updateParameter(i, { ...p, description: e.target.value })
-                }
+                onChange={(e) => updateParameter(i, { ...p, description: e.target.value })}
               />
             </label>
           </div>
@@ -251,9 +212,7 @@ export default function Editor({
             <input
               type="checkbox"
               checked={p.required}
-              onChange={(e) =>
-                updateParameter(i, { ...p, required: e.target.checked })
-              }
+              onChange={(e) => updateParameter(i, { ...p, required: e.target.checked })}
             />
             {t.mandatory}
           </label>
@@ -273,14 +232,7 @@ export default function Editor({
           )}
           <ParameterInput
             parameter={{ ...p, name: t.defaultValue, required: false }}
-            value={
-              p.defaultValue ??
-              (p.type === 'boolean'
-                ? false
-                : p.type === 'multiselect'
-                  ? []
-                  : '')
-            }
+            value={p.defaultValue ?? (p.type === 'boolean' ? false : p.type === 'multiselect' ? [] : '')}
             onChange={(value) =>
               updateParameter(i, {
                 ...p,
@@ -303,10 +255,7 @@ export default function Editor({
                   onChange={(e) =>
                     updateParameter(i, {
                       ...p,
-                      [k]:
-                        e.target.value === ''
-                          ? undefined
-                          : Number(e.target.value),
+                      [k]: e.target.value === '' ? undefined : Number(e.target.value),
                     })
                   }
                 />
@@ -366,9 +315,7 @@ export default function Editor({
               onChange={(e) =>
                 set(
                   'resources',
-                  d.resources.map((v, n) =>
-                    n === i ? { ...v, path: e.target.value } : v,
-                  ),
+                  d.resources.map((v, n) => (n === i ? { ...v, path: e.target.value } : v)),
                 )
               }
             />
@@ -381,9 +328,7 @@ export default function Editor({
               onChange={(e) =>
                 set(
                   'resources',
-                  d.resources.map((v, n) =>
-                    n === i ? { ...v, content: e.target.value } : v,
-                  ),
+                  d.resources.map((v, n) => (n === i ? { ...v, content: e.target.value } : v)),
                 )
               }
             />
@@ -426,11 +371,7 @@ export default function Editor({
               onChange={(e) =>
                 set(
                   'examples',
-                  d.examples.map((v, n) =>
-                    n === i
-                      ? { ...v, language: e.target.value as Language }
-                      : v,
-                  ),
+                  d.examples.map((v, n) => (n === i ? { ...v, language: e.target.value as Language } : v)),
                 )
               }
             >
@@ -451,9 +392,7 @@ export default function Editor({
                 onChange={(e) =>
                   set(
                     'examples',
-                    d.examples.map((v, n) =>
-                      n === i ? { ...v, [k]: e.target.value } : v,
-                    ),
+                    d.examples.map((v, n) => (n === i ? { ...v, [k]: e.target.value } : v)),
                   )
                 }
               />
@@ -475,9 +414,7 @@ export default function Editor({
       <button
         type="button"
         className="secondary"
-        onClick={() =>
-          set('examples', [...d.examples, { language, input: '', output: '' }])
-        }
+        onClick={() => set('examples', [...d.examples, { language, input: '', output: '' }])}
       >
         {t.add} · {t.examples}
       </button>
@@ -485,12 +422,7 @@ export default function Editor({
       {text('outputFormat')}
       <label>
         {t.mode}
-        <select
-          value={d.mode}
-          onChange={(e) =>
-            set('mode', e.target.value as SkillDefinition['mode'])
-          }
-        >
+        <select value={d.mode} onChange={(e) => set('mode', e.target.value as SkillDefinition['mode'])}>
           <option value="instructions">{t.instructionsMode}</option>
           <option value="external">{t.externalMode}</option>
         </select>
@@ -520,11 +452,7 @@ export function ParameterInput({
   if (p.type === 'boolean')
     return (
       <label className="check">
-        <input
-          type="checkbox"
-          checked={value === true}
-          onChange={(e) => onChange(e.target.checked)}
-        />
+        <input type="checkbox" checked={value === true} onChange={(e) => onChange(e.target.checked)} />
         {p.name}
         <small>{p.description}</small>
       </label>
@@ -546,9 +474,7 @@ export function ParameterInput({
                 onChange(
                   e.target.checked
                     ? [...(Array.isArray(value) ? value : []), o]
-                    : (Array.isArray(value) ? value : []).filter(
-                        (v) => v !== o,
-                      ),
+                    : (Array.isArray(value) ? value : []).filter((v) => v !== o),
                 )
               }
             />
@@ -570,11 +496,7 @@ export function ParameterInput({
           onChange={(e) => onChange(e.target.value)}
         />
       ) : p.type === 'select' ? (
-        <select
-          required={p.required}
-          value={String(value)}
-          onChange={(e) => onChange(e.target.value)}
-        >
+        <select required={p.required} value={String(value)} onChange={(e) => onChange(e.target.value)}>
           <option value="">—</option>
           {p.options.map((o) => (
             <option key={o}>{o}</option>
@@ -590,11 +512,7 @@ export function ParameterInput({
           maxLength={p.maxLength || 20000}
           value={String(value)}
           onChange={(e) =>
-            onChange(
-              p.type === 'number' && e.target.value !== ''
-                ? Number(e.target.value)
-                : e.target.value,
-            )
+            onChange(p.type === 'number' && e.target.value !== '' ? Number(e.target.value) : e.target.value)
           }
         />
       )}

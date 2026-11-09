@@ -57,12 +57,9 @@ const es = {
   size: 'Paquete demasiado grande. Máximo: 2 MB ZIP, 100 KB por archivo y 1,5 MB descomprimido.',
   permission: 'No tienes permiso sobre esta Skill.',
   conflict: 'La Skill ha cambiado. Vuelve a abrirla antes de guardar.',
-  untrusted:
-    'Revisa las instrucciones y recursos antes de utilizar esta Skill.',
-  external:
-    'Esta Skill requiere herramientas o un entorno externo. EduTicTac no puede ejecutarla.',
-  m365Limit:
-    'Copilot M365 requiere instrucciones de menos de 20 000 caracteres.',
+  untrusted: 'Revisa las instrucciones y recursos antes de utilizar esta Skill.',
+  external: 'Esta Skill requiere herramientas o un entorno externo. EduTicTac no puede ejecutarla.',
+  m365Limit: 'Copilot M365 requiere instrucciones de menos de 20 000 caracteres.',
   type: 'Tipo',
   id: 'Identificador del parámetro',
   shortText: 'Texto corto',
@@ -131,8 +128,7 @@ const es = {
   restore: 'Restaurar como nueva revisión',
   fromPrompt: 'Convertir un prompt en Skill',
   choosePrompt: 'Selecciona un prompt de tu biblioteca',
-  converted:
-    'La conversión es un borrador: revisa cuándo se utiliza, sus parámetros y sus límites.',
+  converted: 'La conversión es un borrador: revisa cuándo se utiliza, sus parámetros y sus límites.',
   gift: 'Crear GIFT de respuesta única',
   giftHint:
     'Introduce preguntas revisadas. El generador local escapa los caracteres de GIFT y descarga solo preguntas con una respuesta correcta. Comprueba el resultado en un curso de prueba de Moodle/Aules.',
@@ -221,14 +217,12 @@ const va: typeof es = {
   invalid: 'Revisa l’estructura i els camps indicats.',
   required: 'Completa el paràmetre obligatori.',
   parameter: 'El valor no complix les condicions del paràmetre.',
-  unsafe:
-    'Paquet rebutjat: rutes, fitxers o estructura no permesos. No s’admeten scripts ni fitxers executables.',
+  unsafe: 'Paquet rebutjat: rutes, fitxers o estructura no permesos. No s’admeten scripts ni fitxers executables.',
   size: 'Paquet massa gran. Màxim: 2 MB ZIP, 100 KB per fitxer i 1,5 MB descomprimit.',
   permission: 'No tens permís sobre esta Skill.',
   conflict: 'La Skill ha canviat. Torna a obrir-la abans de guardar.',
   untrusted: 'Revisa les instruccions i els recursos abans d’usar esta Skill.',
-  external:
-    'Esta Skill requerix ferramentes o un entorn extern. EduTicTac no pot executar-la.',
+  external: 'Esta Skill requerix ferramentes o un entorn extern. EduTicTac no pot executar-la.',
   m365Limit: 'Copilot M365 requerix instruccions de menys de 20 000 caràcters.',
   type: 'Tipus',
   id: 'Identificador del paràmetre',
@@ -259,8 +253,7 @@ const va: typeof es = {
   review: 'He revisat les instruccions i els recursos d’esta Skill.',
   reviewHint:
     'Contingut extern no confiable: comprova que no demana credencials, dades personals ni accions alienes a l’objectiu.',
-  consent:
-    'He revisat la petició i autoritze enviar-la al servici d’IA triat. No conté dades personals de l’alumnat.',
+  consent: 'He revisat la petició i autoritze enviar-la al servici d’IA triat. No conté dades personals de l’alumnat.',
   externalHint:
     'Copiar i obrir usa la teua sessió de l’assistent. Apega la petició allí; el resultat no torna automàticament. No instal·la una Skill nativa.',
   copilotHint:
@@ -269,8 +262,7 @@ const va: typeof es = {
   copy: 'Copiar',
   execute: 'Executar amb API',
   provider: 'Proveïdor / model',
-  noProvider:
-    'No hi ha cap proveïdor d’inferència configurat. Pots usar un assistent extern i apegar ací la resposta.',
+  noProvider: 'No hi ha cap proveïdor d’inferència configurat. Pots usar un assistent extern i apegar ací la resposta.',
   result: 'Resultat (pots apegar la resposta de l’assistent)',
   saveResult: 'Guardar resultat en la biblioteca de prompts',
   savePrepared: 'Guardar petició en la biblioteca de prompts',
@@ -298,8 +290,7 @@ const va: typeof es = {
   restore: 'Restaurar com a nova revisió',
   fromPrompt: 'Convertir un prompt en Skill',
   choosePrompt: 'Selecciona un prompt de la biblioteca',
-  converted:
-    'La conversió és un esborrany: revisa quan s’utilitza, els paràmetres i els límits.',
+  converted: 'La conversió és un esborrany: revisa quan s’utilitza, els paràmetres i els límits.',
   gift: 'Crear GIFT de resposta única',
   giftHint:
     'Introduïx preguntes revisades. El generador local escapa els caràcters de GIFT i descarrega només preguntes amb una resposta correcta. Comprova el resultat en un curs de prova de Moodle/Aules.',
@@ -388,14 +379,12 @@ const en: typeof es = {
   invalid: 'Check the structure and indicated fields.',
   required: 'Complete the required parameter.',
   parameter: 'The value does not meet the parameter constraints.',
-  unsafe:
-    'Package rejected: unsupported paths, files or structure. Scripts and executable files are not accepted.',
+  unsafe: 'Package rejected: unsupported paths, files or structure. Scripts and executable files are not accepted.',
   size: 'Package too large. Limits: 2 MB ZIP, 100 KB per file and 1.5 MB extracted.',
   permission: 'You do not have permission for this Skill.',
   conflict: 'The Skill has changed. Reopen it before saving.',
   untrusted: 'Review the instructions and resources before using this Skill.',
-  external:
-    'This Skill needs external tools or an execution environment. EduTicTac cannot run it.',
+  external: 'This Skill needs external tools or an execution environment. EduTicTac cannot run it.',
   m365Limit: 'Copilot M365 requires instructions under 20,000 characters.',
   type: 'Type',
   id: 'Parameter identifier',
@@ -424,8 +413,7 @@ const en: typeof es = {
   responseLanguage: 'Response language',
   prepared: 'Prepared request',
   review: 'I have reviewed this Skill’s instructions and resources.',
-  reviewHint:
-    'Untrusted external content: check for requests for credentials, personal data or unrelated actions.',
+  reviewHint: 'Untrusted external content: check for requests for credentials, personal data or unrelated actions.',
   consent:
     'I have reviewed the request and authorize sending it to the selected AI service. It contains no learner personal data.',
   externalHint:
@@ -436,8 +424,7 @@ const en: typeof es = {
   copy: 'Copy',
   execute: 'Run with API',
   provider: 'Provider / model',
-  noProvider:
-    'No inference provider is configured. You can use an external assistant and paste its response here.',
+  noProvider: 'No inference provider is configured. You can use an external assistant and paste its response here.',
   result: 'Result (you can paste the assistant response)',
   saveResult: 'Save result in my prompt library',
   savePrepared: 'Save request in my prompt library',
@@ -465,8 +452,7 @@ const en: typeof es = {
   restore: 'Restore as new revision',
   fromPrompt: 'Convert a prompt to a Skill',
   choosePrompt: 'Choose a prompt from your library',
-  converted:
-    'Conversion creates a draft: review when to use it, its parameters and limits.',
+  converted: 'Conversion creates a draft: review when to use it, its parameters and limits.',
   gift: 'Create single answer GIFT',
   giftHint:
     'Enter reviewed questions. The local generator escapes GIFT characters and downloads questions with one correct answer only. Check the result in a Moodle/Aules test course.',
@@ -513,8 +499,7 @@ export const skillLocales: Record<Language, typeof es> = {
       'Les Skills es guarden en aquest navegador, separades per compte. Exporta còpies de seguretat. La sincronització de prompts no inclou Skills.',
     details: 'Veure i utilitzar',
     externalMode: 'Requereix eines externes',
-    external:
-      'Aquesta Skill requereix eines o un entorn extern. EduTicTac no pot executar-la.',
+    external: 'Aquesta Skill requereix eines o un entorn extern. EduTicTac no pot executar-la.',
     add: 'Afegir',
     deleteItem: 'Treure',
     outputFormat: 'Format de sortida',

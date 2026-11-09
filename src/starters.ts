@@ -5,68 +5,218 @@ import type { Language } from './types'
 // con el formulario ya relleno. Igual que en examples.ts, las opciones usan el
 // valor original en castellano y el catalán central parte del texto valenciano.
 type Text = Record<string, string>
-export type Starter = { id: string; templateId: string; icon: string; title: Text; level: string; options?: Record<string, string>; es: Text; va: Text; ca?: Text; en: Text }
+export type Starter = {
+  id: string
+  templateId: string
+  icon: string
+  title: Text
+  level: string
+  options?: Record<string, string>
+  es: Text
+  va: Text
+  ca?: Text
+  en: Text
+}
 
 export const starters: Starter[] = [
   {
-    id: 'infant-garden-project', templateId: 'project', icon: '✿', level: 'Infantil',
-    title: { es: 'Proyecto: el huerto de la escuela', va: 'Projecte: l’hort de l’escola', en: 'Project: the school garden' },
+    id: 'infant-garden-project',
+    templateId: 'project',
+    icon: '✿',
+    level: 'Infantil',
+    title: {
+      es: 'Proyecto: el huerto de la escuela',
+      va: 'Projecte: l’hort de l’escola',
+      en: 'Project: the school garden',
+    },
     options: { level: 'Infantil', duration: 'Varias semanas' },
-    es: { subject: 'Descubrimiento y Exploración del Entorno (5 años)', topic: 'Plantamos y cuidamos el huerto de la escuela', objectives: 'Observar cómo crece una planta, ordenar las fases con imágenes, contar y comparar semillas y responsabilizarse por turnos del riego.' },
-    va: { subject: 'Descobriment i Exploració de l’Entorn (5 anys)', topic: 'Plantem i cuidem l’hort de l’escola', objectives: 'Observar com creix una planta, ordenar les fases amb imatges, comptar i comparar llavors i responsabilitzar-se per torns del reg.' },
-    en: { subject: 'Discovering the Environment (age 5)', topic: 'Planting and looking after the school garden', objectives: 'Watch a plant grow, put the stages in order with pictures, count and compare seeds and take turns watering.' }
+    es: {
+      subject: 'Descubrimiento y Exploración del Entorno (5 años)',
+      topic: 'Plantamos y cuidamos el huerto de la escuela',
+      objectives:
+        'Observar cómo crece una planta, ordenar las fases con imágenes, contar y comparar semillas y responsabilizarse por turnos del riego.',
+    },
+    va: {
+      subject: 'Descobriment i Exploració de l’Entorn (5 anys)',
+      topic: 'Plantem i cuidem l’hort de l’escola',
+      objectives:
+        'Observar com creix una planta, ordenar les fases amb imatges, comptar i comparar llavors i responsabilitzar-se per torns del reg.',
+    },
+    en: {
+      subject: 'Discovering the Environment (age 5)',
+      topic: 'Planting and looking after the school garden',
+      objectives:
+        'Watch a plant grow, put the stages in order with pictures, count and compare seeds and take turns watering.',
+    },
   },
   {
-    id: 'primary-oral-rubric', templateId: 'rubric', icon: '▤', level: 'Primaria',
+    id: 'primary-oral-rubric',
+    templateId: 'rubric',
+    icon: '▤',
+    level: 'Primaria',
     title: { es: 'Rúbrica de una exposición oral', va: 'Rúbrica d’una exposició oral', en: 'Oral presentation rubric' },
     options: { level: 'Primaria', levels: '4', outputFormat: 'Tabla Markdown' },
-    es: { subject: 'Lengua Castellana', activity: 'Exposición oral de 3 minutos sobre un animal del entorno', criteria: 'Contenido, organización de las ideas, voz y ritmo, uso de apoyos visuales, respuesta a preguntas.' },
-    va: { subject: 'Valencià: Llengua i Literatura', activity: 'Exposició oral de 3 minuts sobre un animal de l’entorn', criteria: 'Contingut, organització de les idees, veu i ritme, ús de suports visuals, resposta a preguntes.' },
+    es: {
+      subject: 'Lengua Castellana',
+      activity: 'Exposición oral de 3 minutos sobre un animal del entorno',
+      criteria: 'Contenido, organización de las ideas, voz y ritmo, uso de apoyos visuales, respuesta a preguntas.',
+    },
+    va: {
+      subject: 'Valencià: Llengua i Literatura',
+      activity: 'Exposició oral de 3 minuts sobre un animal de l’entorn',
+      criteria: 'Contingut, organització de les idees, veu i ritme, ús de suports visuals, resposta a preguntes.',
+    },
     ca: { subject: 'Llengua Catalana i Literatura' },
-    en: { subject: 'English Language', activity: '3-minute oral presentation about a local animal', criteria: 'Content, organisation of ideas, voice and pace, use of visual aids, answering questions.' }
+    en: {
+      subject: 'English Language',
+      activity: '3-minute oral presentation about a local animal',
+      criteria: 'Content, organisation of ideas, voice and pace, use of visual aids, answering questions.',
+    },
   },
   {
-    id: 'eso-cell-quiz', templateId: 'gift', icon: '☰', level: 'ESO',
-    title: { es: 'Cuestionario de repaso en Aules', va: 'Qüestionari de repàs en Aules', ca: 'Qüestionari de repàs a Aules', en: 'Review quiz for Moodle' },
-    options: { level: 'ESO', questionCount: '15', questionTypes: 'Opción múltiple · Verdadero/Falso · Respuesta corta' },
-    es: { subject: 'Biología y Geología (1.º ESO)', topic: 'La célula: tipos, partes y funciones', objectives: 'Cuestionario de repaso de 15 preguntas, con retroalimentación en cada respuesta, para importar en Aules.' },
-    va: { subject: 'Biologia i Geologia (1r d’ESO)', topic: 'La cèl·lula: tipus, parts i funcions', objectives: 'Qüestionari de repàs de 15 preguntes, amb retroacció en cada resposta, per a importar en Aules.' },
-    ca: { subject: 'Biologia i Geologia (1r d’ESO)', objectives: 'Qüestionari de repàs de 15 preguntes, amb retroacció a cada resposta, per importar a Aules.' },
-    en: { subject: 'Biology and Geology (Year 8)', topic: 'The cell: types, parts and functions', objectives: '15-question review quiz with feedback on every answer, ready to import into Moodle.' }
+    id: 'eso-cell-quiz',
+    templateId: 'gift',
+    icon: '☰',
+    level: 'ESO',
+    title: {
+      es: 'Cuestionario de repaso en Aules',
+      va: 'Qüestionari de repàs en Aules',
+      ca: 'Qüestionari de repàs a Aules',
+      en: 'Review quiz for Moodle',
+    },
+    options: {
+      level: 'ESO',
+      questionCount: '15',
+      questionTypes: 'Opción múltiple · Verdadero/Falso · Respuesta corta',
+    },
+    es: {
+      subject: 'Biología y Geología (1.º ESO)',
+      topic: 'La célula: tipos, partes y funciones',
+      objectives:
+        'Cuestionario de repaso de 15 preguntas, con retroalimentación en cada respuesta, para importar en Aules.',
+    },
+    va: {
+      subject: 'Biologia i Geologia (1r d’ESO)',
+      topic: 'La cèl·lula: tipus, parts i funcions',
+      objectives: 'Qüestionari de repàs de 15 preguntes, amb retroacció en cada resposta, per a importar en Aules.',
+    },
+    ca: {
+      subject: 'Biologia i Geologia (1r d’ESO)',
+      objectives: 'Qüestionari de repàs de 15 preguntes, amb retroacció a cada resposta, per importar a Aules.',
+    },
+    en: {
+      subject: 'Biology and Geology (Year 8)',
+      topic: 'The cell: types, parts and functions',
+      objectives: '15-question review quiz with feedback on every answer, ready to import into Moodle.',
+    },
   },
   {
-    id: 'bach-ai-dilemma', templateId: 'ethical-dilemma', icon: '⚖', level: 'Bachillerato',
-    title: { es: 'Dilema ético: la IA que decide', va: 'Dilema ètic: la IA que decidix', ca: 'Dilema ètic: la IA que decideix', en: 'Ethical dilemma: when AI decides' },
+    id: 'bach-ai-dilemma',
+    templateId: 'ethical-dilemma',
+    icon: '⚖',
+    level: 'Bachillerato',
+    title: {
+      es: 'Dilema ético: la IA que decide',
+      va: 'Dilema ètic: la IA que decidix',
+      ca: 'Dilema ètic: la IA que decideix',
+      en: 'Ethical dilemma: when AI decides',
+    },
     options: { level: 'Bachillerato' },
-    es: { subject: 'Filosofía (1.º Bachillerato)', topic: 'Un hospital usa una IA para decidir qué pacientes se operan primero', objectives: 'Identificar los valores en conflicto, argumentar una postura con razones de al menos dos teorías éticas y responder a las objeciones de la posición contraria.' },
-    va: { subject: 'Filosofia (1r de Batxillerat)', topic: 'Un hospital usa una IA per a decidir quins pacients s’operen primer', objectives: 'Identificar els valors en conflicte, argumentar una postura amb raons d’almenys dues teories ètiques i respondre a les objeccions de la posició contrària.' },
+    es: {
+      subject: 'Filosofía (1.º Bachillerato)',
+      topic: 'Un hospital usa una IA para decidir qué pacientes se operan primero',
+      objectives:
+        'Identificar los valores en conflicto, argumentar una postura con razones de al menos dos teorías éticas y responder a las objeciones de la posición contraria.',
+    },
+    va: {
+      subject: 'Filosofia (1r de Batxillerat)',
+      topic: 'Un hospital usa una IA per a decidir quins pacients s’operen primer',
+      objectives:
+        'Identificar els valors en conflicte, argumentar una postura amb raons d’almenys dues teories ètiques i respondre a les objeccions de la posició contrària.',
+    },
     ca: { topic: 'Un hospital fa servir una IA per decidir quins pacients s’operen primer' },
-    en: { subject: 'Philosophy (Year 12)', topic: 'A hospital uses AI to decide which patients are operated on first', objectives: 'Identify the values in conflict, argue a position using at least two ethical theories and respond to objections from the opposing side.' }
+    en: {
+      subject: 'Philosophy (Year 12)',
+      topic: 'A hospital uses AI to decide which patients are operated on first',
+      objectives:
+        'Identify the values in conflict, argue a position using at least two ethical theories and respond to objections from the opposing side.',
+    },
   },
   {
-    id: 'fp-customer-complaint', templateId: 'challenge', icon: '⚙', level: 'FP',
-    title: { es: 'Reto: atender la reclamación de un cliente', va: 'Repte: atendre la reclamació d’un client', en: 'Challenge: handling a customer complaint' },
+    id: 'fp-customer-complaint',
+    templateId: 'challenge',
+    icon: '⚙',
+    level: 'FP',
+    title: {
+      es: 'Reto: atender la reclamación de un cliente',
+      va: 'Repte: atendre la reclamació d’un client',
+      en: 'Challenge: handling a customer complaint',
+    },
     options: { level: 'FP' },
-    es: { subject: 'Comunicación empresarial y atención al cliente (CFGM Gestión Administrativa)', topic: 'Un cliente reclama por un pedido que llegó incompleto y con retraso', objectives: 'Analizar la reclamación, responder por escrito con un tono profesional, proponer una solución y registrar la incidencia según el protocolo de la empresa.' },
-    va: { subject: 'Comunicació empresarial i atenció al client (CFGM Gestió Administrativa)', topic: 'Un client reclama per una comanda que va arribar incompleta i amb retard', objectives: 'Analitzar la reclamació, respondre per escrit amb un to professional, proposar una solució i registrar la incidència segons el protocol de l’empresa.' },
-    en: { subject: 'Business communication and customer service (Administrative vocational course)', topic: 'A customer complains about an order that arrived late and incomplete', objectives: 'Analyse the complaint, write a professional reply, propose a solution and log the incident following company procedure.' }
+    es: {
+      subject: 'Comunicación empresarial y atención al cliente (CFGM Gestión Administrativa)',
+      topic: 'Un cliente reclama por un pedido que llegó incompleto y con retraso',
+      objectives:
+        'Analizar la reclamación, responder por escrito con un tono profesional, proponer una solución y registrar la incidencia según el protocolo de la empresa.',
+    },
+    va: {
+      subject: 'Comunicació empresarial i atenció al client (CFGM Gestió Administrativa)',
+      topic: 'Un client reclama per una comanda que va arribar incompleta i amb retard',
+      objectives:
+        'Analitzar la reclamació, respondre per escrit amb un to professional, proposar una solució i registrar la incidència segons el protocol de l’empresa.',
+    },
+    en: {
+      subject: 'Business communication and customer service (Administrative vocational course)',
+      topic: 'A customer complains about an order that arrived late and incomplete',
+      objectives:
+        'Analyse the complaint, write a professional reply, propose a solution and log the incident following company procedure.',
+    },
   },
   {
-    id: 'fpa-electricity-bill', templateId: 'three-levels', icon: '€', level: ADULT_LEVEL,
+    id: 'fpa-electricity-bill',
+    templateId: 'three-levels',
+    icon: '€',
+    level: ADULT_LEVEL,
     title: { es: 'Leer una factura de la luz', va: 'Llegir una factura de la llum', en: 'Reading an electricity bill' },
     options: { level: ADULT_LEVEL, outputFormat: 'Tabla' },
-    es: { subject: 'Ámbito científico-tecnológico', task: 'Leer e interpretar una factura de la luz real: consumo, potencia contratada, impuestos e importe total.', objectives: 'Localizar los datos clave de la factura, calcular el coste de un electrodoméstico y comparar dos tarifas.' },
-    va: { subject: 'Àmbit cientificotecnològic', task: 'Llegir i interpretar una factura de la llum real: consum, potència contractada, impostos i import total.', objectives: 'Localitzar les dades clau de la factura, calcular el cost d’un electrodomèstic i comparar dues tarifes.' },
-    en: { subject: 'Science and technology', task: 'Read and interpret a real electricity bill: usage, contracted power, taxes and total amount.', objectives: 'Find the key data on the bill, work out what an appliance costs to run and compare two tariffs.' }
-  }
+    es: {
+      subject: 'Ámbito científico-tecnológico',
+      task: 'Leer e interpretar una factura de la luz real: consumo, potencia contratada, impuestos e importe total.',
+      objectives:
+        'Localizar los datos clave de la factura, calcular el coste de un electrodoméstico y comparar dos tarifas.',
+    },
+    va: {
+      subject: 'Àmbit cientificotecnològic',
+      task: 'Llegir i interpretar una factura de la llum real: consum, potència contractada, impostos i import total.',
+      objectives:
+        'Localitzar les dades clau de la factura, calcular el cost d’un electrodomèstic i comparar dues tarifes.',
+    },
+    en: {
+      subject: 'Science and technology',
+      task: 'Read and interpret a real electricity bill: usage, contracted power, taxes and total amount.',
+      objectives: 'Find the key data on the bill, work out what an appliance costs to run and compare two tariffs.',
+    },
+  },
 ]
 
 const pick = (starter: Starter, language: Language): Text =>
-  language === 'en' ? starter.en : language === 'es' ? starter.es : language === 'ca' ? { ...starter.va, ...starter.ca } : starter.va
+  language === 'en'
+    ? starter.en
+    : language === 'es'
+      ? starter.es
+      : language === 'ca'
+        ? { ...starter.va, ...starter.ca }
+        : starter.va
 
 export function starterTitle(starter: Starter, language: Language): string {
   const { title } = starter
-  return language === 'en' ? title.en : language === 'es' ? title.es : language === 'ca' ? title.ca ?? title.va : title.va
+  return language === 'en'
+    ? title.en
+    : language === 'es'
+      ? title.es
+      : language === 'ca'
+        ? (title.ca ?? title.va)
+        : title.va
 }
 
 export function starterValues(starter: Starter, language: Language): Record<string, string> {

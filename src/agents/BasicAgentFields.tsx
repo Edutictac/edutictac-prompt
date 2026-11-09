@@ -28,12 +28,7 @@ export default function BasicAgentFields({
       <div className="skill-fields">
         <label>
           {w.stage}
-          <select
-            value={draft.stage}
-            onChange={(e) =>
-              onChange('stage', e.target.value as AgentDraft['stage'])
-            }
-          >
+          <select value={draft.stage} onChange={(e) => onChange('stage', e.target.value as AgentDraft['stage'])}>
             {agentStages.map((stage) => (
               <option key={stage} value={stage}>
                 {w[`stage_${stage}`]}
@@ -68,14 +63,9 @@ export default function BasicAgentFields({
       </label>
       <label>
         {b.audience}
-        <select
-          value={draft.audience}
-          onChange={(e) => onChange('audience', e.target.value)}
-        >
+        <select value={draft.audience} onChange={(e) => onChange('audience', e.target.value)}>
           {!audiences.includes(draft.audience) && (
-            <option value={draft.audience}>
-              {draft.audience || b.customAudience}
-            </option>
+            <option value={draft.audience}>{draft.audience || b.customAudience}</option>
           )}
           {audiences.map((a) => (
             <option key={a} value={a}>
@@ -87,12 +77,7 @@ export default function BasicAgentFields({
       <label>
         {b.context}
         <small>{b.contextHint}</small>
-        <textarea
-          rows={2}
-          maxLength={200}
-          value={draft.course}
-          onChange={(e) => onChange('course', e.target.value)}
-        />
+        <textarea rows={2} maxLength={200} value={draft.course} onChange={(e) => onChange('course', e.target.value)} />
       </label>
       {draft.rubricApproach !== undefined && (
         <label>
@@ -100,12 +85,7 @@ export default function BasicAgentFields({
           <small>{b.curriculumHint}</small>
           <select
             value={draft.rubricApproach}
-            onChange={(e) =>
-              onChange(
-                'rubricApproach',
-                e.target.value as AgentDraft['rubricApproach'],
-              )
-            }
+            onChange={(e) => onChange('rubricApproach', e.target.value as AgentDraft['rubricApproach'])}
           >
             <option value="curricular">{b.official}</option>
             <option value="draft">{b.draft}</option>
@@ -116,20 +96,13 @@ export default function BasicAgentFields({
         <summary>{b.optional}</summary>
         <label>
           {t.name}
-          <input
-            required
-            maxLength={30}
-            value={draft.name}
-            onChange={(e) => onChange('name', e.target.value)}
-          />
+          <input required maxLength={30} value={draft.name} onChange={(e) => onChange('name', e.target.value)} />
         </label>
         <label>
           {w.instructionLanguage}
           <select
             value={draft.instructionLanguage}
-            onChange={(e) =>
-              onChange('instructionLanguage', e.target.value as Language)
-            }
+            onChange={(e) => onChange('instructionLanguage', e.target.value as Language)}
           >
             {languages.map((l) => (
               <option key={l} value={l}>
@@ -142,12 +115,7 @@ export default function BasicAgentFields({
           {t.responseLanguage}
           <select
             value={draft.responseLanguage}
-            onChange={(e) =>
-              onChange(
-                'responseLanguage',
-                e.target.value as AgentDraft['responseLanguage'],
-              )
-            }
+            onChange={(e) => onChange('responseLanguage', e.target.value as AgentDraft['responseLanguage'])}
           >
             <option value="auto">{w.autoLanguage}</option>
             {languages.map((l) => (
