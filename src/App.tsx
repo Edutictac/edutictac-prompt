@@ -1,7 +1,7 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
-import { templates, categoryIds, simpleFieldIds } from './templates'
+import { lazy, Suspense, useEffect, useState } from 'react'
+import { templates, simpleFieldIds } from './templates'
 import { suggestionsFor } from './suggestions'
-import { detectLanguage, translations } from './locales'
+import { translations } from './locales'
 import { generatePrompt } from './generator'
 import {
   getCurriculumElements,
@@ -10,44 +10,26 @@ import {
   valencianProfiles,
 } from './curriculum'
 import { guidedSteps, type GuidedStep } from './guided'
-import type { Category, Language, PromptTemplate, SavedPrompt, TemplateField } from './types'
-import { updateSW } from './pwa'
-import { authMe, login, logout, type AuthUser } from './api'
+import type { Language, PromptTemplate, SavedPrompt, TemplateField } from './types'
+import { login, logout } from './api'
 import { localizeOption } from './optionLocales'
 import { exampleValues } from './examples'
-import { starters, starterTitle, starterValues, type Starter } from './starters'
-import { aiTargetUrl, followUps, orderedAiTargets, preferredAiTarget, rememberAiTarget } from './followUps'
-import { helpGuide } from './help'
+import { starterValues, type Starter } from './starters'
+import { followUps } from './followUps'
 import { EDUCEREA_URL, eduCreaNewProjectUrl, eduCreaPromptUrl } from './integrations'
 import { usePromptLibrary, type PromptLibraryEvent } from './prompts/usePromptLibrary'
+import { useAuth } from './app/useAuth'
+import { usePreferences } from './app/usePreferences'
+import { useAccountChip } from './app/useAccountChip'
+import { usePwaUpdate } from './app/usePwaUpdate'
+import { AppHeader } from './components/AppHeader'
+import { AppFooter } from './components/AppFooter'
+import { HomeView } from './components/HomeView'
+import { Library } from './components/Library'
+import { HelpView } from './components/HelpView'
+import { SaveModal } from './components/SaveModal'
+import { AiButtons } from './components/AiButtons'
 const AgentsView = lazy(() => import('./agents/AgentsView'))
-
-let currentPromptLanguage: Language = 'es'
-let applyPromptLanguage: ((value: Language) => void) | null = null
-if (typeof window !== 'undefined' && !window.edutictacLanguage) {
-  window.edutictacLanguage = {
-    languages: ['ca', 'va', 'es', 'en'],
-    get: () => (currentPromptLanguage === 'ca-valencia' ? 'va' : currentPromptLanguage),
-    set: (value: string) => {
-      const mapped = value === 'va' ? 'ca-valencia' : value
-      if (mapped !== 'es' && mapped !== 'ca' && mapped !== 'ca-valencia' && mapped !== 'en') return
-      currentPromptLanguage = mapped as Language
-      applyPromptLanguage?.(mapped as Language)
-    },
-  }
-}
-let currentPromptTheme: 'auto' | 'light' | 'dark' = 'auto'
-let applyPromptTheme: ((value: 'auto' | 'light' | 'dark') => void) | null = null
-if (typeof window !== 'undefined' && !window.edutictacTheme) {
-  window.edutictacTheme = {
-    read: () => currentPromptTheme,
-    remember: (value: string) => {
-      const mapped = value === 'light' || value === 'dark' ? value : 'auto'
-      currentPromptTheme = mapped
-      applyPromptTheme?.(mapped)
-    },
-  }
-}
 
 const templateNameKeys: Record<string, string> = {
   'learning-situation': 'templateLearningSituation',
@@ -203,14 +185,10 @@ const baseValues = (id: string): Record<string, string> =>
       }
 
 export default function App() {
-  const [lang, setLang] = useState<Language>(detectLanguage())
-  const [themeMode, setThemeMode] = useState<'system' | 'light' | 'dark'>(() => {
-    const value = localStorage.getItem('edutictac-theme')
-    return value === 'light' || value === 'dark' ? value : 'system'
-  })
-  const [systemDark, setSystemDark] = useState(
-    () => window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false,
-  )
+  const { lang, setLang, setThemeMode, darkMode } = usePreferences()
+  const { user, central } = useAuth()
+  const chipReady = useAccountChip()
+  const { updateAvailable, applyUpdate } = usePwaUpdate()
   const t = translations[lang]
   const [view, setView] = useState<'home' | 'create' | 'library' | 'privacy' | 'help' | 'agents'>(() =>
     location.hash === '#agents' || location.hash === '#skills' ? 'agents' : location.hash === '#help' ? 'help' : 'home',
@@ -222,11 +200,7 @@ export default function App() {
   const [category, setCategory] = useState('all')
   const [modal, setModal] = useState(false)
   const [notice, setNotice] = useState('')
-  const [updateAvailable, setUpdateAvailable] = useState(false)
-  const [user, setUser] = useState<AuthUser | null>(null)
   const [editingId, setEditingId] = useState<string | null>(null)
-  const [chipReady, setChipReady] = useState(false)
-  const [central, setCentral] = useState(false)
   const library = usePromptLibrary({
     user,
     defaultCategories: [t.planning, t.assessment, t.activities, t.digital],
@@ -234,11 +208,6 @@ export default function App() {
   })
   const { saved, categories, syncBusy } = library
   const editing = saved.find((p) => p.id === editingId)
-  currentPromptLanguage = lang
-  applyPromptLanguage = setLang
-  currentPromptTheme = themeMode === 'system' ? 'auto' : themeMode
-  applyPromptTheme = (value) => setThemeMode(value === 'auto' ? 'system' : value)
-  const darkMode = themeMode === 'dark' || (themeMode === 'system' && systemDark)
   useEffect(() => {
     if (view === 'agents') history.replaceState(null, '', '#agents')
     else if (location.hash === '#agents' || location.hash === '#skills')
@@ -247,98 +216,8 @@ export default function App() {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [view])
-  useEffect(() => {
-    localStorage.setItem('edutictac-theme', themeMode)
-  }, [themeMode])
-  useEffect(() => {
-    const media = window.matchMedia?.('(prefers-color-scheme: dark)')
-    if (!media) return
-    const update = () => setSystemDark(media.matches)
-    media.addEventListener?.('change', update)
-    return () => media.removeEventListener?.('change', update)
-  }, [])
-  useEffect(() => {
-    const showUpdate = () => setUpdateAvailable(true)
-    window.addEventListener('pwa-update-available', showUpdate)
-    return () => window.removeEventListener('pwa-update-available', showUpdate)
-  }, [])
-  useEffect(() => {
-    void authMe()
-      .then((state) => {
-        setUser(state.user)
-        setCentral(state.central === true)
-      })
-      .catch(() => {
-        setUser(null)
-        setCentral(false)
-      })
-  }, [])
-  useEffect(() => {
-    currentPromptLanguage = lang
-    try {
-      localStorage.setItem('edutictac-language', lang)
-    } catch {
-      /* La preferencia de idioma es opcional; la aplicación sigue funcionando. */
-    }
-    document.documentElement.lang = lang === 'ca-valencia' ? 'ca-ES-valencia' : lang
-    window.dispatchEvent(
-      new CustomEvent('edutictac:langchange', { detail: { lang: lang === 'ca-valencia' ? 'va' : lang } }),
-    )
-  }, [lang])
-  useEffect(() => {
-    if (!window.customElements) return
-    let timer = 0
-    let cancelled = false
-    const check = () => {
-      if (document.querySelector('edutictac-account nav.eta')) {
-        setChipReady(true)
-        document.documentElement.classList.add('has-account-chip')
-        return true
-      }
-      return false
-    }
-    window.customElements
-      .whenDefined('edutictac-account')
-      .then(() => {
-        if (check() || cancelled) return
-        let tries = 0
-        timer = window.setInterval(() => {
-          if (check() || ++tries >= 50) window.clearInterval(timer)
-        }, 100)
-      })
-      .catch(() => {
-        /* El chip de cuenta es opcional; si no carga, se usa la cabecera propia. */
-      })
-    return () => {
-      cancelled = true
-      window.clearInterval(timer)
-      document.documentElement.classList.remove('has-account-chip')
-    }
-  }, [])
-  useEffect(() => {
-    const value = themeMode === 'system' ? (systemDark ? 'dark' : 'light') : themeMode
-    document.documentElement.dataset.theme = value
-    try {
-      if (themeMode === 'system') localStorage.removeItem('edutictac-theme')
-      else localStorage.setItem('edutictac-theme', themeMode)
-    } catch {
-      /* La preferencia de tema es opcional; la aplicación sigue funcionando. */
-    }
-    window.dispatchEvent(
-      new CustomEvent('edutictac:themechange', { detail: { preference: themeMode === 'system' ? 'auto' : themeMode } }),
-    )
-  }, [themeMode, systemDark])
   const categoryLabel = (id: string) => t[id] || id
   const templateName = (id: string) => getTemplateName(id, t)
-  const visibleTemplates = useMemo(
-    () =>
-      templates.filter(
-        (x) =>
-          (category === 'all' || x.category === category) &&
-          templateName(x.id).toLowerCase().includes(search.toLowerCase()),
-      ),
-    [search, category, lang],
-  )
   function choose(id: string) {
     const temp = templates.find((x) => x.id === id)!
     setSelected(temp)
@@ -452,54 +331,20 @@ export default function App() {
   }
   return (
     <div className="app" data-theme={darkMode ? 'dark' : 'light'}>
-      <header>
-        <button className="brand" onClick={() => setView('home')}>
-          <span>TT</span>
-          <strong>{t.app}</strong>
-        </button>
-        <nav className="app-nav">
-          <button onClick={() => setView('home')}>{t.home}</button>
-          <button onClick={() => setView('library')}>{t.library}</button>
-          <button onClick={() => setView('agents')}>🧩 {t.agents}</button>
-          <button onClick={() => setView('help')}>{t.help}</button>
-          <button onClick={() => setView('privacy')}>{t.privacy}</button>
-        </nav>
-        <div className="header-options">
-          <edutictac-account className="site-account" data-base="https://commons.edutictac.es" data-density="compact" />
-          {!chipReady && (
-            <>
-              {user ? (
-                <>
-                  <button className="account-button" onClick={() => void library.syncLocal()} disabled={syncBusy}>
-                    {syncBusy ? '…' : t.sync}
-                  </button>
-                  <button className="account-button" onClick={logout}>
-                    {t.logout}
-                  </button>
-                </>
-              ) : (
-                <button className="account-button" onClick={login}>
-                  {t.login}
-                </button>
-              )}
-              <select aria-label={t.language} value={lang} onChange={(e) => setLang(e.target.value as Language)}>
-                <option value="es">ES</option>
-                <option value="ca-valencia">VA</option>
-                <option value="ca">CA</option>
-                <option value="en">EN</option>
-              </select>
-              <button
-                className="theme-toggle"
-                aria-label={`${t.theme}: ${darkMode ? t.light : t.dark}`}
-                title={darkMode ? t.light : t.dark}
-                onClick={() => setThemeMode(darkMode ? 'light' : 'dark')}
-              >
-                {darkMode ? '☀' : '☾'}
-              </button>
-            </>
-          )}
-        </div>
-      </header>
+      <AppHeader
+        t={t}
+        lang={lang}
+        onLanguageChange={setLang}
+        darkMode={darkMode}
+        onToggleTheme={() => setThemeMode(darkMode ? 'light' : 'dark')}
+        onNavigate={(next) => setView(next)}
+        user={user}
+        chipReady={chipReady}
+        syncBusy={syncBusy}
+        onSync={() => void library.syncLocal()}
+        onLogin={login}
+        onLogout={logout}
+      />
       {notice && (
         <div className="notice" role="status">
           {notice}
@@ -509,82 +354,25 @@ export default function App() {
       {updateAvailable && (
         <div className="update-banner" role="alert">
           <span>{t.updateAvailable}</span>
-          <button className="primary" onClick={() => void updateSW(true)}>
+          <button className="primary" onClick={applyUpdate}>
             {t.updateButton}
           </button>
         </div>
       )}
       {view === 'home' && (
-        <main>
-          <section className="hero">
-            <div>
-              <p className="eyebrow">EDUTICTAC COMMONS · LOCAL-FIRST</p>
-              <h1>{t.tagline}</h1>
-              <p className="lead">{t.lead}</p>
-              <button className="primary" onClick={() => setView('create')}>
-                {t.create} <span>→</span>
-              </button>
-            </div>
-            <div className="hero-card">
-              <span>✦</span>
-              <h3>{t.choose}</h3>
-              <p>
-                {templates.length} {t.toolsCount}
-              </p>
-              <div className="mini-lines">
-                <i />
-                <i />
-                <i />
-              </div>
-            </div>
-          </section>
-          <section className="starters">
-            <p className="eyebrow">{t.startHere}</p>
-            <h2>{t.startHereTitle}</h2>
-            <p className="mode-hint">{t.startHereHint}</p>
-            <div className="cards">
-              {starters.map((x) => (
-                <button className="tool-card starter-card" key={x.id} onClick={() => startFrom(x)}>
-                  <span className="tool-icon">{x.icon}</span>
-                  <strong>{starterTitle(x, lang)}</strong>
-                  <small>
-                    {localizeOption(x.level, lang)} · {templateName(x.templateId)}
-                  </small>
-                </button>
-              ))}
-            </div>
-          </section>
-          <section className="catalog">
-            <div className="section-heading">
-              <div>
-                <p className="eyebrow">{t.catalog}</p>
-                <h2>{t.choose}</h2>
-              </div>
-              <input
-                aria-label={t.search}
-                placeholder={t.search}
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-            </div>
-            <div className="filters">
-              {categoryIds.map((id) => (
-                <button className={category === id ? 'active' : ''} onClick={() => setCategory(id)} key={id}>
-                  {categoryLabel(id)}
-                </button>
-              ))}
-            </div>
-            <div className="cards">
-              {visibleTemplates.map((x) => (
-                <button className="tool-card" key={x.id} onClick={() => choose(x.id)}>
-                  <span className="tool-icon">{x.icon}</span>
-                  <strong>{templateName(x.id)}</strong>
-                  <small>{categoryLabel(x.category)}</small>
-                </button>
-              ))}
-            </div>
-          </section>
-        </main>
+        <HomeView
+          t={t}
+          lang={lang}
+          search={search}
+          setSearch={setSearch}
+          category={category}
+          setCategory={setCategory}
+          onChoose={choose}
+          onStart={startFrom}
+          onCreate={() => setView('create')}
+          templateName={templateName}
+          categoryLabel={categoryLabel}
+        />
       )}
       {view === 'create' && (
         <CreateView
@@ -612,6 +400,7 @@ export default function App() {
         <Library
           t={t}
           saved={saved}
+          templateName={templateName}
           search={search}
           setSearch={setSearch}
           remove={remove}
@@ -672,21 +461,7 @@ export default function App() {
         </main>
       )}
       {modal && <SaveModal t={t} categories={categories} onCancel={() => setModal(false)} onSave={save} />}
-      <footer className="ett-footer">
-        <p className="ett-footer__id">
-          <span className="ett-footer__brand">EduTicTac</span>
-          <span aria-hidden="true">·</span>
-          <span className="ett-footer__service">Prompt</span>
-        </p>
-        <div className="ett-footer__links">
-          <a href="https://edutictac.es/">{t.home}</a>
-          <a href="https://edutictac.es/privacitat.html">{t.privacy}</a>
-          <a href="https://edutictac.es/galetes.html">{t.cookies}</a>
-          <a href="https://edutictac.es/termes.html">{t.terms}</a>
-          <a href="https://git.edutictac.es/Edutictac/edutictac-prompt">{t.source}</a>
-          <a href="https://git.edutictac.es/Edutictac/edutictac-prompt/src/branch/master/LICENSE">AGPL-3.0</a>
-        </div>
-      </footer>
+      <AppFooter t={t} />
     </div>
   )
 }
@@ -1288,354 +1063,6 @@ function CurriculumElementsSelector({
       {select('curriculumCompetences', t.specificCompetences, elements.specificCompetences)}
       {select('curriculumCriteria', t.assessmentCriteria, elements.assessmentCriteria)}
       {select('curriculumKnowledge', t.basicKnowledge, elements.basicKnowledge)}
-    </div>
-  )
-}
-
-function Library({
-  t,
-  saved,
-  search,
-  setSearch,
-  remove,
-  duplicate,
-  exportAll,
-  importFile,
-  openSavedPrompt,
-  copyPrompt,
-  user,
-  syncBusy,
-  onSync,
-  onLogin,
-  central,
-}: {
-  t: Record<string, string>
-  saved: SavedPrompt[]
-  search: string
-  setSearch: (v: string) => void
-  remove: (id: string) => void
-  duplicate: (p: SavedPrompt) => void
-  exportAll: () => void
-  importFile: (f: File) => void
-  openSavedPrompt: (p: SavedPrompt) => void
-  copyPrompt: (text: string) => Promise<boolean>
-  user: AuthUser | null
-  syncBusy: boolean
-  onSync: () => void
-  onLogin: () => void
-  central: boolean
-}) {
-  const [status, setStatus] = useState<{ id: string; text: string } | null>(null)
-  const filtered = saved.filter((p) =>
-    `${p.title} ${p.prompt} ${p.tags.join(' ')} ${p.notes || ''}`.toLowerCase().includes(search.toLowerCase()),
-  )
-  return (
-    <main className="page library-page">
-      <div className="library-title">
-        <div>
-          <p className="eyebrow">EDUTICTAC PROMPT</p>
-          <h1>{t.library}</h1>
-        </div>
-        <div className="toolbar">
-          <button className="secondary" onClick={exportAll}>
-            {t.export} JSON
-          </button>
-          <label className="secondary file-label">
-            {t.import}
-            <input
-              type="file"
-              accept=".json,application/json"
-              onChange={(e) => e.target.files?.[0] && importFile(e.target.files[0])}
-            />
-          </label>
-        </div>
-      </div>
-      <div className="library-account">
-        {user ? (
-          <>
-            <span>{t.signedInAs.replace('{name}', user.name || user.email || '')}</span>
-            <button className="secondary" onClick={onSync} disabled={syncBusy}>
-              {syncBusy ? '…' : t.sync}
-            </button>
-          </>
-        ) : central ? (
-          <span>{t.libraryLoginHint}</span>
-        ) : (
-          <>
-            <span>{t.libraryLoginHintLocal}</span>
-            <button className="primary" onClick={onLogin}>
-              {t.login}
-            </button>
-          </>
-        )}
-      </div>
-      {user && <p className="mode-hint">{t.ownerLibraryHint}</p>}
-      <input
-        className="library-search"
-        placeholder={t.librarySearch}
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      {filtered.length === 0 ? (
-        <div className="empty">{t.noPrompts}</div>
-      ) : (
-        <div className="saved-list">
-          {filtered.map((p) => (
-            <article className="saved-card" key={p.id}>
-              <div className="saved-main">
-                <div className="saved-meta">
-                  <span>{p.favorite ? '★' : '☆'}</span>
-                  <small>
-                    {p.language} · {p.templateId ? getTemplateName(p.templateId, t) : t.app}
-                  </small>
-                </div>
-                <h3>{p.title}</h3>
-                <p>
-                  {p.prompt.slice(0, 220)}
-                  {p.prompt.length > 220 ? '…' : ''}
-                </p>
-                <div className="tag-row">
-                  {p.tags.map((tag) => (
-                    <span key={tag}>#{tag}</span>
-                  ))}
-                </div>
-                <div className="ai-launch saved-ai">
-                  <p className="eyebrow">{t.openIn}</p>
-                  <AiButtons
-                    t={t}
-                    prompt={p.prompt}
-                    aiTool={p.values?.aiTool}
-                    copyPrompt={copyPrompt}
-                    onStatus={(text) => setStatus({ id: p.id, text })}
-                  />
-                  {status?.id === p.id && (
-                    <span className="copy-status" role="status">
-                      {status.text}
-                    </span>
-                  )}
-                </div>
-              </div>
-              <div className="saved-actions">
-                <button onClick={() => openSavedPrompt(p)}>{t.edit}</button>
-                <button
-                  onClick={async () =>
-                    setStatus({ id: p.id, text: (await copyPrompt(p.prompt)) ? t.copied : t.copyFailed })
-                  }
-                >
-                  {t.copy}
-                </button>
-                <button onClick={() => duplicate(p)}>{t.duplicate}</button>
-                <button onClick={() => downloadMarkdown(p)}>{t.export} MD</button>
-                <button className="danger" onClick={() => remove(p.id)}>
-                  {t.delete}
-                </button>
-              </div>
-            </article>
-          ))}
-        </div>
-      )}
-    </main>
-  )
-}
-// Botones que copian el prompt y abren la IA elegida; la preferida (la del formulario o la última usada) va primero.
-function HelpView({ t, language }: { t: Record<string, string>; language: Language }) {
-  const guide = helpGuide(language)
-  return (
-    <main className="page help">
-      <p className="eyebrow">{t.help}</p>
-      <h1>{guide.title}</h1>
-      <p className="help-lead">{guide.lead}</p>
-      <nav className="help-toc" aria-label={guide.contents}>
-        <strong>{guide.contents}</strong>
-        <ol>
-          {guide.sections.map((s) => (
-            <li key={s.id}>
-              <a
-                href={`#help-${s.id}`}
-                onClick={(e) => {
-                  e.preventDefault()
-                  document.getElementById(`help-${s.id}`)?.scrollIntoView({ behavior: 'smooth' })
-                }}
-              >
-                {s.title}
-              </a>
-            </li>
-          ))}
-        </ol>
-      </nav>
-      {guide.sections.map((s) => (
-        <section key={s.id} id={`help-${s.id}`} className="help-section">
-          <h2>{s.title}</h2>
-          {s.intro && <p>{s.intro}</p>}
-          {s.points && (
-            <ul className={s.id === 'faq' ? 'help-faq' : ''}>
-              {s.points.map(([label, text]) => (
-                <li key={label}>
-                  <strong>{label}</strong> {text}
-                </li>
-              ))}
-            </ul>
-          )}
-          {s.example && (
-            <div className="help-example">
-              <p>
-                <span>{guide.beforeLabel}</span>
-                {s.example.before}
-              </p>
-              <p>
-                <span>{guide.afterLabel}</span>
-                {s.example.after}
-              </p>
-            </div>
-          )}
-          {s.tip && <p className="callout">{s.tip}</p>}
-        </section>
-      ))}
-    </main>
-  )
-}
-function AiButtons({
-  t,
-  prompt,
-  aiTool,
-  copyPrompt,
-  onStatus,
-}: {
-  t: Record<string, string>
-  prompt: string
-  aiTool?: string
-  copyPrompt: (text: string) => Promise<boolean>
-  onStatus: (text: string) => void
-}) {
-  const preferred = preferredAiTarget(aiTool || '')
-  return (
-    <div className="ai-buttons">
-      {orderedAiTargets(preferred).map((target) => (
-        <button
-          type="button"
-          key={target.id}
-          className={preferred === target.id ? 'preferred' : ''}
-          onClick={async () => {
-            rememberAiTarget(target.id)
-            const copying = copyPrompt(prompt)
-            const url = aiTargetUrl(target, prompt)
-            window.open(url, '_blank', 'noopener')
-            const copied = await copying
-            onStatus(
-              (url.includes('q=') ? t.openedWithPrompt : copied ? t.openedPaste : t.copyFailed).replace(
-                '{name}',
-                target.name,
-              ),
-            )
-          }}
-        >
-          {target.name} ↗
-        </button>
-      ))}
-    </div>
-  )
-}
-function downloadMarkdown(p: SavedPrompt) {
-  const blob = `# ${p.title}\n\n${p.prompt}\n\n${p.notes || ''}`
-  const a = document.createElement('a')
-  a.href = URL.createObjectURL(new Blob([blob], { type: 'text/markdown' }))
-  a.download = `${p.title.replace(/\s+/g, '-').toLowerCase()}.md`
-  a.click()
-}
-function SaveModal({
-  t,
-  categories,
-  onCancel,
-  onSave,
-}: {
-  t: Record<string, string>
-  categories: Category[]
-  onCancel: () => void
-  onSave: (x: {
-    title: string
-    categoryId?: string
-    categoryName?: string
-    tags: string[]
-    notes: string
-    favorite: boolean
-  }) => void
-}) {
-  const [title, setTitle] = useState('')
-  const [categoryId, setCategoryId] = useState('')
-  const [categoryName, setCategoryName] = useState('')
-  const [tags, setTags] = useState('')
-  const [notes, setNotes] = useState('')
-  const [favorite, setFavorite] = useState(false)
-  return (
-    <div className="modal-backdrop">
-      <form
-        className="modal"
-        onSubmit={(e) => {
-          e.preventDefault()
-          onSave({
-            title,
-            categoryId: categoryId || undefined,
-            categoryName,
-            tags: tags
-              .split(',')
-              .map((x) => x.trim())
-              .filter(Boolean),
-            notes,
-            favorite,
-          })
-        }}
-      >
-        <div className="modal-head">
-          <h2>{t.save}</h2>
-          <button type="button" onClick={onCancel}>
-            ×
-          </button>
-        </div>
-        <label>
-          {t.title}
-          <input
-            autoFocus
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder={t.titlePlaceholder}
-            required
-          />
-        </label>
-        <label>
-          {t.category}
-          <select value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
-            <option value="">—</option>
-            {categories.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name}
-              </option>
-            ))}
-          </select>
-          <input
-            value={categoryName}
-            onChange={(e) => setCategoryName(e.target.value)}
-            placeholder={t.newCategoryPlaceholder}
-          />
-        </label>
-        <label>
-          {t.tags}
-          <input value={tags} onChange={(e) => setTags(e.target.value)} placeholder={t.tagsPlaceholder} />
-        </label>
-        <label>
-          {t.notes}
-          <textarea value={notes} onChange={(e) => setNotes(e.target.value)} />
-        </label>
-        <label className="check">
-          <input type="checkbox" checked={favorite} onChange={(e) => setFavorite(e.target.checked)} />
-          {t.favorite}
-        </label>
-        <div className="modal-actions">
-          <button type="button" className="secondary" onClick={onCancel}>
-            {t.cancel}
-          </button>
-          <button className="primary">{t.confirm}</button>
-        </div>
-      </form>
     </div>
   )
 }
