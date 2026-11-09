@@ -72,3 +72,35 @@ header{padding:0 max(24px,calc((100% - 1560px)/2))}
 @media(max-width:1100px){header .app-nav{min-width:0;max-width:100%;width:100%;flex:0 1 100%;overflow-x:auto}}
 .ett-footer{max-width:1180px;margin-inline:auto;padding-inline:24px}
 @media(max-width:800px){.ett-footer{padding-inline:16px}}
+
+/* Modo paso a paso: un bloque por pantalla, progreso visible y resumen final */
+.guided-progress{margin:2px 0 14px}
+.guided-progress-text{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:#60718a;margin-bottom:6px}
+.guided-progress-text strong{color:#123c69}
+.guided-bar{height:8px;border-radius:8px;background:#e8eef5;overflow:hidden}
+.guided-bar i{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,#123c69,#2b7bd0);transition:width .25s ease}
+.guided-title{font:600 20px 'Space Grotesk';margin:4px 0;color:#123c69}
+.guided-help{margin:0 0 10px;color:#60718a;font-size:13px;line-height:1.5}
+.guided-missing{margin:0 0 12px;padding:9px 11px;border-radius:7px;background:#fff6dd;color:#8b5f14;font-size:12px}
+.skip-link{align-self:center;padding:8px 10px;color:#60718a;font-size:12px;text-decoration:underline}
+.skip-link:hover{color:#123c69}
+.guided-summary .guided-title{margin-bottom:2px}
+.summary-list{display:grid;gap:10px;margin-top:6px}
+.summary-row{border:1px solid #e7ebf1;border-radius:10px;padding:12px 14px;background:#fbfcfe}
+.summary-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.summary-head strong{font-family:'Space Grotesk';color:#123c69;font-size:14px}
+.summary-edit{font-size:12px;color:#2b6cb0;text-decoration:underline;padding:2px 4px}
+.summary-row dl{margin:8px 0 0;display:grid;gap:6px}
+.summary-row dl>div{display:grid;grid-template-columns:minmax(90px,150px) 1fr;gap:8px;font-size:13px}
+.summary-row dt{color:#8190a1}
+.summary-row dd{margin:0;color:#243d59;white-space:pre-wrap;overflow-wrap:anywhere}
+.summary-empty{margin:8px 0 0;font-size:12px;color:#8190a1;font-style:italic}
+[data-theme="dark"] .guided-progress-text{color:var(--muted)}
+[data-theme="dark"] .guided-progress-text strong,[data-theme="dark"] .guided-title,[data-theme="dark"] .summary-head strong{color:var(--accent-2)}
+[data-theme="dark"] .guided-bar{background:#263a4a}
+[data-theme="dark"] .guided-help,[data-theme="dark"] .summary-row dt{color:var(--muted)}
+[data-theme="dark"] .guided-missing{background:#3b301b;color:#f5ce86}
+[data-theme="dark"] .summary-row{background:#111b24;border-color:var(--line)}
+[data-theme="dark"] .summary-row dd{color:var(--text)}
+[data-theme="dark"] .summary-edit{color:var(--accent-2)}
+@media(max-width:800px){.summary-row dl>div{grid-template-columns:1fr;gap:1px}}

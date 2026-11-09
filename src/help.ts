@@ -18,7 +18,7 @@ const es: HelpGuide = {
       id: 'first-prompt', title: 'Tu primer prompt en tres pasos',
       points: [
         ['1. Elige un punto de partida.', 'Un caso de «Empieza aquí» en la portada, con el formulario ya relleno, o una herramienta del catálogo. Puedes filtrar por categoría o buscar por nombre.'],
-        ['2. Rellena el formulario.', 'El modo «Sencillo» muestra solo los campos esenciales; cambia a «Avanzado» para afinar. «Cargar un ejemplo» rellena el formulario con un caso real para ver cómo funciona.'],
+        ['2. Rellena el formulario.', 'El modo «Sencillo» muestra solo los campos esenciales, «Paso a paso» te guía bloque a bloque indicando cuántos pasos quedan y «Avanzado» muestra todos los campos para afinar. «Cargar un ejemplo» rellena el formulario con un caso real para ver cómo funciona.'],
         ['3. Genera y llévalo a la IA.', 'Pulsa «Generar prompt», revisa el texto en la vista previa (se puede editar) y usa «Abrir en» para llevarlo a la IA. También puedes «Copiar» o «Guardar».']
       ],
       tip: 'La primera respuesta de la IA es un borrador. Debajo del prompt, en «Para afinar el resultado», tienes peticiones listas para pegar en la misma conversación.'
@@ -104,7 +104,7 @@ const va: HelpGuide = {
       id: 'first-prompt', title: 'El teu primer prompt en tres passos',
       points: [
         ['1. Tria un punt de partida.', 'Un cas de «Comença ací» en la portada, amb el formulari ja emplenat, o una eina del catàleg. Pots filtrar per categoria o buscar pel nom.'],
-        ['2. Ompli el formulari.', 'El mode «Senzill» mostra només els camps essencials; canvia a «Avançat» per a afinar. «Carrega un exemple» ompli el formulari amb un cas real per a veure com funciona.'],
+        ['2. Ompli el formulari.', 'El mode «Senzill» mostra només els camps essencials, «Pas a pas» et guia bloc a bloc indicant quants passos queden i «Avançat» mostra tots els camps per a afinar. «Carrega un exemple» ompli el formulari amb un cas real per a veure com funciona.'],
         ['3. Genera’l i porta’l a la IA.', 'Prem «Generar prompt», revisa el text en la vista prèvia (es pot editar) i usa «Obri en» per a portar-lo a la IA. També pots «Copiar» o «Guardar».']
       ],
       tip: 'La primera resposta de la IA és un esborrany. Davall del prompt, en «Per a afinar el resultat», tens peticions preparades per a enganxar en la mateixa conversa.'
@@ -190,7 +190,7 @@ const ca: HelpGuide = {
       id: 'first-prompt', title: 'El teu primer prompt en tres passos',
       points: [
         ['1. Tria un punt de partida.', 'Un cas de «Comença aquí» a la portada, amb el formulari ja emplenat, o una eina del catàleg. Pots filtrar per categoria o cercar pel nom.'],
-        ['2. Omple el formulari.', 'El mode «Senzill» mostra només els camps essencials; canvia a «Avançat» per afinar. «Carrega un exemple» omple el formulari amb un cas real per veure com funciona.'],
+        ['2. Omple el formulari.', 'El mode «Senzill» mostra només els camps essencials, «Pas a pas» et guia bloc a bloc indicant quants passos queden i «Avançat» mostra tots els camps per afinar. «Carrega un exemple» omple el formulari amb un cas real per veure com funciona.'],
         ['3. Genera’l i porta’l a la IA.', 'Prem «Genera el prompt», revisa el text a la vista prèvia (es pot editar) i fes servir «Obre a» per portar-lo a la IA. També pots fer «Copia» o «Desa».']
       ],
       tip: 'La primera resposta de la IA és un esborrany. Sota el prompt, a «Per afinar el resultat», tens peticions a punt per enganxar a la mateixa conversa.'
@@ -276,7 +276,7 @@ const en: HelpGuide = {
       id: 'first-prompt', title: 'Your first prompt in three steps',
       points: [
         ['1. Pick a starting point.', 'A “Start here” case on the home page, with the form already filled in, or a tool from the catalogue. You can filter by category or search by name.'],
-        ['2. Fill in the form.', '“Simple” mode shows only the essential fields; switch to “Advanced” to fine-tune. “Load an example” fills the form with a real case so you can see how it works.'],
+        ['2. Fill in the form.', '“Simple” mode shows only the essential fields, “Step by step” guides you block by block and tells you how many steps are left, and “Advanced” shows every field for fine-tuning. “Load an example” fills the form with a real case so you can see how it works.'],
         ['3. Generate it and take it to the AI.', 'Press “Generate prompt”, check the text in the preview (you can edit it) and use “Open in” to send it to the AI. You can also “Copy” or “Save” it.']
       ],
       tip: 'The AI’s first answer is a draft. Below the prompt, under “To refine the result”, there are ready-made requests to paste into the same conversation.'
