@@ -202,3 +202,18 @@ export function getCurriculumElements(profileId: string, level?: string, subject
 }
 
 export const subjectProfileFor = (level: string | undefined, subject: string | undefined) => valencianProfiles.find(profile => profile.level === level && profile.subject && (profile.subject === subject || Object.values(profile.subjectLabels).includes(subject || '')))
+
+// Las opciones curriculares pueden contener « · » dentro del propio texto (por
+// ejemplo, «Cultura científica · …»), así que no se pueden guardar separadas por
+// ese mismo carácter: el valor se guarda con saltos de línea. Al leer se acepta
+// también el formato antiguo buscando las opciones conocidas.
+export const CURRICULUM_SEPARATOR = '\n'
+export function parseCurriculumSelection(raw: string, options: string[]): string[] {
+  const value = raw.trim()
+  if (!value) return []
+  if (value.includes(CURRICULUM_SEPARATOR)) return value.split(CURRICULUM_SEPARATOR).map(item => item.trim()).filter(Boolean)
+  return options.filter(option => value.includes(option))
+}
+export function joinCurriculumSelection(selected: string[]): string {
+  return selected.join(CURRICULUM_SEPARATOR)
+}

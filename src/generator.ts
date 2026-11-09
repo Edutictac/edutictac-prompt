@@ -471,6 +471,7 @@ export function generatePrompt(template: PromptTemplate, values: Record<string,s
   const a=assessmentTexts[language]
   const localizedKeys = new Set(['level', 'methodology', 'duration', 'resources', 'outputFormat', 'activityType', 'visualStyle', 'includeLabels', 'aspectRatio', 'questionTypes'])
   const value=(key:string)=>{const raw=values[key]?.trim()||'';return localizedKeys.has(key)?raw.split(' · ').map(item=>localizeOption(item,language)).join(' · '):raw}
+  const curriculumValue=(key:string)=>{const raw=values[key]?.trim()||'';return raw.split('\n').map(item=>item.trim()).filter(Boolean).map(item=>`- ${item}`).join('\n')}
   const mechanics=value('activityType').split(' · ').filter(Boolean)
   const lines:string[]=[]
   const level=[value('level'),value('course')].filter(Boolean).join(' ')
@@ -485,7 +486,7 @@ export function generatePrompt(template: PromptTemplate, values: Record<string,s
         : commTemplates.has(template.id) ? d.roleComm : `${d.role} ${value('subject')||d.education} ${level||d.stage}.`
   lines.push(`## ${l.role}\n${value('role')||roleDefault}`)
   if(value('context')||level||value('curriculumContext')) lines.push(`## ${l.context}\n${level?`${d.workingWith} ${level}.`:''}${values.level===ADULT_LEVEL?` ${d.adultGuidance}`:''}\n${value('curriculumContext')}\n${value('context')}`.trim())
-  if(value('curriculumCompetences')) lines.push(`## ${l.specificCompetences}\n${value('curriculumCompetences')}`)
+  if(curriculumValue('curriculumCompetences')) lines.push(`## ${l.specificCompetences}\n${curriculumValue('curriculumCompetences')}`)
   // Encargo propio de cada plantilla; las que no tienen uno usan la tarea
   // escrita por el docente o el diseño de una actividad sobre el tema.
   const topic=value('topic')||d.topic
@@ -526,8 +527,8 @@ export function generatePrompt(template: PromptTemplate, values: Record<string,s
   lines.push(`## ${l.task}\n${task}`)
   if(value('sourceText')) lines.push(`## ${l.sourceText}\n${value('sourceText')}`)
   for(const key of ['objectives','criteria','methodology','duration','resources','levels','constraints','qualityCriteria']) if(value(key)) lines.push(`## ${key==='levels'&&template.id==='written-test'?a.maxScore:l[key as LabelKey]}\n${value(key)}`)
-  if(value('curriculumCriteria')) lines.push(`## ${l.assessmentCriteria}\n${value('curriculumCriteria')}`)
-  if(value('curriculumKnowledge')) lines.push(`## ${l.basicKnowledge}\n${value('curriculumKnowledge')}`)
+  if(curriculumValue('curriculumCriteria')) lines.push(`## ${l.assessmentCriteria}\n${curriculumValue('curriculumCriteria')}`)
+  if(curriculumValue('curriculumKnowledge')) lines.push(`## ${l.basicKnowledge}\n${curriculumValue('curriculumKnowledge')}`)
   for(const key of Object.keys(extraLabels[language])) if(value(key)) lines.push(`## ${extraLabels[language][key]}\n${value(key)}`)
   if(template.id==='html-game'){
     lines.push(`## ${g.items}\n${value('gameItems')?`${value('gameItems')}\n${g.itemsNote}`:g.noItems}`)

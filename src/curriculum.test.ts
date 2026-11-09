@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getCurriculumElements, spanishCurriculumElements, subjectProfileFor, valencianCurriculumElements, valencianProfiles } from './curriculum'
+import { getCurriculumElements, joinCurriculumSelection, parseCurriculumSelection, spanishCurriculumElements, subjectProfileFor, valencianCurriculumElements, valencianProfiles } from './curriculum'
 
 describe('currículum valencià', () => {
   it('recupera els elements detallats directament o per etapa i matèria', () => {
@@ -35,6 +35,13 @@ describe('currículum valencià', () => {
       expect(spanishCurriculumElements[id][key]).toHaveLength(elements[key].length)
     }
     expect(getCurriculumElements('cv-eso-matemàtiques', undefined, undefined, 'es')?.basicKnowledge).toContain('Sentido algebraico.')
+  })
+
+  it('guarda y recupera selecciones aunque la opción contenga « · »', () => {
+    const options = getCurriculumElements('cv-primaria-coneixement-del-medi-natural-social-i-cultural')!.basicKnowledge
+    const raw = joinCurriculumSelection([options[0], options[2]])
+    expect(parseCurriculumSelection(raw, options)).toEqual([options[0], options[2]])
+    expect(parseCurriculumSelection(options[1], options)).toEqual([options[1]])
   })
 
   it('traduce el nombre de las materias sin cambiar el id del perfil', () => {

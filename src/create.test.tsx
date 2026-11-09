@@ -32,6 +32,10 @@ it('recorre el formulario bloque a bloque, deja saltar pasos y genera desde el r
 
   expect(screen.getByText(`Paso 1 de ${total}`)).toBeTruthy()
   expect(screen.getByRole('heading', { name: 'Nivel y materia', level: 2 })).toBeTruthy()
+  await user.selectOptions(screen.getByRole('combobox', { name: /Perfil curricular/ }), 'cv-primaria-coneixement-del-medi-natural-social-i-cultural')
+  const saberes = screen.getByRole('checkbox', { name: /Cultura científica · Iniciación a la actividad científica/ })
+  await user.click(saberes)
+  expect((saberes as HTMLInputElement).checked).toBe(true)
   await user.selectOptions(screen.getByRole('combobox', { name: 'Nivel educativo' }), 'Primaria')
 
   for (let step = 1; step < total; step += 1) {
@@ -46,4 +50,5 @@ it('recorre el formulario bloque a bloque, deja saltar pasos y genera desde el r
   await user.click(screen.getByRole('button', { name: 'Generar prompt' }))
   const preview = screen.getByRole('textbox', { name: 'Vista previa del prompt' }) as HTMLTextAreaElement
   expect(preview.value).toContain('Primaria')
+  expect(preview.value).toContain('Cultura científica · Iniciación a la actividad científica')
 })
