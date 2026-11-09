@@ -53,13 +53,13 @@ comunicación en curso que use la versión publicada. Trabajar en una rama
 
 ## Paso 0 — Fijar la base
 
-- [ ] Comprobar estado de Git y crear la rama sin arrastrar cambios ajenos.
-- [ ] Registrar commit inicial, versión y resultados de test/build.
-- [ ] Preparar datos ficticios: prompt antiguo, prompt con formulario, categorías,
+- [x] Comprobar estado de Git y crear la rama sin arrastrar cambios ajenos.
+- [x] Registrar commit inicial, versión y resultados de test/build.
+- [x] Preparar datos ficticios: prompt antiguo, prompt con formulario, categorías,
   agente e historial. Usar una base de prueba separada del perfil habitual.
-- [ ] Añadir pruebas de comportamiento que faltan: guardar y reabrir, actualizar
+- [x] Añadir pruebas de comportamiento que faltan: guardar y reabrir, actualizar
   sin duplicar, importar/exportar y conservar valores al cambiar de modo.
-- [ ] Fijar ejemplos de salida representativos del generador en los cuatro
+- [x] Fijar ejemplos de salida representativos del generador en los cuatro
   idiomas, incluidos currículo, GIFT y plantillas visuales. Comparar texto exacto
   allí donde el refactor deba conservarlo.
 
@@ -206,11 +206,30 @@ resolverlo antes de seguir.
 
 | Paso | Estado | Commit / evidencia |
 | --- | --- | --- |
-| 0. Base y pruebas de comportamiento | Pendiente | |
-| 1. Formato, lint y documentación | Pendiente | |
+| 0. Base y pruebas de comportamiento | Hecho | Rama `refactor/estructura`; 174 pruebas; build OK |
+| 1. Formato, lint y documentación | Pendiente | Siguiente |
 | 2. Biblioteca y sincronización | Pendiente | |
 | 3. Aplicación y pantallas | Pendiente | |
 | 4. Formulario | Pendiente | |
 | 5. Generador y textos | Pendiente | |
 | 6. Agentes, Skills y carga | Pendiente | |
 | 7. Verificación y publicación | Pendiente | |
+
+## Registro de ejecución
+
+### Paso 0 — Base y pruebas de comportamiento (2026-11-09)
+
+- Rama `refactor/estructura` creada desde `master` (`51a7580`, versión 0.23.3).
+- Base inicial verificada: 152 pruebas en 25 archivos y build correcto; ESLint
+  sigue sin configuración.
+- Datos ficticios en `src/test/fixtures.ts`: categoría, prompt actual, prompt
+  antiguo sin `values`, agente con historial y skill con historial, cargados en
+  `fake-indexeddb` (nunca en la base real del navegador).
+- Pruebas nuevas en `src/behaviour.test.tsx`: guardar, reabrir y actualizar sin
+  duplicar; abrir un prompt antiguo; conservar valores al cambiar de modo;
+  exportar e importar, incluida la importación inválida sin escrituras parciales.
+- Salidas de referencia: 16 instantáneas en
+  `src/__snapshots__/generator.golden.test.ts.snap` para `learning-situation`
+  con currículo, GIFT, infografía y feedback en ES, VA, CA y EN.
+- Resultado: **174 pruebas en 28 archivos** y build correcto. No se publica nada.
+- Pendiente para el Paso 1: configuración ESLint, formato y README.

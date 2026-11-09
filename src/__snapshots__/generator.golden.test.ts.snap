@@ -1,0 +1,665 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`salidas de referencia del generador > feedback permanece estable en ca 1`] = `
+"## Rol
+Actua com a docent especialista en Tecnología ESO.
+
+## Context
+Treball amb alumnat de ESO.
+
+Trabajo cooperativo de tres sesiones.
+
+## Objectiu i tasca
+comentario sobre el prototipo de un grupo
+
+## Criteris
+Justificación y uso de fuentes.
+
+## Revisió docent
+- Ofereix un primer esborrany revisable, no el presentis com a definitiu.
+- Comprova que els criteris són observables i no ambigus.
+- Revisa que els nivells de rendiment estiguin ben definits.
+- Assenyala qualsevol dada, font o supòsit que hagi de verificar el docent.
+- No inventis normativa, referències ni informació sobre l’alumnat.
+
+## Format de sortida
+Retorna el resultat en Text."
+`;
+
+exports[`salidas de referencia del generador > feedback permanece estable en ca-valencia 1`] = `
+"## Rol
+Actua com a docent especialista en Tecnología ESO.
+
+## Context
+Treball amb alumnat de ESO.
+
+Trabajo cooperativo de tres sesiones.
+
+## Objectiu i tasca
+comentario sobre el prototipo de un grupo
+
+## Criteris
+Justificación y uso de fuentes.
+
+## Revisió docent
+- Oferix un primer esborrany revisable, no el presentes com a definitiu.
+- Comprova que els criteris són observables i no ambigus.
+- Revisa que els nivells de rendiment estiguen ben definits.
+- Assenyala qualsevol dada, font o supòsit que haja de verificar la persona docent.
+- No inventes normativa, referències ni informació sobre l’alumnat.
+
+## Format d’eixida
+Retorna el resultat en Text."
+`;
+
+exports[`salidas de referencia del generador > feedback permanece estable en en 1`] = `
+"## Role
+Act as a teacher specialising in Tecnología ESO.
+
+## Context
+Working with learners in ESO.
+
+Trabajo cooperativo de tres sesiones.
+
+## Objective and task
+comentario sobre el prototipo de un grupo
+
+## Criteria
+Justificación y uso de fuentes.
+
+## Teacher review
+- Deliver a reviewable first draft; do not present it as definitive.
+- Check that the criteria are observable and unambiguous.
+- Review that the performance levels are well defined.
+- Flag any data, source or assumption the teacher should verify.
+- Do not invent regulations, references or information about learners.
+
+## Output format
+Return the result in Text."
+`;
+
+exports[`salidas de referencia del generador > feedback permanece estable en es 1`] = `
+"## Rol
+Actúa como docente especialista en Tecnología ESO.
+
+## Contexto
+Trabajo con alumnado de ESO.
+
+Trabajo cooperativo de tres sesiones.
+
+## Objetivo y tarea
+comentario sobre el prototipo de un grupo
+
+## Criterios
+Justificación y uso de fuentes.
+
+## Revisión docente
+- Entrega un primer borrador revisable, no lo presentes como definitivo.
+- Comprueba que los criterios son observables y no ambiguos.
+- Revisa que los niveles de desempeño estén bien definidos.
+- Señala cualquier dato, fuente o supuesto que deba verificar la persona docente.
+- No inventes normativa, referencias ni información sobre el alumnado.
+
+## Formato de salida
+Devuelve el resultado en Texto."
+`;
+
+exports[`salidas de referencia del generador > gift permanece estable en ca 1`] = `
+"## Rol
+Actua com a docent especialista en Matemáticas ESO.
+
+## Context
+Treball amb alumnat de ESO.
+
+## Objectiu i tasca
+Genera un banc de preguntes en format GIFT (Moodle/Aules) sobre las fracciones.
+
+## Objectius
+Operar con fracciones equivalentes.
+
+## Nombre de preguntes
+10
+
+## Tipus de pregunta
+Opció múltiple · Vertader/Fals
+
+## Revisió docent
+- Ofereix un primer esborrany revisable, no el presentis com a definitiu.
+- Utilitza instruccions clares, observables i adequades al nivell.
+- Comprova que la proposta és viable amb el temps i els recursos indicats.
+- Assenyala qualsevol dada, font o supòsit que hagi de verificar el docent.
+- No inventis normativa, referències ni informació sobre l’alumnat.
+
+## Format de sortida
+Retorna el resultat en GIFT.
+
+## Regles per a una importació correcta a Aules i Moodle
+Entrega només el codi GIFT, sense text d’introducció, sense explicacions, sense blocs de codi i sense marques Markdown.
+- Separa cada pregunta amb una línia en blanc i usa un nom curt en ASCII (SR01, SR02...).
+- Usa només aquests tipus compatibles amb Aules i Moodle: opció múltiple amb una única resposta correcta, vertader/fals i resposta curta.
+- En opció múltiple, escriu cada opció a la seva pròpia línia amb el prefix = (correcta) o ~ (incorrecta). No ometis mai aquest prefix i no deixis cap opció començant per una altra cosa.
+- No usis preguntes d’aparellament amb ->, d’ordenació ni percentatges de puntuació parcial (%): Aules les importa malament o falla.
+- En vertader/fals escriu exactament TRUE o FALSE entre claus, sense afegir text.
+- En resposta curta escriu cada resposta acceptada en una línia precedida de =, amb un màxim de tres variants equivalents.
+- Revisa que no s’hagi perdut el primer caràcter de cap resposta ni el prefix = o ~.
+- No incloguis HTML, etiquetes, imatges, àudio ni fitxers externs. Usa UTF-8 i escapa els caràcters ~ = # { } : \\ amb una barra invertida quan apareguin dins d’un text.
+- No afegeixis comentaris // ni retroacció amb #. No incloguis la revisió docent dins del GIFT: entrega-la a part, només si es demana."
+`;
+
+exports[`salidas de referencia del generador > gift permanece estable en ca-valencia 1`] = `
+"## Rol
+Actua com a docent especialista en Matemáticas ESO.
+
+## Context
+Treball amb alumnat de ESO.
+
+## Objectiu i tasca
+Genera un banc de preguntes en format GIFT (Moodle/Aules) sobre las fracciones.
+
+## Objectius
+Operar con fracciones equivalentes.
+
+## Nombre de preguntes
+10
+
+## Tipus de pregunta
+Opció múltiple · Vertader/Fals
+
+## Revisió docent
+- Oferix un primer esborrany revisable, no el presentes com a definitiu.
+- Usa instruccions clares, observables i adequades al nivell.
+- Comprova que la proposta és viable amb el temps i els recursos indicats.
+- Assenyala qualsevol dada, font o supòsit que haja de verificar la persona docent.
+- No inventes normativa, referències ni informació sobre l’alumnat.
+
+## Format d’eixida
+Retorna el resultat en GIFT.
+
+## Regles per a una importació correcta a Aules i Moodle
+Entrega només el codi GIFT, sense text d’introducció, sense explicacions, sense blocs de codi i sense marques Markdown.
+- Separa cada pregunta amb una línia en blanc i usa un nom curt en ASCII (SR01, SR02...).
+- Usa només estos tipus compatibles amb Aules i Moodle: opció múltiple amb una única resposta correcta, vertader/fals i resposta curta.
+- En opció múltiple, escriu cada opció en la seua pròpia línia amb el prefix = (correcta) o ~ (incorrecta). No ometes mai eixe prefix i no deixes cap opció començant per una altra cosa.
+- No uses preguntes d’aparellament amb ->, d’ordenació ni percentatges de puntuació parcial (%): Aules les importa malament o falla.
+- En vertader/fals escriu exactament TRUE o FALSE entre claus, sense afegir text.
+- En resposta curta escriu cada resposta acceptada en una línia precedida de =, amb un màxim de tres variants equivalents.
+- Revisa que no s’haja perdut el primer caràcter de cap resposta ni el prefix = o ~.
+- No inclogues HTML, etiquetes, imatges, àudio ni fitxers externs. Usa UTF-8 i escapa els caràcters ~ = # { } : \\ amb una barra invertida quan apareguen dins d’un text.
+- No afegisques comentaris // ni retroacció amb #. No inclogues la revisió docent dins del GIFT: entrega-la a banda, només si es demana."
+`;
+
+exports[`salidas de referencia del generador > gift permanece estable en en 1`] = `
+"## Role
+Act as a teacher specialising in Matemáticas ESO.
+
+## Context
+Working with learners in ESO.
+
+## Objective and task
+Generate a question bank in GIFT format (Moodle/Aules) about las fracciones.
+
+## Objectives
+Operar con fracciones equivalentes.
+
+## Number of questions
+10
+
+## Question types
+Multiple choice · True/False
+
+## Teacher review
+- Deliver a reviewable first draft; do not present it as definitive.
+- Use clear, observable instructions appropriate to the level.
+- Check that the proposal is feasible with the stated time and resources.
+- Flag any data, source or assumption the teacher should verify.
+- Do not invent regulations, references or information about learners.
+
+## Output format
+Return the result in GIFT.
+
+## Rules for a clean import into Aules and Moodle
+Output only the GIFT code: no introduction, no explanations, no code fences and no Markdown.
+- Separate questions with a blank line and use a short ASCII name (SR01, SR02...).
+- Use only these Aules- and Moodle-compatible types: single-answer multiple choice, true/false and short answer.
+- In multiple choice, put each option on its own line with the prefix = (correct) or ~ (incorrect). Never omit that prefix and never leave an option starting with anything else.
+- Do not use matching questions with ->, ordering or partial-credit percentages (%): Aules imports them wrongly or fails.
+- For true/false, write exactly TRUE or FALSE in braces, with no extra text.
+- For short answer, write each accepted answer on its own line preceded by =, with at most three equivalent variants.
+- Check that the first character of every answer and the = or ~ prefix have not been lost.
+- Do not include HTML, tags, images, audio or external files. Use UTF-8 and escape the characters ~ = # { } : \\ with a backslash when they appear inside a text.
+- Do not add // comments or # feedback. Do not include the teacher-review notes inside the GIFT: give them separately, only if asked."
+`;
+
+exports[`salidas de referencia del generador > gift permanece estable en es 1`] = `
+"## Rol
+Actúa como docente especialista en Matemáticas ESO.
+
+## Contexto
+Trabajo con alumnado de ESO.
+
+## Objetivo y tarea
+Genera un banco de preguntas en formato GIFT (Moodle/Aules) sobre las fracciones.
+
+## Objetivos
+Operar con fracciones equivalentes.
+
+## Número de preguntas
+10
+
+## Tipos de pregunta
+Opción múltiple · Verdadero/Falso
+
+## Revisión docente
+- Entrega un primer borrador revisable, no lo presentes como definitivo.
+- Usa instrucciones claras, observables y adecuadas al nivel.
+- Comprueba que la propuesta es viable con el tiempo y los recursos indicados.
+- Señala cualquier dato, fuente o supuesto que deba verificar la persona docente.
+- No inventes normativa, referencias ni información sobre el alumnado.
+
+## Formato de salida
+Devuelve el resultado en GIFT.
+
+## Reglas para una importación correcta en Aules y Moodle
+Entrega únicamente el código GIFT, sin texto de introducción, sin explicaciones, sin bloques de código y sin marcas Markdown.
+- Separa cada pregunta con una línea en blanco y usa un nombre corto en ASCII (SR01, SR02...).
+- Usa solo estos tipos compatibles con Aules y Moodle: opción múltiple con una única respuesta correcta, verdadero/falso y respuesta corta.
+- En opción múltiple, escribe cada opción en su propia línea con el prefijo = (correcta) o ~ (incorrecta). No omitas nunca ese prefijo y no dejes ninguna opción empezando por otra cosa.
+- No uses preguntas de emparejamiento con ->, de ordenación ni porcentajes de puntuación parcial (%): Aules las importa mal o falla.
+- En verdadero/falso escribe exactamente TRUE o FALSE entre llaves, sin añadir texto.
+- En respuesta corta escribe cada respuesta aceptada en una línea precedida de =, con un máximo de tres variantes equivalentes.
+- Revisa que no se haya perdido el primer carácter de ninguna respuesta ni el prefijo = o ~.
+- No incluyas HTML, etiquetas, imágenes, audio ni archivos externos. Usa UTF-8 y escapa los caracteres ~ = # { } : \\ con una barra invertida cuando aparezcan dentro de un texto.
+- No añadas comentarios // ni retroalimentación con #. No incluyas la revisión docente dentro del GIFT: entrégala aparte, solo si se pide."
+`;
+
+exports[`salidas de referencia del generador > infographic permanece estable en ca 1`] = `
+"## Rol
+Actua com a docent especialista en Ciencias Primària.
+
+## Context
+Treball amb alumnat de Primària.
+
+## Objectiu i tasca
+Genera una infografia educativa clara sobre el ciclo del agua.
+
+## Estil visual
+Infografia plana
+
+## Relació d’aspecte
+1:1 quadrat
+
+## Apartats a incloure
+Introducción
+Etapas del ciclo
+Conclusión
+
+## Eina d’imatge: ChatGPT
+Genera directament la imatge. Si porta text, escriu-lo exactament igual que a les etiquetes indicades i comprova l’ortografia.
+
+## Revisió docent
+- Ofereix un primer esborrany revisable, no el presentis com a definitiu.
+- Utilitza instruccions clares, observables i adequades al nivell.
+- Comprova que la proposta és viable amb el temps i els recursos indicats.
+- Assenyala qualsevol dada, font o supòsit que hagi de verificar el docent.
+- No inventis normativa, referències ni informació sobre l’alumnat.
+
+## Format de sortida
+Retorna el resultat en Markdown."
+`;
+
+exports[`salidas de referencia del generador > infographic permanece estable en ca-valencia 1`] = `
+"## Rol
+Actua com a docent especialista en Ciencias Primària.
+
+## Context
+Treball amb alumnat de Primària.
+
+## Objectiu i tasca
+Genera una infografia educativa clara sobre el ciclo del agua.
+
+## Estil visual
+Infografia plana
+
+## Relació d’aspecte
+1:1 quadrat
+
+## Apartats a incloure
+Introducción
+Etapas del ciclo
+Conclusión
+
+## Ferramenta d’imatge: ChatGPT
+Genera directament la imatge. Si porta text, escriu-lo exactament igual que en les etiquetes indicades i comprova l’ortografia.
+
+## Revisió docent
+- Oferix un primer esborrany revisable, no el presentes com a definitiu.
+- Usa instruccions clares, observables i adequades al nivell.
+- Comprova que la proposta és viable amb el temps i els recursos indicats.
+- Assenyala qualsevol dada, font o supòsit que haja de verificar la persona docent.
+- No inventes normativa, referències ni informació sobre l’alumnat.
+
+## Format d’eixida
+Retorna el resultat en Markdown."
+`;
+
+exports[`salidas de referencia del generador > infographic permanece estable en en 1`] = `
+"## Role
+Act as a teacher specialising in Ciencias Primary.
+
+## Context
+Working with learners in Primary.
+
+## Objective and task
+Generate a clear educational infographic about el ciclo del agua.
+
+## Visual style
+Flat infographic
+
+## Aspect ratio
+1:1 square
+
+## Sections to include
+Introducción
+Etapas del ciclo
+Conclusión
+
+## Image tool: ChatGPT
+Generate the image directly. If it includes text, write it exactly as in the labels given and check the spelling.
+
+## Teacher review
+- Deliver a reviewable first draft; do not present it as definitive.
+- Use clear, observable instructions appropriate to the level.
+- Check that the proposal is feasible with the stated time and resources.
+- Flag any data, source or assumption the teacher should verify.
+- Do not invent regulations, references or information about learners.
+
+## Output format
+Return the result in Markdown."
+`;
+
+exports[`salidas de referencia del generador > infographic permanece estable en es 1`] = `
+"## Rol
+Actúa como docente especialista en Ciencias Primaria.
+
+## Contexto
+Trabajo con alumnado de Primaria.
+
+## Objetivo y tarea
+Genera una infografía educativa clara sobre el ciclo del agua.
+
+## Estilo visual
+Infografía plana
+
+## Relación de aspecto
+1:1 cuadrado
+
+## Apartados a incluir
+Introducción
+Etapas del ciclo
+Conclusión
+
+## Herramienta de imagen: ChatGPT
+Genera directamente la imagen. Si lleva texto, escríbelo exactamente igual que en las etiquetas indicadas y comprueba la ortografía.
+
+## Revisión docente
+- Entrega un primer borrador revisable, no lo presentes como definitivo.
+- Usa instrucciones claras, observables y adecuadas al nivel.
+- Comprueba que la propuesta es viable con el tiempo y los recursos indicados.
+- Señala cualquier dato, fuente o supuesto que deba verificar la persona docente.
+- No inventes normativa, referencias ni información sobre el alumnado.
+
+## Formato de salida
+Devuelve el resultado en Markdown."
+`;
+
+exports[`salidas de referencia del generador > learning-situation permanece estable en ca 1`] = `
+"## Rol
+Actua com a docent especialista en Ciencias Primària 4.º.
+
+## Context
+Treball amb alumnat de Primària 4.º.
+
+Grupo heterogéneo de 24 estudiantes.
+
+## Competències específiques
+- Plantear y responder preguntas sobre el entorno.
+- Identificar problemas ambientales.
+
+## Objectiu i tasca
+Dissenya una activitat sobre Los ecosistemas.
+
+## Objectius
+Comprender las relaciones de una cadena trófica.
+
+## Metodologia
+Aprenentatge basat en projectes · DUA
+
+## Durada
+Una sessió
+
+## Recursos disponibles
+Tauletes · Material manipulatiu
+
+## Restriccions i límits
+Una sesión de 45 minutos.
+
+## Criteris de qualitat
+Incluye una adaptación de apoyo.
+
+## Criteris d’avaluació
+- Formular predicciones y explicaciones.
+
+## Sabers bàsics
+- Cultura científica · Iniciación a la actividad científica.
+- Societats i territoris · Sostenibilidad.
+
+## Disseny Universal per a l’Aprenentatge (DUA)
+Dissenya la proposta segons el Disseny Universal per a l’Aprenentatge (pautes CAST). Per a cada principi, proposa opcions concretes per a tot el grup, no només per a alumnes concrets, i explica quina barrera elimina cadascuna.
+- Implicació (el perquè): ofereix opcions per despertar l’interès, mantenir l’esforç i afavorir l’autoregulació (elecció, rellevància, col·laboració, feedback freqüent).
+- Representació (el què): presenta la informació en més d’un format (text, visual, àudio, manipulatiu), aclareix el vocabulari i els símbols i activa els coneixements previs.
+
+## Barreres del context
+Textos largos sin apoyo visual.
+Anticipa aquestes barreres en el disseny sense etiquetar ni identificar ningú.
+
+## Revisió docent
+- Ofereix un primer esborrany revisable, no el presentis com a definitiu.
+- Utilitza instruccions clares, observables i adequades al nivell.
+- Comprova que la proposta és viable amb el temps i els recursos indicats.
+- Assenyala qualsevol dada, font o supòsit que hagi de verificar el docent.
+- No inventis normativa, referències ni informació sobre l’alumnat.
+- Mantén el mateix objectiu i nivell d’exigència per a tot el grup.
+- Comprova que hi ha almenys dues maneres d’accedir al contingut i de demostrar el que s’ha après.
+
+## Format de sortida
+Retorna el resultat en Markdown."
+`;
+
+exports[`salidas de referencia del generador > learning-situation permanece estable en ca-valencia 1`] = `
+"## Rol
+Actua com a docent especialista en Ciencias Primària 4.º.
+
+## Context
+Treball amb alumnat de Primària 4.º.
+
+Grupo heterogéneo de 24 estudiantes.
+
+## Competències específiques
+- Plantear y responder preguntas sobre el entorno.
+- Identificar problemas ambientales.
+
+## Objectiu i tasca
+Dissenya una activitat sobre Los ecosistemas.
+
+## Objectius
+Comprender las relaciones de una cadena trófica.
+
+## Metodologia
+Aprenentatge basat en projectes · DUA
+
+## Duració
+Una sessió
+
+## Recursos disponibles
+Tauletes · Material manipulatiu
+
+## Restriccions i límits
+Una sesión de 45 minutos.
+
+## Criteris de qualitat
+Incluye una adaptación de apoyo.
+
+## Criteris d’avaluació
+- Formular predicciones y explicaciones.
+
+## Sabers bàsics
+- Cultura científica · Iniciación a la actividad científica.
+- Societats i territoris · Sostenibilidad.
+
+## Disseny Universal per a l’Aprenentatge (DUA)
+Dissenya la proposta segons el Disseny Universal per a l’Aprenentatge (pautes CAST). Per a cada principi, proposa opcions concretes per a tot el grup, no sols per a alumnat concret, i explica quina barrera elimina cada una.
+- Implicació (el perquè): oferix opcions per a despertar l’interés, mantindre l’esforç i afavorir l’autoregulació (elecció, rellevància, col·laboració, feedback freqüent).
+- Representació (el què): presenta la informació en més d’un format (text, visual, àudio, manipulatiu), aclarix el vocabulari i els símbols i activa els coneixements previs.
+
+## Barreres del context
+Textos largos sin apoyo visual.
+Anticipa estes barreres en el disseny sense etiquetar ni identificar ningú.
+
+## Revisió docent
+- Oferix un primer esborrany revisable, no el presentes com a definitiu.
+- Usa instruccions clares, observables i adequades al nivell.
+- Comprova que la proposta és viable amb el temps i els recursos indicats.
+- Assenyala qualsevol dada, font o supòsit que haja de verificar la persona docent.
+- No inventes normativa, referències ni informació sobre l’alumnat.
+- Mantín el mateix objectiu i nivell d’exigència per a tot el grup.
+- Comprova que hi ha almenys dues maneres d’accedir al contingut i de demostrar el que s’ha aprés.
+
+## Format d’eixida
+Retorna el resultat en Markdown."
+`;
+
+exports[`salidas de referencia del generador > learning-situation permanece estable en en 1`] = `
+"## Role
+Act as a teacher specialising in Ciencias Primary 4.º.
+
+## Context
+Working with learners in Primary 4.º.
+
+Grupo heterogéneo de 24 estudiantes.
+
+## Specific competences
+- Plantear y responder preguntas sobre el entorno.
+- Identificar problemas ambientales.
+
+## Objective and task
+Design an activity about Los ecosistemas.
+
+## Objectives
+Comprender las relaciones de una cadena trófica.
+
+## Methodology
+Project-based learning · UDL
+
+## Duration
+One session
+
+## Available resources
+Tablets · Manipulatives
+
+## Constraints and limits
+Una sesión de 45 minutos.
+
+## Quality criteria
+Incluye una adaptación de apoyo.
+
+## Assessment criteria
+- Formular predicciones y explicaciones.
+
+## Basic knowledge
+- Cultura científica · Iniciación a la actividad científica.
+- Societats i territoris · Sostenibilidad.
+
+## Universal Design for Learning (UDL)
+Design the proposal following Universal Design for Learning (CAST guidelines). For each principle, propose concrete options for the whole group, not just for particular learners, and explain which barrier each one removes.
+- Engagement (the why): offer options to spark interest, sustain effort and support self-regulation (choice, relevance, collaboration, frequent feedback).
+- Representation (the what): present information in more than one format (text, visual, audio, hands-on), clarify vocabulary and symbols and activate prior knowledge.
+
+## Contextual barriers
+Textos largos sin apoyo visual.
+Anticipate these barriers in the design without labelling or identifying anyone.
+
+## Teacher review
+- Deliver a reviewable first draft; do not present it as definitive.
+- Use clear, observable instructions appropriate to the level.
+- Check that the proposal is feasible with the stated time and resources.
+- Flag any data, source or assumption the teacher should verify.
+- Do not invent regulations, references or information about learners.
+- Keep the same objective and level of demand for the whole group.
+- Check there are at least two ways to access the content and to show what has been learned.
+
+## Output format
+Return the result in Markdown."
+`;
+
+exports[`salidas de referencia del generador > learning-situation permanece estable en es 1`] = `
+"## Rol
+Actúa como docente especialista en Ciencias Primaria 4.º.
+
+## Contexto
+Trabajo con alumnado de Primaria 4.º.
+
+Grupo heterogéneo de 24 estudiantes.
+
+## Competencias específicas
+- Plantear y responder preguntas sobre el entorno.
+- Identificar problemas ambientales.
+
+## Objetivo y tarea
+Diseña una actividad sobre Los ecosistemas.
+
+## Objetivos
+Comprender las relaciones de una cadena trófica.
+
+## Metodología
+Aprendizaje basado en proyectos · DUA
+
+## Duración
+Una sesión
+
+## Recursos disponibles
+Tablets · Material manipulativo
+
+## Restricciones y límites
+Una sesión de 45 minutos.
+
+## Criterios de calidad
+Incluye una adaptación de apoyo.
+
+## Criterios de evaluación
+- Formular predicciones y explicaciones.
+
+## Saberes básicos
+- Cultura científica · Iniciación a la actividad científica.
+- Societats i territoris · Sostenibilidad.
+
+## Diseño Universal para el Aprendizaje (DUA)
+Diseña la propuesta según el Diseño Universal para el Aprendizaje (pautas CAST). Para cada principio, propón opciones concretas para todo el grupo, no solo para alumnado concreto, y explica qué barrera elimina cada una.
+- Implicación (el porqué): ofrece opciones para despertar el interés, mantener el esfuerzo y favorecer la autorregulación (elección, relevancia, colaboración, feedback frecuente).
+- Representación (el qué): presenta la información en más de un formato (texto, visual, audio, manipulativo), aclara el vocabulario y los símbolos y activa los conocimientos previos.
+
+## Barreras del contexto
+Textos largos sin apoyo visual.
+Anticipa estas barreras en el diseño sin etiquetar ni identificar a nadie.
+
+## Revisión docente
+- Entrega un primer borrador revisable, no lo presentes como definitivo.
+- Usa instrucciones claras, observables y adecuadas al nivel.
+- Comprueba que la propuesta es viable con el tiempo y los recursos indicados.
+- Señala cualquier dato, fuente o supuesto que deba verificar la persona docente.
+- No inventes normativa, referencias ni información sobre el alumnado.
+- Mantén el mismo objetivo y nivel de exigencia para todo el grupo.
+- Comprueba que hay al menos dos formas de acceder al contenido y de demostrar lo aprendido.
+
+## Formato de salida
+Devuelve el resultado en Markdown."
+`;
