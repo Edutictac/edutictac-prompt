@@ -5,7 +5,7 @@ import { translations } from './locales'
 import { localizeOption } from './optionLocales'
 import { examples, exampleValues } from './examples'
 import type { Language } from './types'
-import app from './App.tsx?raw'
+import labels from './prompts/form/labels.ts?raw'
 
 // Revisión de conjunto: cualquier plantilla o campo nuevo debe llegar al
 // prompt, estar traducido y tener nombre en la interfaz en los cuatro idiomas.
@@ -70,7 +70,7 @@ describe('cobertura de plantillas', () => {
   it('da nombre a las plantillas, los campos y las categorías', () => {
     const map = (name: string) =>
       Function(
-        `return ${new RegExp(`const ${name}: Record<string,\\s*string> = (\\{.*?\\})\\n`, 's').exec(app)![1]}`,
+        `return ${new RegExp(`const ${name}: Record<string,\\s*string> = (\\{.*?\\})\\n`, 's').exec(labels)![1]}`,
       )() as Record<string, string>
     const templateNames = map('templateNameKeys'),
       fieldNames = map('fieldNameKeys')

@@ -52,6 +52,17 @@ it('recorre el formulario bloque a bloque, deja saltar pasos y genera desde el r
   expect((saberes as HTMLInputElement).checked).toBe(true)
   await user.selectOptions(screen.getByRole('combobox', { name: 'Nivel educativo' }), 'Primaria')
 
+  await user.click(screen.getByRole('button', { name: 'Avanzado' }))
+  const advancedSaberes = screen.getByRole('checkbox', {
+    name: /Cultura científica · Iniciación a la actividad científica/,
+  })
+  expect((advancedSaberes as HTMLInputElement).checked).toBe(true)
+  await user.click(screen.getByRole('button', { name: 'Paso a paso' }))
+  const guidedSaberes = screen.getByRole('checkbox', {
+    name: /Cultura científica · Iniciación a la actividad científica/,
+  })
+  expect((guidedSaberes as HTMLInputElement).checked).toBe(true)
+
   for (let step = 1; step < total; step += 1) {
     expect(screen.getByText(`Paso ${step} de ${total}`)).toBeTruthy()
     await user.click(screen.getByRole('button', { name: 'Saltar' }))

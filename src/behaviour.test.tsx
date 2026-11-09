@@ -75,6 +75,36 @@ describe('recorridos de la biblioteca', () => {
     expect(screen.getByRole('heading', { name: 'Constructor libre', level: 1 })).toBeTruthy()
   })
 
+  it('guarda, reabre y actualiza un prompt creado en Paso a paso', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.click(screen.getByRole('button', { name: /^Crear/ }))
+    await user.click(screen.getByRole('button', { name: 'Paso a paso' }))
+    await user.click(screen.getByRole('button', { name: 'Siguiente' }))
+    await user.type(screen.getByRole('textbox', { name: /^Tema/ }), 'La fotosíntesis')
+    for (let step = 0; step < 10; step += 1) {
+      const next = screen.queryByRole('button', { name: 'Siguiente' })
+      if (!next) break
+      await user.click(next)
+    }
+    await user.click(screen.getByRole('button', { name: 'Ver resumen' }))
+    await user.click(screen.getByRole('button', { name: 'Generar prompt' }))
+    await user.click(await screen.findByRole('button', { name: 'Guardar' }))
+    await user.type(screen.getByRole('textbox', { name: 'Título' }), 'Prompt guiado')
+    await user.click(screen.getByRole('button', { name: 'Guardar prompt' }))
+    await screen.findByText('Prompt guardado en tu biblioteca.')
+
+    await user.click(screen.getByRole('button', { name: 'Mi biblioteca' }))
+    await screen.findByRole('heading', { name: 'Prompt guiado' })
+    await user.click(screen.getByRole('button', { name: 'Editar' }))
+    await user.click(screen.getByRole('button', { name: 'Avanzado' }))
+    expect((screen.getByRole('textbox', { name: /^Tema/ }) as HTMLInputElement).value).toBe('La fotosíntesis')
+    await user.click(screen.getByRole('button', { name: 'Actualizar' }))
+    await screen.findByText('Prompt actualizado en tu biblioteca.')
+    expect(await db.prompts.count()).toBe(1)
+  })
+
   it('conserva los valores al cambiar entre Sencillo, Paso a paso y Avanzado', async () => {
     const user = userEvent.setup()
     render(<App />)
