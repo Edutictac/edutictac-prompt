@@ -61,10 +61,6 @@ export function usePreferences() {
   }, [lang])
 
   useEffect(() => {
-    localStorage.setItem('edutictac-theme', themeMode)
-  }, [themeMode])
-
-  useEffect(() => {
     const media = window.matchMedia?.('(prefers-color-scheme: dark)')
     if (!media) return
     const update = () => setSystemDark(media.matches)
