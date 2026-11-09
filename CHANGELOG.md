@@ -1,5 +1,34 @@
 # Changelog
 
+## 0.24.0 - Refactor interno y biblioteca por cuenta
+
+- Organización modular de la aplicación, las pantallas, el formulario y el generador, con salidas del generador verificadas por hashes e instantáneas.
+- La biblioteca muestra y sincroniza solo los prompts de la cuenta actual. Los anónimos quedan en el dispositivo y los antiguos sin propietario no se adoptan automáticamente.
+- Si falla el borrado remoto, el prompt se conserva en local y se avisa; la importación se valida y se escribe en una transacción.
+- Sencillo, Paso a paso y Avanzado comparten un único borrador y controles; ESLint y Prettier quedan configurados.
+
+## 0.23.3 - Un solo campo de materia
+
+- Se elimina el selector duplicado de materias; la materia se elige en el perfil curricular o se escribe en el único campo «Materia».
+
+## 0.23.2 - Elementos curriculares en modo sencillo
+
+- Los elementos curriculares aparecen también en Sencillo al elegir un perfil con currículo detallado.
+- Si la etapa y la materia no tienen datos detallados, se muestra un aviso en lugar de ocultar el bloque.
+
+## 0.23.1 - Saberes básicos seleccionables
+
+- Corregida la selección de elementos curriculares cuyas opciones contienen « · »; el valor se guarda con saltos de línea y se admiten datos anteriores.
+
+## 0.23.0 - Modo Paso a paso
+
+- Nuevo modo guiado por bloques con progreso, opción de saltar pasos y resumen final editable.
+- Se conservan los valores al cambiar entre Sencillo, Paso a paso y Avanzado.
+
+## 0.22.0 - EduCrea con idioma y nivel
+
+- «Usar en EduCrea» envía también el idioma y el nivel, y amplía la correspondencia de plantillas.
+
 ## 0.21.1 - Coherencia del tipo de producto
 
 - EduCrea recibe también la plantilla de EduTicTac Prompt y propone el producto equivalente: una situación de aprendizaje ya no aparece como ficha imprimible por defecto.

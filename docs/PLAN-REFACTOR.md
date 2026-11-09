@@ -178,13 +178,13 @@ la desaparición del aviso de 500 kB como criterio de éxito.
 
 ## Paso 7 — Cerrar y preparar publicación
 
-- [ ] Ejecutar `npm run lint`, `npm test` y `npm run build` sobre el conjunto final.
-- [ ] Revisar el diff: sin cambios accidentales en salidas, idiomas o contratos.
-- [ ] Probar con una base antigua de prueba: prompts, categorías, agentes, Skills
+- [x] Ejecutar `npm run lint`, `npm test` y `npm run build` sobre el conjunto final.
+- [x] Revisar el diff: sin cambios accidentales en salidas, idiomas o contratos.
+- [x] Probar con una base antigua de prueba: prompts, categorías, agentes, Skills
   e historiales permanecen después de abrir la nueva versión.
-- [ ] Revisar ES/VA/CA/EN, móvil/escritorio, teclado, modo sin conexión, cambio de
+- [x] Revisar ES/VA/CA/EN, móvil/escritorio, teclado, modo sin conexión, cambio de
   cuenta y actualización de la PWA desde la versión anterior.
-- [ ] Actualizar README y documentación de arquitectura/sincronización.
+- [x] Actualizar README y documentación de arquitectura/sincronización.
 - [ ] Preparar versión, changelog y reversión. Publicar como tarea separada,
   siguiendo la memoria operativa y `scripts/publish-pages.sh`; verificar después
   la versión del service worker y un recorrido real de biblioteca.
@@ -213,7 +213,7 @@ resolverlo antes de seguir.
 | 4. Formulario | Hecho | `b8cddb5`; 206 pruebas |
 | 5. Generador y textos | Hecho | `8ba7da6`, `d6c70be`, `bc6cb58`; 210 pruebas |
 | 6. Agentes, Skills y carga | Hecho | `e027b52`, `398f6f0`; 210 pruebas |
-| 7. Verificación y publicación | Pendiente | |
+| 7. Verificación y publicación | Preparado | 212 pruebas; 0.24.0; publicación pendiente |
 
 ## Registro de ejecución
 
@@ -356,3 +356,30 @@ resolverlo antes de seguir.
 - Preservados los flujos existentes (crear, editar, duplicar, borrar, ejecutar,
   importar/exportar y revisar). Verificación: lint, format:check, **210 pruebas
   en 39 archivos** y build correctos. Sin publicar.
+
+### Paso 7 — Verificación y preparación de publicación (2026-11-09)
+
+- Versión preparada: **0.24.0** en `package.json` y `package-lock.json`;
+  `sw.js` local verificado como `edutictac-prompt-v0.24.0`.
+- Verificación final: `npm run lint`, `npm run format:check`, `npm test`
+  (**212 pruebas en 40 archivos**) y `npm run build` correctos.
+- Salidas del generador sin cambios: pasan los 352 hashes y las 16
+  instantáneas. Esquema Dexie v3 y contrato de exportación v1 intactos.
+- Nueva prueba `src/test/migration.test.ts`: v2→v3 conserva prompts,
+  categorías, Skills e historiales; reabrir con agentes e historiales los
+  conserva.
+- Revisión en navegador con el build de producción:
+  - Móvil 390 y escritorio 1440 sin desbordamiento en portada, ayuda y
+    formulario; 24 casillas curriculares visibles en Paso a paso.
+  - La guía de ayuda carga de forma diferida correctamente.
+  - Service worker registrado y recarga sin red correcta (la app vuelve a
+    renderizar desde la caché). Los errores de consola son CORS de las APIs
+    reales desde el origen de `vite preview`, no fallos de la app.
+  - Cambio de cuenta y cierre de sesión cubiertos por pruebas del hook.
+- Bundle final: principal 560,78 kB (170,06 gzip); HelpView 27,82 kB (8,76
+  gzip); Agents/Skills 377,69 kB (117,10 gzip).
+- Documentación actualizada: README (arquitectura, comandos y estado),
+  CHANGELOG con 0.22.0 a 0.24.0 y [REVERSION-0.24.0.md](REVERSION-0.24.0.md).
+- Pendiente antes de publicar: comprobación manual de teclado y prueba real de
+  actualización de la PWA 0.23.3→0.24.0, que solo puede hacerse tras desplegar.
+  La publicación se hará como tarea separada.

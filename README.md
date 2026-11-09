@@ -21,21 +21,23 @@ npm run build
 
 ## Arquitectura
 
-- `src/templates.ts`: configuración de plantillas y campos.
-- `src/generator.ts`: composición del prompt por bloques.
-- `src/db.ts`: base local y versión de esquema Dexie.
-- `src/locales.ts`: traducciones y detección del idioma.
-- `src/types.ts`: contratos de datos locales y futura sincronización.
+- `src/app/`: hooks de preferencias, cuenta, chip central y aviso de la PWA.
+- `src/components/`: cabecera, pie, portada y catálogo, biblioteca, ayuda y diálogo de guardado.
+- `src/prompts/`: repositorio local, transferencia, sincronización y estado de la biblioteca.
+- `src/prompts/form/`: formulario, borrador compartido por los tres modos, controles y selectores curriculares.
+- `src/prompts/generator/`: entrada pública, diccionarios, roles, tareas y formatos del generador.
+- `src/agents/` y `src/skills/`: agentes y Skills con sus repositorios e historiales por propietario.
+- `src/templates.ts`, `src/db.ts`, `src/locales.ts` y `src/types.ts`: plantillas, IndexedDB, traducciones y contratos.
 
 El JSON de exportación es propio (`format: edutictac-prompts`, `version: 1`) y no expone el esquema interno de IndexedDB. La sincronización usa la API privada `edutictac-prompt-api`; Authentik valida la identidad y la API nunca acepta el propietario enviado por el navegador.
 
 No introduzcas nombres ni datos personales del alumnado. Generar un prompt no llama a una IA ni envía datos a Internet. Licencia AGPL-3.0.
 
-El plan de refactor gradual y su seguimiento están en [docs/PLAN-REFACTOR.md](docs/PLAN-REFACTOR.md).
+El plan de refactor gradual y su seguimiento están en [docs/PLAN-REFACTOR.md](docs/PLAN-REFACTOR.md). Las reglas de propiedad y sincronización, en [docs/SINCRONIZACION.md](docs/SINCRONIZACION.md), y la reversión preparada para 0.24.0, en [docs/REVERSION-0.24.0.md](docs/REVERSION-0.24.0.md).
 
 ## Estat actual
 
-- Versió publicada de la PWA: **0.23.3**.
+- Versió publicada de la PWA: **0.23.3**. Propera versió preparada: **0.24.0** (refactor intern, pendent de publicar).
 - Producció: [pages.edutictac.es/Edutictac/edutictac-prompt](https://pages.edutictac.es/Edutictac/edutictac-prompt/).
 - La PWA funciona localment amb IndexedDB i continua disponible sense compte ni connexió.
 - Authentik està integrat mitjançant OIDC + PKCE. L’inici de sessió es fa des de `id.edutictac.es`.
@@ -43,7 +45,7 @@ El plan de refactor gradual y su seguimiento están en [docs/PLAN-REFACTOR.md](d
 - La biblioteca mostra només els prompts de la cuenta actual. Els prompts anònims queden en el dispositiu i no es pugen; els antics sense propietari es tracten com anònims i no s’adopten automàticament. Detalls a [docs/SINCRONIZACION.md](docs/SINCRONIZACION.md).
 - El backend és el repositori [`edutictac-prompt-api`](https://github.com/Edutictac/edutictac-prompt-api), amb còpia en Forgejo. Utilitza SQLite, cookies de sessió signades i el nucli compartit `edutictac-community`.
 - El catàleg només mostra categories que tenen ferramentes associades; les categories buides no apareixen.
-- Proves automatitzades: **174** en la PWA i **8** en l’API.
+- Proves automatitzades: **212** en la PWA i **8** en l’API.
 - El formulari ofereix els modes **senzill**, **pas a pas** (per blocs, amb progrés i resum final) i **avançat** (tots els camps).
 - El currículum CV-LOMLOE incorpora perfils inicials d’Infantil, Primària (Coneixement del medi), ESO (Tecnologia i Matemàtiques) i selecció avançada de competències, criteris i sabers bàsics.
 - La categoria d’avaluació inclou rúbriques, escales de valoració, llistes de coteig, observació sistemàtica, portafolis, produccions, proves escrites, productes i exposicions.
