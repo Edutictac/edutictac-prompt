@@ -68,13 +68,13 @@ protegen los recorridos que se van a mover. No hace falta replicar cada función
 
 ## Paso 1 — Recuperar legibilidad y controles básicos
 
-- [ ] Añadir configuración ESLint compatible con las versiones instaladas,
+- [x] Añadir configuración ESLint compatible con las versiones instaladas,
   excluyendo `dist/`, dependencias y archivos generados.
-- [ ] Establecer formato consistente y expandir el código comprimido, comenzando
+- [x] Establecer formato consistente y expandir el código comprimido, comenzando
   por `App.tsx`. Mantener este cambio puramente mecánico en un commit separado.
-- [ ] Corregir los problemas reales detectados por lint en commits posteriores;
+- [x] Corregir los problemas reales detectados por lint en commits posteriores;
   evitar desactivar reglas de forma global para conseguir un resultado verde.
-- [ ] Actualizar el estado y los comandos de desarrollo del README.
+- [x] Actualizar el estado y los comandos de desarrollo del README.
 
 **Terminado cuando:** lint, pruebas y build pasan y el diff de formato no cambia
 el comportamiento. Registrar cualquier excepción concreta que deba resolverse
@@ -207,7 +207,7 @@ resolverlo antes de seguir.
 | Paso | Estado | Commit / evidencia |
 | --- | --- | --- |
 | 0. Base y pruebas de comportamiento | Hecho | `75bccf1`; 174 pruebas; build OK |
-| 1. Formato, lint y documentación | Pendiente | Siguiente |
+| 1. Formato, lint y documentación | Hecho | `ceac32f`, `899f339`, `9f00f74`; lint y build OK |
 | 2. Biblioteca y sincronización | Pendiente | |
 | 3. Aplicación y pantallas | Pendiente | |
 | 4. Formulario | Pendiente | |
@@ -233,4 +233,23 @@ resolverlo antes de seguir.
   `src/__snapshots__/generator.golden.test.ts.snap` para `learning-situation`
   con currículo, GIFT, infografía y feedback en ES, VA, CA y EN.
 - Resultado: **174 pruebas en 28 archivos** y build correcto. No se publica nada.
-- Pendiente para el Paso 1: configuración ESLint, formato y README.
+- El Paso 1 (ESLint, formato y README) se completó a continuación.
+
+### Paso 1 — Legibilidad y controles básicos (2026-11-09)
+
+- `ceac32f`: ESLint 10 + `typescript-eslint` y Prettier 3. Se añaden
+  `eslint.config.js`, `.prettierrc.json` y los comandos `format`/`format:check`.
+- `899f339`: formato mecánico de `src/**/*.{ts,tsx}` (63 archivos). `App.tsx`
+  pasa de 155 líneas comprimidas a 1787 legibles. La prueba de cobertura se
+  adapta al espaciado de tipos de Prettier sin cambiar lo que comprueba.
+- `9f00f74`: resueltos los 12 avisos de lint sin desactivar reglas globales:
+  comentarios en `catch` vacíos, una asignación inútil y dos props no usadas;
+  los cuatro `no-control-regex` quedan con desactivación local justificada
+  porque validan caracteres de control a propósito.
+- README actualizado: versión 0.23.3, 174 pruebas, tres modos del formulario,
+  comandos de desarrollo y sincronización automática real.
+- Verificación: `npm run lint`, `npm run format:check`, `npm test` (174 pruebas
+  en 28 archivos) y `npm run build` correctos.
+- Nota: `npm audit` informa de vulnerabilidades en dependencias de desarrollo
+  (Vite, Vitest, `glob`, etc.) ya presentes antes de este paso; no se aplica
+  `audit fix` aquí para no mezclar cambios de versiones con el refactor.

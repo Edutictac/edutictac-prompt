@@ -11,10 +11,13 @@ React + TypeScript + Vite, PWA instalable, IndexedDB con Dexie, formularios guia
 ```bash
 npm install
 npm run dev
+npm test
+npm run lint
+npm run format
 npm run build
 ```
 
-Para Docker: `npm run build && docker compose up --build`. El contenedor escucha en el puerto 8092 del host y está preparado para reverse proxy.
+`npm run format:check` comprueba el formato sin modificar archivos. Para Docker: `npm run build && docker compose up --build`. El contenedor escucha en el puerto 8092 del host y está preparado para reverse proxy.
 
 ## Arquitectura
 
@@ -28,17 +31,19 @@ El JSON de exportación es propio (`format: edutictac-prompts`, `version: 1`) y 
 
 No introduzcas nombres ni datos personales del alumnado. Generar un prompt no llama a una IA ni envía datos a Internet. Licencia AGPL-3.0.
 
+El plan de refactor gradual y su seguimiento están en [docs/PLAN-REFACTOR.md](docs/PLAN-REFACTOR.md).
+
 ## Estat actual
 
-- Versió publicada de la PWA: **0.1.16**.
+- Versió publicada de la PWA: **0.23.3**.
 - Producció: [pages.edutictac.es/Edutictac/edutictac-prompt](https://pages.edutictac.es/Edutictac/edutictac-prompt/).
 - La PWA funciona localment amb IndexedDB i continua disponible sense compte ni connexió.
 - Authentik està integrat mitjançant OIDC + PKCE. L’inici de sessió es fa des de `id.edutictac.es`.
-- La biblioteca remota és privada per usuari i està disponible en [prompts.edutictac.es](https://prompts.edutictac.es). Els prompts locals només es pugen quan la persona prem **Sincronitzar biblioteca**.
+- La biblioteca remota és privada per usuari i està disponible en [prompts.edutictac.es](https://prompts.edutictac.es). La sincronització és automàtica en guardar, en iniciar sessió i en recuperar la connexió; el botó **Sincronitzar biblioteca** força la sincronització.
 - El backend és el repositori [`edutictac-prompt-api`](https://github.com/Edutictac/edutictac-prompt-api), amb còpia en Forgejo. Utilitza SQLite, cookies de sessió signades i el nucli compartit `edutictac-community`.
 - El catàleg només mostra categories que tenen ferramentes associades; les categories buides no apareixen.
-- Proves automatitzades: **21** en la PWA i **8** en l’API.
-- El formulari ofereix un **mode senzill** amb els camps essencials i un **mode avançat** amb tots els camps disponibles.
+- Proves automatitzades: **174** en la PWA i **8** en l’API.
+- El formulari ofereix els modes **senzill**, **pas a pas** (per blocs, amb progrés i resum final) i **avançat** (tots els camps).
 - El currículum CV-LOMLOE incorpora perfils inicials d’Infantil, Primària (Coneixement del medi), ESO (Tecnologia i Matemàtiques) i selecció avançada de competències, criteris i sabers bàsics.
 - La categoria d’avaluació inclou rúbriques, escales de valoració, llistes de coteig, observació sistemàtica, portafolis, produccions, proves escrites, productes i exposicions.
 - Cada publicació de la PWA actualitza la versió de Workbox del `sw.js` i inclou un avís perquè la persona usuària puga actualitzar l’aplicació.
