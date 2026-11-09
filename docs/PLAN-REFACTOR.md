@@ -84,27 +84,27 @@ en una fase posterior.
 
 Es la primera extracción funcional por su relación con la conservación de datos.
 
-- [ ] Crear `src/prompts/repository.ts` para operaciones locales y
+- [x] Crear `src/prompts/repository.ts` para operaciones locales y
   `src/prompts/transfer.ts` para validar importaciones y construir exportaciones.
-- [ ] Extraer la coordinación remota a `src/prompts/sync.ts` y el estado de la
+- [x] Extraer la coordinación remota a `src/prompts/sync.ts` y el estado de la
   interfaz a `usePromptLibrary`. La vista no debe operar directamente con Dexie.
-- [ ] Primero trasladar el comportamiento existente sin corregirlo dentro del
+- [x] Primero trasladar el comportamiento existente sin corregirlo dentro del
   mismo cambio. Caracterizar los casos problemáticos con pruebas específicas.
-- [ ] Revisar en `edutictac-prompt-api` las reglas de propiedad, identificadores,
+- [x] Revisar en `edutictac-prompt-api` las reglas de propiedad, identificadores,
   actualización y borrado antes de definir cambios de sincronización.
-- [ ] Definir el tratamiento de biblioteca anónima, cuenta A y cuenta B:
+- [x] Definir el tratamiento de biblioteca anónima, cuenta A y cuenta B:
   visibilidad y sincronización por propietario; sin subir datos de una cuenta a
   otra. Los registros antiguos sin propietario requieren una política explícita
   de incorporación, sin asignarlos silenciosamente a quien inicie sesión.
-- [ ] Acordar y documentar si la sincronización sigue siendo automática o pasa a
+- [x] Acordar y documentar si la sincronización sigue siendo automática o pasa a
   ser manual. La extracción por sí sola no cambia esta política.
-- [ ] Resolver borrados sin conexión: conservar un registro de borrado pendiente
+- [x] Resolver borrados sin conexión: conservar un registro de borrado pendiente
   o mantener el elemento y mostrar el fallo hasta poder borrar. Si se eligen
   pendientes, impedir que una descarga resucite el elemento y reintentar al
   reconectar. Documentar la decisión y cualquier cambio de contrato.
-- [ ] Evitar subidas simultáneas desde guardar, conexión y botón de sincronizar;
+- [x] Evitar subidas simultáneas desde guardar, conexión y botón de sincronizar;
   impedir que una respuesta antigua sobrescriba una edición más reciente.
-- [ ] Validar el JSON antes de escribir y realizar la importación local en una
+- [x] Validar el JSON antes de escribir y realizar la importación local en una
   transacción para evitar bibliotecas parcialmente importadas.
 
 **Pruebas necesarias:** fallo de red, reintento, descarga tras borrar, edición
@@ -208,7 +208,7 @@ resolverlo antes de seguir.
 | --- | --- | --- |
 | 0. Base y pruebas de comportamiento | Hecho | `75bccf1`; 174 pruebas; build OK |
 | 1. Formato, lint y documentación | Hecho | `ceac32f`, `899f339`, `9f00f74`; lint y build OK |
-| 2. Biblioteca y sincronización | Pendiente | |
+| 2. Biblioteca y sincronización | Hecho | `b921c59`, `c38f95c`, `80b7714`; 193 pruebas |
 | 3. Aplicación y pantallas | Pendiente | |
 | 4. Formulario | Pendiente | |
 | 5. Generador y textos | Pendiente | |
@@ -253,3 +253,30 @@ resolverlo antes de seguir.
 - Nota: `npm audit` informa de vulnerabilidades en dependencias de desarrollo
   (Vite, Vitest, `glob`, etc.) ya presentes antes de este paso; no se aplica
   `audit fix` aquí para no mezclar cambios de versiones con el refactor.
+
+### Paso 2 — Biblioteca y sincronización (2026-11-09)
+
+- `b921c59`: extraídos `src/prompts/repository.ts` (propiedad, listados,
+  categorías y borrado local) y `src/prompts/transfer.ts` (exportación,
+  validación completa del JSON e importación transaccional). Las fixtures de
+  prueba pasan a la biblioteca anónima salvo cuando el test fija otro dueño.
+- `c38f95c`: extraída la coordinación remota a `src/prompts/sync.ts`, con una
+  subida en curso por propietario, reintento agrupado y descarte de respuestas
+  antiguas si el prompt cambió durante la subida. Decisiones en
+  [docs/SINCRONIZACION.md](SINCRONIZACION.md).
+- `80b7714`: `usePromptLibrary` concentra el estado y las operaciones de la
+  biblioteca; `App.tsx` deja de usar Dexie y la API de prompts. Se añade el aviso
+  `deleteFailed` y se documenta la política en README.
+- Política aplicada: `ownerId` = `sub` con sesión o `local:device` sin ella; solo
+  se muestra y sube el propietario actual; los antiguos sin dueño quedan como
+  anónimos y no se adoptan; una descarga no pisa prompts de otra cuenta.
+- Borrado: si falla el borrado remoto no se borra en local y se avisa. No hay
+  tombstones; el caso de borrado durante una subida queda documentado como
+  pendiente.
+- Importación: se valida antes de escribir, se ejecuta en una transacción y los
+  prompts importados pasan al propietario actual sin `remoteId`.
+- Pruebas nuevas: repositorio, transferencia, sincronización y hook, incluidos
+  fallo de red con reintento, edición durante la subida, llamadas simultáneas,
+  cambio de cuenta, cierre de sesión, anónimos y archivo inválido sin escrituras.
+- Verificación: `npm run lint`, `npm run format:check`, **193 pruebas en 32
+  archivos** y `npm run build` correctos. Sin publicar.

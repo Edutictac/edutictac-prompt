@@ -1369,6 +1369,7 @@ function Library({
           </>
         )}
       </div>
+      {user && <p className="mode-hint">{t.ownerLibraryHint}</p>}
       <input
         className="library-search"
         placeholder={t.librarySearch}

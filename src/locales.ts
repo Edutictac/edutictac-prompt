@@ -755,6 +755,14 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
         : language === 'es'
           ? 'No se ha podido sincronizar la biblioteca.'
           : 'No s’ha pogut sincronitzar la biblioteca.',
+    ownerLibraryHint:
+      language === 'en'
+        ? 'Only prompts from this account are shown. Anonymous prompts stay on this device.'
+        : language === 'es'
+          ? 'Solo se muestran los prompts de esta cuenta. Los anónimos quedan en este dispositivo.'
+          : language === 'ca'
+            ? 'Només es mostren els prompts d’aquest compte. Els anònims queden en aquest dispositiu.'
+            : 'Només es mostren els prompts d’este compte. Els anònims queden en este dispositiu.',
     deleteFailed:
       language === 'en'
         ? 'The prompt could not be deleted on the server. It is kept so you can retry.'
