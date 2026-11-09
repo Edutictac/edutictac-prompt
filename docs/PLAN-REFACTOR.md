@@ -206,7 +206,7 @@ resolverlo antes de seguir.
 
 | Paso | Estado | Commit / evidencia |
 | --- | --- | --- |
-| 0. Base y pruebas de comportamiento | Hecho | Rama `refactor/estructura`; 174 pruebas; build OK |
+| 0. Base y pruebas de comportamiento | Hecho | `75bccf1`; 174 pruebas; build OK |
 | 1. Formato, lint y documentación | Pendiente | Siguiente |
 | 2. Biblioteca y sincronización | Pendiente | |
 | 3. Aplicación y pantallas | Pendiente | |
@@ -219,7 +219,8 @@ resolverlo antes de seguir.
 
 ### Paso 0 — Base y pruebas de comportamiento (2026-11-09)
 
-- Rama `refactor/estructura` creada desde `master` (`51a7580`, versión 0.23.3).
+- Commit `75bccf1`. Rama `refactor/estructura` creada desde `master`
+  (`51a7580`, versión 0.23.3).
 - Base inicial verificada: 152 pruebas en 25 archivos y build correcto; ESLint
   sigue sin configuración.
 - Datos ficticios en `src/test/fixtures.ts`: categoría, prompt actual, prompt
