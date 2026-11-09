@@ -163,13 +163,13 @@ no exige modificar las pantallas. Mantener identificadores y valores persistidos
 
 ## Paso 6 — Revisar Agentes, Skills y carga inicial
 
-- [ ] Reevaluar tras las extracciones anteriores: no dividir módulos estables
+- [x] Reevaluar tras las extracciones anteriores: no dividir módulos estables
   únicamente por su tamaño.
-- [ ] Separar de `SkillsView.tsx` los flujos que ya son independientes: ejecución,
+- [x] Separar de `SkillsView.tsx` los flujos que ya son independientes: ejecución,
   creación asistida e importación/exportación.
-- [ ] Identificar responsabilidades compartidas entre Agentes y Skills antes de
+- [x] Identificar responsabilidades compartidas entre Agentes y Skills antes de
   moverlas; conservar sus bibliotecas e historiales por propietario.
-- [ ] Medir el bundle y la carga inicial. Valorar carga diferida de ayuda y de
+- [x] Medir el bundle y la carga inicial. Valorar carga diferida de ayuda y de
   Compatibilidad/Skills, ya que `AgentsView` ya se carga de forma diferida.
 
 **Terminado cuando:** las extracciones justificadas conservan los flujos actuales.
@@ -212,7 +212,7 @@ resolverlo antes de seguir.
 | 3. Aplicación y pantallas | Hecho | `ef6da2e`, `6449672`; 202 pruebas |
 | 4. Formulario | Hecho | `b8cddb5`; 206 pruebas |
 | 5. Generador y textos | Hecho | `8ba7da6`, `d6c70be`, `bc6cb58`; 210 pruebas |
-| 6. Agentes, Skills y carga | Pendiente | |
+| 6. Agentes, Skills y carga | Hecho | `e027b52`, `398f6f0`; 210 pruebas |
 | 7. Verificación y publicación | Pendiente | |
 
 ## Registro de ejecución
@@ -332,3 +332,27 @@ resolverlo antes de seguir.
 - Las salidas no cambian: pasan los 352 hashes y las 16 instantáneas.
 - Verificación: lint, format:check, **210 pruebas en 39 archivos** y build
   correctos. Sin publicar.
+
+### Paso 6 — Agentes, Skills y carga inicial (2026-11-09)
+
+- `e027b52`: `SkillsView.tsx` baja de 907 a 451 líneas. Se separan la ejecución
+  (`ExecutionPanel.tsx`), los botones/proveedores compartidos (`aiHelpers.tsx`),
+  la creación asistida (`AssistedCreator.tsx`), el editor GIFT
+  (`GiftEditor.tsx`) y la importación/exportación (`TransferPanel.tsx`), con el
+  tipo `Safe` en `safe.ts`. Los flujos y las bibliotecas por propietario no
+  cambian.
+- Responsabilidades compartidas revisadas: `AgentsView` compone `AgentBuilder` y
+  la biblioteca de Skills y comparte `skillOwner`, `SkillError`, `agentGuide` y
+  la descarga de paquetes. Se mantienen porque el conjunto Agentes/Skills ya se
+  carga de forma diferida como un único chunk; no se dividió por tamaño.
+- `398f6f0`: la guía de ayuda pasa a carga diferida con `Suspense`; el resto de
+  la navegación no cambia.
+- Medición (build de producción):
+  - Antes: principal 587,91 kB (178,41 gzip); Agents/Skills 377,55 kB (117,03 gzip).
+  - Tras separar Skills: principal 588,31 kB (178,65 gzip); Agents/Skills 377,69 kB (117,10 gzip), sin coste apreciable.
+  - Tras diferir la ayuda: principal **560,78 kB (170,06 gzip)**, HelpView 27,82 kB (8,76 gzip), Agents/Skills 377,69 kB (117,10 gzip).
+  - Ahorro inicial: ~27,5 kB sin comprimir y ~8,6 kB gzip. El aviso de 500 kB
+    sigue apareciendo y no se usa como criterio de éxito.
+- Preservados los flujos existentes (crear, editar, duplicar, borrar, ejecutar,
+  importar/exportar y revisar). Verificación: lint, format:check, **210 pruebas
+  en 39 archivos** y build correctos. Sin publicar.
