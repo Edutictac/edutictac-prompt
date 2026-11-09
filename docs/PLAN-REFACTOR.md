@@ -133,13 +133,13 @@ disponible/ausente y aviso de actualización.
 
 ## Paso 4 — Separar el formulario sin duplicar su lógica
 
-- [ ] Mover `CreateView`, `FieldControl`, resumen guiado y selectores curriculares
-  a `src/prompts/components/`.
-- [ ] Extraer inicialización, selección de plantilla y edición del borrador a
+- [x] Mover `CreateView`, `FieldControl`, resumen guiado y selectores curriculares
+  a `src/prompts/form/`.
+- [x] Extraer inicialización, selección de plantilla y edición del borrador a
   un módulo/hook de formulario compartido por los tres modos.
-- [ ] Mantener una única implementación de controles, ayudas, sugerencias y
+- [x] Mantener una única implementación de controles, ayudas, sugerencias y
   selección curricular para Sencillo, Paso a paso y Avanzado.
-- [ ] Mantener la lectura del formato curricular antiguo y el actual separado
+- [x] Mantener la lectura del formato curricular antiguo y el actual separado
   por saltos de línea.
 
 **Terminado cuando:** generar, guardar, reabrir y actualizar funcionan en los
@@ -210,7 +210,7 @@ resolverlo antes de seguir.
 | 1. Formato, lint y documentación | Hecho | `ceac32f`, `899f339`, `9f00f74`; lint y build OK |
 | 2. Biblioteca y sincronización | Hecho | `b921c59`, `c38f95c`, `80b7714`; 193 pruebas |
 | 3. Aplicación y pantallas | Hecho | `ef6da2e`, `6449672`; 202 pruebas |
-| 4. Formulario | Pendiente | |
+| 4. Formulario | Hecho | `b8cddb5`; 206 pruebas |
 | 5. Generador y textos | Pendiente | |
 | 6. Agentes, Skills y carga | Pendiente | |
 | 7. Verificación y publicación | Pendiente | |
@@ -296,4 +296,20 @@ resolverlo antes de seguir.
 - Pruebas nuevas: navegación, apertura desde `#help`, idioma/tema en la cabecera
   propia, chip ausente/presente, eventos del chip y aviso de actualización.
 - Verificación: lint, format:check, **202 pruebas en 36 archivos** y build
+  correctos. Sin publicar.
+
+### Paso 4 — Formulario (2026-11-09)
+
+- `b8cddb5`: `CreateView`, `FieldControl`, `GuidedSummary`, los selectores
+  curriculares, las etiquetas de plantillas/campos y los valores iniciales
+  pasan a `src/prompts/form/`. `App.tsx` baja a 293 líneas y solo coordina.
+- `usePromptDraft` concentra la selección de plantilla, los valores, el prompt,
+  la edición y las acciones de elegir, empezar desde un caso, abrir, generar y
+  limpiar. Los tres modos comparten ese mismo borrador y los mismos controles.
+- La lectura del formato curricular antiguo y el nuevo separado por saltos de
+  línea no cambia.
+- Pruebas: nuevas para el borrador y para guardar/reabrir/actualizar en Paso a
+  paso, y comprobación de que una selección con « · » sigue marcada al cambiar
+  entre Paso a paso y Avanzado.
+- Verificación: lint, format:check, **206 pruebas en 37 archivos** y build
   correctos. Sin publicar.
