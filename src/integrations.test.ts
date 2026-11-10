@@ -25,7 +25,7 @@ async function decode(payload: string): Promise<string> {
 
 describe('EduCrea bridge', () => {
   it('opens the guided creation with the bridge marker', () => {
-    expect(eduCreaNewProjectUrl()).toBe('https://educrea.edutictac.es/projects?nuevo=1&desde=eduprompt')
+    expect(eduCreaNewProjectUrl()).toBe('https://crea.edutictac.es/projects?nuevo=1&desde=eduprompt')
   })
 
   it('accepts a configured base URL and trims trailing slashes', () => {
@@ -35,16 +35,16 @@ describe('EduCrea bridge', () => {
   })
 
   it('exposes the production URL by default', () => {
-    expect(EDUCEREA_URL).toBe('https://educrea.edutictac.es')
+    expect(EDUCEREA_URL).toBe('https://crea.edutictac.es')
   })
 
   it('builds the direct handoff URL with the prompt in the fragment', () => {
-    expect(eduCreaHandoffUrl('z.abc')).toBe('https://educrea.edutictac.es/eduprompt#encargo=z.abc')
+    expect(eduCreaHandoffUrl('z.abc')).toBe('https://crea.edutictac.es/eduprompt#encargo=z.abc')
   })
 
   it('sends the Prompt template so EduCrea can propose the matching product', () => {
     expect(eduCreaHandoffUrl('z.abc', 'learning-situation')).toBe(
-      'https://educrea.edutictac.es/eduprompt#encargo=z.abc&plantilla=learning-situation',
+      'https://crea.edutictac.es/eduprompt#encargo=z.abc&plantilla=learning-situation',
     )
   })
 

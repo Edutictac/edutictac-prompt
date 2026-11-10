@@ -1,4 +1,4 @@
-const DEFAULT_EDUCREA_URL = 'https://educrea.edutictac.es'
+const DEFAULT_EDUCREA_URL = 'https://crea.edutictac.es'
 export const MAX_HANDOFF_PAYLOAD = 48_000
 
 export const EDUCEREA_URL = (import.meta.env.VITE_EDUCREA_URL || DEFAULT_EDUCREA_URL).replace(/\/$/, '')
