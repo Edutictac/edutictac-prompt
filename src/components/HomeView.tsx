@@ -42,6 +42,10 @@ export function HomeView({
           <button className="primary" onClick={onCreate}>
             {t.create} <span>→</span>
           </button>
+          <a className="hero-shortcut" href="https://e.edutictac.es/prompt">
+            <span>{t.shortLink}</span>
+            <strong>e.edutictac.es/prompt</strong>
+          </a>
         </div>
         <div className="hero-card">
           <span>✦</span>

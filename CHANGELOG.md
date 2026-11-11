@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.25.1 - Enlace corto en la portada
+
+- La portada muestra, debajo del botón «Crear», el enlace corto **e.edutictac.es/prompt** con la etiqueta «Enlace corto para el aula», listo para proyectar o escribir en clase.
+- Traducido a los cuatro idiomas y adaptado a modo oscuro y móvil.
+
 ## 0.25.0 - Buscador visible del catálogo
 
 - Barra de búsqueda destacada bajo la portada, con icono, botón para limpiar, ejemplos y recuento de resultados.

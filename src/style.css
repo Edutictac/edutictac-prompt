@@ -125,3 +125,10 @@ header{padding:0 max(24px,calc((100% - 1560px)/2))}
 [data-theme="dark"] .search-clear:hover{background:#263a4a;color:var(--text)}
 @media(max-width:800px){.catalog-search{margin:-10px auto 0;padding:0 18px}.search-box input[type=search]{font-size:17px;padding:14px 0}.search-icon{width:22px;height:22px}}
 @media(min-width:1400px){.catalog-search{max-width:1560px}}
+.hero-shortcut{display:flex;width:max-content;align-items:center;gap:8px;margin-top:16px;padding:9px 12px;border:1px solid #d8e0ea;border-radius:10px;background:#fff;font-size:13px;color:#68809b;text-decoration:none;transition:border-color .2s,color .2s}
+.hero-shortcut strong{font-family:'Space Grotesk';font-size:14px;color:#123c69}
+.hero-shortcut:hover{border-color:#f2b84b;color:#123c69}
+[data-theme="dark"] .hero-shortcut{background:var(--panel);border-color:var(--line);color:var(--muted)}
+[data-theme="dark"] .hero-shortcut strong{color:var(--accent-2)}
+[data-theme="dark"] .hero-shortcut:hover{border-color:var(--warn)}
+@media(max-width:800px){.hero-shortcut{font-size:12px}.hero-shortcut strong{font-size:13px}}

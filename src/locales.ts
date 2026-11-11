@@ -1231,4 +1231,12 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[])
           : language === 'ca'
             ? 'No hi ha eines que coincideixin. Prova una altra paraula o canvia de categoria.'
             : 'No hi ha ferramentes que coincidisquen. Prova una altra paraula o canvia de categoria.',
+    shortLink:
+      language === 'es'
+        ? 'Enlace corto para el aula'
+        : language === 'en'
+          ? 'Short link for class'
+          : language === 'ca'
+            ? 'Enllaç curt per a l’aula'
+            : 'Enllaç curt per a l’aula',
   })
