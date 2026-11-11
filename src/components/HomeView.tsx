@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { categoryIds, templates } from '../templates'
+import { searchTemplates } from '../search'
 import { starters, starterTitle, type Starter } from '../starters'
 import { localizeOption } from '../optionLocales'
 import type { Language } from '../types'
@@ -29,15 +30,8 @@ export function HomeView({
   templateName: (id: string) => string
   categoryLabel: (id: string) => string
 }) {
-  const visibleTemplates = useMemo(
-    () =>
-      templates.filter(
-        (template) =>
-          (category === 'all' || template.category === category) &&
-          templateName(template.id).toLowerCase().includes(search.toLowerCase()),
-      ),
-    [search, category, lang],
-  )
+  const visibleTemplates = useMemo(() => searchTemplates(search, category), [search, category])
+  const hasQuery = search.trim().length > 0
   return (
     <main>
       <section className="hero">
@@ -62,34 +56,60 @@ export function HomeView({
           </div>
         </div>
       </section>
-      <section className="starters">
-        <p className="eyebrow">{t.startHere}</p>
-        <h2>{t.startHereTitle}</h2>
-        <p className="mode-hint">{t.startHereHint}</p>
-        <div className="cards">
-          {starters.map((starter) => (
-            <button className="tool-card starter-card" key={starter.id} onClick={() => onStart(starter)}>
-              <span className="tool-icon">{starter.icon}</span>
-              <strong>{starterTitle(starter, lang)}</strong>
-              <small>
-                {localizeOption(starter.level, lang)} · {templateName(starter.templateId)}
-              </small>
+      <section className="catalog-search" role="search">
+        <div className="search-box">
+          <svg className="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-4.2-4.2" />
+          </svg>
+          <input
+            id="tool-search"
+            type="search"
+            autoComplete="off"
+            aria-label={t.search}
+            placeholder={t.searchPlaceholder}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          {hasQuery && (
+            <button type="button" className="search-clear" aria-label={t.clear} onClick={() => setSearch('')}>
+              ×
             </button>
-          ))}
+          )}
         </div>
+        <p className="search-hint">{t.searchHint}</p>
+        {hasQuery && (
+          <p className="search-count" role="status">
+            {visibleTemplates.length === 0
+              ? t.noSearchResults
+              : t.searchResults.replace('{count}', String(visibleTemplates.length))}
+          </p>
+        )}
       </section>
-      <section className="catalog">
+      {!hasQuery && (
+        <section className="starters">
+          <p className="eyebrow">{t.startHere}</p>
+          <h2>{t.startHereTitle}</h2>
+          <p className="mode-hint">{t.startHereHint}</p>
+          <div className="cards">
+            {starters.map((starter) => (
+              <button className="tool-card starter-card" key={starter.id} onClick={() => onStart(starter)}>
+                <span className="tool-icon">{starter.icon}</span>
+                <strong>{starterTitle(starter, lang)}</strong>
+                <small>
+                  {localizeOption(starter.level, lang)} · {templateName(starter.templateId)}
+                </small>
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
+      <section className="catalog" id="catalog">
         <div className="section-heading">
           <div>
             <p className="eyebrow">{t.catalog}</p>
             <h2>{t.choose}</h2>
           </div>
-          <input
-            aria-label={t.search}
-            placeholder={t.search}
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
         </div>
         <div className="filters">
           {categoryIds.map((id) => (
@@ -98,15 +118,19 @@ export function HomeView({
             </button>
           ))}
         </div>
-        <div className="cards">
-          {visibleTemplates.map((template) => (
-            <button className="tool-card" key={template.id} onClick={() => onChoose(template.id)}>
-              <span className="tool-icon">{template.icon}</span>
-              <strong>{templateName(template.id)}</strong>
-              <small>{categoryLabel(template.category)}</small>
-            </button>
-          ))}
-        </div>
+        {visibleTemplates.length === 0 ? (
+          <p className="empty">{t.noSearchResults}</p>
+        ) : (
+          <div className="cards">
+            {visibleTemplates.map((template) => (
+              <button className="tool-card" key={template.id} onClick={() => onChoose(template.id)}>
+                <span className="tool-icon">{template.icon}</span>
+                <strong>{templateName(template.id)}</strong>
+                <small>{categoryLabel(template.category)}</small>
+              </button>
+            ))}
+          </div>
+        )}
       </section>
     </main>
   )

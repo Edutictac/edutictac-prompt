@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.25.0 - Buscador visible del catálogo
+
+- Barra de búsqueda destacada bajo la portada, con icono, botón para limpiar, ejemplos y recuento de resultados.
+- Busca por nombre en los cuatro idiomas, categoría y sinónimos habituales («examen», «mapa mental», «lectura fácil»), ignorando acentos, mayúsculas y signos.
+- Al escribir se oculta «Empieza aquí» y aparecen directamente las herramientas coincidentes, con un estado vacío claro cuando no hay resultados.
+
 ## 0.24.0 - Refactor interno y biblioteca por cuenta
 
 - Organización modular de la aplicación, las pantallas, el formulario y el generador, con salidas del generador verificadas por hashes e instantáneas.

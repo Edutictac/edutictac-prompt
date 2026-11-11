@@ -1196,3 +1196,39 @@ export function detectLanguage(): Language {
 
 for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[])
   translations[language].agents = language === 'es' ? 'Agentes' : language === 'en' ? 'Agents' : 'Agents'
+
+for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[])
+  Object.assign(translations[language], {
+    searchPlaceholder:
+      language === 'es'
+        ? 'Busca por nombre, categoría o necesidad'
+        : language === 'en'
+          ? 'Search by name, category or need'
+          : language === 'ca'
+            ? 'Cerca per nom, categoria o necessitat'
+            : 'Busca per nom, categoria o necessitat',
+    searchHint:
+      language === 'es'
+        ? 'Prueba con «rúbrica», «examen», «mapa mental», «lectura fácil» o «familias».'
+        : language === 'en'
+          ? 'Try “rubric”, “test”, “mind map”, “easy reading” or “families”.'
+          : language === 'ca'
+            ? 'Prova amb «rúbrica», «examen», «mapa mental», «lectura fàcil» o «famílies».'
+            : 'Prova amb «rúbrica», «examen», «mapa mental», «lectura fàcil» o «famílies».',
+    searchResults:
+      language === 'es'
+        ? '{count} herramientas encontradas'
+        : language === 'en'
+          ? '{count} tools found'
+          : language === 'ca'
+            ? '{count} eines trobades'
+            : '{count} ferramentes trobades',
+    noSearchResults:
+      language === 'es'
+        ? 'No hay herramientas que coincidan. Prueba otra palabra o cambia de categoría.'
+        : language === 'en'
+          ? 'No tools match. Try another word or change the category.'
+          : language === 'ca'
+            ? 'No hi ha eines que coincideixin. Prova una altra paraula o canvia de categoria.'
+            : 'No hi ha ferramentes que coincidisquen. Prova una altra paraula o canvia de categoria.',
+  })
