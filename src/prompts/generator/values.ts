@@ -12,6 +12,11 @@ const localizedKeys = new Set([
   'includeLabels',
   'aspectRatio',
   'questionTypes',
+  'videoStyle',
+  'videoVariant',
+  'videoFinish',
+  'tone',
+  'voice',
 ])
 
 export type ValueReader = (key: string) => string

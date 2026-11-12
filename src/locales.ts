@@ -931,6 +931,98 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
             ? 'eines educatives en evolució'
             : 'ferramentes educatives en evolució',
     visual: language === 'en' ? 'Image and visual' : language === 'es' ? 'Imagen y visual' : 'Imatge i visual',
+    video: language === 'en' ? 'Video' : language === 'es' ? 'Vídeo' : 'Vídeo',
+    templateExplainerVideo:
+      language === 'en'
+        ? 'Animated explainer film'
+        : language === 'es'
+          ? 'Película explicativa animada'
+          : language === 'ca'
+            ? 'Pel·lícula explicativa animada'
+            : 'Pel·lícula explicativa animada',
+    audience:
+      language === 'en'
+        ? 'Target audience'
+        : language === 'es'
+          ? 'Público destinatario'
+          : language === 'ca'
+            ? 'Públic destinatari'
+            : 'Públic destinatari',
+    videoStyle:
+      language === 'en'
+        ? 'Film style'
+        : language === 'es'
+          ? 'Estilo de la película'
+          : language === 'ca'
+            ? 'Estil de la pel·lícula'
+            : 'Estil de la pel·lícula',
+    videoVariant:
+      language === 'en'
+        ? 'Colour variant'
+        : language === 'es'
+          ? 'Variante de color'
+          : language === 'ca'
+            ? 'Variante de color'
+            : 'Variant de color',
+    videoFinish: language === 'en' ? 'Finish' : language === 'es' ? 'Acabado' : language === 'ca' ? 'Acabat' : 'Acabat',
+    toneOption: language === 'en' ? 'Tone' : language === 'es' ? 'Tono' : language === 'ca' ? 'To' : 'To',
+    brandColors:
+      language === 'en'
+        ? 'Brand colours'
+        : language === 'es'
+          ? 'Colores de marca'
+          : language === 'ca'
+            ? 'Colors de marca'
+            : 'Colors de marca',
+    voice: language === 'en' ? 'Voice and sound' : language === 'es' ? 'Voz y sonido' : 'Veu i so',
+    mustShow:
+      language === 'en'
+        ? 'What must be clear no matter what'
+        : language === 'es'
+          ? 'Qué debe quedar claro sí o sí'
+          : language === 'ca'
+            ? 'Què ha de quedar clar sí o sí'
+            : 'Què ha de quedar clar sí o sí',
+    avoid:
+      language === 'en' ? 'What must not appear' : language === 'es' ? 'Qué no debe aparecer' : 'Què no ha d’aparéixer',
+    'placeholderSourceText-explainer-video':
+      language === 'en'
+        ? 'Paste the document you want to turn into a film (or attach the file and describe it here)...'
+        : language === 'es'
+          ? 'Pega el documento que quieres convertir en película (o adjunta el archivo y descríbelo aquí)...'
+          : language === 'ca'
+            ? 'Enganxa el document que vols convertir en pel·lícula (o adjunta el fitxer i descriu-lo ací)...'
+            : 'Enganxa ací el document que vols convertir en pel·lícula (o adjunta el fitxer i descriu-lo ací)...',
+    placeholderAudience:
+      language === 'en'
+        ? 'E.g. Year 10 students, families, staff...'
+        : language === 'es'
+          ? 'Ej. alumnado de 4.º de ESO, familias, claustro...'
+          : language === 'ca'
+            ? 'Ex. alumnat de 4t d’ESO, famílies, claustre...'
+            : 'Ex. alumnat de 4t d’ESO, famílies, claustre...',
+    placeholderMustShow:
+      language === 'en'
+        ? 'E.g. that the deadline is 30 June and what happens if it is missed...'
+        : language === 'es'
+          ? 'Ej. que el plazo termina el 30 de junio y qué pasa si no se entrega...'
+          : language === 'ca'
+            ? 'Ex. que el termini acaba el 30 de juny i què passa si no es presenta...'
+            : 'Ex. que el termini acaba el 30 de juny i què passa si no es presenta...',
+    placeholderAvoid:
+      language === 'en'
+        ? 'E.g. students’ names, internal figures, medical data...'
+        : language === 'es'
+          ? 'Ej. nombres del alumnado, cifras internas, datos médicos...'
+          : language === 'ca'
+            ? 'Ex. noms de l’alumnat, xifres internes, dades mèdiques...'
+            : 'Ex. noms de l’alumnat, xifres internes, dades mèdiques...',
+    placeholderBrandColors:
+      language === 'en'
+        ? 'E.g. #0A2540 and #00D4A0'
+        : language === 'es'
+          ? 'Ej. #0A2540 y #00D4A0'
+          : 'Ex. #0A2540 i #00D4A0',
     templateScientificIllustration:
       language === 'en'
         ? 'Scientific illustration'

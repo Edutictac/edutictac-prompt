@@ -46,6 +46,14 @@ export function buildTask({
     'mind-map': () => `${d.mindMap} ${topic}.`,
     'html-game': () =>
       `${g.task} ${topic}.${mechanics.length ? ` ${mechanics.length > 1 ? g.mechanics : g.mechanic} ${mechanics.join(', ')}.` : ''}`,
+    'explainer-video': () =>
+      language === 'en'
+        ? `Turn the source document into an animated explainer film about this topic: ${topic}. Take into account the audience and objective given. Follow the phase method and do not program until the script is approved.`
+        : language === 'ca-valencia'
+          ? `Convertix el document de partida en una pel·lícula explicativa animada sobre este tema: ${topic}. Tingues en compte el públic i l’objectiu indicats. Seguix el mètode per fases i no programes fins que s’aprova el guió.`
+          : language === 'ca'
+            ? `Converteix el document de partida en una pel·lícula explicativa animada sobre aquest tema: ${topic}. Tingues en compte el públic i l’objectiu indicats. Segueix el mètode per fases i no programis fins que s’aprovi el guió.`
+            : `Convierte el documento de partida en una película explicativa animada sobre este tema: ${topic}. Ten en cuenta el público y el objetivo indicados. Sigue el método por fases y no programes hasta que se apruebe el guion.`,
     'udl-review': () => u.review,
     'udl-matrix': () => `${u.matrix} ${topic}. ${u.matrixFormat}`,
     'student-tutor': () =>

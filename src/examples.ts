@@ -606,6 +606,51 @@ export const examples: Record<string, Example> = {
       branches: 'Society, economy, culture, religion',
     },
   },
+  'explainer-video': {
+    options: {
+      level: 'Primaria',
+      videoStyle: 'Manual (papel y tinta)',
+      videoVariant: 'Clara (papel marfil)',
+      videoFinish: 'Acabado habitual',
+      duration: '2 minutos',
+      tone: 'Cercano',
+      voice: 'Voz del navegador',
+      outputFormat: 'HTML',
+    },
+    es: {
+      subject: 'Ciencias de la Naturaleza',
+      topic: 'El ciclo del agua',
+      sourceText:
+        'El agua de mares, ríos y lagos se evapora con el calor del sol. El vapor sube, se enfría y forma nubes. Las gotas se juntan hasta que caen como lluvia o nieve. Parte del agua se filtra en el suelo y vuelve a los ríos y acuíferos. En el centro podemos ahorrar agua cerrando los grifos y reparando fugas.',
+      objectives:
+        'Que el alumnado y las familias entiendan el ciclo del agua y sepan cómo ahorrar agua en casa y en el centro.',
+      audience: 'Alumnado de 5.º de Primaria y sus familias',
+      mustShow: 'Que el agua no se gasta: se transforma y vuelve a empezar.',
+      avoid: 'Nombres del alumnado y consumos concretos del centro.',
+    },
+    va: {
+      subject: 'Ciències de la Naturalesa',
+      topic: 'El cicle de l’aigua',
+      sourceText:
+        'L’aigua de mars, rius i llacs s’evapora amb la calor del sol. El vapor puja, es refreda i forma núvols. Les gotes s’ajunten fins que cauen com a pluja o neu. Part de l’aigua es filtra en el sòl i torna als rius i aqüífers. Al centre podem estalviar aigua tancant les aixetes i arreglant fuites.',
+      objectives:
+        'Que l’alumnat i les famílies entenguen el cicle de l’aigua i sàpien com estalviar aigua a casa i al centre.',
+      audience: 'Alumnat de 5é de Primària i les seues famílies',
+      mustShow: 'Que l’aigua no es gasta: es transforma i torna a començar.',
+      avoid: 'Noms de l’alumnat i consums concrets del centre.',
+    },
+    en: {
+      subject: 'Natural Science',
+      topic: 'The water cycle',
+      sourceText:
+        'Water from seas, rivers and lakes evaporates with the sun’s heat. The vapour rises, cools and forms clouds. Droplets join until they fall as rain or snow. Some water filters into the ground and returns to rivers and aquifers. At school we can save water by turning off taps and fixing leaks.',
+      objectives:
+        'For students and families to understand the water cycle and know how to save water at home and at school.',
+      audience: 'Year 5 students and their families',
+      mustShow: 'That water is not used up: it changes and starts again.',
+      avoid: 'Student names and the school’s actual water consumption.',
+    },
+  },
   'udl-review': {
     options: { level: 'ESO' },
     es: {

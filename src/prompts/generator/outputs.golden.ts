@@ -344,4 +344,12 @@ export const goldenOutputs: Record<string, string> = {
   'code-coach:ca:example': '974b0ccab7f16948',
   'code-coach:en:empty': 'fad38482de8bad7b',
   'code-coach:en:example': '597e442992269ef3',
+  'explainer-video:es:empty': 'ad9b84e595f90d27',
+  'explainer-video:es:example': '03c3aa17c2de3e40',
+  'explainer-video:ca-valencia:empty': '36ec96b8783431d2',
+  'explainer-video:ca-valencia:example': 'b56e0d80593df85a',
+  'explainer-video:ca:empty': '8d3a4d46697bb504',
+  'explainer-video:ca:example': '190199e9b46abc4e',
+  'explainer-video:en:empty': '572dc3c8471f2c10',
+  'explainer-video:en:example': '02d16cce3a360b80',
 }

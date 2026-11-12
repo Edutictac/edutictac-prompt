@@ -24,6 +24,7 @@ export type LabelKey =
   | 'udl'
   | 'barriers'
   | 'giftRules'
+  | 'videoBrief'
 export type DefaultText =
   | 'adultGuidance'
   | 'role'
@@ -72,6 +73,7 @@ export const labels: Record<Language, Record<LabelKey, string>> = {
     requirements: 'Revisión docente',
     format: 'Formato de salida',
     giftRules: 'Reglas para una importación correcta en Aules y Moodle',
+    videoBrief: 'Instrucciones de producción',
     aiTool: 'Herramienta de imagen',
     refinement: 'Refinamiento y ajustes',
     criteria: 'Criterios',
@@ -97,6 +99,7 @@ export const labels: Record<Language, Record<LabelKey, string>> = {
     requirements: 'Revisió docent',
     format: 'Format d’eixida',
     giftRules: 'Regles per a una importació correcta a Aules i Moodle',
+    videoBrief: 'Instruccions de producció',
     aiTool: 'Ferramenta d’imatge',
     refinement: 'Refinament i ajustos',
     criteria: 'Criteris',
@@ -122,6 +125,7 @@ export const labels: Record<Language, Record<LabelKey, string>> = {
     requirements: 'Revisió docent',
     format: 'Format de sortida',
     giftRules: 'Regles per a una importació correcta a Aules i Moodle',
+    videoBrief: 'Instruccions de producció',
     aiTool: 'Eina d’imatge',
     refinement: 'Refinament i ajustos',
     criteria: 'Criteris',
@@ -147,6 +151,7 @@ export const labels: Record<Language, Record<LabelKey, string>> = {
     requirements: 'Teacher review',
     format: 'Output format',
     giftRules: 'Rules for a clean import into Aules and Moodle',
+    videoBrief: 'Production instructions',
     aiTool: 'Image tool',
     refinement: 'Refinement and tweaks',
     criteria: 'Criteria',
@@ -317,8 +322,9 @@ export const defaults: Record<Language, Record<DefaultText, string>> = {
 
 export type DefaultTexts = Record<DefaultText, string>
 
-export type ReviewType = 'generic' | 'assessment' | 'adaptation' | 'communication'
+export type ReviewType = 'generic' | 'assessment' | 'adaptation' | 'communication' | 'video'
 export const reviewTypes: Record<string, ReviewType> = {
+  'explainer-video': 'video',
   rubric: 'assessment',
   checklist: 'assessment',
   'rating-scale': 'assessment',
@@ -365,6 +371,13 @@ export const reviews: Record<Language, Record<ReviewType, string[]>> = {
       'Mantén el criterio institucional del centro.',
       'Entrega un primer borrador revisable, no lo presentes como definitivo.',
     ],
+    video: [
+      'Comprueba que cada cifra coincide con el documento de partida.',
+      'Revisa que la voz, los subtítulos y las animaciones estén sincronizados.',
+      'Confirma que ningún momento queda quieto más de un segundo y que cada dos o tres segundos pasa algo nuevo.',
+      'Comprueba que el estilo elegido se respeta y que, aun con movimiento, el texto se lee bien.',
+      'Verifica que saltar a cualquier punto de la línea de tiempo dibuja lo mismo (semillas fijas) y que no queda texto en inglés ni solapamientos.',
+    ],
   },
   'ca-valencia': {
     generic: [
@@ -394,6 +407,13 @@ export const reviews: Record<Language, Record<ReviewType, string[]>> = {
       'No inclogues dades personals de l’alumnat.',
       'Mantín el criteri institucional del centre.',
       'Oferix un primer esborrany revisable, no el presentes com a definitiu.',
+    ],
+    video: [
+      'Comprova que cada xifra coincidisca amb el document de partida.',
+      'Revisa que la veu, els subtítols i les animacions estiguen sincronitzats.',
+      'Confirma que cap moment es queda quiet més d’un segon i que cada dos o tres segons passa una cosa nova.',
+      'Comprova que l’estil triat es respecta i que, fins i tot amb moviment, el text es llig bé.',
+      'Verifica que saltar a qualsevol punt de la línia de temps dibuixa el mateix (llavors fixes) i que no queda text en anglés ni superposicions.',
     ],
   },
   ca: {
@@ -425,6 +445,13 @@ export const reviews: Record<Language, Record<ReviewType, string[]>> = {
       'Mantén el criteri institucional del centre.',
       'Ofereix un primer esborrany revisable, no el presentis com a definitiu.',
     ],
+    video: [
+      'Comprova que cada xifra coincideix amb el document de partida.',
+      'Revisa que la veu, els subtítols i les animacions estiguin sincronitzats.',
+      'Confirma que cap moment es queda quiet més d’un segon i que cada dos o tres segons passa una cosa nova.',
+      'Comprova que l’estil triat es respecta i que, fins i tot amb moviment, el text es llegeix bé.',
+      'Verifica que saltar a qualsevol punt de la línia de temps dibuixa el mateix (llavors fixes) i que no queda text en anglès ni superposicions.',
+    ],
   },
   en: {
     generic: [
@@ -454,6 +481,13 @@ export const reviews: Record<Language, Record<ReviewType, string[]>> = {
       'Do not include students’ personal data.',
       'Keep the school’s institutional line.',
       'Deliver a reviewable first draft; do not present it as definitive.',
+    ],
+    video: [
+      'Check that every figure matches the source document.',
+      'Check that voice, subtitles and animations are in sync.',
+      'Confirm that no moment stays still for more than one second and that something new happens every two or three seconds.',
+      'Check that the chosen style is respected and that, even with all the movement, the text is easy to read.',
+      'Verify that jumping to any point on the timeline draws the same thing (fixed seeds) and that there is no leftover English text or overlapping content.',
     ],
   },
 }
@@ -879,6 +913,15 @@ export const extraLabels: Record<Language, Record<string, string>> = {
     branches: 'Ramas principales',
     questionCount: 'Número de preguntas',
     questionTypes: 'Tipos de pregunta',
+    audience: 'Público destinatario',
+    tone: 'Tono',
+    videoStyle: 'Estilo de la película',
+    videoVariant: 'Variante de color',
+    videoFinish: 'Acabado',
+    brandColors: 'Colores de marca',
+    voice: 'Voz y sonido',
+    mustShow: 'Qué debe quedar claro sí o sí',
+    avoid: 'Qué no debe aparecer',
   },
   'ca-valencia': {
     visualStyle: 'Estil visual',
@@ -888,6 +931,15 @@ export const extraLabels: Record<Language, Record<string, string>> = {
     branches: 'Branques principals',
     questionCount: 'Nombre de preguntes',
     questionTypes: 'Tipus de pregunta',
+    audience: 'Públic destinatari',
+    tone: 'To',
+    videoStyle: 'Estil de la pel·lícula',
+    videoVariant: 'Variant de color',
+    videoFinish: 'Acabat',
+    brandColors: 'Colors de marca',
+    voice: 'Veu i so',
+    mustShow: 'Què ha de quedar clar sí o sí',
+    avoid: 'Què no ha d’aparéixer',
   },
   ca: {
     visualStyle: 'Estil visual',
@@ -897,6 +949,15 @@ export const extraLabels: Record<Language, Record<string, string>> = {
     branches: 'Branques principals',
     questionCount: 'Nombre de preguntes',
     questionTypes: 'Tipus de pregunta',
+    audience: 'Públic destinatari',
+    tone: 'To',
+    videoStyle: 'Estil de la pel·lícula',
+    videoVariant: 'Variant de color',
+    videoFinish: 'Acabat',
+    brandColors: 'Colors de marca',
+    voice: 'Veu i so',
+    mustShow: 'Què ha de quedar clar sí o sí',
+    avoid: 'Què no ha d’aparéixer',
   },
   en: {
     visualStyle: 'Visual style',
@@ -906,6 +967,15 @@ export const extraLabels: Record<Language, Record<string, string>> = {
     branches: 'Main branches',
     questionCount: 'Number of questions',
     questionTypes: 'Question types',
+    audience: 'Target audience',
+    tone: 'Tone',
+    videoStyle: 'Film style',
+    videoVariant: 'Colour variant',
+    videoFinish: 'Finish',
+    brandColors: 'Brand colours',
+    voice: 'Voice and sound',
+    mustShow: 'What must be clear no matter what',
+    avoid: 'What must not appear',
   },
 }
 

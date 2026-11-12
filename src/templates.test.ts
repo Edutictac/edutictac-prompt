@@ -56,6 +56,7 @@ describe('plantillas de prompts', () => {
       qti: ['QTI 2.1'],
       'common-cartridge': ['Common Cartridge'],
       'html-game': ['HTML'],
+      'explainer-video': ['HTML', 'Markdown'],
     }
     for (const template of templates) {
       const last = template.fields[template.fields.length - 1]

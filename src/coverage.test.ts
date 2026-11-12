@@ -33,6 +33,7 @@ const sameEverywhere = new Set([
   'Canva',
   'Clasificar',
   '9:16 vertical',
+  'Pixel art',
 ])
 // Campos que el generador transforma en lugar de copiar el valor.
 const transformed = new Set(['udl', 'aiTool', 'gameFeatures'])

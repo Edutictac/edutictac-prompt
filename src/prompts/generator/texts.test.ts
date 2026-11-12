@@ -11,6 +11,7 @@ import {
   reviews,
   udlTexts,
 } from './texts'
+import { videoBriefs } from './video'
 
 const languages: Language[] = ['es', 'ca-valencia', 'ca', 'en']
 const sameKeys = (record: Record<Language, object>, name: string) => {
@@ -29,6 +30,7 @@ describe('integridad de los textos del generador', () => {
     sameKeys(assessmentTexts, 'assessmentTexts')
     sameKeys(imageToolTexts, 'imageToolTexts')
     sameKeys(extraLabels, 'extraLabels')
+    for (const language of languages) expect(videoBriefs[language].trim(), `videoBriefs.${language}`).not.toBe('')
     for (const language of languages) {
       for (const value of Object.values(labels[language])) expect(value.trim(), language).not.toBe('')
       for (const value of Object.values(defaults[language])) expect(value.trim(), language).not.toBe('')
@@ -58,6 +60,6 @@ describe('integridad de los textos del generador', () => {
 
   it('solo usa tipos de revisión conocidos', () => {
     for (const type of Object.values(reviewTypes))
-      expect(['generic', 'assessment', 'adaptation', 'communication']).toContain(type)
+      expect(['generic', 'assessment', 'adaptation', 'communication', 'video']).toContain(type)
   })
 })

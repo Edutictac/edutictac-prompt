@@ -496,6 +496,53 @@ export const templates: PromptTemplate[] = [
     ],
   },
   {
+    id: 'explainer-video',
+    category: 'video',
+    icon: '▶',
+    fields: [
+      { id: 'level', type: 'select', options: ['Infantil', 'Primaria', 'ESO', 'Bachillerato', 'FP', 'Universidad'] },
+      { id: 'subject', type: 'text' },
+      { id: 'topic', type: 'text' },
+      { id: 'sourceText', type: 'textarea' },
+      { id: 'objectives', type: 'textarea' },
+      { id: 'audience', type: 'text' },
+      {
+        id: 'videoStyle',
+        type: 'select',
+        options: ['Manual (papel y tinta)', 'Pixel art', 'Combinado (manual + píxeles)'],
+      },
+      {
+        id: 'videoVariant',
+        type: 'select',
+        options: ['Clara (papel marfil)', 'Oscura (azul profundo)'],
+      },
+      {
+        id: 'videoFinish',
+        type: 'select',
+        options: ['Acabado habitual', 'Blueprint de alto impacto'],
+      },
+      {
+        id: 'duration',
+        type: 'select',
+        options: ['1 minuto', '2 minutos', '3 minutos', '4 minutos', '6 minutos', 'Decide tú'],
+      },
+      {
+        id: 'tone',
+        type: 'select',
+        options: ['Sobrio', 'Cercano', 'Entusiasta y dinámico', 'Divulgativo', 'Decídelo tú'],
+      },
+      { id: 'brandColors', type: 'text' },
+      {
+        id: 'voice',
+        type: 'select',
+        options: ['Voz del navegador', 'Voz grabada o generada aparte', 'Sin voz'],
+      },
+      { id: 'mustShow', type: 'textarea' },
+      { id: 'avoid', type: 'textarea' },
+      { id: 'outputFormat', type: 'select', options: ['HTML', 'Markdown'] },
+    ],
+  },
+  {
     id: 'udl-review',
     category: 'adaptation',
     icon: '◐',
@@ -693,7 +740,7 @@ for (const template of templates) {
 
 // Los formatos documentales se ofrecen en último lugar salvo en las plantillas
 // que producen su propio paquete o formato (H5P, SCORM, GIFT, QTI, CC y HTML).
-const ownFormatTemplates = ['h5p', 'scorm', 'gift', 'qti', 'common-cartridge', 'html-game']
+const ownFormatTemplates = ['h5p', 'scorm', 'gift', 'qti', 'common-cartridge', 'html-game', 'explainer-video']
 const documentFormats = ['PDF', 'ODT', 'DOCX']
 for (const template of templates) {
   const outputFormat = template.fields.find((field) => field.id === 'outputFormat')
@@ -754,6 +801,20 @@ export const simpleFieldIds: Record<string, string[]> = {
   'scientific-illustration': ['level', 'subject', 'topic', 'visualStyle', 'includeLabels', 'outputFormat'],
   infographic: ['level', 'subject', 'topic', 'sections', 'visualStyle', 'outputFormat'],
   'mind-map': ['level', 'subject', 'topic', 'objectives', 'outputFormat'],
+  'explainer-video': [
+    'level',
+    'subject',
+    'topic',
+    'sourceText',
+    'objectives',
+    'audience',
+    'videoStyle',
+    'videoVariant',
+    'duration',
+    'tone',
+    'voice',
+    'outputFormat',
+  ],
   'udl-review': ['level', 'subject', 'sourceText', 'objectives', 'barriers', 'outputFormat'],
   'udl-matrix': ['level', 'subject', 'topic', 'objectives', 'udl', 'barriers', 'outputFormat'],
   'student-tutor': ['level', 'subject', 'topic', 'task', 'outputFormat'],

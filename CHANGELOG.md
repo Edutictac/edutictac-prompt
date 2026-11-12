@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.26.0 - Película explicativa animada
+
+- Nueva categoría **Vídeo** con la herramienta **Película explicativa animada**, que convierte un documento en un guion y una película HTML autocontenida.
+- Permite elegir estilo manual, pixel art o combinado; variante clara u oscura; acabado habitual o Blueprint; duración, tono, colores de marca y tipo de voz.
+- El prompt trabaja por fases (análisis, guion con aprobación, construcción y revisión) e incluye reglas de rigor, dinamismo, accesibilidad y revisión docente.
+
 ## 0.25.1 - Enlace corto en la portada
 
 - La portada muestra, debajo del botón «Crear», el enlace corto **e.edutictac.es/prompt** con la etiqueta «Enlace corto para el aula», listo para proyectar o escribir en clase.

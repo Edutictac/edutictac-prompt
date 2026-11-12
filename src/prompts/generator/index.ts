@@ -17,6 +17,7 @@ import {
   type LabelKey,
 } from './texts'
 import { mechanicsFor, readCurriculum, readValue } from './values'
+import { videoBriefs } from './video'
 
 export function generatePrompt(template: PromptTemplate, values: Record<string, string>, language: Language): string {
   const l = labels[language]
@@ -93,6 +94,7 @@ export function generatePrompt(template: PromptTemplate, values: Record<string, 
       `## ${l.aiTool}: ${tool}\n${toolText.replace('{ratio}', (values['aspectRatio'] || '1:1').split(' ')[0])}`,
     )
   if (value('refinement')) lines.push(`## ${l.refinement}\n${value('refinement')}`)
+  if (template.id === 'explainer-video') lines.push(`## ${l.videoBrief}\n${videoBriefs[language]}`)
   const fileFormatInstruction = fileFormatInstructionFor(language, value('outputFormat'))
   const review = udlTemplates.has(template.id)
     ? u.checks
