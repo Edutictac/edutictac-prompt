@@ -848,6 +848,31 @@ export const examples: Record<string, Example> = {
       task: 'Answer as the interviewee and distinguish documented facts from what is unknown.',
     },
   },
+  'coding-activity': {
+    options: {
+      level: 'Infantil',
+      codingTool: 'Blocs Junior',
+      studentRole: 'Usuario',
+      activityIdea: 'Panel interactivo',
+      duration: '20 minutos',
+      outputFormat: 'Tabla',
+    },
+    es: {
+      subject: 'Lengua y Literatura',
+      topic: 'Los animales de la granja',
+      objectives: 'Asociar cada animal con su sonido y predecir qué hará el programa antes de ejecutarlo.',
+    },
+    va: {
+      subject: 'Llengua i Literatura',
+      topic: 'Els animals de la granja',
+      objectives: 'Associar cada animal amb el seu so i predir què farà el programa abans d’executar-lo.',
+    },
+    en: {
+      subject: 'Language and Literature',
+      topic: 'Farm animals',
+      objectives: 'Match each animal with its sound and predict what the program will do before running it.',
+    },
+  },
   'code-coach': {
     options: { level: 'ESO' },
     es: {

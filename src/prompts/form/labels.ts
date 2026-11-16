@@ -42,6 +42,7 @@ export const templateNameKeys: Record<string, string> = {
   'study-plan': 'templateStudyPlan',
   'historical-interview': 'templateHistoricalInterview',
   'code-coach': 'templateCodeCoach',
+  'coding-activity': 'templateCodingActivity',
   free: 'templateFree',
 }
 export const fieldNameKeys: Record<string, string> = {
@@ -71,6 +72,9 @@ export const fieldNameKeys: Record<string, string> = {
   visualStyle: 'visualStyle',
   audience: 'audience',
   videoStyle: 'videoStyle',
+  codingTool: 'codingTool',
+  studentRole: 'studentRole',
+  activityIdea: 'activityIdea',
   videoVariant: 'videoVariant',
   videoFinish: 'videoFinish',
   tone: 'toneOption',

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.27.0 - Ficha de actividad de programación
+
+- Nueva herramienta **Ficha de actividad de programación** (Planificación docente): el equipo elige etapa, herramienta o material, rol del alumnado, formato de partida y duración, y obtiene un prompt que pide una ficha de dos columnas (Campo | Decisión) con reglas, interacción, retroalimentación, consigna, evidencia y plan B.
+- Herramientas: Blocs Junior, Blockly Games, EduTicTac Blocs y actividad desenchufada, más los materiales de la dotación Escuela 4.0 (LEGO Coding Express, Tale-Bot, Matatalab, Codey Rocky, SPIKE Essential y Prime, BricQ Motion, micro:bit y BOSON). Con material físico, la ficha incluye preparación, turnos y un plan B en pantalla.
+- La herramienta **Película explicativa animada** deja de crear una categoría propia y aparece en **Imagen y visual**, junto a las demás herramientas visuales.
+- Todos los prompts incluyen en la revisión docente una petición común para preguntar si falta información imprescindible antes de continuar, en lugar de inventarla.
+
 ## 0.26.0 - Película explicativa animada
 
 - Nueva categoría **Vídeo** con la herramienta **Película explicativa animada**, que convierte un documento en un guion y una película HTML autocontenida.

@@ -62,6 +62,7 @@ const keywords: Record<string, string[]> = {
   'ethical-dilemma': ['dilema', 'etico', 'debate', 'valores'],
   'study-plan': ['plan de estudio', 'organizacion', 'habitos', 'estudiar'],
   'historical-interview': ['entrevista', 'personaje historico', 'historia', 'biografia'],
+  'coding-activity': ['ficha', 'actividad', 'programacion', 'bloques', 'scratch', 'robot', 'bee-bot', 'pensamiento computacional', 'robotica', 'blockly'],
   'code-coach': ['codigo', 'programacion', 'revisar', 'errores', 'depurar'],
 }
 

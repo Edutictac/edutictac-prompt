@@ -17,6 +17,9 @@ const localizedKeys = new Set([
   'videoFinish',
   'tone',
   'voice',
+  'codingTool',
+  'studentRole',
+  'activityIdea',
 ])
 
 export type ValueReader = (key: string) => string

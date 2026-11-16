@@ -34,6 +34,20 @@ const sameEverywhere = new Set([
   'Clasificar',
   '9:16 vertical',
   'Pixel art',
+  'Blocs Junior',
+  'Blockly Games',
+  'EduTicTac Blocs',
+  'LEGO Coding Express',
+  'Tale-Bot',
+  'Matatalab Coding Set',
+  'Codey Rocky',
+  'LEGO SPIKE Essential',
+  'LEGO SPIKE Prime',
+  'LEGO BricQ Motion Essential',
+  'BBC micro:bit',
+  'BOSON',
+  'Creador',
+  'Música',
 ])
 // Campos que el generador transforma en lugar de copiar el valor.
 const transformed = new Set(['udl', 'aiTool', 'gameFeatures'])

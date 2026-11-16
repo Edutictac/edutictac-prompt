@@ -101,7 +101,7 @@ export function generatePrompt(template: PromptTemplate, values: Record<string, 
     : principles.length
       ? [...reviews[language][reviewTypes[template.id] || 'generic'], ...u.checks.slice(0, 2)]
       : reviews[language][reviewTypes[template.id] || 'generic']
-  const checks = template.id === 'html-game' ? [...review, ...g.checks] : review
+  const checks = [...(template.id === 'html-game' ? [...review, ...g.checks] : review), d.askIfMissing]
   lines.push(
     `## ${l.requirements}\n${checks.map((item) => `- ${item}`).join('\n')}`,
     `## ${l.format}\n${fileFormatInstruction || `${returnTextFor(language)} ${value('outputFormat') || d.structured}.`}`,

@@ -31,6 +31,12 @@ export function buildRoleDefault(
           : catalan
             ? `Interpreta el personatge històric indicat${value('subject') ? ` de ${value('subject')}` : ''} basant-te en fets verificables.`
             : `Interpreta al personaje histórico indicado${value('subject') ? ` de ${value('subject')}` : ''} basándote en hechos verificables.`
+        : templateId === 'coding-activity'
+          ? language === 'en'
+            ? `You are a primary-school computational thinking teacher${value('subject') ? ` working with ${value('subject')}` : ''} who designs clear, ready-to-use activity sheets for other teachers.`
+            : catalan
+              ? `Ets docent de pensament computacional a Infantil i Primària${value('subject') ? ` i de ${value('subject')}` : ''}, i dissenyes fitxes d’activitat clares i llestes per usar per a altres docents.`
+              : `Eres docente de pensamiento computacional en Infantil y Primaria${value('subject') ? ` y de ${value('subject')}` : ''}, y diseñas fichas de actividad claras y listas para usar para otros docentes.`
         : templateId === 'code-coach'
           ? language === 'en'
             ? `Act as a programming teacher${value('subject') ? ` for ${value('subject')}` : ''} who helps the learner debug independently.`

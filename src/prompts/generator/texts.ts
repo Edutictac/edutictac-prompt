@@ -41,6 +41,7 @@ export type DefaultText =
   | 'viable'
   | 'verify'
   | 'invent'
+  | 'askIfMissing'
   | 'structured'
   | 'easyReading'
   | 'biasCheck'
@@ -184,6 +185,8 @@ export const defaults: Record<Language, Record<DefaultText, string>> = {
     viable: 'Comprueba que la propuesta es viable con el tiempo y los recursos indicados.',
     verify: 'Señala cualquier dato, fuente o supuesto que deba verificar la persona docente.',
     invent: 'No inventes normativa, referencias ni información sobre el alumnado.',
+    askIfMissing:
+      'Si falta información imprescindible para hacerlo bien, pregúntame antes de continuar; no la inventes.',
     structured: 'texto estructurado',
     easyReading: 'Adapta a lectura fácil el siguiente texto.',
     biasCheck: 'Revisa posibles sesgos de género, cultura o capacidad en el siguiente texto.',
@@ -222,6 +225,7 @@ export const defaults: Record<Language, Record<DefaultText, string>> = {
     viable: 'Comprova que la proposta és viable amb el temps i els recursos indicats.',
     verify: 'Assenyala qualsevol dada, font o supòsit que haja de verificar la persona docent.',
     invent: 'No inventes normativa, referències ni informació sobre l’alumnat.',
+    askIfMissing: 'Si falta informació imprescindible per a fer-ho bé, pregunta’m abans de continuar; no la inventes.',
     structured: 'text estructurat',
     easyReading: 'Adapta a lectura fàcil el text següent.',
     biasCheck: 'Revisa els possibles biaixos de gènere, cultura o capacitat en el text següent.',
@@ -260,6 +264,7 @@ export const defaults: Record<Language, Record<DefaultText, string>> = {
     viable: 'Comprova que la proposta és viable amb el temps i els recursos indicats.',
     verify: 'Assenyala qualsevol dada, font o supòsit que hagi de verificar el docent.',
     invent: 'No inventis normativa, referències ni informació sobre l’alumnat.',
+    askIfMissing: 'Si falta informació imprescindible per fer-ho bé, pregunta’m abans de continuar; no la inventes.',
     structured: 'text estructurat',
     easyReading: 'Adapta a lectura fàcil el text següent.',
     biasCheck: 'Revisa els possibles biaixos de gènere, cultura o capacitat en el text següent.',
@@ -298,6 +303,7 @@ export const defaults: Record<Language, Record<DefaultText, string>> = {
     viable: 'Check that the proposal is feasible with the stated time and resources.',
     verify: 'Flag any data, source or assumption the teacher should verify.',
     invent: 'Do not invent regulations, references or information about learners.',
+    askIfMissing: 'If essential information is missing to do this well, ask me before continuing; do not invent it.',
     structured: 'structured text',
     easyReading: 'Produce an easy-read version of the following text.',
     biasCheck: 'Review the following text for possible gender, cultural or ability bias.',
@@ -916,6 +922,9 @@ export const extraLabels: Record<Language, Record<string, string>> = {
     audience: 'Público destinatario',
     tone: 'Tono',
     videoStyle: 'Estilo de la película',
+    codingTool: 'Herramienta o material',
+    studentRole: 'Rol del alumnado',
+    activityIdea: 'Formato de partida',
     videoVariant: 'Variante de color',
     videoFinish: 'Acabado',
     brandColors: 'Colores de marca',
@@ -934,6 +943,9 @@ export const extraLabels: Record<Language, Record<string, string>> = {
     audience: 'Públic destinatari',
     tone: 'To',
     videoStyle: 'Estil de la pel·lícula',
+    codingTool: 'Eina o material',
+    studentRole: 'Rol de l’alumnat',
+    activityIdea: 'Format de partida',
     videoVariant: 'Variant de color',
     videoFinish: 'Acabat',
     brandColors: 'Colors de marca',
@@ -952,6 +964,9 @@ export const extraLabels: Record<Language, Record<string, string>> = {
     audience: 'Públic destinatari',
     tone: 'To',
     videoStyle: 'Estil de la pel·lícula',
+    codingTool: 'Eina o material',
+    studentRole: 'Rol de l’alumnat',
+    activityIdea: 'Format de partida',
     videoVariant: 'Variant de color',
     videoFinish: 'Acabat',
     brandColors: 'Colors de marca',
@@ -970,6 +985,9 @@ export const extraLabels: Record<Language, Record<string, string>> = {
     audience: 'Target audience',
     tone: 'Tone',
     videoStyle: 'Film style',
+    codingTool: 'Tool or material',
+    studentRole: 'Student role',
+    activityIdea: 'Starting format',
     videoVariant: 'Colour variant',
     videoFinish: 'Finish',
     brandColors: 'Brand colours',

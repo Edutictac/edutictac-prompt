@@ -21,6 +21,7 @@ Justificación y uso de fuentes.
 - Revisa que els nivells de rendiment estiguin ben definits.
 - Assenyala qualsevol dada, font o supòsit que hagi de verificar el docent.
 - No inventis normativa, referències ni informació sobre l’alumnat.
+- Si falta informació imprescindible per fer-ho bé, pregunta’m abans de continuar; no la inventes.
 
 ## Format de sortida
 Retorna el resultat en Text."
@@ -47,6 +48,7 @@ Justificación y uso de fuentes.
 - Revisa que els nivells de rendiment estiguen ben definits.
 - Assenyala qualsevol dada, font o supòsit que haja de verificar la persona docent.
 - No inventes normativa, referències ni informació sobre l’alumnat.
+- Si falta informació imprescindible per a fer-ho bé, pregunta’m abans de continuar; no la inventes.
 
 ## Format d’eixida
 Retorna el resultat en Text."
@@ -73,6 +75,7 @@ Justificación y uso de fuentes.
 - Review that the performance levels are well defined.
 - Flag any data, source or assumption the teacher should verify.
 - Do not invent regulations, references or information about learners.
+- If essential information is missing to do this well, ask me before continuing; do not invent it.
 
 ## Output format
 Return the result in Text."
@@ -99,6 +102,7 @@ Justificación y uso de fuentes.
 - Revisa que los niveles de desempeño estén bien definidos.
 - Señala cualquier dato, fuente o supuesto que deba verificar la persona docente.
 - No inventes normativa, referencias ni información sobre el alumnado.
+- Si falta información imprescindible para hacerlo bien, pregúntame antes de continuar; no la inventes.
 
 ## Formato de salida
 Devuelve el resultado en Texto."
@@ -129,6 +133,7 @@ Opció múltiple · Vertader/Fals
 - Comprova que la proposta és viable amb el temps i els recursos indicats.
 - Assenyala qualsevol dada, font o supòsit que hagi de verificar el docent.
 - No inventis normativa, referències ni informació sobre l’alumnat.
+- Si falta informació imprescindible per fer-ho bé, pregunta’m abans de continuar; no la inventes.
 
 ## Format de sortida
 Retorna el resultat en GIFT.
@@ -171,6 +176,7 @@ Opció múltiple · Vertader/Fals
 - Comprova que la proposta és viable amb el temps i els recursos indicats.
 - Assenyala qualsevol dada, font o supòsit que haja de verificar la persona docent.
 - No inventes normativa, referències ni informació sobre l’alumnat.
+- Si falta informació imprescindible per a fer-ho bé, pregunta’m abans de continuar; no la inventes.
 
 ## Format d’eixida
 Retorna el resultat en GIFT.
@@ -213,6 +219,7 @@ Multiple choice · True/False
 - Check that the proposal is feasible with the stated time and resources.
 - Flag any data, source or assumption the teacher should verify.
 - Do not invent regulations, references or information about learners.
+- If essential information is missing to do this well, ask me before continuing; do not invent it.
 
 ## Output format
 Return the result in GIFT.
@@ -255,6 +262,7 @@ Opción múltiple · Verdadero/Falso
 - Comprueba que la propuesta es viable con el tiempo y los recursos indicados.
 - Señala cualquier dato, fuente o supuesto que deba verificar la persona docente.
 - No inventes normativa, referencias ni información sobre el alumnado.
+- Si falta información imprescindible para hacerlo bien, pregúntame antes de continuar; no la inventes.
 
 ## Formato de salida
 Devuelve el resultado en GIFT.
@@ -302,6 +310,7 @@ Genera directament la imatge. Si porta text, escriu-lo exactament igual que a le
 - Comprova que la proposta és viable amb el temps i els recursos indicats.
 - Assenyala qualsevol dada, font o supòsit que hagi de verificar el docent.
 - No inventis normativa, referències ni informació sobre l’alumnat.
+- Si falta informació imprescindible per fer-ho bé, pregunta’m abans de continuar; no la inventes.
 
 ## Format de sortida
 Retorna el resultat en Markdown."
@@ -337,6 +346,7 @@ Genera directament la imatge. Si porta text, escriu-lo exactament igual que en l
 - Comprova que la proposta és viable amb el temps i els recursos indicats.
 - Assenyala qualsevol dada, font o supòsit que haja de verificar la persona docent.
 - No inventes normativa, referències ni informació sobre l’alumnat.
+- Si falta informació imprescindible per a fer-ho bé, pregunta’m abans de continuar; no la inventes.
 
 ## Format d’eixida
 Retorna el resultat en Markdown."
@@ -372,6 +382,7 @@ Generate the image directly. If it includes text, write it exactly as in the lab
 - Check that the proposal is feasible with the stated time and resources.
 - Flag any data, source or assumption the teacher should verify.
 - Do not invent regulations, references or information about learners.
+- If essential information is missing to do this well, ask me before continuing; do not invent it.
 
 ## Output format
 Return the result in Markdown."
@@ -407,6 +418,7 @@ Genera directamente la imagen. Si lleva texto, escríbelo exactamente igual que 
 - Comprueba que la propuesta es viable con el tiempo y los recursos indicados.
 - Señala cualquier dato, fuente o supuesto que deba verificar la persona docente.
 - No inventes normativa, referencias ni información sobre el alumnado.
+- Si falta información imprescindible para hacerlo bien, pregúntame antes de continuar; no la inventes.
 
 ## Formato de salida
 Devuelve el resultado en Markdown."
@@ -470,6 +482,7 @@ Anticipa aquestes barreres en el disseny sense etiquetar ni identificar ningú.
 - No inventis normativa, referències ni informació sobre l’alumnat.
 - Mantén el mateix objectiu i nivell d’exigència per a tot el grup.
 - Comprova que hi ha almenys dues maneres d’accedir al contingut i de demostrar el que s’ha après.
+- Si falta informació imprescindible per fer-ho bé, pregunta’m abans de continuar; no la inventes.
 
 ## Format de sortida
 Retorna el resultat en Markdown."
@@ -533,6 +546,7 @@ Anticipa estes barreres en el disseny sense etiquetar ni identificar ningú.
 - No inventes normativa, referències ni informació sobre l’alumnat.
 - Mantín el mateix objectiu i nivell d’exigència per a tot el grup.
 - Comprova que hi ha almenys dues maneres d’accedir al contingut i de demostrar el que s’ha aprés.
+- Si falta informació imprescindible per a fer-ho bé, pregunta’m abans de continuar; no la inventes.
 
 ## Format d’eixida
 Retorna el resultat en Markdown."
@@ -596,6 +610,7 @@ Anticipate these barriers in the design without labelling or identifying anyone.
 - Do not invent regulations, references or information about learners.
 - Keep the same objective and level of demand for the whole group.
 - Check there are at least two ways to access the content and to show what has been learned.
+- If essential information is missing to do this well, ask me before continuing; do not invent it.
 
 ## Output format
 Return the result in Markdown."
@@ -659,6 +674,7 @@ Anticipa estas barreras en el diseño sin etiquetar ni identificar a nadie.
 - No inventes normativa, referencias ni información sobre el alumnado.
 - Mantén el mismo objetivo y nivel de exigencia para todo el grupo.
 - Comprueba que hay al menos dos formas de acceder al contenido y de demostrar lo aprendido.
+- Si falta información imprescindible para hacerlo bien, pregúntame antes de continuar; no la inventes.
 
 ## Formato de salida
 Devuelve el resultado en Markdown."

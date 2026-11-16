@@ -431,4 +431,32 @@ describe('generatePrompt', () => {
     expect(matrix).toContain('- Representación (el qué)')
     expect(matrix).toContain('- Acción y expresión (el cómo)')
   })
+
+  it('genera la ficha de actividad de programación con herramienta, rol y material', () => {
+    const base = { level: 'Infantil', topic: 'els animals', outputFormat: 'Tabla' }
+    const screen = generatePrompt(
+      template('coding-activity'),
+      { ...base, codingTool: 'Blocs Junior', studentRole: 'Usuario', activityIdea: 'Panel interactivo' },
+      'es',
+    )
+    expect(screen).toContain('ficha de actividad de programación sobre els animals')
+    expect(screen).toContain('Campo | Decisión')
+    expect(screen).toContain('## Herramienta o material\nBlocs Junior')
+    expect(screen).toContain('## Rol del alumnado\nUsuario')
+    expect(screen).toContain('Formato de partida: Panel interactivo')
+    expect(screen).toContain('[REVISAR]')
+    expect(screen).not.toContain('pendiente de autorización')
+
+    const robot = generatePrompt(template('coding-activity'), { ...base, codingTool: 'Tale-Bot' }, 'es')
+    expect(robot).toContain('pendiente de autorización')
+    expect(robot).toContain('turnos de trabajo')
+
+    const unplugged = generatePrompt(
+      template('coding-activity'),
+      { ...base, codingTool: 'Sin dispositivos (actividad desenchufada)' },
+      'ca-valencia',
+    )
+    expect(unplugged).toContain('activitat desendollada')
+    expect(unplugged).toContain('L’activitat és desendollada')
+  })
 })

@@ -931,7 +931,6 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
             ? 'eines educatives en evolució'
             : 'ferramentes educatives en evolució',
     visual: language === 'en' ? 'Image and visual' : language === 'es' ? 'Imagen y visual' : 'Imatge i visual',
-    video: language === 'en' ? 'Video' : language === 'es' ? 'Vídeo' : 'Vídeo',
     templateExplainerVideo:
       language === 'en'
         ? 'Animated explainer film'
@@ -1263,6 +1262,21 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
         : language === 'es'
           ? 'Entrevista a un personaje histórico'
           : 'Entrevista a un personatge històric',
+    templateCodingActivity:
+      language === 'en'
+        ? 'Coding activity sheet'
+        : language === 'es'
+          ? 'Ficha de actividad de programación'
+          : 'Fitxa d’activitat de programació',
+    codingTool:
+      language === 'en'
+        ? 'Tool or material'
+        : language === 'es'
+          ? 'Herramienta o material'
+          : 'Eina o material',
+    studentRole: language === 'en' ? 'Student role' : language === 'es' ? 'Rol del alumnado' : 'Rol de l’alumnat',
+    activityIdea:
+      language === 'en' ? 'Starting format' : language === 'es' ? 'Formato de partida' : 'Format de partida',
     templateCodeCoach:
       language === 'en'
         ? 'Code review tutor'
