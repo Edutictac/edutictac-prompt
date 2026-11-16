@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.28.3
+
+- En la **Ficha de actividad de robótica y programación**, el **rol del alumnado** permite elegir varios a la vez (usuario, creador y diseñador).
+
 ## 0.28.2
 
 - La herramienta **Ficha de actividad de programación** pasa a llamarse **Ficha de actividad de robótica y programación** (y su equivalente en valenciano, catalán e inglés) para no confundirla con una ficha de programación didáctica; el enlace `#template/coding-activity` no cambia.

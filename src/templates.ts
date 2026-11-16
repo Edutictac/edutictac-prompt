@@ -700,7 +700,7 @@ export const templates: PromptTemplate[] = [
           'BOSON',
         ],
       },
-      { id: 'studentRole', type: 'select', options: ['Usuario', 'Creador', 'Diseñador'] },
+      { id: 'studentRole', type: 'multiselect', options: ['Usuario', 'Creador', 'Diseñador'] },
       {
         id: 'activityIdea',
         type: 'select',
