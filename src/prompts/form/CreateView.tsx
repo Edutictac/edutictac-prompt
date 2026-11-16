@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { simpleFieldIds } from '../../templates'
 import { exampleValues } from '../../examples'
 import { guidedSteps } from '../../guided'
 import { followUps } from '../../followUps'
@@ -11,6 +10,17 @@ import { FieldControl } from './FieldControl'
 import { GuidedSummary, stepHelp, stepTitle } from './GuidedSummary'
 import { getTemplateName } from './labels'
 import { initialValues } from './values'
+
+type FormMode = 'advanced' | 'guided'
+
+// El modo «Sencillo» desapareció en la 0.28.0: quien lo tenía guardado pasa a «Paso a paso».
+export function readFormMode(): FormMode {
+  try {
+    return localStorage.getItem('edutictac-form-mode') === 'advanced' ? 'advanced' : 'guided'
+  } catch {
+    return 'guided'
+  }
+}
 
 export function CreateView({
   t,
@@ -45,13 +55,10 @@ export function CreateView({
 }) {
   const [copyState, setCopyState] = useState('')
   const [isFullscreen, setIsFullscreen] = useState(false)
-  const [mode, setMode] = useState<'simple' | 'advanced' | 'guided'>(() => {
-    const saved = localStorage.getItem('edutictac-form-mode')
-    return saved === 'advanced' || saved === 'guided' ? saved : 'simple'
-  })
+  const [mode, setMode] = useState<FormMode>(readFormMode)
   const [stepIndex, setStepIndex] = useState(0)
   const steps = guidedSteps(selected)
-  const changeMode = (next: 'simple' | 'advanced' | 'guided') => {
+  const changeMode = (next: FormMode) => {
     setMode(next)
     try {
       localStorage.setItem('edutictac-form-mode', next)
@@ -62,17 +69,13 @@ export function CreateView({
   useEffect(() => {
     setStepIndex(0)
   }, [selected.id])
-  const isAdvanced = mode === 'advanced'
   const loadExample = () => {
     const filled = Object.entries(values).some(([key, value]) => key !== 'outputFormat' && value.trim())
     if (filled && !window.confirm(t.loadExampleConfirm)) return
     const example = exampleValues(selected.id, language)
     setValues({ ...initialValues(selected.id), ...example })
-    if (mode === 'simple' && Object.keys(example).some((key) => !simpleFieldIds[selected.id]?.includes(key)))
-      changeMode('advanced')
     setPrompt('')
   }
-  const visibleFields = selected.fields.filter((field) => isAdvanced || simpleFieldIds[selected.id]?.includes(field.id))
   const totalSteps = steps.length
   const atSummary = stepIndex >= totalSteps
   const currentStep = steps[Math.min(stepIndex, totalSteps - 1)]
@@ -125,9 +128,6 @@ export function CreateView({
         <p className="eyebrow">{t.create}</p>
         <h1>{getTemplateName(selected.id, t)}</h1>
         <div className="mode-switch" role="group" aria-label={t.formMode}>
-          <button className={mode === 'simple' ? 'active' : ''} onClick={() => changeMode('simple')}>
-            {t.simpleMode}
-          </button>
           <button className={mode === 'guided' ? 'active' : ''} onClick={() => changeMode('guided')}>
             {t.guidedMode}
           </button>
@@ -136,7 +136,7 @@ export function CreateView({
           </button>
         </div>
         <p className="mode-hint">
-          {mode === 'advanced' ? t.advancedModeHint : mode === 'guided' ? t.guidedModeHint : t.simpleModeHint}
+          {mode === 'advanced' ? t.advancedModeHint : t.guidedModeHint}
         </p>
         <button type="button" className="example-button" onClick={loadExample}>
           💡 {t.loadExample}
@@ -198,7 +198,7 @@ export function CreateView({
         ) : (
           <>
             <CurriculumSelector t={t} language={language} values={values} setValues={setValues} advanced />
-            {visibleFields.map((field) => (
+            {selected.fields.map((field) => (
               <FieldControl
                 key={field.id}
                 field={field}

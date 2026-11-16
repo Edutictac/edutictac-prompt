@@ -24,7 +24,7 @@ npm run build
 - `src/app/`: hooks de preferencias, cuenta, chip central y aviso de la PWA.
 - `src/components/`: cabecera, pie, portada y catálogo, biblioteca, ayuda y diálogo de guardado.
 - `src/prompts/`: repositorio local, transferencia, sincronización y estado de la biblioteca.
-- `src/prompts/form/`: formulario, borrador compartido por los tres modos, controles y selectores curriculares.
+- `src/prompts/form/`: formulario, borrador compartido por los dos modos (Paso a paso y Avanzado), controles y selectores curriculares.
 - `src/prompts/generator/`: entrada pública, diccionarios, roles, tareas y formatos del generador.
 - `src/agents/` y `src/skills/`: agentes y Skills con sus repositorios e historiales por propietario.
 - `src/templates.ts`, `src/db.ts`, `src/locales.ts` y `src/types.ts`: plantillas, IndexedDB, traducciones y contratos.
@@ -37,7 +37,7 @@ El plan de refactor gradual y su seguimiento están en [docs/PLAN-REFACTOR.md](d
 
 ## Estat actual
 
-- Versió publicada de la PWA: **0.27.0** (fitxa d’activitat de programació).
+- Versió publicada de la PWA: **0.28.0** (enllaç directe a les eines i formulari sense mode Senzill).
 - Producció: [pages.edutictac.es/Edutictac/edutictac-prompt](https://pages.edutictac.es/Edutictac/edutictac-prompt/).
 - La PWA funciona localment amb IndexedDB i continua disponible sense compte ni connexió.
 - Authentik està integrat mitjançant OIDC + PKCE. L’inici de sessió es fa des de `id.edutictac.es`.
@@ -85,3 +85,7 @@ locales por cuenta; M365 sigue siendo el lugar donde se crea y utiliza el agente
 Los paquetes Agent Skills quedan en Compatibilidad y conservan su biblioteca.
 
 [Guía docente](docs/AGENTES-USO.md) · [Guia en valencià](docs/AGENTS-US.md).
+
+## Enlace directo a una plantilla (0.28.0)
+
+`#template/<id>` abre directamente el formulario de una herramienta, p. ej. `https://pages.edutictac.es/Edutictac/edutictac-prompt/#template/coding-activity`. Un identificador desconocido deja la portada. Al abrir una herramienta, la dirección se actualiza con ese hash para poder copiarla.

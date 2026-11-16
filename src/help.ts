@@ -34,11 +34,11 @@ const es: HelpGuide = {
       points: [
         [
           '1. Elige un punto de partida.',
-          'Un caso de «Empieza aquí» en la portada, con el formulario ya relleno, o una herramienta del catálogo. Puedes filtrar por categoría o buscar por nombre.',
+          'Un caso de «Empieza aquí» en la portada, con el formulario ya relleno, o una herramienta del catálogo. Puedes filtrar por categoría o buscar por nombre. Cada herramienta tiene un enlace directo: añade «#template/» y su identificador a la dirección (por ejemplo, «#template/coding-activity»).',
         ],
         [
           '2. Rellena el formulario.',
-          'El modo «Sencillo» muestra solo los campos esenciales, «Paso a paso» te guía bloque a bloque indicando cuántos pasos quedan y «Avanzado» muestra todos los campos para afinar. «Cargar un ejemplo» rellena el formulario con un caso real para ver cómo funciona.',
+          '«Paso a paso» (el modo por defecto) te guía bloque a bloque indicando cuántos pasos quedan y «Avanzado» muestra todos los campos para afinar. «Cargar un ejemplo» rellena el formulario con un caso real para ver cómo funciona.',
         ],
         [
           '3. Genera y llévalo a la IA.',
@@ -194,11 +194,11 @@ const va: HelpGuide = {
       points: [
         [
           '1. Tria un punt de partida.',
-          'Un cas de «Comença ací» en la portada, amb el formulari ja emplenat, o una eina del catàleg. Pots filtrar per categoria o buscar pel nom.',
+          'Un cas de «Comença ací» en la portada, amb el formulari ja emplenat, o una eina del catàleg. Pots filtrar per categoria o buscar pel nom. Cada eina té un enllaç directe: afig «#template/» i el seu identificador a l’adreça (per exemple, «#template/coding-activity»).',
         ],
         [
           '2. Ompli el formulari.',
-          'El mode «Senzill» mostra només els camps essencials, «Pas a pas» et guia bloc a bloc indicant quants passos queden i «Avançat» mostra tots els camps per a afinar. «Carrega un exemple» ompli el formulari amb un cas real per a veure com funciona.',
+          '«Pas a pas» (el mode per defecte) et guia bloc a bloc indicant quants passos queden i «Avançat» mostra tots els camps per a afinar. «Carrega un exemple» ompli el formulari amb un cas real per a veure com funciona.',
         ],
         [
           '3. Genera’l i porta’l a la IA.',
@@ -348,11 +348,11 @@ const ca: HelpGuide = {
       points: [
         [
           '1. Tria un punt de partida.',
-          'Un cas de «Comença aquí» a la portada, amb el formulari ja emplenat, o una eina del catàleg. Pots filtrar per categoria o cercar pel nom.',
+          'Un cas de «Comença aquí» a la portada, amb el formulari ja emplenat, o una eina del catàleg. Pots filtrar per categoria o cercar pel nom. Cada eina té un enllaç directe: afegeix «#template/» i el seu identificador a l’adreça (per exemple, «#template/coding-activity»).',
         ],
         [
           '2. Omple el formulari.',
-          'El mode «Senzill» mostra només els camps essencials, «Pas a pas» et guia bloc a bloc indicant quants passos queden i «Avançat» mostra tots els camps per afinar. «Carrega un exemple» omple el formulari amb un cas real per veure com funciona.',
+          '«Pas a pas» (el mode per defecte) et guia bloc a bloc indicant quants passos queden i «Avançat» mostra tots els camps per afinar. «Carrega un exemple» omple el formulari amb un cas real per veure com funciona.',
         ],
         [
           '3. Genera’l i porta’l a la IA.',
@@ -505,11 +505,11 @@ const en: HelpGuide = {
       points: [
         [
           '1. Pick a starting point.',
-          'A “Start here” case on the home page, with the form already filled in, or a tool from the catalogue. You can filter by category or search by name.',
+          'A “Start here” case on the home page, with the form already filled in, or a tool from the catalogue. You can filter by category or search by name. Each tool has a direct link: add “#template/” and its identifier to the address (for example, “#template/coding-activity”).',
         ],
         [
           '2. Fill in the form.',
-          '“Simple” mode shows only the essential fields, “Step by step” guides you block by block and tells you how many steps are left, and “Advanced” shows every field for fine-tuning. “Load an example” fills the form with a real case so you can see how it works.',
+          '“Step by step” (the default mode) guides you block by block and tells you how many steps are left, and “Advanced” shows every field for fine-tuning. “Load an example” fills the form with a real case so you can see how it works.',
         ],
         [
           '3. Generate it and take it to the AI.',

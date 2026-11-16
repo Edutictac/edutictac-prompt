@@ -10,6 +10,7 @@ import { updateSW } from '../pwa'
 vi.mock('../pwa', () => ({ updateSW: vi.fn() }))
 
 beforeEach(() => {
+  history.replaceState(null, '', '/')
   localStorage.clear()
   localStorage.setItem('edutictac-language', 'es')
   history.replaceState(null, '', location.pathname)

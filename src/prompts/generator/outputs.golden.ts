@@ -1,4 +1,4 @@
-// Generado a partir de la versión 0.23.3. No editar a mano.
+// Generado a partir de la versión 0.28.0. No editar a mano.
 export const goldenOutputs: Record<string, string> = {
   'learning-situation:es:empty': 'f646393a145c172b',
   'learning-situation:es:example': '6636d01ae8f2c505',
@@ -344,14 +344,14 @@ export const goldenOutputs: Record<string, string> = {
   'historical-interview:ca:example': '1bb8a54ee21504b1',
   'historical-interview:en:empty': 'b55b8db17441ea2f',
   'historical-interview:en:example': '637500904ca8c5c2',
-  'coding-activity:es:empty': 'ab220a92a9ea7db6',
-  'coding-activity:es:example': '2ce706e4b437d9f8',
-  'coding-activity:ca-valencia:empty': '7dd2ed63bf7b0073',
-  'coding-activity:ca-valencia:example': '380bfec88c02f7aa',
-  'coding-activity:ca:empty': '93e820876822bae7',
-  'coding-activity:ca:example': '526bc52cf3fa3e7c',
-  'coding-activity:en:empty': '3201e7c148ad3152',
-  'coding-activity:en:example': '6cd4566048d7a01b',
+  'coding-activity:es:empty': 'c2bb2bd28a1e1922',
+  'coding-activity:es:example': '208b818045aceff0',
+  'coding-activity:ca-valencia:empty': '9d2814530049e48e',
+  'coding-activity:ca-valencia:example': '5bfd42ca90e39f39',
+  'coding-activity:ca:empty': '07bb6819fb6b1b2e',
+  'coding-activity:ca:example': '0578602e214e88b5',
+  'coding-activity:en:empty': 'be43e1bd5974823c',
+  'coding-activity:en:example': '17da04cb95fc9e2b',
   'code-coach:es:empty': 'e8193dd7d7cc5dcc',
   'code-coach:es:example': 'f66ff41690800e16',
   'code-coach:ca-valencia:empty': '58d90f087a235e7a',

@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
+import { templates } from './templates'
 import { translations } from './locales'
 import type { SavedPrompt } from './types'
 import { login, logout } from './api'
@@ -29,6 +30,20 @@ const eventNoticeKeys: Record<PromptLibraryEvent, string> = {
   invalidFile: 'invalidFile',
 }
 
+const TEMPLATE_HASH = '#template/'
+
+// Enlace directo a una plantilla: «#template/<id>». Un id desconocido se ignora.
+export function templateIdFromHash(hash: string): string | undefined {
+  if (!hash.startsWith(TEMPLATE_HASH)) return undefined
+  let id = hash.slice(TEMPLATE_HASH.length)
+  try {
+    id = decodeURIComponent(id)
+  } catch {
+    return undefined
+  }
+  return templates.some((template) => template.id === id) ? id : undefined
+}
+
 export default function App() {
   const { lang, setLang, setThemeMode, darkMode } = usePreferences()
   const { user, central } = useAuth()
@@ -36,9 +51,15 @@ export default function App() {
   const { updateAvailable, applyUpdate } = usePwaUpdate()
   const t = translations[lang]
   const [view, setView] = useState<'home' | 'create' | 'library' | 'privacy' | 'help' | 'agents'>(() =>
-    location.hash === '#agents' || location.hash === '#skills' ? 'agents' : location.hash === '#help' ? 'help' : 'home',
+    templateIdFromHash(location.hash)
+      ? 'create'
+      : location.hash === '#agents' || location.hash === '#skills'
+        ? 'agents'
+        : location.hash === '#help'
+          ? 'help'
+          : 'home',
   )
-  const draft = usePromptDraft(lang)
+  const draft = usePromptDraft(lang, templateIdFromHash(location.hash))
   const { selected, values, setValues, prompt, setPrompt, editingId } = draft
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('all')
@@ -52,10 +73,23 @@ export default function App() {
   const { saved, categories, syncBusy } = library
   const editing = saved.find((p) => p.id === editingId)
   useEffect(() => {
+    const base = location.pathname + location.search
     if (view === 'agents') history.replaceState(null, '', '#agents')
-    else if (location.hash === '#agents' || location.hash === '#skills')
-      history.replaceState(null, '', location.pathname + location.search + (view === 'help' ? '#help' : ''))
-  }, [view])
+    else if (view === 'create' && !editingId) history.replaceState(null, '', `#template/${selected.id}`)
+    else if (location.hash === '#agents' || location.hash === '#skills' || location.hash.startsWith(TEMPLATE_HASH))
+      history.replaceState(null, '', base + (view === 'help' ? '#help' : ''))
+  }, [view, selected.id, editingId])
+  useEffect(() => {
+    const onHashChange = () => {
+      const id = templateIdFromHash(location.hash)
+      if (id) {
+        draft.choose(id)
+        setView('create')
+      }
+    }
+    window.addEventListener('hashchange', onHashChange)
+    return () => window.removeEventListener('hashchange', onHashChange)
+  }, [])
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [view])

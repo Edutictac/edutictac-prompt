@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { categoryIds, simpleFieldIds, templates } from './templates'
+import { categoryIds, templates } from './templates'
 
 describe('plantillas de prompts', () => {
   it('ofrece contexto, restricciones y criterios de calidad', () => {
@@ -41,11 +41,9 @@ describe('plantillas de prompts', () => {
     )
   })
 
-  it('define un modo sencillo con menos campos que el modo avanzado', () => {
-    for (const template of templates) {
-      expect(simpleFieldIds[template.id]?.length).toBeGreaterThan(0)
-      expect(simpleFieldIds[template.id].length).toBeLessThan(template.fields.length)
-    }
+  it('ofrece la ficha de programación para todas las etapas', () => {
+    const level = templates.find((template) => template.id === 'coding-activity')!.fields.find((field) => field.id === 'level')!
+    expect(level.options).toEqual(expect.arrayContaining(['Infantil', 'Primaria', 'ESO', 'Bachillerato', 'FP']))
   })
 
   it('deja el formato de salida al final y admite PDF', () => {

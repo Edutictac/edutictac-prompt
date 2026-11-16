@@ -16,6 +16,7 @@ const readBlob = (blob: Blob) =>
   })
 
 beforeEach(() => {
+  history.replaceState(null, '', '/')
   localStorage.clear()
   localStorage.setItem('edutictac-language', 'es')
   window.scrollTo = vi.fn()
@@ -37,6 +38,7 @@ afterEach(async () => {
 
 describe('recorridos de la biblioteca', () => {
   it('guarda, reabre y actualiza un prompt sin duplicarlo', async () => {
+    localStorage.setItem('edutictac-form-mode', 'advanced')
     const user = userEvent.setup()
     render(<App />)
 
@@ -105,21 +107,20 @@ describe('recorridos de la biblioteca', () => {
     expect(await db.prompts.count()).toBe(1)
   })
 
-  it('conserva los valores al cambiar entre Sencillo, Paso a paso y Avanzado', async () => {
+  it('conserva los valores al cambiar entre Paso a paso y Avanzado', async () => {
     const user = userEvent.setup()
     render(<App />)
 
     await user.click(screen.getByRole('button', { name: /^Crear/ }))
-    await user.type(screen.getByRole('textbox', { name: /^Tema/ }), 'El ciclo del agua')
-
     await user.click(screen.getByRole('button', { name: 'Avanzado' }))
+    await user.type(screen.getByRole('textbox', { name: /^Tema/ }), 'El ciclo del agua')
     expect((screen.getByRole('textbox', { name: /^Tema/ }) as HTMLInputElement).value).toBe('El ciclo del agua')
 
     await user.click(screen.getByRole('button', { name: 'Paso a paso' }))
     await user.click(screen.getByRole('button', { name: 'Siguiente' }))
     expect((screen.getByRole('textbox', { name: /^Tema/ }) as HTMLInputElement).value).toBe('El ciclo del agua')
 
-    await user.click(screen.getByRole('button', { name: 'Sencillo' }))
+    await user.click(screen.getByRole('button', { name: 'Avanzado' }))
     expect((screen.getByRole('textbox', { name: /^Tema/ }) as HTMLInputElement).value).toBe('El ciclo del agua')
   })
 

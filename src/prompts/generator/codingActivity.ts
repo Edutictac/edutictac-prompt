@@ -36,7 +36,7 @@ const texts: Record<Language, Texts> = {
     roles:
       'Roles del alumnado: usuario (interactúa con un programa hecho por otra persona), creador (modifica una plantilla o monta una secuencia con ayuda) y diseñador (decide el objetivo, las reglas y la interacción de un proyecto propio). Si no se indica ninguno, propón el más adecuado y explica por qué.',
     tools:
-      'Nivel de cada herramienta: Blocs Junior es para Infantil y 1.er ciclo (secuencias cortas con predicción antes de ejecutar); Blockly Games, para 2.º ciclo (Laberinto y repetición); EduTicTac Blocs, para 2.º y 3.er ciclo (evento, movimiento y cambio de un valor; proyecto abierto). Respeta el nivel de la herramienta elegida.',
+      'Nivel de cada herramienta: Blocs Junior es para Infantil y 1.er ciclo (secuencias cortas con predicción antes de ejecutar); Blockly Games, para 2.º ciclo (Laberinto y repetición); EduTicTac Blocs, para 2.º y 3.er ciclo (evento, movimiento y cambio de un valor; proyecto abierto). Respeta el nivel de la herramienta elegida. En ESO, Bachillerato y FP, EduTicTac Blocs sirve como proyecto abierto (simulaciones, cuestionarios, historias) y micro:bit, SPIKE Prime o BOSON admiten retos más complejos; si la herramienta elegida es demasiado básica para la etapa, adapta la dificultad o propón la ampliación en lugar de cambiarla.',
     idea: (idea) =>
       `Formato de partida: ${idea}. Adáptalo a la materia y al tema; no lo copies tal cual.`,
     physical:
@@ -52,7 +52,7 @@ const texts: Record<Language, Texts> = {
     roles:
       'Rols de l’alumnat: usuari (interactua amb un programa fet per una altra persona), creador (modifica una plantilla o munta una seqüència amb ajuda) i dissenyador (decideix l’objectiu, les regles i la interacció d’un projecte propi). Si no se n’indica cap, proposa el més adequat i explica per què.',
     tools:
-      'Nivell de cada eina: Blocs Junior és per a Infantil i 1r cicle (seqüències curtes amb predicció abans d’executar); Blockly Games, per a 2n cicle (Laberint i repetició); EduTicTac Blocs, per a 2n i 3r cicle (esdeveniment, moviment i canvi d’un valor; projecte obert). Respecta el nivell de l’eina triada.',
+      'Nivell de cada eina: Blocs Junior és per a Infantil i 1r cicle (seqüències curtes amb predicció abans d’executar); Blockly Games, per a 2n cicle (Laberint i repetició); EduTicTac Blocs, per a 2n i 3r cicle (esdeveniment, moviment i canvi d’un valor; projecte obert). Respecta el nivell de l’eina triada. A ESO, Batxillerat i FP, EduTicTac Blocs serveix com a projecte obert (simulacions, qüestionaris, històries) i micro:bit, SPIKE Prime o BOSON admeten reptes més complexos; si l’eina triada és massa bàsica per a l’etapa, adapta la dificultat o proposa l’ampliació en lloc de canviar-la.',
     idea: (idea) => `Format de partida: ${idea}. Adapta’l a la matèria i al tema; no el copies tal qual.`,
     physical:
       'El material triat pertany a la dotació del centre i el seu ús està pendent d’autorització. En «Què necessite per a aplicar-ho» inclou la preparació (càrrega, peces, connexió), els torns de treball per equips i, en «Pla B sense dispositius», una versió en pantalla o desendollada.',
@@ -67,7 +67,7 @@ const texts: Record<Language, Texts> = {
     roles:
       'Rols de l’alumnat: usuari (interactua amb un programa fet per una altra persona), creador (modifica una plantilla o munta una seqüència amb ajuda) i dissenyador (decideix l’objectiu, les regles i la interacció d’un projecte propi). Si no se n’indica cap, proposa el més adequat i explica per què.',
     tools:
-      'Nivell de cada eina: Blocs Junior és per a Infantil i 1r cicle (seqüències curtes amb predicció abans d’executar); Blockly Games, per a 2n cicle (Laberint i repetició); EduTicTac Blocs, per a 2n i 3r cicle (esdeveniment, moviment i canvi d’un valor; projecte obert). Respecta el nivell de l’eina triada.',
+      'Nivell de cada eina: Blocs Junior és per a Infantil i 1r cicle (seqüències curtes amb predicció abans d’executar); Blockly Games, per a 2n cicle (Laberint i repetició); EduTicTac Blocs, per a 2n i 3r cicle (esdeveniment, moviment i canvi d’un valor; projecte obert). Respecta el nivell de l’eina triada. A ESO, Batxillerat i FP, EduTicTac Blocs serveix com a projecte obert (simulacions, qüestionaris, històries) i micro:bit, SPIKE Prime o BOSON admeten reptes més complexos; si l’eina triada és massa bàsica per a l’etapa, adapta la dificultat o proposa l’ampliació en lloc de canviar-la.',
     idea: (idea) => `Format de partida: ${idea}. Adapta’l a la matèria i al tema; no el copiïs tal qual.`,
     physical:
       'El material triat pertany a la dotació del centre i el seu ús està pendent d’autorització. A «Què necessito per aplicar-ho» inclou la preparació (càrrega, peces, connexió), els torns de treball per equips i, a «Pla B sense dispositius», una versió en pantalla o desendollada.',
@@ -82,7 +82,7 @@ const texts: Record<Language, Texts> = {
     roles:
       'Student roles: user (interacts with a program made by someone else), creator (modifies a template or builds a sequence with help) and designer (decides the objective, rules and interaction of their own project). If none is given, suggest the most suitable one and explain why.',
     tools:
-      'Level of each tool: Blocs Junior is for Infant and Year 1–2 (short sequences, predicting before running); Blockly Games, for Year 3–4 (Maze and repetition); EduTicTac Blocs, for Year 3–6 (event, movement and changing a value; open project). Respect the level of the chosen tool.',
+      'Level of each tool: Blocs Junior is for Infant and Year 1–2 (short sequences, predicting before running); Blockly Games, for Year 3–4 (Maze and repetition); EduTicTac Blocs, for Year 3–6 (event, movement and changing a value; open project). Respect the level of the chosen tool. In Secondary, Baccalaureate and Vocational Training, EduTicTac Blocs works as an open project (simulations, quizzes, stories) and micro:bit, SPIKE Prime or BOSON allow more complex challenges; if the chosen tool is too basic for the stage, adapt the difficulty or suggest an extension instead of changing it.',
     idea: (idea) => `Starting format: ${idea}. Adapt it to the subject and topic; do not copy it as is.`,
     physical:
       'The chosen material belongs to the school’s equipment and its use is pending authorisation. Under “What I need to run it” include preparation (charging, pieces, connection) and work turns for teams, and under “Plan B without devices” an on-screen or unplugged version.',

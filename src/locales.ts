@@ -772,14 +772,7 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
             ? 'No s’ha pogut borrar al servidor. El prompt es conserva per a reintentar-ho.'
             : 'No s’ha pogut borrar en el servidor. El prompt es conserva per a reintentar-ho.',
     formMode: language === 'en' ? 'Form mode' : language === 'es' ? 'Modo del formulario' : 'Mode del formulari',
-    simpleMode: language === 'en' ? 'Simple' : language === 'es' ? 'Sencillo' : 'Senzill',
     advancedMode: language === 'en' ? 'Advanced' : language === 'es' ? 'Avanzado' : 'Avançat',
-    simpleModeHint:
-      language === 'en'
-        ? 'Start with the essential fields. You can add detail later.'
-        : language === 'es'
-          ? 'Empieza con los campos esenciales. Puedes añadir detalle después.'
-          : 'Comença amb els camps essencials. Pots afegir detalls després.',
     advancedModeHint:
       language === 'en'
         ? 'All fields are visible for more precise prompts.'

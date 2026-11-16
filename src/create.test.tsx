@@ -9,6 +9,7 @@ import { templates } from './templates'
 import { guidedSteps } from './guided'
 
 beforeEach(() => {
+  history.replaceState(null, '', '/')
   localStorage.clear()
   localStorage.setItem('edutictac-language', 'es')
   window.scrollTo = vi.fn()
@@ -22,7 +23,7 @@ afterEach(async () => {
   vi.restoreAllMocks()
 })
 
-it('muestra los elementos curriculares también en modo sencillo al elegir un perfil', async () => {
+it('muestra los elementos curriculares en el modo por defecto al elegir un perfil', async () => {
   const user = userEvent.setup()
   render(<App />)
   await user.click(screen.getByRole('button', { name: /^Crear/ }))

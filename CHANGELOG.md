@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.28.0 - Enlace directo y formulario sin modo Sencillo
+
+- **Cambio importante:** se elimina el modo «Sencillo» del formulario. Quedan **Paso a paso** (modo por defecto) y **Avanzado**. Quien tenía guardado «Sencillo» pasa automáticamente a «Paso a paso»; los valores, los prompts guardados y su edición no cambian. La ayuda se actualiza en los cuatro idiomas.
+- Enlace directo a una herramienta con `#template/<id>` (por ejemplo `#template/coding-activity`): abre el formulario al cargar la página o al cambiar el hash, y la dirección se actualiza al abrir una herramienta. Un identificador desconocido deja la portada.
+- La **Ficha de actividad de programación** ofrece también ESO, Bachillerato y FP; el prompt ya no asume solo Infantil y Primaria y orienta sobre las herramientas en etapas superiores.
+
 ## 0.27.0 - Ficha de actividad de programación
 
 - Nueva herramienta **Ficha de actividad de programación** (Planificación docente): el equipo elige etapa, herramienta o material, rol del alumnado, formato de partida y duración, y obtiene un prompt que pide una ficha de dos columnas (Campo | Decisión) con reglas, interacción, retroalimentación, consigna, evidencia y plan B.

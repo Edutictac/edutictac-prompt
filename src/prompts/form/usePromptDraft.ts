@@ -5,11 +5,12 @@ import { starterValues, type Starter } from '../../starters'
 import type { Language, SavedPrompt } from '../../types'
 import { initialValues } from './values'
 
-// Borrador compartido por Sencillo, Paso a paso y Avanzado: los modos cambian la
+// Borrador compartido por Paso a paso y Avanzado: los modos cambian la
 // presentación, nunca los valores ni el prompt generado.
-export function usePromptDraft(language: Language) {
-  const [selected, setSelected] = useState(templates[0])
-  const [values, setValues] = useState<Record<string, string>>(() => initialValues(templates[0].id))
+export function usePromptDraft(language: Language, initialTemplateId?: string) {
+  const first = templates.find((item) => item.id === initialTemplateId) ?? templates[0]
+  const [selected, setSelected] = useState(first)
+  const [values, setValues] = useState<Record<string, string>>(() => initialValues(first.id))
   const [prompt, setPrompt] = useState('')
   const [editingId, setEditingId] = useState<string | null>(null)
 
