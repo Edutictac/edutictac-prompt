@@ -4,7 +4,6 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App, { templateIdFromHash } from './App'
-import { readFormMode } from './prompts/form/CreateView'
 import { db } from './db'
 import { generatePrompt } from './generator'
 import { templates } from './templates'
@@ -63,13 +62,12 @@ describe('enlace directo a una plantilla', () => {
 })
 
 describe('modos del formulario', () => {
-  it('migra el modo Sencillo guardado a Paso a paso', () => {
-    localStorage.setItem('edutictac-form-mode', 'simple')
-    expect(readFormMode()).toBe('guided')
+  it('empieza siempre en Paso a paso aunque hubiera Avanzado o Sencillo guardado', async () => {
     localStorage.setItem('edutictac-form-mode', 'advanced')
-    expect(readFormMode()).toBe('advanced')
-    localStorage.clear()
-    expect(readFormMode()).toBe('guided')
+    window.location.hash = '#template/coding-activity'
+    render(<App />)
+    const guided = await screen.findByRole('button', { name: 'Paso a paso' })
+    expect(guided.className).toContain('active')
   })
 
   it('solo ofrece Paso a paso y Avanzado', async () => {
@@ -88,5 +86,14 @@ describe('ficha de programación en etapas superiores', () => {
     const prompt = generatePrompt(template, { level: 'ESO', topic: 'un cuestionario', codingTool: 'EduTicTac Blocs' }, 'es')
     expect(prompt).toContain('ESO, Bachillerato y FP')
     expect(prompt).toContain('de Infantil a Formación Profesional')
+  })
+
+  it('el enlace «Elige una herramienta» vuelve a la portada y quita el hash', async () => {
+    window.location.hash = '#template/coding-activity'
+    render(<App />)
+    const user = userEvent.setup()
+    await user.click(await screen.findByRole('button', { name: /Elige una herramienta/ }))
+    expect(await screen.findByRole('heading', { level: 2, name: /Elige una herramienta/ })).toBeTruthy()
+    expect(window.location.hash).toBe('')
   })
 })

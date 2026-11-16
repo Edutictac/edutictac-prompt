@@ -13,14 +13,9 @@ import { initialValues } from './values'
 
 type FormMode = 'advanced' | 'guided'
 
-// El modo «Sencillo» desapareció en la 0.28.0: quien lo tenía guardado pasa a «Paso a paso».
-export function readFormMode(): FormMode {
-  try {
-    return localStorage.getItem('edutictac-form-mode') === 'advanced' ? 'advanced' : 'guided'
-  } catch {
-    return 'guided'
-  }
-}
+// Cada vez que se abre una herramienta se empieza en «Paso a paso»; «Avanzado» se elige
+// a mano y no se recuerda entre visitas (el modo «Sencillo» desapareció en la 0.28.0).
+const defaultFormMode: FormMode = 'guided'
 
 export function CreateView({
   t,
@@ -32,7 +27,7 @@ export function CreateView({
   setPrompt,
   generate,
   setModal,
-  choose,
+  goHome,
   copyPrompt,
   clear,
   editingTitle,
@@ -47,7 +42,7 @@ export function CreateView({
   setPrompt: (v: string) => void
   generate: () => void
   setModal: (v: boolean) => void
-  choose: (id: string) => void
+  goHome: () => void
   copyPrompt: (text: string) => Promise<boolean>
   clear: () => void
   editingTitle?: string
@@ -55,19 +50,13 @@ export function CreateView({
 }) {
   const [copyState, setCopyState] = useState('')
   const [isFullscreen, setIsFullscreen] = useState(false)
-  const [mode, setMode] = useState<FormMode>(readFormMode)
+  const [mode, setMode] = useState<FormMode>(defaultFormMode)
   const [stepIndex, setStepIndex] = useState(0)
   const steps = guidedSteps(selected)
-  const changeMode = (next: FormMode) => {
-    setMode(next)
-    try {
-      localStorage.setItem('edutictac-form-mode', next)
-    } catch {
-      /* El modo es solo una preferencia de interfaz. */
-    }
-  }
+  const changeMode = (next: FormMode) => setMode(next)
   useEffect(() => {
     setStepIndex(0)
+    setMode(defaultFormMode)
   }, [selected.id])
   const loadExample = () => {
     const filled = Object.entries(values).some(([key, value]) => key !== 'outputFormat' && value.trim())
@@ -122,7 +111,7 @@ export function CreateView({
   return (
     <main className="workspace">
       <aside className="form-panel">
-        <button className="back" onClick={() => choose(selected.id)}>
+        <button className="back" onClick={goHome}>
           ← {t.choose}
         </button>
         <p className="eyebrow">{t.create}</p>

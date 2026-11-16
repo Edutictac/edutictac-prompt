@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.28.1
+
+- Al abrir una herramienta, el formulario empieza siempre en **Paso a paso**, aunque la última vez se hubiera usado **Avanzado**; el modo avanzado se elige a mano y ya no se recuerda entre visitas.
+- Corregido el enlace **← Elige una herramienta**, que no volvía a la portada.
+
 ## 0.28.0 - Enlace directo y formulario sin modo Sencillo
 
 - **Cambio importante:** se elimina el modo «Sencillo» del formulario. Quedan **Paso a paso** (modo por defecto) y **Avanzado**. Quien tenía guardado «Sencillo» pasa automáticamente a «Paso a paso»; los valores, los prompts guardados y su edición no cambian. La ayuda se actualiza en los cuatro idiomas.

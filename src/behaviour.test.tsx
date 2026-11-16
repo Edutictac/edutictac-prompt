@@ -38,11 +38,11 @@ afterEach(async () => {
 
 describe('recorridos de la biblioteca', () => {
   it('guarda, reabre y actualiza un prompt sin duplicarlo', async () => {
-    localStorage.setItem('edutictac-form-mode', 'advanced')
     const user = userEvent.setup()
     render(<App />)
 
     await user.click(screen.getByRole('button', { name: /^Crear/ }))
+    await user.click(screen.getByRole('button', { name: 'Avanzado' }))
     await user.type(screen.getByRole('textbox', { name: /^Tema/ }), 'Los ecosistemas')
     await user.click(screen.getByRole('button', { name: 'Generar prompt' }))
     await user.click(await screen.findByRole('button', { name: 'Guardar' }))
@@ -54,6 +54,7 @@ describe('recorridos de la biblioteca', () => {
     await user.click(screen.getByRole('button', { name: 'Mi biblioteca' }))
     await screen.findByRole('heading', { name: 'Prompt ecosistemas' })
     await user.click(screen.getByRole('button', { name: 'Editar' }))
+    await user.click(screen.getByRole('button', { name: 'Avanzado' }))
     expect((screen.getByRole('textbox', { name: /^Tema/ }) as HTMLInputElement).value).toBe('Los ecosistemas')
 
     await user.click(screen.getByRole('button', { name: 'Actualizar' }))

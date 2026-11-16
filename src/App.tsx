@@ -249,7 +249,10 @@ export default function App() {
           setPrompt={setPrompt}
           generate={generate}
           setModal={setModal}
-          choose={choose}
+          goHome={() => {
+            setView('home')
+            window.scrollTo(0, 0)
+          }}
           copyPrompt={copyPrompt}
           clear={draft.clear}
           editingTitle={editing?.title}
