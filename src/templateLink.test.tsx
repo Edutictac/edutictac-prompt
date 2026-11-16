@@ -34,7 +34,7 @@ describe('enlace directo a una plantilla', () => {
   it('abre el formulario de la plantilla al cargar la página en frío', async () => {
     history.replaceState(null, '', '#template/coding-activity')
     render(<App />)
-    expect(await screen.findByRole('heading', { level: 1, name: 'Ficha de actividad de programación' })).toBeTruthy()
+    expect(await screen.findByRole('heading', { level: 1, name: 'Ficha de actividad de robótica y programación' })).toBeTruthy()
     expect(location.hash).toBe('#template/coding-activity')
   })
 
@@ -57,7 +57,7 @@ describe('enlace directo a una plantilla', () => {
     render(<App />)
     history.replaceState(null, '', '#template/coding-activity')
     window.dispatchEvent(new HashChangeEvent('hashchange'))
-    expect(await screen.findByRole('heading', { level: 1, name: 'Ficha de actividad de programación' })).toBeTruthy()
+    expect(await screen.findByRole('heading', { level: 1, name: 'Ficha de actividad de robótica y programación' })).toBeTruthy()
   })
 })
 

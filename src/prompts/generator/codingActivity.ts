@@ -1,7 +1,7 @@
 import { localizeOption } from '../../optionLocales'
 import type { Language } from '../../types'
 
-// Encargo de la plantilla «Ficha de actividad de programación». Va aparte de
+// Encargo de la plantilla «Ficha de actividad de robótica y programación». Va aparte de
 // tasks.ts porque es un texto largo, con los apartados de la ficha, los niveles
 // de cada herramienta y los casos de material físico o actividad desenchufada.
 export const physicalCodingTools = [

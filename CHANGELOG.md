@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.28.2
+
+- La herramienta **Ficha de actividad de programación** pasa a llamarse **Ficha de actividad de robótica y programación** (y su equivalente en valenciano, catalán e inglés) para no confundirla con una ficha de programación didáctica; el enlace `#template/coding-activity` no cambia.
+
 ## 0.28.1
 
 - Al abrir una herramienta, el formulario empieza siempre en **Paso a paso**, aunque la última vez se hubiera usado **Avanzado**; el modo avanzado se elige a mano y ya no se recuerda entre visitas.

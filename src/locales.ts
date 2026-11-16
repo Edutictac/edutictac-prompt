@@ -1257,10 +1257,10 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
           : 'Entrevista a un personatge històric',
     templateCodingActivity:
       language === 'en'
-        ? 'Coding activity sheet'
+        ? 'Robotics and coding activity sheet'
         : language === 'es'
-          ? 'Ficha de actividad de programación'
-          : 'Fitxa d’activitat de programació',
+          ? 'Ficha de actividad de robótica y programación'
+          : 'Fitxa d’activitat de robòtica i programació',
     codingTool:
       language === 'en'
         ? 'Tool or material'
