@@ -792,6 +792,68 @@ export const examples: Record<string, Example> = {
       objectives: 'Distinguish melting, evaporation, condensation and freezing.',
     },
   },
+  'case-study': {
+    options: { level: 'FP', questionCount: '4' },
+    es: {
+      subject: 'Empresa e Iniciativa Emprendedora',
+      topic: 'Viabilidad de una pequeña cafetería',
+      objectives: 'Calcular el punto de equilibrio y decidir si conviene ampliar el horario.',
+      context: 'Grado medio, segundo curso. El alumnado ya conoce costes fijos y variables.',
+    },
+    va: {
+      subject: 'Empresa i Iniciativa Emprenedora',
+      topic: 'Viabilitat d’una xicoteta cafeteria',
+      objectives: 'Calcular el punt d’equilibri i decidir si convé ampliar l’horari.',
+      context: 'Grau mitjà, segon curs. L’alumnat ja coneix costos fixos i variables.',
+    },
+    en: {
+      subject: 'Business and Entrepreneurship',
+      topic: 'Viability of a small coffee shop',
+      objectives: 'Calculate the break-even point and decide whether to extend opening hours.',
+      context: 'Second-year vocational students who already know fixed and variable costs.',
+    },
+  },
+  'lab-guide': {
+    options: { level: 'ESO', duration: '55 minutos' },
+    es: {
+      subject: 'Física y Química',
+      topic: 'Separación de mezclas: filtración y evaporación',
+      objectives: 'Separar arena y sal de una mezcla y explicar en qué propiedad se basa cada método.',
+      resources:
+        'Vasos de precipitados, embudo, papel de filtro, mechero o placa calefactora, cápsula de porcelana, agua, arena y sal.',
+    },
+    va: {
+      subject: 'Física i Química',
+      topic: 'Separació de mescles: filtració i evaporació',
+      objectives: 'Separar arena i sal d’una mescla i explicar en quina propietat es basa cada mètode.',
+      resources:
+        'Gots de precipitats, embut, paper de filtre, metxer o placa calefactora, càpsula de porcellana, aigua, arena i sal.',
+    },
+    en: {
+      subject: 'Physics and Chemistry',
+      topic: 'Separating mixtures: filtration and evaporation',
+      objectives: 'Separate sand and salt from a mixture and explain which property each method relies on.',
+      resources: 'Beakers, funnel, filter paper, burner or hot plate, evaporating dish, water, sand and salt.',
+    },
+  },
+  'class-presentation': {
+    options: { level: 'ESO', duration: '15 minutos' },
+    es: {
+      subject: 'Geografía e Historia',
+      topic: 'El Palmeral de Elche, paisaje cultural',
+      objectives: 'Explicar qué es un paisaje cultural y por qué hay que conservarlo.',
+    },
+    va: {
+      subject: 'Geografia i Història',
+      topic: 'El Palmerar d’Elx, paisatge cultural',
+      objectives: 'Explicar què és un paisatge cultural i per què cal conservar-lo.',
+    },
+    en: {
+      subject: 'Geography and History',
+      topic: 'The Palm Grove of Elche, a cultural landscape',
+      objectives: 'Explain what a cultural landscape is and why it should be preserved.',
+    },
+  },
   worksheet: {
     options: {
       level: 'ESO',

@@ -1247,6 +1247,24 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
         : language === 'es'
           ? 'Ficha de trabajo imprimible'
           : 'Fitxa de treball imprimible',
+    templateCaseStudy:
+      language === 'en'
+        ? 'Case study'
+        : language === 'es'
+          ? 'Caso práctico o supuesto profesional'
+          : 'Cas pràctic o supòsit professional',
+    templateLabGuide:
+      language === 'en'
+        ? 'Lab or workshop practical guide'
+        : language === 'es'
+          ? 'Guion de práctica de laboratorio o taller'
+          : 'Guió de pràctica de laboratori o taller',
+    templateClassPresentation:
+      language === 'en'
+        ? 'Classroom presentation'
+        : language === 'es'
+          ? 'Presentación para clase'
+          : 'Presentació per a classe',
     templateEthicalDilemma:
       language === 'en'
         ? 'Ethical dilemmas for discussion'

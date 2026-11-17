@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.30.0 - Caso práctico, guion de laboratorio y presentación para clase
+
+- Nueva herramienta **Caso práctico o supuesto profesional** (Actividades; `#template/case-study`): situación realista con los datos necesarios, tareas graduadas de la comprensión a la toma de decisiones, objetivo de cada tarea y solucionario aparte con errores frecuentes. Datos ficticios y coherentes, sin personas ni empresas reales identificables. Pensada para FP y Bachillerato.
+- Nueva herramienta **Guion de práctica de laboratorio o taller** (Actividades; `#template/lab-guide`): objetivo, fundamento, material, normas de seguridad, procedimiento numerado, tabla de datos, preguntas de análisis y apartado para el docente. No inventa normas de seguridad ni valores de referencia: marca lo que hay que comprobar.
+- Nueva herramienta **Presentación para clase** (Contenidos; `#template/class-presentation`): esquema de diapositivas con ideas breves, propuesta de imagen con término de búsqueda y notas para el docente, con pregunta inicial, actividad intermedia y síntesis; lista para PowerPoint con Copilot, Gamma o Canva.
+- Las tres, en castellano, valenciano, catalán e inglés y con ejemplo cargable.
+
 ## 0.29.0 - Ficha de trabajo imprimible
 
 - Nueva herramienta **Ficha de trabajo imprimible** (categoría Actividades; `#template/worksheet`): a partir de un tema o de un texto de partida, prepara una ficha para el alumnado con encabezado, instrucciones, ejercicios variados del tipo elegido (completar huecos, verdadero/falso, emparejar, ordenar, clasificar, opción múltiple, respuesta corta, pregunta abierta, dibujo o esquema), espacio para responder y el solucionario aparte. Usa solo la información del texto aportado y da un formato apto para pegar en un procesador de textos. Traducida al valenciano, catalán e inglés, con ejemplo cargable.
