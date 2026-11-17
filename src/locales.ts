@@ -1265,6 +1265,18 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
         : language === 'es'
           ? 'Presentación para clase'
           : 'Presentació per a classe',
+    templateEscapeRoom:
+      language === 'en'
+        ? 'Educational escape room'
+        : language === 'es'
+          ? 'Escape room o breakout educativo'
+          : 'Escape room o breakout educatiu',
+    templateReadingComprehension:
+      language === 'en'
+        ? 'Graded reading comprehension'
+        : language === 'es'
+          ? 'Lectura comprensiva graduada'
+          : 'Lectura comprensiva graduada',
     templateEthicalDilemma:
       language === 'en'
         ? 'Ethical dilemmas for discussion'

@@ -792,6 +792,48 @@ export const examples: Record<string, Example> = {
       objectives: 'Distinguish melting, evaporation, condensation and freezing.',
     },
   },
+  'escape-room': {
+    options: { level: 'ESO', questionCount: '4', duration: '55 minutos' },
+    es: {
+      subject: 'Matemáticas',
+      topic: 'Fracciones y porcentajes',
+      objectives: 'Calcular porcentajes y operar con fracciones en situaciones cotidianas.',
+    },
+    va: {
+      subject: 'Matemàtiques',
+      topic: 'Fraccions i percentatges',
+      objectives: 'Calcular percentatges i operar amb fraccions en situacions quotidianes.',
+    },
+    en: {
+      subject: 'Mathematics',
+      topic: 'Fractions and percentages',
+      objectives: 'Calculate percentages and operate with fractions in everyday situations.',
+    },
+  },
+  'reading-comprehension': {
+    options: { level: 'ESO', questionCount: '9' },
+    es: {
+      subject: 'Geografía e Historia',
+      topic: 'El Palmeral de Elche',
+      objectives: 'Comprender un texto expositivo y valorar la conservación del patrimonio.',
+      sourceText:
+        'El Palmeral de Elche es un conjunto de huertos de palmeras datileras. Su origen está ligado al sistema de riego de acequias. En el año 2000 la UNESCO lo declaró Patrimonio de la Humanidad como paisaje cultural.',
+    },
+    va: {
+      subject: 'Geografia i Història',
+      topic: 'El Palmerar d’Elx',
+      objectives: 'Comprendre un text expositiu i valorar la conservació del patrimoni.',
+      sourceText:
+        'El Palmerar d’Elx és un conjunt d’horts de palmeres datileres. El seu origen està lligat al sistema de reg de séquies. L’any 2000 la UNESCO el va declarar Patrimoni de la Humanitat com a paisatge cultural.',
+    },
+    en: {
+      subject: 'Geography and History',
+      topic: 'The Palm Grove of Elche',
+      objectives: 'Understand an expository text and value the preservation of heritage.',
+      sourceText:
+        'The Palm Grove of Elche is a set of date palm orchards. Its origin is linked to the irrigation system of acequias (channels). In 2000 UNESCO declared it a World Heritage Site as a cultural landscape.',
+    },
+  },
   'case-study': {
     options: { level: 'FP', questionCount: '4' },
     es: {

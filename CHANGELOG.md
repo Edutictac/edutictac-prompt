@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.31.0 - Escape room y lectura comprensiva graduada
+
+- Nueva herramienta **Escape room o breakout educativo** (Actividades; `#template/escape-room`): historia breve, enigmas encadenados que exigen usar los contenidos, tipo de candado, solución y dos pistas graduadas por enigma, materiales imprimibles, montaje con candados de papel o digitales, grupos, temporización y hoja de soluciones para el docente. Comprueba que cada solución sea única.
+- Nueva herramienta **Lectura comprensiva graduada** (Contenidos; `#template/reading-comprehension`): usa el texto aportado sin cambiarlo (o escribe uno adecuado al nivel), vocabulario clave y preguntas en tres bloques iguales (literales, inferenciales y críticas), con el nivel de cada pregunta y las respuestas esperadas aparte.
+- Las dos, en castellano, valenciano, catalán e inglés y con ejemplo cargable.
+
 ## 0.30.0 - Caso práctico, guion de laboratorio y presentación para clase
 
 - Nueva herramienta **Caso práctico o supuesto profesional** (Actividades; `#template/case-study`): situación realista con los datos necesarios, tareas graduadas de la comprensión a la toma de decisiones, objetivo de cada tarea y solucionario aparte con errores frecuentes. Datos ficticios y coherentes, sin personas ni empresas reales identificables. Pensada para FP y Bachillerato.

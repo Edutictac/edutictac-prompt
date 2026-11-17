@@ -42,6 +42,8 @@ export const templateNameKeys: Record<string, string> = {
   'case-study': 'templateCaseStudy',
   'lab-guide': 'templateLabGuide',
   'class-presentation': 'templateClassPresentation',
+  'escape-room': 'templateEscapeRoom',
+  'reading-comprehension': 'templateReadingComprehension',
   'ethical-dilemma': 'templateEthicalDilemma',
   'study-plan': 'templateStudyPlan',
   'historical-interview': 'templateHistoricalInterview',

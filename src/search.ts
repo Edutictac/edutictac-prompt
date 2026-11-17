@@ -62,6 +62,8 @@ const keywords: Record<string, string[]> = {
   'case-study': ['caso practico', 'cas practic', 'supuesto', 'suposit', 'fp', 'empresa', 'problema'],
   'lab-guide': ['laboratorio', 'laboratori', 'taller', 'practica', 'experimento', 'seguridad', 'guion'],
   'class-presentation': ['presentacion', 'presentacio', 'diapositivas', 'powerpoint', 'gamma', 'canva', 'exposicion'],
+  'escape-room': ['escape room', 'breakout', 'enigmas', 'candados', 'cadenats', 'gamificacion', 'reto'],
+  'reading-comprehension': ['lectura', 'comprension', 'comprensio', 'texto', 'literal', 'inferencial', 'vocabulario'],
   'multiple-choice': ['test', 'tipo test', 'cuestionario', 'opcion multiple', 'examen'],
   'ethical-dilemma': ['dilema', 'etico', 'debate', 'valores'],
   'study-plan': ['plan de estudio', 'organizacion', 'habitos', 'estudiar'],
