@@ -9,6 +9,7 @@ import { CurriculumSelector } from './CurriculumSelector'
 import { FieldControl } from './FieldControl'
 import { GuidedSummary, stepHelp, stepTitle } from './GuidedSummary'
 import { getTemplateName } from './labels'
+import { templateTip } from '../../templateTips'
 import { initialValues } from './values'
 
 type FormMode = 'advanced' | 'guided'
@@ -116,6 +117,18 @@ export function CreateView({
         </button>
         <p className="eyebrow">{t.create}</p>
         <h1>{getTemplateName(selected.id, t)}</h1>
+        {(() => {
+          const tip = templateTip(selected.id, language)
+          return tip ? (
+            <div className="template-tip">
+              <p>{tip.use}</p>
+              <p className="template-tip-hint">
+                <span aria-hidden="true">💡 </span>
+                {tip.tip}
+              </p>
+            </div>
+          ) : null
+        })()}
         <div className="mode-switch" role="group" aria-label={t.formMode}>
           <button className={mode === 'guided' ? 'active' : ''} onClick={() => changeMode('guided')}>
             {t.guidedMode}
@@ -124,9 +137,7 @@ export function CreateView({
             {t.advancedMode}
           </button>
         </div>
-        <p className="mode-hint">
-          {mode === 'advanced' ? t.advancedModeHint : t.guidedModeHint}
-        </p>
+        <p className="mode-hint">{mode === 'advanced' ? t.advancedModeHint : t.guidedModeHint}</p>
         <button type="button" className="example-button" onClick={loadExample}>
           💡 {t.loadExample}
         </button>

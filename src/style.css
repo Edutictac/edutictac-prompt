@@ -132,3 +132,10 @@ header{padding:0 max(24px,calc((100% - 1560px)/2))}
 [data-theme="dark"] .hero-shortcut strong{color:var(--accent-2)}
 [data-theme="dark"] .hero-shortcut:hover{border-color:var(--warn)}
 @media(max-width:800px){.hero-shortcut{font-size:12px}.hero-shortcut strong{font-size:13px}}
+
+/* Para qué sirve la herramienta y pista de uso, bajo el título del formulario */
+.template-tip{margin:-4px 0 14px;padding:10px 12px;border-left:3px solid #e8a33d;border-radius:0 8px 8px 0;background:#fdf7ec;color:#3d4b5c;font-size:13.5px;line-height:1.45}
+.template-tip p{margin:0}
+.template-tip .template-tip-hint{margin-top:6px;color:#5b6878}
+[data-theme="dark"] .template-tip{background:#2a2418;color:#e5e1d6;border-left-color:#d79a3a}
+[data-theme="dark"] .template-tip .template-tip-hint{color:#c9c2b2}

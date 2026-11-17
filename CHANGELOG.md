@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.32.0 - Para qué sirve cada herramienta
+
+- Cada herramienta muestra bajo el título **para qué sirve** y una **pista de uso** (cuándo está indicada, qué revisar o con qué combinarla), en castellano, valenciano, catalán e inglés. Un test exige que toda herramienta nueva tenga su pista en los cuatro idiomas.
+
 ## 0.31.0 - Escape room y lectura comprensiva graduada
 
 - Nueva herramienta **Escape room o breakout educativo** (Actividades; `#template/escape-room`): historia breve, enigmas encadenados que exigen usar los contenidos, tipo de candado, solución y dos pistas graduadas por enigma, materiales imprimibles, montaje con candados de papel o digitales, grupos, temporización y hoja de soluciones para el docente. Comprueba que cada solución sea única.
