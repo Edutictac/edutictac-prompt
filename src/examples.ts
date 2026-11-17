@@ -792,6 +792,34 @@ export const examples: Record<string, Example> = {
       objectives: 'Distinguish melting, evaporation, condensation and freezing.',
     },
   },
+  worksheet: {
+    options: {
+      level: 'ESO',
+      activityType: 'Completar huecos · Verdadero/Falso · Emparejar · Respuesta corta',
+      questionCount: '6',
+    },
+    es: {
+      subject: 'Geografía e Historia',
+      topic: 'El Palmeral de Elche',
+      objectives: 'Explicar por qué el Palmeral es patrimonio y proponer una medida para conservarlo.',
+      sourceText:
+        'El Palmeral de Elche es un conjunto de huertos de palmeras datileras. Su origen está ligado al sistema de riego de acequias. En el año 2000 la UNESCO lo declaró Patrimonio de la Humanidad como paisaje cultural.',
+    },
+    va: {
+      subject: 'Geografia i Història',
+      topic: 'El Palmerar d’Elx',
+      objectives: 'Explicar per què el Palmerar és patrimoni i proposar una mesura per a conservar-lo.',
+      sourceText:
+        'El Palmerar d’Elx és un conjunt d’horts de palmeres datileres. El seu origen està lligat al sistema de reg de séquies. L’any 2000 la UNESCO el va declarar Patrimoni de la Humanitat com a paisatge cultural.',
+    },
+    en: {
+      subject: 'Geography and History',
+      topic: 'The Palm Grove of Elche',
+      objectives: 'Explain why the Palm Grove is heritage and suggest one way to preserve it.',
+      sourceText:
+        'The Palm Grove of Elche is a set of date palm orchards. Its origin is linked to the irrigation system of acequias (channels). In 2000 UNESCO declared it a World Heritage Site as a cultural landscape.',
+    },
+  },
   'ethical-dilemma': {
     options: { level: 'Bachillerato' },
     es: {

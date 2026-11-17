@@ -1241,6 +1241,12 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
         : language === 'es'
           ? 'Cuestionario tipo test con explicaciones'
           : 'Qüestionari tipus test amb explicacions',
+    templateWorksheet:
+      language === 'en'
+        ? 'Printable worksheet'
+        : language === 'es'
+          ? 'Ficha de trabajo imprimible'
+          : 'Fitxa de treball imprimible',
     templateEthicalDilemma:
       language === 'en'
         ? 'Ethical dilemmas for discussion'
@@ -1262,11 +1268,7 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
           ? 'Ficha de actividad de robótica y programación'
           : 'Fitxa d’activitat de robòtica i programació',
     codingTool:
-      language === 'en'
-        ? 'Tool or material'
-        : language === 'es'
-          ? 'Herramienta o material'
-          : 'Eina o material',
+      language === 'en' ? 'Tool or material' : language === 'es' ? 'Herramienta o material' : 'Eina o material',
     studentRole: language === 'en' ? 'Student role' : language === 'es' ? 'Rol del alumnado' : 'Rol de l’alumnat',
     activityIdea:
       language === 'en' ? 'Starting format' : language === 'es' ? 'Formato de partida' : 'Format de partida',

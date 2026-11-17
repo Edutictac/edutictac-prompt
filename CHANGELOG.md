@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.29.0 - Ficha de trabajo imprimible
+
+- Nueva herramienta **Ficha de trabajo imprimible** (categoría Actividades; `#template/worksheet`): a partir de un tema o de un texto de partida, prepara una ficha para el alumnado con encabezado, instrucciones, ejercicios variados del tipo elegido (completar huecos, verdadero/falso, emparejar, ordenar, clasificar, opción múltiple, respuesta corta, pregunta abierta, dibujo o esquema), espacio para responder y el solucionario aparte. Usa solo la información del texto aportado y da un formato apto para pegar en un procesador de textos. Traducida al valenciano, catalán e inglés, con ejemplo cargable.
+
 ## 0.28.3
 
 - En la **Ficha de actividad de robótica y programación**, el **rol del alumnado** permite elegir varios a la vez (usuario, creador y diseñador).

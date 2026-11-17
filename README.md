@@ -37,7 +37,7 @@ El plan de refactor gradual y su seguimiento están en [docs/PLAN-REFACTOR.md](d
 
 ## Estat actual
 
-- Versió publicada de la PWA: **0.28.3** (enllaç directe a les eines i formulari sense mode Senzill).
+- Versió publicada de la PWA: **0.29.0** (nova eina «Fitxa de treball imprimible»).
 - Producció: [pages.edutictac.es/Edutictac/edutictac-prompt](https://pages.edutictac.es/Edutictac/edutictac-prompt/).
 - La PWA funciona localment amb IndexedDB i continua disponible sense compte ni connexió.
 - Authentik està integrat mitjançant OIDC + PKCE. L’inici de sessió es fa des de `id.edutictac.es`.

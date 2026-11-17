@@ -38,6 +38,7 @@ export const templateNameKeys: Record<string, string> = {
   participation: 'templateParticipation',
   'conflict-mediation': 'templateConflictMediation',
   'multiple-choice': 'templateMultipleChoice',
+  worksheet: 'templateWorksheet',
   'ethical-dilemma': 'templateEthicalDilemma',
   'study-plan': 'templateStudyPlan',
   'historical-interview': 'templateHistoricalInterview',
