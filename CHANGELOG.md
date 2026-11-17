@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.32.1
+
+- **Contraste en modo oscuro:** los títulos de las herramientas y de la portada, los iconos del catálogo, los textos secundarios, el selector «Paso a paso / Avanzado» y el indicador «local» se veían casi en azul marino sobre fondo oscuro. Ahora todos los textos de la portada, el formulario, la biblioteca, la ayuda y los agentes cumplen el contraste mínimo WCAG AA, también en modo claro (grises secundarios algo más oscuros).
+
 ## 0.32.0 - Para qué sirve cada herramienta
 
 - Cada herramienta muestra bajo el título **para qué sirve** y una **pista de uso** (cuándo está indicada, qué revisar o con qué combinarla), en castellano, valenciano, catalán e inglés. Un test exige que toda herramienta nueva tenga su pista en los cuatro idiomas.
