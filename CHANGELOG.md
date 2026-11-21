@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.37.0 - QR, paquete de sesión y revisión de catalán y valenciano
+
+- **Mostrar QR:** cada herramienta tiene un botón que muestra a pantalla completa el código QR del enlace (con los datos rellenados, si los hay), para proyectarlo en clase o en una formación. Se genera en el navegador (`qrcode-generator`, MIT) y se puede descargar en SVG. Si el enlace es muy largo avisa de que puede costar escanearlo.
+- **Paquete de sesión:** en Mi biblioteca se marcan varios prompts guardados («En la sesión») y «Preparar la sesión» crea una página con el título de la sesión y, por cada prompt, su QR y el enlace que abre la herramienta ya rellena. Se puede imprimir (dos por fila, sin botones), proyectar cada QR o copiar todos los enlaces en una lista numerada para Aules o la zona del centro.
+- **Catalán y valenciano:** una prueba nueva recorre todos los textos de las dos variantes (interfaz, opciones, pistas, ayuda, agentes y los prompts de todas las herramientas) y falla si aparece una forma exclusiva de la otra. Ha corregido 24 casos: en catalán aparecían formas valencianas (`esta`, `teua`, `meues`, `servici`…) y algunos textos compartidos usaban formas centrales en valenciano (`afegeix`, `depèn`, `serveix`…).
+- **Para mantener la aplicación:** `npm run golden:update` regenera las huellas de las salidas y `npm run new-template` crea el esqueleto de una herramienta nueva; una prueba impide publicar mientras queden textos pendientes. Instrucciones en `CONTRIBUTING.md`.
+
 ## 0.36.1 - Arranque más rápido
 
 - El bloque de código que se descarga al abrir la aplicación pasa de **807 kB a 440 kB** (de 246 kB a 136 kB comprimido, un 45 % menos). La pantalla de crear, el generador de prompts con todos sus textos y el descompresor de los enlaces compartidos se cargan aparte: la pantalla de crear al abrirla y el generador mientras se rellena el formulario, de modo que generar sigue siendo inmediato. La PWA los precarga en segundo plano, así que todo sigue funcionando sin conexión.
