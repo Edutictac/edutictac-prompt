@@ -1375,6 +1375,56 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
         : language === 'es'
           ? 'Tutor para revisar código'
           : 'Tutor per revisar codi',
+    templateProfileAdaptation:
+      language === 'en'
+        ? 'Adaptation for a specific learner profile'
+        : language === 'es'
+          ? 'Adaptación para un perfil concreto'
+          : 'Adaptació per a un perfil concret',
+    templateSchoolDocument:
+      language === 'en'
+        ? 'School documents (minutes, reports and plans)'
+        : language === 'es'
+          ? 'Documentos del centro (actas, informes y memorias)'
+          : 'Documents del centre (actes, informes i memòries)',
+    profile: language === 'en' ? 'Learner profile' : language === 'es' ? 'Perfil del alumnado' : 'Perfil de l’alumnat',
+    strengths:
+      language === 'en'
+        ? 'Strengths, interests and supports that already work'
+        : language === 'es'
+          ? 'Fortalezas, intereses y apoyos que ya funcionan'
+          : 'Fortaleses, interessos i suports que ja funcionen',
+    documentType: language === 'en' ? 'Document type' : language === 'es' ? 'Tipo de documento' : 'Tipus de document',
+    facts:
+      language === 'en'
+        ? 'Facts, notes and agreed points'
+        : language === 'es'
+          ? 'Datos, notas y acuerdos de partida'
+          : 'Dades, notes i acords de partida',
+    placeholderStrengths:
+      language === 'en'
+        ? 'E.g. interested in experiments, works better with visual examples, responds well to short instructions (optional)'
+        : language === 'es'
+          ? 'Ex. le interesan los experimentos, trabaja mejor con ejemplos visuales, responde bien a instrucciones cortas (opcional)'
+          : 'Ex. li interessen els experiments, treballa millor amb exemples visuals, respon bé a instruccions curtes (opcional)',
+    placeholderFacts:
+      language === 'en'
+        ? 'Dates, attendees, figures, agreements or notes you already have. Mark gaps with [ ]...'
+        : language === 'es'
+          ? 'Fechas, asistentes, cifras, acuerdos o notas de las que ya dispones. Marca los huecos con [ ]...'
+          : 'Dates, assistents, xifres, acords o notes de què ja disposes. Marca els buits amb [ ]...',
+    'placeholderTask-profile-adaptation':
+      language === 'en'
+        ? 'Describe the task or activity you want to adapt (statement, steps and how it is assessed)...'
+        : language === 'es'
+          ? 'Describe la tarea o actividad que quieres adaptar (enunciado, pasos y cómo se evalúa)...'
+          : 'Descriu la tasca o activitat que vols adaptar (enunciat, passos i com s’avalua)...',
+    'placeholderContext-school-document':
+      language === 'en'
+        ? 'School, body or group, date, people involved and anything relevant to the document...'
+        : language === 'es'
+          ? 'Centro, órgano o grupo, fecha, personas implicadas y lo relevante para el documento...'
+          : 'Centre, òrgan o grup, data, persones implicades i allò rellevant per al document...',
     'placeholderSourceText-udl-review':
       language === 'en'
         ? 'Paste the activity you want to review (statement, steps, materials and how it is assessed)...'

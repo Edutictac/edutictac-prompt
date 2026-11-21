@@ -111,6 +111,31 @@ const keywords: Record<string, string[]> = {
     'blockly',
   ],
   'code-coach': ['codigo', 'programacion', 'revisar', 'errores', 'depurar'],
+  'profile-adaptation': [
+    'adaptacion',
+    'adaptacio',
+    'tdah',
+    'dislexia',
+    'tea',
+    'autismo',
+    'altas capacidades',
+    'necesidades especificas',
+    'nese',
+    'perfil',
+    'accesibilidad',
+  ],
+  'school-document': [
+    'acta',
+    'memoria',
+    'informe',
+    'plan de refuerzo',
+    'recuperacion',
+    'reclamacion',
+    'direccion',
+    'documento',
+    'burocracia',
+    'administracion',
+  ],
 }
 
 export function normalizeSearchText(value: string): string {

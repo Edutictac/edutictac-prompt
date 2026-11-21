@@ -60,6 +60,6 @@ describe('integridad de los textos del generador', () => {
 
   it('solo usa tipos de revisión conocidos', () => {
     for (const type of Object.values(reviewTypes))
-      expect(['generic', 'assessment', 'adaptation', 'communication', 'video']).toContain(type)
+      expect(['generic', 'assessment', 'adaptation', 'communication', 'document', 'video']).toContain(type)
   })
 })

@@ -328,7 +328,7 @@ export const defaults: Record<Language, Record<DefaultText, string>> = {
 
 export type DefaultTexts = Record<DefaultText, string>
 
-export type ReviewType = 'generic' | 'assessment' | 'adaptation' | 'communication' | 'video'
+export type ReviewType = 'generic' | 'assessment' | 'adaptation' | 'communication' | 'document' | 'video'
 export const reviewTypes: Record<string, ReviewType> = {
   'explainer-video': 'video',
   rubric: 'assessment',
@@ -346,6 +346,8 @@ export const reviewTypes: Record<string, ReviewType> = {
   'bias-check': 'adaptation',
   'family-note': 'communication',
   'tutoring-script': 'communication',
+  'school-document': 'document',
+  'profile-adaptation': 'adaptation',
 }
 export const reviews: Record<Language, Record<ReviewType, string[]>> = {
   es: {
@@ -376,6 +378,13 @@ export const reviews: Record<Language, Record<ReviewType, string[]>> = {
       'No incluyas datos personales del alumnado.',
       'Mantén el criterio institucional del centro.',
       'Entrega un primer borrador revisable, no lo presentes como definitivo.',
+    ],
+    document: [
+      'Comprueba que las fechas, los nombres y las cifras coinciden exactamente con los datos aportados.',
+      'No añadas acuerdos, cifras ni compromisos que no consten en las notas.',
+      'Mantén un tono institucional, claro y respetuoso.',
+      'Revisa la estructura propia del tipo de documento y los apartados obligatorios.',
+      'Señala con [ ] todo lo que deba completar o confirmar el centro antes de firmar.',
     ],
     video: [
       'Comprueba que cada cifra coincide con el documento de partida.',
@@ -414,6 +423,13 @@ export const reviews: Record<Language, Record<ReviewType, string[]>> = {
       'Mantín el criteri institucional del centre.',
       'Oferix un primer esborrany revisable, no el presentes com a definitiu.',
     ],
+    document: [
+      'Comprova que les dades, les dates i els noms coincidisquen exactament amb els aportats.',
+      'No afegisques acords, xifres ni compromisos que no consten en les notes.',
+      'Mantín un to institucional, clar i respectuós.',
+      'Revisa l’estructura pròpia del tipus de document i els apartats obligatoris.',
+      'Assenyala amb [ ] tot el que haja de completar o confirmar el centre abans de firmar.',
+    ],
     video: [
       'Comprova que cada xifra coincidisca amb el document de partida.',
       'Revisa que la veu, els subtítols i les animacions estiguen sincronitzats.',
@@ -451,6 +467,13 @@ export const reviews: Record<Language, Record<ReviewType, string[]>> = {
       'Mantén el criteri institucional del centre.',
       'Ofereix un primer esborrany revisable, no el presentis com a definitiu.',
     ],
+    document: [
+      'Comprova que les dades, les dates i els noms coincideixin exactament amb els aportats.',
+      'No afegeixis acords, xifres ni compromisos que no constin a les notes.',
+      'Mantén un to institucional, clar i respectuós.',
+      'Revisa l’estructura pròpia del tipus de document i els apartats obligatoris.',
+      'Assenyala amb [ ] tot el que hagi de completar o confirmar el centre abans de signar.',
+    ],
     video: [
       'Comprova que cada xifra coincideix amb el document de partida.',
       'Revisa que la veu, els subtítols i les animacions estiguin sincronitzats.',
@@ -487,6 +510,13 @@ export const reviews: Record<Language, Record<ReviewType, string[]>> = {
       'Do not include students’ personal data.',
       'Keep the school’s institutional line.',
       'Deliver a reviewable first draft; do not present it as definitive.',
+    ],
+    document: [
+      'Check that the dates, names and figures match exactly what was provided.',
+      'Do not add agreements, figures or commitments that are not in the notes.',
+      'Keep an institutional, clear and respectful tone.',
+      'Check the structure required for this document type and its mandatory sections.',
+      'Mark with [ ] anything the school must complete or confirm before signing.',
     ],
     video: [
       'Check that every figure matches the source document.',
@@ -931,6 +961,8 @@ export const extraLabels: Record<Language, Record<string, string>> = {
     voice: 'Voz y sonido',
     mustShow: 'Qué debe quedar claro sí o sí',
     avoid: 'Qué no debe aparecer',
+    strengths: 'Fortalezas, intereses y apoyos que ya funcionan',
+    facts: 'Datos, notas y acuerdos de partida',
   },
   'ca-valencia': {
     visualStyle: 'Estil visual',
@@ -952,6 +984,8 @@ export const extraLabels: Record<Language, Record<string, string>> = {
     voice: 'Veu i so',
     mustShow: 'Què ha de quedar clar sí o sí',
     avoid: 'Què no ha d’aparéixer',
+    strengths: 'Fortaleses, interessos i suports que ja funcionen',
+    facts: 'Dades, notes i acords de partida',
   },
   ca: {
     visualStyle: 'Estil visual',
@@ -973,6 +1007,8 @@ export const extraLabels: Record<Language, Record<string, string>> = {
     voice: 'Veu i so',
     mustShow: 'Què ha de quedar clar sí o sí',
     avoid: 'Què no ha d’aparéixer',
+    strengths: 'Fortaleses, interessos i suports que ja funcionen',
+    facts: 'Dades, notes i acords de partida',
   },
   en: {
     visualStyle: 'Visual style',
@@ -994,6 +1030,8 @@ export const extraLabels: Record<Language, Record<string, string>> = {
     voice: 'Voice and sound',
     mustShow: 'What must be clear no matter what',
     avoid: 'What must not appear',
+    strengths: 'Strengths, interests and supports that already work',
+    facts: 'Facts, notes and agreed points',
   },
 }
 

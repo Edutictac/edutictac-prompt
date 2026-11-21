@@ -881,6 +881,56 @@ export const templates: PromptTemplate[] = [
       { id: 'outputFormat', type: 'select', options: ['Texto', 'Markdown'] },
     ],
   },
+  {
+    id: 'profile-adaptation',
+    category: 'adaptation',
+    icon: '◑',
+    fields: [
+      { id: 'level', type: 'select', options: ['Infantil', 'Primaria', 'ESO', 'Bachillerato', 'FP'] },
+      { id: 'subject', type: 'text' },
+      {
+        id: 'profile',
+        type: 'select',
+        options: [
+          'TDAH',
+          'Dislexia',
+          'TEA (autismo)',
+          'Altas capacidades',
+          'Desconocimiento de la lengua vehicular',
+          'Discapacidad visual',
+          'Discapacidad auditiva',
+          'Dificultades de regulación del comportamiento',
+        ],
+      },
+      { id: 'task', type: 'textarea' },
+      { id: 'strengths', type: 'textarea' },
+      { id: 'objectives', type: 'textarea' },
+      { id: 'outputFormat', type: 'select', options: ['Texto', 'Markdown'] },
+    ],
+  },
+  {
+    id: 'school-document',
+    category: 'communication',
+    icon: '📄',
+    fields: [
+      {
+        id: 'documentType',
+        type: 'select',
+        options: [
+          'Acta de reunión',
+          'Memoria de actividad',
+          'Informe de seguimiento del alumnado',
+          'Plan de refuerzo o recuperación',
+          'Solicitud o propuesta a dirección',
+          'Respuesta a una reclamación',
+        ],
+      },
+      { id: 'context', type: 'textarea' },
+      { id: 'facts', type: 'textarea' },
+      { id: 'objectives', type: 'textarea' },
+      { id: 'outputFormat', type: 'select', options: ['Texto', 'Markdown'] },
+    ],
+  },
 ]
 
 // El curso de IA recomienda completar siempre que sea posible el contexto,

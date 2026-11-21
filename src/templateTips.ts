@@ -214,6 +214,14 @@ export const templateTips: Record<Language, Record<string, TemplateTip>> = {
       use: 'Preparar un tutor que revise el código del alumnado y le guíe sin darle la solución.',
       tip: 'Pensado para que lo use el alumnado. Comprueba que pregunta y orienta en lugar de corregir directamente.',
     },
+    'profile-adaptation': {
+      use: 'Adaptar una tarea a un perfil concreto de alumnado sin bajar el objetivo de aprendizaje.',
+      tip: 'Describe la tarea tal como la tienes. Añade fortalezas e intereses si los conoces: el prompt ajusta la forma, no la exigencia.',
+    },
+    'school-document': {
+      use: 'Redactar actas, memorias, informes de seguimiento, planes de refuerzo, propuestas a dirección y respuestas a reclamaciones.',
+      tip: 'Elige el tipo de documento y pega tus notas. Revisa y firma siempre antes de presentarlo: la IA no sustituye la responsabilidad del centro.',
+    },
   },
   'ca-valencia': {
     'learning-situation': {
@@ -423,6 +431,14 @@ export const templateTips: Record<Language, Record<string, TemplateTip>> = {
     'code-coach': {
       use: 'Preparar un tutor que revise el codi de l’alumnat i el guie sense donar-li la solució.',
       tip: 'Pensat perquè l’use l’alumnat. Comprova que pregunta i orienta en lloc de corregir directament.',
+    },
+    'profile-adaptation': {
+      use: 'Adaptar una tasca a un perfil concret d’alumnat sense baixar l’objectiu d’aprenentatge.',
+      tip: 'Descriu la tasca tal com la tens. Afig fortaleses i interessos si els coneixes: el prompt ajusta la forma, no l’exigència.',
+    },
+    'school-document': {
+      use: 'Redactar actes, memòries, informes de seguiment, plans de reforç, propostes a direcció i respostes a reclamacions.',
+      tip: 'Tria el tipus de document i apega les teues notes. Revisa i firma sempre abans de presentar-lo: la IA no substitueix la responsabilitat del centre.',
     },
   },
   ca: {
@@ -634,6 +650,14 @@ export const templateTips: Record<Language, Record<string, TemplateTip>> = {
       use: 'Preparar un tutor que revisi el codi de l’alumnat i el guiï sense donar-li la solució.',
       tip: 'Pensat perquè el faci servir l’alumnat. Comprova que pregunta i orienta en lloc de corregir directament.',
     },
+    'profile-adaptation': {
+      use: 'Adaptar una tasca a un perfil concret d’alumnat sense baixar l’objectiu d’aprenentatge.',
+      tip: 'Descriu la tasca tal com la tens. Afegeix fortaleses i interessos si els coneixes: el prompt ajusta la forma, no l’exigència.',
+    },
+    'school-document': {
+      use: 'Redactar actes, memòries, informes de seguiment, plans de reforç, propostes a direcció i respostes a reclamacions.',
+      tip: 'Tria el tipus de document i enganxa les teves notes. Revisa i signa sempre abans de presentar-lo: la IA no substitueix la responsabilitat del centre.',
+    },
   },
   en: {
     'learning-situation': {
@@ -843,6 +867,14 @@ export const templateTips: Record<Language, Record<string, TemplateTip>> = {
     'code-coach': {
       use: 'Prepare a tutor that reviews students’ code and guides them without giving the solution.',
       tip: 'Meant for students to use. Check that it asks and guides rather than fixing the code.',
+    },
+    'profile-adaptation': {
+      use: 'Adapt a task to a specific learner profile without lowering the learning objective.',
+      tip: 'Describe the task as you have it. Add strengths and interests if you know them: the prompt adjusts the approach, not the demand.',
+    },
+    'school-document': {
+      use: 'Draft minutes, activity reports, progress reports, support plans, proposals to the leadership team and replies to complaints.',
+      tip: 'Choose the document type and paste your notes. Always review and sign before submitting: AI does not replace the school’s responsibility.',
     },
   },
 }

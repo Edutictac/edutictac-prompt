@@ -3,37 +3,30 @@ import type { Language } from './types'
 // Novedades que se anuncian en la portada (sustituyen a los casos listos para
 // usar). Cada una abre su herramienta. Actualizar en cada versión con cambios
 // visibles para el profesorado; el historial completo está en el CHANGELOG.
-export const newsVersion = '0.34.0'
+export const newsVersion = '0.35.0'
 export const changelogUrl = 'https://git.edutictac.es/Edutictac/edutictac-prompt/src/branch/master/CHANGELOG.md'
 
 export type NewsItem = { templateId: string; text: Record<Language, string> }
 
 export const news: NewsItem[] = [
   {
-    templateId: 'illustrated-worksheet',
+    templateId: 'profile-adaptation',
     text: {
-      es: 'Nueva: ficha A4 con temática para una IA de imágenes, para colorear o en color.',
-      'ca-valencia': 'Nova: fitxa A4 amb temàtica per a una IA d’imatges, per a pintar o en color.',
-      ca: 'Nova: fitxa A4 amb temàtica per a una IA d’imatges, per pintar o en color.',
-      en: 'New: themed A4 worksheet for an image AI, for colouring or in colour.',
+      es: 'Nueva: adapta una tarea a un perfil concreto (TDAH, dislexia, TEA, altas capacidades…) sin bajar la exigencia.',
+      'ca-valencia':
+        'Nova: adapta una tasca a un perfil concret (TDAH, dislèxia, TEA, altes capacitats…) sense baixar l’exigència.',
+      ca: 'Nova: adapta una tasca a un perfil concret (TDAH, dislèxia, TEA, altes capacitats…) sense baixar l’exigència.',
+      en: 'New: adapt a task to a specific learner profile (ADHD, dyslexia, ASD, gifted…) without lowering the demand.',
     },
   },
   {
-    templateId: 'worksheet',
+    templateId: 'school-document',
     text: {
-      es: 'Diez pasatiempos nuevos: sopa de letras, crucigrama, jeroglífico, llega al número…',
-      'ca-valencia': 'Deu passatemps nous: sopa de lletres, mots encreuats, jeroglífic, arriba al número…',
-      ca: 'Deu passatemps nous: sopa de lletres, mots encreuats, jeroglífic, arriba al número…',
-      en: 'Ten new puzzle types: word search, crossword, rebus, reach the number…',
-    },
-  },
-  {
-    templateId: 'reading-comprehension',
-    text: {
-      es: 'Accesibilidad del material: letra, contraste, espacios y pictogramas según el alumnado.',
-      'ca-valencia': 'Accessibilitat del material: lletra, contrast, espais i pictogrames segons l’alumnat.',
-      ca: 'Accessibilitat del material: lletra, contrast, espais i pictogrames segons l’alumnat.',
-      en: 'Accessible materials: font, contrast, spacing and pictograms for each learner.',
+      es: 'Nueva: actas, memorias, informes de seguimiento, planes de refuerzo, propuestas a dirección y respuestas a reclamaciones.',
+      'ca-valencia':
+        'Nova: actes, memòries, informes de seguiment, plans de reforç, propostes a direcció i respostes a reclamacions.',
+      ca: 'Nova: actes, memòries, informes de seguiment, plans de reforç, propostes a direcció i respostes a reclamacions.',
+      en: 'New: minutes, activity reports, progress reports, support plans, proposals to leadership and replies to complaints.',
     },
   },
 ]

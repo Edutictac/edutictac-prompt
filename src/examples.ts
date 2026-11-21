@@ -1054,6 +1054,50 @@ export const examples: Record<string, Example> = {
       task: 'Do not rewrite all the code: explain the error and give me a hint to fix it.',
     },
   },
+  'profile-adaptation': {
+    options: { level: 'ESO', profile: 'TDAH' },
+    es: {
+      subject: 'Biología y Geología',
+      task: 'Leer un texto sobre la fotosíntesis y responder un cuestionario escrito de diez preguntas.',
+      strengths:
+        'Le interesan los experimentos y aprende mejor con ejemplos visuales; responde bien a instrucciones cortas.',
+      objectives: 'Explicar el proceso de la fotosíntesis y relacionarlo con la respiración celular.',
+    },
+    va: {
+      subject: 'Biologia i Geologia',
+      task: 'Llegir un text sobre la fotosíntesi i respondre un qüestionari escrit de deu preguntes.',
+      strengths: 'Li interessen els experiments i aprén millor amb exemples visuals; respon bé a instruccions curtes.',
+      objectives: 'Explicar el procés de la fotosíntesi i relacionar-lo amb la respiració cel·lular.',
+    },
+    en: {
+      subject: 'Biology and Geology',
+      task: 'Read a text about photosynthesis and answer a written questionnaire with ten questions.',
+      strengths:
+        'Interested in experiments, learns better with visual examples and responds well to short instructions.',
+      objectives: 'Explain the process of photosynthesis and link it to cellular respiration.',
+    },
+  },
+  'school-document': {
+    options: { documentType: 'Acta de reunión' },
+    es: {
+      context: 'IES público. Reunión del departamento de Tecnología el 12 de mayo, de 14:00 a 15:00, en el aula 12.',
+      facts:
+        'Se acuerda revisar la programación de 3.º de ESO, preparar la memoria de prácticas y fijar el 5 de junio como fecha límite para las notas.',
+      objectives: 'Dejar constancia breve y clara de los acuerdos para el equipo directivo.',
+    },
+    va: {
+      context: 'IES públic. Reunió del departament de Tecnologia el 12 de maig, de 14:00 a 15:00, a l’aula 12.',
+      facts:
+        'S’acorda revisar la programació de 3r d’ESO, preparar la memòria de pràctiques i fixar el 5 de juny com a data límit per a les notes.',
+      objectives: 'Deixar constància breu i clara dels acords per a l’equip directiu.',
+    },
+    en: {
+      context: 'Public secondary school. Technology department meeting on 12 May, 14:00–15:00, in room 12.',
+      facts:
+        'Agreed to review the Year 10 scheme of work, prepare the work placement report and set 5 June as the deadline for marks.',
+      objectives: 'Record the agreements briefly and clearly for the leadership team.',
+    },
+  },
 }
 
 export function exampleValues(templateId: string, language: Language): Record<string, string> {

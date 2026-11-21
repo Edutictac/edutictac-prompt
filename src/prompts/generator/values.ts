@@ -21,6 +21,8 @@ const localizedKeys = new Set([
   'studentRole',
   'activityIdea',
   'theme',
+  'profile',
+  'documentType',
   'printFinish',
   'sheetLanguage',
 ])

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.35.0 - Adaptación por perfil y documentos del centro
+
+- Nueva herramienta **Adaptación para un perfil concreto** (Adaptación; `#template/profile-adaptation`): parte de una tarea y de un perfil (TDAH, dislexia, TEA, altas capacidades, desconocimiento de la lengua vehicular, discapacidad visual, discapacidad auditiva o dificultades de regulación del comportamiento). Devuelve la tarea adaptada, ajustes por bloques (acceso, comprensión, expresión, tiempo y evaluación), qué se mantiene y qué cambia, materiales viables, indicadores de progreso y errores frecuentes. Cada perfil añade orientaciones concretas de aula; el enunciado pide no etiquetar ni diagnosticar y advierte de que el objetivo y la exigencia no bajan. Permite indicar fortalezas, intereses y apoyos que ya funcionan.
+- Nueva herramienta **Documentos del centro (actas, informes y memorias)** (Comunicación; `#template/school-document`): acta de reunión, memoria de actividad, informe de seguimiento del alumnado, plan de refuerzo o recuperación, solicitud o propuesta a dirección y respuesta a una reclamación. Cada tipo tiene su estructura; el prompt usa solo el contexto y las notas aportadas, deja huecos `[ ]` cuando falta un dato y recuerda revisar y firmar antes de presentar.
+- Ambas herramientas añaden textos en castellano, valenciano, catalán e inglés, ejemplo, pistas de uso, sinónimos de búsqueda, opciones traducidas y salidas de referencia.
+- Ideas inspiradas en la biblioteca de prompts de Sandra Fortanet (CC BY-NC): solo se han reutilizado las ideas; los textos se han redactado de nuevo.
 ## 0.34.1 - Licencia aclarada
 
 - El código se declara **AGPL-3.0-or-later** (`package.json`, README y pie de la aplicación).

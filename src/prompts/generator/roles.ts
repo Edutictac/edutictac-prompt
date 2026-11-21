@@ -1,7 +1,7 @@
 import type { Language } from '../../types'
 import type { DefaultTexts } from './texts'
 
-const commTemplates = new Set(['family-note', 'tutoring-script', 'conflict-mediation'])
+const commTemplates = new Set(['family-note', 'tutoring-script', 'conflict-mediation', 'school-document'])
 
 export function buildRoleDefault(
   templateId: string,
@@ -19,31 +19,37 @@ export function buildRoleDefault(
         : language === 'ca'
           ? `Ets guionista, dissenyador d’informació, director d’animació i programador creatiu. Converteixes documents${value('subject') ? ` de ${value('subject')}` : ''} en pel·lícules explicatives animades que s’entenen a la primera.`
           : `Eres guionista, diseñador de información, director de animación y programador creativo. Conviertes documentos${value('subject') ? ` de ${value('subject')}` : ''} en películas explicativas animadas que se entienden a la primera.`
-    : templateId === 'student-tutor'
+    : templateId === 'profile-adaptation'
       ? language === 'en'
-        ? `Act as a patient, Socratic tutor${value('subject') ? ` in ${value('subject')}` : ''}.`
+        ? `Act as a specialist in inclusive education and classroom support design${value('subject') ? ` in ${value('subject')}` : ''}.`
         : catalan
-          ? `Actua com a tutor/a pacient i socràtic/a${value('subject') ? ` de ${value('subject')}` : ''}.`
-          : `Actúa como tutor/a paciente y socrático/a${value('subject') ? ` de ${value('subject')}` : ''}.`
-      : templateId === 'historical-interview'
+          ? `Actua com a especialista en atenció a la diversitat i disseny de suports a l’aula ordinària${value('subject') ? ` de ${value('subject')}` : ''}.`
+          : `Actúa como especialista en atención a la diversidad y diseño de apoyos en el aula ordinaria${value('subject') ? ` de ${value('subject')}` : ''}.`
+      : templateId === 'student-tutor'
         ? language === 'en'
-          ? `Role-play as the historical figure requested${value('subject') ? ` in ${value('subject')}` : ''}, grounded in verified facts.`
+          ? `Act as a patient, Socratic tutor${value('subject') ? ` in ${value('subject')}` : ''}.`
           : catalan
-            ? `Interpreta el personatge històric indicat${value('subject') ? ` de ${value('subject')}` : ''} basant-te en fets verificables.`
-            : `Interpreta al personaje histórico indicado${value('subject') ? ` de ${value('subject')}` : ''} basándote en hechos verificables.`
-        : templateId === 'coding-activity'
+            ? `Actua com a tutor/a pacient i socràtic/a${value('subject') ? ` de ${value('subject')}` : ''}.`
+            : `Actúa como tutor/a paciente y socrático/a${value('subject') ? ` de ${value('subject')}` : ''}.`
+        : templateId === 'historical-interview'
           ? language === 'en'
-            ? `You are a computational thinking and programming teacher${value('subject') ? ` working with ${value('subject')}` : ''} who designs clear, ready-to-use activity sheets for other teachers.`
+            ? `Role-play as the historical figure requested${value('subject') ? ` in ${value('subject')}` : ''}, grounded in verified facts.`
             : catalan
-              ? `Ets docent de pensament computacional i programació, d’Infantil a Formació Professional${value('subject') ? ` i de ${value('subject')}` : ''}, i dissenyes fitxes d’activitat clares i llestes per usar per a altres docents.`
-              : `Eres docente de pensamiento computacional y programación, de Infantil a Formación Profesional${value('subject') ? ` y de ${value('subject')}` : ''}, y diseñas fichas de actividad claras y listas para usar para otros docentes.`
-        : templateId === 'code-coach'
-          ? language === 'en'
-            ? `Act as a programming teacher${value('subject') ? ` for ${value('subject')}` : ''} who helps the learner debug independently.`
-            : catalan
-              ? `Actua com a docent de programació${value('subject') ? ` de ${value('subject')}` : ''} i ajuda l’estudiant a depurar per si mateix.`
-              : `Actúa como docente de programación${value('subject') ? ` de ${value('subject')}` : ''} y ayuda al estudiante a depurar por sí mismo.`
-          : commTemplates.has(templateId)
-            ? d.roleComm
-            : `${d.role} ${value('subject') || d.education} ${level || d.stage}.`
+              ? `Interpreta el personatge històric indicat${value('subject') ? ` de ${value('subject')}` : ''} basant-te en fets verificables.`
+              : `Interpreta al personaje histórico indicado${value('subject') ? ` de ${value('subject')}` : ''} basándote en hechos verificables.`
+          : templateId === 'coding-activity'
+            ? language === 'en'
+              ? `You are a computational thinking and programming teacher${value('subject') ? ` working with ${value('subject')}` : ''} who designs clear, ready-to-use activity sheets for other teachers.`
+              : catalan
+                ? `Ets docent de pensament computacional i programació, d’Infantil a Formació Professional${value('subject') ? ` i de ${value('subject')}` : ''}, i dissenyes fitxes d’activitat clares i llestes per usar per a altres docents.`
+                : `Eres docente de pensamiento computacional y programación, de Infantil a Formación Profesional${value('subject') ? ` y de ${value('subject')}` : ''}, y diseñas fichas de actividad claras y listas para usar para otros docentes.`
+            : templateId === 'code-coach'
+              ? language === 'en'
+                ? `Act as a programming teacher${value('subject') ? ` for ${value('subject')}` : ''} who helps the learner debug independently.`
+                : catalan
+                  ? `Actua com a docent de programació${value('subject') ? ` de ${value('subject')}` : ''} i ajuda l’estudiant a depurar per si mateix.`
+                  : `Actúa como docente de programación${value('subject') ? ` de ${value('subject')}` : ''} y ayuda al estudiante a depurar por sí mismo.`
+              : commTemplates.has(templateId)
+                ? d.roleComm
+                : `${d.role} ${value('subject') || d.education} ${level || d.stage}.`
 }
