@@ -1,6 +1,9 @@
 import { deflateSync, inflateSync, strFromU8, strToU8 } from 'fflate'
 import { templates } from './templates'
 import { initialValues } from './prompts/form/values'
+import { SHARE_PARAM } from './shareHash'
+
+export { splitTemplateHash } from './shareHash'
 
 // Enlace para compartir una herramienta con el formulario ya relleno:
 // «#template/<id>?d=<datos>». Los datos son los valores que difieren de los
@@ -8,7 +11,6 @@ import { initialValues } from './prompts/form/values'
 // (el fragmento # no se envía), pero quien tenga el enlace los ve: no deben
 // llevar datos personales.
 
-export const SHARE_PARAM = 'd'
 export const MAX_SHARE_LENGTH = 6000
 const MAX_VALUE_LENGTH = 4000
 
@@ -69,10 +71,4 @@ export function decodeShareData(templateId: string, data: string): Record<string
   } catch {
     return {}
   }
-}
-
-// Separa «#template/<id>?d=…» en id y datos.
-export function splitTemplateHash(hash: string): { rawId: string; data: string } {
-  const [rawId, query = ''] = hash.split('?', 2)
-  return { rawId, data: new URLSearchParams(query).get(SHARE_PARAM) || '' }
 }

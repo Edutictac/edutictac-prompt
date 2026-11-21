@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.36.1 - Arranque más rápido
+
+- El bloque de código que se descarga al abrir la aplicación pasa de **807 kB a 440 kB** (de 246 kB a 136 kB comprimido, un 45 % menos). La pantalla de crear, el generador de prompts con todos sus textos y el descompresor de los enlaces compartidos se cargan aparte: la pantalla de crear al abrirla y el generador mientras se rellena el formulario, de modo que generar sigue siendo inmediato. La PWA los precarga en segundo plano, así que todo sigue funcionando sin conexión.
+- Las opciones de la ficha ilustrada (temáticas e idiomas) pasan a un módulo ligero para que el catálogo no arrastre los textos del generador.
+
 ## 0.36.0 - Compartir formularios, recientes y «Generar ya»
 
 - **Compartir con estos datos:** cada herramienta tiene un botón que copia un enlace (`#template/<id>?d=…`) que abre el formulario con los mismos datos. Los datos van comprimidos en el propio enlace (no pasan por ningún servidor) y solo incluyen los campos rellenos; al abrirlos se validan y se descarta todo lo que no sea un campo de la herramienta. Útil para proyectar un QR en una formación. Si hay demasiado texto, se avisa y se propone guardarlo en la biblioteca.

@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import 'fake-indexeddb/auto'
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
-import { cleanup, render, screen } from '@testing-library/react'
+import { cleanup, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
 import { db } from './db'
@@ -28,7 +28,7 @@ it('muestra los elementos curriculares en el modo por defecto al elegir un perfi
   render(<App />)
   await user.click(screen.getByRole('button', { name: /^Crear/ }))
   await user.selectOptions(
-    screen.getByRole('combobox', { name: /Perfil curricular/ }),
+    await screen.findByRole('combobox', { name: /Perfil curricular/ }),
     'cv-primaria-coneixement-del-medi-natural-social-i-cultural',
   )
   expect(screen.getAllByRole('checkbox').length).toBeGreaterThan(0)
@@ -40,7 +40,7 @@ it('recorre el formulario bloque a bloque, deja saltar pasos y genera desde el r
   render(<App />)
 
   await user.click(screen.getByRole('button', { name: /^Crear/ }))
-  await user.click(screen.getByRole('button', { name: 'Paso a paso' }))
+  await user.click(await screen.findByRole('button', { name: 'Paso a paso' }))
 
   expect(screen.getByText(`Paso 1 de ${total}`)).toBeTruthy()
   expect(screen.getByRole('heading', { name: 'Nivel y materia', level: 2 })).toBeTruthy()
@@ -89,7 +89,7 @@ it('comparte la herramienta con los datos rellenados y el enlace la reabre igual
   Object.defineProperty(window, 'isSecureContext', { configurable: true, value: true })
   history.replaceState(null, '', '/#template/worksheet')
   render(<App />)
-  await user.click(screen.getByRole('button', { name: /Compartir con estos datos/ }))
+  await user.click(await screen.findByRole('button', { name: /Compartir con estos datos/ }))
   expect(screen.getByRole('status').textContent).toContain('Rellena al menos un campo')
   await user.click(screen.getByRole('button', { name: /Cargar un ejemplo/ }))
   await user.click(screen.getByRole('button', { name: /Compartir con estos datos/ }))
@@ -98,8 +98,8 @@ it('comparte la herramienta con los datos rellenados y el enlace la reabre igual
 
   history.replaceState(null, '', copied.slice(copied.indexOf('/#') + 1))
   render(<App />)
-  await user.click(screen.getByRole('button', { name: 'Avanzado' }))
-  expect(screen.getByDisplayValue('El Palmeral de Elche')).toBeTruthy()
+  await user.click(await screen.findByRole('button', { name: 'Avanzado' }))
+  expect(await screen.findByDisplayValue('El Palmeral de Elche')).toBeTruthy()
   expect(location.hash).toBe('#template/worksheet')
 })
 
@@ -107,10 +107,14 @@ it('ofrece «Generar ya» al rellenar nivel y tema, y genera sin recorrer el res
   const user = userEvent.setup()
   history.replaceState(null, '', '/#template/worksheet')
   render(<App />)
+  await user.selectOptions(await screen.findByRole('combobox', { name: 'Nivel educativo' }), 'ESO')
   expect(screen.queryByRole('button', { name: /Generar ya/ })).toBeNull()
-  await user.selectOptions(screen.getByRole('combobox', { name: 'Nivel educativo' }), 'ESO')
   await user.click(screen.getByRole('button', { name: 'Siguiente' }))
   await user.type(screen.getByRole('textbox', { name: /Tema/ }), 'El ciclo del agua')
   await user.click(screen.getByRole('button', { name: /Generar ya/ }))
-  expect((screen.getByRole('textbox', { name: /prompt/i }) as HTMLTextAreaElement).value).toContain('El ciclo del agua')
+  await waitFor(() =>
+    expect((screen.getByRole('textbox', { name: /prompt/i }) as HTMLTextAreaElement).value).toContain(
+      'El ciclo del agua',
+    ),
+  )
 })

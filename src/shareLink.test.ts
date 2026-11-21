@@ -15,13 +15,13 @@ import { initialValues } from './prompts/form/values'
 const values = { ...initialValues('illustrated-worksheet'), ...exampleValues('illustrated-worksheet', 'ca-valencia') }
 
 describe('enlace con el formulario relleno', () => {
-  it('ida y vuelta: el enlace abre la herramienta con los mismos datos', () => {
+  it('ida y vuelta: el enlace abre la herramienta con los mismos datos', async () => {
     const url = shareUrl('https://pages.edutictac.es/app/', 'illustrated-worksheet', values)
     expect(url.startsWith('https://pages.edutictac.es/app/#template/illustrated-worksheet?d=')).toBe(true)
     const hash = url.slice(url.indexOf('#'))
     expect(templateIdFromHash(hash)).toBe('illustrated-worksheet')
-    expect(sharedValuesFromHash(hash)).toEqual(sharedValues('illustrated-worksheet', values))
-    expect(sharedValuesFromHash(hash).topic).toBe('Sumes fins a 20')
+    expect(await sharedValuesFromHash(hash)).toEqual(sharedValues('illustrated-worksheet', values))
+    expect((await sharedValuesFromHash(hash)).topic).toBe('Sumes fins a 20')
   })
 
   it('solo comparte los campos rellenos y distintos de los iniciales', () => {
@@ -31,13 +31,13 @@ describe('enlace con el formulario relleno', () => {
     expect(encodeShareData('illustrated-worksheet', initialValues('illustrated-worksheet'))).toBe('')
   })
 
-  it('los enlaces antiguos sin datos siguen funcionando', () => {
+  it('los enlaces antiguos sin datos siguen funcionando', async () => {
     expect(templateIdFromHash('#template/worksheet')).toBe('worksheet')
-    expect(sharedValuesFromHash('#template/worksheet')).toEqual({})
+    expect(await sharedValuesFromHash('#template/worksheet')).toEqual({})
     expect(splitTemplateHash('#template/worksheet').data).toBe('')
   })
 
-  it('ignora datos corruptos, campos ajenos y valores que no son texto', () => {
+  it('ignora datos corruptos, campos ajenos y valores que no son texto', async () => {
     expect(decodeShareData('worksheet', 'no-es-base64!!')).toEqual({})
     const raw = btoa(
       String.fromCharCode(...deflateSync(strToU8(JSON.stringify({ topic: 'Agua', hacked: 'x', level: 3 })))),
@@ -46,7 +46,7 @@ describe('enlace con el formulario relleno', () => {
       .replace(/\//g, '_')
       .replace(/=+$/, '')
     expect(decodeShareData('worksheet', raw)).toEqual({ topic: 'Agua' })
-    expect(sharedValuesFromHash(`#template/no-existe?d=${raw}`)).toEqual({})
+    expect(await sharedValuesFromHash(`#template/no-existe?d=${raw}`)).toEqual({})
   })
 
   it('no genera enlaces demasiado largos', () => {

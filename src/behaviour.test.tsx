@@ -42,7 +42,7 @@ describe('recorridos de la biblioteca', () => {
     render(<App />)
 
     await user.click(screen.getByRole('button', { name: /^Crear/ }))
-    await user.click(screen.getByRole('button', { name: 'Avanzado' }))
+    await user.click(await screen.findByRole('button', { name: 'Avanzado' }))
     await user.type(screen.getByRole('textbox', { name: /^Tema/ }), 'Los ecosistemas')
     await user.click(screen.getByRole('button', { name: 'Generar prompt' }))
     await user.click(await screen.findByRole('button', { name: 'Guardar' }))
@@ -75,7 +75,7 @@ describe('recorridos de la biblioteca', () => {
     const cards = screen.getAllByRole('article')
     const oldCard = cards.find((card) => card.textContent?.includes('Prompt antiguo'))!
     await user.click(Array.from(oldCard.querySelectorAll('button')).find((button) => button.textContent === 'Editar')!)
-    expect(screen.getByRole('heading', { name: 'Constructor libre', level: 1 })).toBeTruthy()
+    expect(await screen.findByRole('heading', { name: 'Constructor libre', level: 1 })).toBeTruthy()
   })
 
   it('guarda, reabre y actualiza un prompt creado en Paso a paso', async () => {
@@ -113,7 +113,7 @@ describe('recorridos de la biblioteca', () => {
     render(<App />)
 
     await user.click(screen.getByRole('button', { name: /^Crear/ }))
-    await user.click(screen.getByRole('button', { name: 'Avanzado' }))
+    await user.click(await screen.findByRole('button', { name: 'Avanzado' }))
     await user.type(screen.getByRole('textbox', { name: /^Tema/ }), 'El ciclo del agua')
     expect((screen.getByRole('textbox', { name: /^Tema/ }) as HTMLInputElement).value).toBe('El ciclo del agua')
 

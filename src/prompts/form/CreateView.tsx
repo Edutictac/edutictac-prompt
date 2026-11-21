@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { exampleValues } from '../../examples'
 import { sharedValues, shareUrl } from '../../shareLink'
+import { loadGenerator } from './usePromptDraft'
 import { essentialsReady, guidedSteps } from '../../guided'
 import { followUps } from '../../followUps'
 import { EDUCEREA_URL, eduCreaNewProjectUrl, eduCreaPromptUrl } from '../../integrations'
@@ -42,7 +43,7 @@ export function CreateView({
   setValues: (v: Record<string, string>) => void
   prompt: string
   setPrompt: (v: string) => void
-  generate: () => void
+  generate: () => void | Promise<void>
   setModal: (v: boolean) => void
   goHome: () => void
   copyPrompt: (text: string) => Promise<boolean>
@@ -69,6 +70,8 @@ export function CreateView({
   }
   const [shareState, setShareState] = useState('')
   useEffect(() => setShareState(''), [selected.id])
+  // Precarga del generador mientras se rellena el formulario.
+  useEffect(() => void loadGenerator(), [])
   const shareForm = async () => {
     if (!Object.keys(sharedValues(selected.id, values)).length) return setShareState(t.shareEmpty)
     const url = shareUrl(location.origin + location.pathname, selected.id, values)
@@ -79,8 +82,8 @@ export function CreateView({
   const canGenerateNow = essentialsReady(selected, values) && stepIndex + 1 < totalSteps
   const atSummary = stepIndex >= totalSteps
   const currentStep = steps[Math.min(stepIndex, totalSteps - 1)]
-  const generateFromSummary = () => {
-    generate()
+  const generateFromSummary = async () => {
+    await generate()
     if (window.matchMedia?.('(max-width:800px)').matches)
       window.setTimeout(
         () => document.querySelector('.preview')?.scrollIntoView({ behavior: 'smooth', block: 'start' }),

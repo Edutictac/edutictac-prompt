@@ -1,28 +1,10 @@
+import { worksheetThemes } from './illustratedWorksheetOptions'
 import type { Language } from '../../types'
 
 // Ficha ilustrada para imprimir: el prompt pide a una IA de imágenes una ficha
 // A4 con temática, acabado (para colorear o en color) y varias actividades.
 // Idea inspirada en el generador de fichas gamificadas de Sandra Fortanet
 // (sanforbel.github.io/generador-fitxes); textos redactados de nuevo.
-
-export const worksheetThemes = [
-  'Espacio',
-  'Dinosaurios',
-  'Piratas y tesoros',
-  'Fondo marino',
-  'Robots',
-  'Deportes',
-  'Castillos y dragones',
-  'Selva y animales',
-  'Magia',
-  'Cocina',
-  'Detectives',
-  'Vehículos',
-  'Granja',
-  'Superhéroes',
-  'Invierno',
-  'Arcade retro',
-]
 
 type Lang = 'es' | 'ca' | 'en'
 const langOf = (language: Language): Lang => (language === 'en' ? 'en' : language === 'es' ? 'es' : 'ca')
@@ -237,17 +219,6 @@ export function illustratedWorksheetTask(
   parts.push(t.process)
   return parts.join('\n\n')
 }
-
-export const worksheetLanguages = [
-  'Castellano',
-  'Valenciano',
-  'Catalán',
-  'Inglés',
-  'Francés',
-  'Alemán',
-  'Italiano',
-  'Portugués',
-]
 
 // Para las pruebas: temáticas que tienen elementos definidos.
 export const themesWithElements = () => worksheetThemes.filter((theme) => themeElements[theme])

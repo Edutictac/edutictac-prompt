@@ -23,7 +23,7 @@ const saved = (overrides: Partial<SavedPrompt> = {}): SavedPrompt => ({
 })
 
 describe('borrador del formulario', () => {
-  it('selecciona una plantilla, genera y limpia', () => {
+  it('selecciona una plantilla, genera y limpia', async () => {
     const { result } = renderHook(() => usePromptDraft('es'))
 
     act(() => result.current.choose('lesson'))
@@ -31,7 +31,9 @@ describe('borrador del formulario', () => {
     expect(result.current.values.outputFormat).toBe('Markdown')
 
     act(() => result.current.setValues({ ...result.current.values, topic: 'Los ecosistemas' }))
-    act(() => result.current.generate())
+    await act(async () => {
+      await result.current.generate()
+    })
     expect(result.current.prompt).toContain('Los ecosistemas')
 
     act(() => result.current.clear())

@@ -1,5 +1,5 @@
 import type { PromptTemplate, TemplateField } from './types'
-import { worksheetLanguages, worksheetThemes } from './prompts/generator/illustratedWorksheet'
+import { worksheetLanguages, worksheetThemes } from './prompts/generator/illustratedWorksheetOptions'
 export const templates: PromptTemplate[] = [
   {
     id: 'learning-situation',

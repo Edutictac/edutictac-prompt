@@ -13,12 +13,12 @@ import { AppFooter } from './components/AppFooter'
 import { HomeView } from './components/HomeView'
 import { Library } from './components/Library'
 import { SaveModal } from './components/SaveModal'
-import { CreateView } from './prompts/form/CreateView'
 import { getTemplateName } from './prompts/form/labels'
 import { usePromptDraft } from './prompts/form/usePromptDraft'
-import { decodeShareData, splitTemplateHash } from './shareLink'
+import { splitTemplateHash } from './shareHash'
 import { readRecentTools, rememberRecentTool } from './recentTools'
 const AgentsView = lazy(() => import('./agents/AgentsView'))
+const CreateView = lazy(() => import('./prompts/form/CreateView').then((module) => ({ default: module.CreateView })))
 const HelpView = lazy(() => import('./components/HelpView').then((module) => ({ default: module.HelpView })))
 const eventNoticeKeys: Record<PromptLibraryEvent, string> = {
   saved: 'savedOk',
@@ -46,9 +46,13 @@ export function templateIdFromHash(hash: string): string | undefined {
 }
 
 // Valores compartidos en «#template/<id>?d=…» (enlace con el formulario relleno).
-export function sharedValuesFromHash(hash: string): Record<string, string> {
+// El descompresor solo se descarga cuando el enlace trae datos.
+export async function sharedValuesFromHash(hash: string): Promise<Record<string, string>> {
   const id = templateIdFromHash(hash)
-  return id ? decodeShareData(id, splitTemplateHash(hash).data) : {}
+  const { data } = splitTemplateHash(hash)
+  if (!id || !data) return {}
+  const { decodeShareData } = await import('./shareLink')
+  return decodeShareData(id, data)
 }
 
 export default function App() {
@@ -66,7 +70,8 @@ export default function App() {
           ? 'help'
           : 'home',
   )
-  const draft = usePromptDraft(lang, templateIdFromHash(location.hash), sharedValuesFromHash(location.hash))
+  const [initialHash] = useState(() => location.hash)
+  const draft = usePromptDraft(lang, templateIdFromHash(initialHash))
   const { selected, values, setValues, prompt, setPrompt, editingId } = draft
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('all')
@@ -88,10 +93,19 @@ export default function App() {
       history.replaceState(null, '', base + (view === 'help' ? '#help' : ''))
   }, [view, selected.id, editingId])
   useEffect(() => {
+    // Enlace compartido al abrir la app: se rellena el formulario en cuanto se
+    // descomprime. Se usa el enlace inicial porque otro efecto limpia la URL.
+    const id = templateIdFromHash(initialHash)
+    if (id && splitTemplateHash(initialHash).data)
+      void sharedValuesFromHash(initialHash).then((shared) => {
+        if (Object.keys(shared).length) draft.choose(id, shared)
+      })
+  }, [])
+  useEffect(() => {
     const onHashChange = () => {
       const id = templateIdFromHash(location.hash)
       if (id) {
-        draft.choose(id, sharedValuesFromHash(location.hash))
+        void sharedValuesFromHash(location.hash).then((shared) => draft.choose(id, shared))
         setView('create')
       }
     }
@@ -117,9 +131,9 @@ export default function App() {
     }
     setView('create')
   }
-  function generate() {
-    draft.generate()
+  async function generate() {
     setNotice('')
+    await draft.generate()
   }
   async function copyPrompt(text: string) {
     if (!text) return false
@@ -246,25 +260,27 @@ export default function App() {
         />
       )}
       {view === 'create' && (
-        <CreateView
-          t={t}
-          language={lang}
-          selected={selected}
-          values={values}
-          setValues={setValues}
-          prompt={prompt}
-          setPrompt={setPrompt}
-          generate={generate}
-          setModal={setModal}
-          goHome={() => {
-            setView('home')
-            window.scrollTo(0, 0)
-          }}
-          copyPrompt={copyPrompt}
-          clear={draft.clear}
-          editingTitle={editing?.title}
-          update={update}
-        />
+        <Suspense fallback={<main className="page" aria-busy="true" />}>
+          <CreateView
+            t={t}
+            language={lang}
+            selected={selected}
+            values={values}
+            setValues={setValues}
+            prompt={prompt}
+            setPrompt={setPrompt}
+            generate={generate}
+            setModal={setModal}
+            goHome={() => {
+              setView('home')
+              window.scrollTo(0, 0)
+            }}
+            copyPrompt={copyPrompt}
+            clear={draft.clear}
+            editingTitle={editing?.title}
+            update={update}
+          />
+        </Suspense>
       )}
       {view === 'library' && (
         <Library

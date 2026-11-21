@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { templates } from '../../templates'
-import { generatePrompt } from '../../generator'
 import type { Language, SavedPrompt } from '../../types'
 import { initialValues } from './values'
 
 // Borrador compartido por Paso a paso y Avanzado: los modos cambian la
 // presentación, nunca los valores ni el prompt generado.
+export const loadGenerator = () => import('../../generator')
+
 export function usePromptDraft(
   language: Language,
   initialTemplateId?: string,
@@ -33,7 +34,12 @@ export function usePromptDraft(
     setEditingId(item.id)
     return true
   }
-  const generate = () => setPrompt(generatePrompt(selected, values, language))
+  // El generador (con todos sus textos) se carga aparte la primera vez; la
+  // pantalla de crear lo precarga al abrirse, así que en la práctica es inmediato.
+  const generate = async () => {
+    const { generatePrompt } = await loadGenerator()
+    setPrompt(generatePrompt(selected, values, language))
+  }
   const clear = () => {
     setValues(initialValues(selected.id))
     setPrompt('')
