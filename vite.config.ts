@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
@@ -7,6 +8,9 @@ export default defineConfig({
   // EduTicTac Pages sirve el repositorio bajo /<owner>/<repo>/.
   // Las rutas relativas también funcionan en el despliegue Docker de /.
   base: './',
+  // Las pruebas de interfaz (jsdom + userEvent) superan los 5 s por defecto
+  // cuando la máquina está cargada; 20 s evita fallos falsos.
+  test: { testTimeout: 20000 },
   plugins: [react(), VitePWA({ registerType: 'prompt', includeAssets: ['favicon.svg'], workbox: {
     cacheId: `edutictac-prompt-v${packageJson.version}`,
       cleanupOutdatedCaches: true,

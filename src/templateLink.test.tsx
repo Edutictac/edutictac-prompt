@@ -34,7 +34,9 @@ describe('enlace directo a una plantilla', () => {
   it('abre el formulario de la plantilla al cargar la página en frío', async () => {
     history.replaceState(null, '', '#template/coding-activity')
     render(<App />)
-    expect(await screen.findByRole('heading', { level: 1, name: 'Ficha de actividad de robótica y programación' })).toBeTruthy()
+    expect(
+      await screen.findByRole('heading', { level: 1, name: 'Ficha de actividad de robótica y programación' }),
+    ).toBeTruthy()
     expect(location.hash).toBe('#template/coding-activity')
   })
 
@@ -57,7 +59,9 @@ describe('enlace directo a una plantilla', () => {
     render(<App />)
     history.replaceState(null, '', '#template/coding-activity')
     window.dispatchEvent(new HashChangeEvent('hashchange'))
-    expect(await screen.findByRole('heading', { level: 1, name: 'Ficha de actividad de robótica y programación' })).toBeTruthy()
+    expect(
+      await screen.findByRole('heading', { level: 1, name: 'Ficha de actividad de robótica y programación' }),
+    ).toBeTruthy()
   })
 })
 
@@ -83,7 +87,11 @@ describe('modos del formulario', () => {
 describe('ficha de programación en etapas superiores', () => {
   it('no asume solo Infantil y Primaria', () => {
     const template = templates.find((item) => item.id === 'coding-activity')!
-    const prompt = generatePrompt(template, { level: 'ESO', topic: 'un cuestionario', codingTool: 'EduTicTac Blocs' }, 'es')
+    const prompt = generatePrompt(
+      template,
+      { level: 'ESO', topic: 'un cuestionario', codingTool: 'EduTicTac Blocs' },
+      'es',
+    )
     expect(prompt).toContain('ESO, Bachillerato y FP')
     expect(prompt).toContain('de Infantil a Formación Profesional')
   })

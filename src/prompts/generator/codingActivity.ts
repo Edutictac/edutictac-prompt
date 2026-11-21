@@ -37,8 +37,7 @@ const texts: Record<Language, Texts> = {
       'Roles del alumnado: usuario (interactúa con un programa hecho por otra persona), creador (modifica una plantilla o monta una secuencia con ayuda) y diseñador (decide el objetivo, las reglas y la interacción de un proyecto propio). Si no se indica ninguno, propón el más adecuado y explica por qué.',
     tools:
       'Nivel de cada herramienta: Blocs Junior es para Infantil y 1.er ciclo (secuencias cortas con predicción antes de ejecutar); Blockly Games, para 2.º ciclo (Laberinto y repetición); EduTicTac Blocs, para 2.º y 3.er ciclo (evento, movimiento y cambio de un valor; proyecto abierto). Respeta el nivel de la herramienta elegida. En ESO, Bachillerato y FP, EduTicTac Blocs sirve como proyecto abierto (simulaciones, cuestionarios, historias) y micro:bit, SPIKE Prime o BOSON admiten retos más complejos; si la herramienta elegida es demasiado básica para la etapa, adapta la dificultad o propón la ampliación en lugar de cambiarla.',
-    idea: (idea) =>
-      `Formato de partida: ${idea}. Adáptalo a la materia y al tema; no lo copies tal cual.`,
+    idea: (idea) => `Formato de partida: ${idea}. Adáptalo a la materia y al tema; no lo copies tal cual.`,
     physical:
       'El material elegido pertenece a la dotación del centro y su uso está pendiente de autorización. En «Qué necesito para aplicarlo» incluye la preparación (carga, piezas, conexión), los turnos de trabajo por equipos y, en «Plan B sin dispositivos», una versión en pantalla o desenchufada.',
     unplugged: 'La actividad es desenchufada: no uses pantallas ni dispositivos en ningún paso.',

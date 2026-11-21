@@ -42,7 +42,9 @@ describe('plantillas de prompts', () => {
   })
 
   it('ofrece la ficha de programación para todas las etapas', () => {
-    const level = templates.find((template) => template.id === 'coding-activity')!.fields.find((field) => field.id === 'level')!
+    const level = templates
+      .find((template) => template.id === 'coding-activity')!
+      .fields.find((field) => field.id === 'level')!
     expect(level.options).toEqual(expect.arrayContaining(['Infantil', 'Primaria', 'ESO', 'Bachillerato', 'FP']))
   })
 
