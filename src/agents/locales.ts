@@ -327,6 +327,11 @@ export const wizardLocales: Record<Language, typeof es> = {
   'ca-valencia': va,
   ca: {
     ...va,
+    local:
+      'Els dissenys es desen en aquest navegador, separats per compte. La creació i l’ús de l’agent a M365 es gestionen allà.',
+    permission: 'Aquest disseny pertany a un altre compte.',
+    starterHint: 'Una per línia. Ajuden a descobrir per a què serveix l’agent.',
+    confirmDelete: 'Vols eliminar aquest disseny i les revisions del navegador?',
     role: 'Quin paper tindrà l’agent?',
     subjectHint: 'Pots triar un suggeriment o escriure una altra matèria.',
     remove: 'Treure',

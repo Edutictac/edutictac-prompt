@@ -493,6 +493,16 @@ export const skillLocales: Record<Language, typeof es> = {
   'ca-valencia': va,
   ca: {
     ...va,
+    confirmDelete: 'Vols eliminar aquesta Skill i el seu historial local?',
+    permission: 'No tens permís sobre aquesta Skill.',
+    untrusted: 'Revisa les instruccions i els recursos abans d’usar aquesta Skill.',
+    externalHint:
+      'Copiar i obrir fa servir la teva sessió de l’assistent. Enganxa-hi la petició; el resultat no torna automàticament. No instal·la una Skill nativa.',
+    copilotHint:
+      'Copilot M365: pots fer servir la petició al xat. La importació nativa del ZIP requereix Agent Builder amb Skills habilitades (Frontier preview); pendent de validar a la teva organització.',
+    exportHint:
+      'Codex / OpenCode: extreu el ZIP a l’arrel del projecte. M365: carrega el ZIP complet a Skills d’Agent Builder si la teva organització ho permet. Pots compartir el ZIP o incorporar-lo a un repositori Git; no hi ha publicació pública automàtica.',
+    sync: 'Sincronitzar les meves Skills',
     intro:
       'Un prompt demana una tasca. Una Skill reuneix instruccions, passos i recursos reutilitzables. Un agent pot usar Skills i eines.',
     local:
@@ -507,6 +517,9 @@ export const skillLocales: Record<Language, typeof es> = {
     giftHint:
       'Introdueix preguntes revisades. El generador local escapa els caràcters GIFT i descarrega preguntes amb una resposta correcta. Comprova el resultat en un curs de prova de Moodle.',
     lang_en: 'Anglès',
+    mine: 'Les meves Skills',
+    empty: 'No hi ha Skills amb aquests filtres.',
+    consent: 'He revisat la petició i autoritzo enviar-la al servei d’IA triat. No conté dades personals de l’alumnat.',
   },
   en,
 }

@@ -639,6 +639,11 @@ export const examples: Record<string, Example> = {
       mustShow: 'Que l’aigua no es gasta: es transforma i torna a començar.',
       avoid: 'Noms de l’alumnat i consums concrets del centre.',
     },
+    ca: {
+      objectives:
+        'Que l’alumnat i les famílies entenguin el cicle de l’aigua i sàpiguen com estalviar aigua a casa i al centre.',
+      audience: 'Alumnat de 5è de Primària i les seves famílies',
+    },
     en: {
       subject: 'Natural Science',
       topic: 'The water cycle',
@@ -710,7 +715,10 @@ export const examples: Record<string, Example> = {
     va: {
       subject: 'Matemàtiques',
       topic: 'Equacions de primer grau',
-      task: 'No dones la solució de colp: fes una pregunta cada vegada i ofereix una pista si em bloquege.',
+      task: 'No dones la solució de colp: fes una pregunta cada vegada i oferix-me una pista si em bloquege.',
+    },
+    ca: {
+      task: 'No donis la solució de cop: fes una pregunta cada vegada i ofereix-me una pista si em bloquejo.',
     },
     en: {
       subject: 'Mathematics',
@@ -1068,6 +1076,9 @@ export const examples: Record<string, Example> = {
       task: 'Llegir un text sobre la fotosíntesi i respondre un qüestionari escrit de deu preguntes.',
       strengths: 'Li interessen els experiments i aprén millor amb exemples visuals; respon bé a instruccions curtes.',
       objectives: 'Explicar el procés de la fotosíntesi i relacionar-lo amb la respiració cel·lular.',
+    },
+    ca: {
+      strengths: 'Li interessen els experiments i aprèn millor amb exemples visuals; respon bé a instruccions curtes.',
     },
     en: {
       subject: 'Biology and Geology',

@@ -384,7 +384,9 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
         ? 'Subjects for this stage'
         : language === 'es'
           ? 'Materias disponibles para esta etapa'
-          : 'Matèries disponibles per a esta etapa',
+          : language === 'ca'
+            ? 'Matèries disponibles per a aquesta etapa'
+            : 'Matèries disponibles per a esta etapa',
     subjectHint:
       language === 'en'
         ? 'Optional suggestion; the free subject field remains available below.'
@@ -739,25 +741,33 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
         ? 'Sign in with the EduTicTac account chip in the header to sync your library across devices.'
         : language === 'es'
           ? 'Inicia sesión con el chip de EduTicTac de la cabecera para sincronizar tu biblioteca entre dispositivos.'
-          : 'Inicia sessió amb el xip d’EduTicTac de la capçalera per a sincronitzar la teua biblioteca entre dispositius.',
+          : language === 'ca'
+            ? 'Inicia sessió amb el xip d’EduTicTac de la capçalera per sincronitzar la teva biblioteca entre dispositius.'
+            : 'Inicia sessió amb el xip d’EduTicTac de la capçalera per a sincronitzar la teua biblioteca entre dispositius.',
     libraryLoginHintLocal:
       language === 'en'
         ? 'Sign in to sync your library across devices.'
         : language === 'es'
           ? 'Entra para sincronizar tu biblioteca entre dispositivos.'
-          : 'Entra per a sincronitzar la teua biblioteca entre dispositius.',
+          : language === 'ca'
+            ? 'Entra per sincronitzar la teva biblioteca entre dispositius.'
+            : 'Entra per a sincronitzar la teua biblioteca entre dispositius.',
     syncDownloaded:
       language === 'en'
         ? 'Your online library is ready.'
         : language === 'es'
           ? 'Tu biblioteca online ya está disponible.'
-          : 'La teua biblioteca en línia ja està disponible.',
+          : language === 'ca'
+            ? 'La teva biblioteca en línia ja està disponible.'
+            : 'La teua biblioteca en línia ja està disponible.',
     syncUploaded:
       language === 'en'
         ? 'Local prompts uploaded to your library.'
         : language === 'es'
           ? 'Los prompts locales se han subido a tu biblioteca.'
-          : 'Els prompts locals s’han pujat a la teua biblioteca.',
+          : language === 'ca'
+            ? 'Els prompts locals s’han pujat a la teva biblioteca.'
+            : 'Els prompts locals s’han pujat a la teua biblioteca.',
     syncFailed:
       language === 'en'
         ? 'The library could not be synchronized.'

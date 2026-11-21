@@ -171,6 +171,11 @@ export const agentLocales: Record<Language, typeof es> = {
   'ca-valencia': va,
   ca: {
     ...va,
+    testHelp:
+      'A Provar, fes una pregunta amb resposta als materials, una sense resposta en aquests i una tasca pràctica. Comprova que cita la font, reconeix què hi falta i dona una proposta útil.',
+    fromSkill: 'Preparar un agent M365 amb aquesta Skill',
+    complete:
+      'Quan funcioni, prem Crear a M365. En les sessions següents obre aquest agent i escriu només la tasca nova. Conserva aquesta configuració per repetir la pràctica als cursos.',
     lead: 'Configura una vegada la funció, els materials i la manera de respondre. Després utilitza’l des d’Agents en Microsoft 365 amb el teu compte educatiu.',
     access:
       'Comprova primer que el teu compte edu.gva.es mostra Agents → Crear agent → Configurar. Les funcions disponibles depenen dels permisos i la llicència de la teva organització.',

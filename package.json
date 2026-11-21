@@ -9,6 +9,8 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "test": "vitest run",
+    "golden:update": "UPDATE_GOLDEN=1 vitest run src/prompts/generator/outputs.test.ts",
+    "new-template": "node scripts/new-template.mjs",
     "lint": "eslint .",
     "format": "prettier --write \"src/**/*.{ts,tsx}\" eslint.config.js",
     "format:check": "prettier --check \"src/**/*.{ts,tsx}\" eslint.config.js"
