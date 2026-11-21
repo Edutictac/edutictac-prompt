@@ -52,3 +52,11 @@ describe('peticiones de seguimiento', () => {
     vi.unstubAllGlobals()
   })
 })
+
+describe('Canva como destino', () => {
+  it('abre Canva AI sin el prompt en la URL y respeta la herramienta de imagen elegida', () => {
+    expect(aiTargetUrl(target('Canva'), 'Una ficha')).toBe('https://www.canva.com/ai')
+    expect(preferredAiTarget('Canva')).toBe('Canva')
+    expect(orderedAiTargets('Canva')[0].id).toBe('Canva')
+  })
+})

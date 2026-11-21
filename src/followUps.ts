@@ -10,6 +10,8 @@ export const aiTargets: AiTarget[] = [
   { id: 'Copilot', name: 'Copilot', url: 'https://m365.cloud.microsoft/chat', acceptsQuery: false },
   { id: 'Gemini', name: 'Gemini', url: 'https://gemini.google.com/app', acceptsQuery: false },
   { id: 'Perplexity', name: 'Perplexity', url: 'https://www.perplexity.ai/search?q=', acceptsQuery: true },
+  // Canva AI no acepta el prompt en la URL: se copia al portapapeles y se pega.
+  { id: 'Canva', name: 'Canva', url: 'https://www.canva.com/ai', acceptsQuery: false },
 ]
 // Los navegadores y los asistentes recortan los enlaces muy largos.
 const maxQueryLength = 6000
