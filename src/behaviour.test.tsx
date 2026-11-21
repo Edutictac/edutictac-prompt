@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import 'fake-indexeddb/auto'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { cleanup, render, screen, waitFor } from '@testing-library/react'
+import { cleanup, render, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
 import { db } from './db'
@@ -166,5 +166,30 @@ describe('recorridos de la biblioteca', () => {
     await user.upload(input, new File(['{"format":"otro"}'], 'invalido.json', { type: 'application/json' }))
     await screen.findByText('Archivo no válido')
     expect(await db.prompts.count()).toBe(3)
+  })
+})
+
+describe('paquete de sesión', () => {
+  it('marca prompts en la biblioteca y prepara una página con su QR', async () => {
+    const user = userEvent.setup()
+    await seedFixtures(db)
+    render(<App />)
+    await user.click(screen.getByRole('button', { name: 'Mi biblioteca' }))
+    await screen.findByRole('heading', { name: 'Prompt de prueba' })
+    const prepare = screen.getByRole('button', { name: /Preparar la sesión \(0\)/ })
+    expect((prepare as HTMLButtonElement).disabled).toBe(true)
+    const card = screen.getByRole('heading', { name: 'Prompt de prueba' }).closest('article')!
+    await user.click(within(card as HTMLElement).getByRole('checkbox', { name: /En la sesión/ }))
+    await user.click(screen.getByRole('button', { name: /Preparar la sesión \(1\)/ }))
+    expect(await screen.findByRole('heading', { name: 'Herramientas de la sesión', level: 1 })).toBeTruthy()
+    expect(screen.getByRole('img', { name: 'Código QR: Prompt de prueba' })).toBeTruthy()
+    expect(screen.getByRole('link', { name: 'Abrir la herramienta' }).getAttribute('href')).toContain(
+      '#template/learning-situation',
+    )
+    await user.click(screen.getByRole('button', { name: /Proyectar QR/ }))
+    expect(screen.getByRole('dialog', { name: 'Prompt de prueba' })).toBeTruthy()
+    await user.click(screen.getByRole('button', { name: 'Cerrar' }))
+    await user.click(screen.getByRole('button', { name: '← Mi biblioteca' }))
+    expect(await screen.findByRole('heading', { name: 'Mi biblioteca', level: 1 })).toBeTruthy()
   })
 })

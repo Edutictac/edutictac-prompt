@@ -10,7 +10,7 @@ export default defineConfig({
   base: './',
   // Las pruebas de interfaz (jsdom + userEvent) superan los 5 s por defecto
   // cuando la máquina está cargada; 20 s evita fallos falsos.
-  test: { testTimeout: 20000 },
+  test: { testTimeout: 20000, setupFiles: ['./src/test/setup.ts'] },
   plugins: [react(), VitePWA({ registerType: 'prompt', includeAssets: ['favicon.svg'], workbox: {
     cacheId: `edutictac-prompt-v${packageJson.version}`,
       cleanupOutdatedCaches: true,

@@ -118,3 +118,15 @@ it('ofrece «Generar ya» al rellenar nivel y tema, y genera sin recorrer el res
     ),
   )
 })
+
+it('muestra el QR de la herramienta con los datos rellenados', async () => {
+  const user = userEvent.setup()
+  history.replaceState(null, '', '/#template/worksheet')
+  render(<App />)
+  await user.click(await screen.findByRole('button', { name: /Cargar un ejemplo/ }))
+  await user.click(screen.getByRole('button', { name: /Mostrar QR/ }))
+  expect(screen.getByRole('dialog', { name: 'Ficha de trabajo imprimible' })).toBeTruthy()
+  expect(screen.getByRole('img', { name: /Código QR/ })).toBeTruthy()
+  await user.click(screen.getByRole('button', { name: 'Cerrar' }))
+  expect(screen.queryByRole('dialog')).toBeNull()
+})

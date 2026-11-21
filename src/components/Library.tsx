@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { lazy, Suspense, useState } from 'react'
 import type { AuthUser } from '../api'
 import type { SavedPrompt } from '../types'
 import { AiButtons } from './AiButtons'
+
+const SessionPack = lazy(() => import('./SessionPack'))
 
 export function Library({
   t,
@@ -39,6 +41,28 @@ export function Library({
   central: boolean
 }) {
   const [status, setStatus] = useState<{ id: string; text: string } | null>(null)
+  const [sessionIds, setSessionIds] = useState<string[]>([])
+  const [showSession, setShowSession] = useState(false)
+  const toggleSession = (id: string) =>
+    setSessionIds((ids) => (ids.includes(id) ? ids.filter((item) => item !== id) : [...ids, id]))
+  // Se respeta el orden en que se han marcado: es el orden de la sesión.
+  const sessionPrompts = sessionIds
+    .map((id) => saved.find((item) => item.id === id))
+    .filter((item): item is SavedPrompt => Boolean(item))
+  if (showSession && sessionPrompts.length)
+    return (
+      <main className="page">
+        <Suspense fallback={null}>
+          <SessionPack
+            t={t}
+            saved={sessionPrompts}
+            templateName={templateName}
+            copyText={copyPrompt}
+            onClose={() => setShowSession(false)}
+          />
+        </Suspense>
+      </main>
+    )
   const filtered = saved.filter((p) =>
     `${p.title} ${p.prompt} ${p.tags.join(' ')} ${p.notes || ''}`.toLowerCase().includes(search.toLowerCase()),
   )
@@ -83,6 +107,17 @@ export function Library({
         )}
       </div>
       {user && <p className="mode-hint">{t.ownerLibraryHint}</p>}
+      <div className="session-bar">
+        <p className="mode-hint">{t.sessionBarHint}</p>
+        <button
+          type="button"
+          className="primary"
+          disabled={!sessionPrompts.length}
+          onClick={() => setShowSession(true)}
+        >
+          ▦ {t.sessionPrepare.replace('{count}', String(sessionPrompts.length))}
+        </button>
+      </div>
       <input
         className="library-search"
         placeholder={t.librarySearch}
@@ -103,6 +138,13 @@ export function Library({
                   </small>
                 </div>
                 <h3>{p.title}</h3>
+                {p.templateId && (
+                  <label className="session-check">
+                    <input type="checkbox" checked={sessionIds.includes(p.id)} onChange={() => toggleSession(p.id)} />{' '}
+                    {t.sessionAdd}
+                    {sessionIds.includes(p.id) && <strong> · {sessionIds.indexOf(p.id) + 1}</strong>}
+                  </label>
+                )}
                 <p>
                   {p.prompt.slice(0, 220)}
                   {p.prompt.length > 220 ? '…' : ''}

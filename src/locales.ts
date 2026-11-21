@@ -1158,6 +1158,107 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
         : language === 'es'
           ? 'Ya tienes lo imprescindible: los pasos que faltan son opcionales.'
           : 'Ja tens l’imprescindible: els passos que falten són opcionals.',
+    showQr: language === 'en' ? 'Show QR' : language === 'es' ? 'Mostrar QR' : 'Mostra el QR',
+    qrLabel: language === 'en' ? 'QR code' : language === 'es' ? 'Código QR' : 'Codi QR',
+    qrHint:
+      language === 'en'
+        ? 'Scan it with a phone camera to open this tool with the same answers.'
+        : language === 'es'
+          ? 'Escanéalo con la cámara del móvil para abrir esta herramienta con los mismos datos.'
+          : language === 'ca'
+            ? 'Escaneja’l amb la càmera del mòbil per obrir aquesta eina amb les mateixes dades.'
+            : 'Escaneja’l amb la càmera del mòbil per a obrir esta ferramenta amb les mateixes dades.',
+    qrDense:
+      language === 'en'
+        ? 'The code is very dense: if it is hard to scan from afar, shorten the long fields.'
+        : language === 'es'
+          ? 'El código es muy denso: si cuesta escanearlo de lejos, acorta los campos largos.'
+          : language === 'ca'
+            ? 'El codi és molt dens: si costa escanejar-lo de lluny, escurça els camps llargs.'
+            : 'El codi és molt dens: si costa escanejar-lo de lluny, abreuja els camps llargs.',
+    qrTooLong:
+      language === 'en'
+        ? 'There is too much text for a QR code: shorten the long fields or share the link instead.'
+        : language === 'es'
+          ? 'Hay demasiado texto para un código QR: acorta los campos largos o comparte el enlace.'
+          : language === 'ca'
+            ? 'Hi ha massa text per a un codi QR: escurça els camps llargs o comparteix l’enllaç.'
+            : 'Hi ha massa text per a un codi QR: abreuja els camps llargs o compartix l’enllaç.',
+    qrDownload:
+      language === 'en'
+        ? 'Download QR (SVG)'
+        : language === 'es'
+          ? 'Descargar QR (SVG)'
+          : language === 'ca'
+            ? 'Baixa el QR (SVG)'
+            : 'Descarrega el QR (SVG)',
+    close: language === 'en' ? 'Close' : language === 'es' ? 'Cerrar' : 'Tanca',
+    sessionBarHint:
+      language === 'en'
+        ? 'Session pack: tick several saved prompts and get one page with a link and QR code for each, to print or project.'
+        : language === 'es'
+          ? 'Paquete de sesión: marca varios prompts guardados y obtén una página con un enlace y un QR por cada uno, para imprimirla o proyectarla.'
+          : language === 'ca'
+            ? 'Paquet de sessió: marca diversos prompts desats i obtén una pàgina amb un enllaç i un QR per a cadascun, per imprimir-la o projectar-la.'
+            : 'Paquet de sessió: marca diversos prompts guardats i obtín una pàgina amb un enllaç i un QR per a cadascun, per a imprimir-la o projectar-la.',
+    sessionPrepare:
+      language === 'en'
+        ? 'Prepare the session ({count})'
+        : language === 'es'
+          ? 'Preparar la sesión ({count})'
+          : 'Prepara la sessió ({count})',
+    sessionAdd:
+      language === 'en'
+        ? 'In the session'
+        : language === 'es'
+          ? 'En la sesión'
+          : language === 'ca'
+            ? 'A la sessió'
+            : 'En la sessió',
+    sessionIntro:
+      language === 'en'
+        ? 'Each link opens the tool with the saved answers. Print the page, project the QR codes one by one or copy the links into Aules.'
+        : language === 'es'
+          ? 'Cada enlace abre la herramienta con los datos guardados. Imprime la página, proyecta los QR uno a uno o copia los enlaces en Aules.'
+          : language === 'ca'
+            ? 'Cada enllaç obre l’eina amb les dades desades. Imprimeix la pàgina, projecta els QR un a un o copia els enllaços a Aules.'
+            : 'Cada enllaç obri la ferramenta amb les dades guardades. Imprimix la pàgina, projecta els QR un a un o copia els enllaços en Aules.',
+    sessionTitleLabel:
+      language === 'en' ? 'Session title' : language === 'es' ? 'Título de la sesión' : 'Títol de la sessió',
+    sessionDefaultTitle:
+      language === 'en'
+        ? 'Session tools'
+        : language === 'es'
+          ? 'Herramientas de la sesión'
+          : language === 'ca'
+            ? 'Eines de la sessió'
+            : 'Ferramentes de la sessió',
+    sessionPrint:
+      language === 'en' ? 'Print' : language === 'es' ? 'Imprimir' : language === 'ca' ? 'Imprimeix' : 'Imprimix',
+    sessionCopyLinks: language === 'en' ? 'Copy links' : language === 'es' ? 'Copiar enlaces' : 'Copia els enllaços',
+    sessionCopied:
+      language === 'en'
+        ? 'Links copied as a numbered list.'
+        : language === 'es'
+          ? 'Enlaces copiados en una lista numerada.'
+          : 'Enllaços copiats en una llista numerada.',
+    sessionOpen:
+      language === 'en'
+        ? 'Open the tool'
+        : language === 'es'
+          ? 'Abrir la herramienta'
+          : language === 'ca'
+            ? 'Obre l’eina'
+            : 'Obri la ferramenta',
+    sessionProject: language === 'en' ? 'Project QR' : language === 'es' ? 'Proyectar QR' : 'Projecta el QR',
+    sessionNoData:
+      language === 'en'
+        ? 'Without saved answers: it opens the empty tool.'
+        : language === 'es'
+          ? 'Sin datos guardados: abre la herramienta vacía.'
+          : language === 'ca'
+            ? 'Sense dades desades: obre l’eina buida.'
+            : 'Sense dades guardades: obri la ferramenta buida.',
     shareForm:
       language === 'en'
         ? 'Share with these answers'

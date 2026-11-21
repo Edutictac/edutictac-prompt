@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { exampleValues } from '../../examples'
 import { sharedValues, shareUrl } from '../../shareLink'
+import { QrDialog } from '../../components/QrDialog'
 import { loadGenerator } from './usePromptDraft'
 import { essentialsReady, guidedSteps } from '../../guided'
 import { followUps } from '../../followUps'
@@ -72,6 +73,19 @@ export function CreateView({
   useEffect(() => setShareState(''), [selected.id])
   // Precarga del generador mientras se rellena el formulario.
   useEffect(() => void loadGenerator(), [])
+  const [qrUrl, setQrUrl] = useState('')
+  const closeQr = useCallback(() => setQrUrl(''), [])
+  // El QR usa el mismo enlace que «Compartir»; si el formulario está vacío,
+  // abre la herramienta sin datos (útil igualmente para proyectarla).
+  const showQr = () => {
+    const base = location.origin + location.pathname
+    const url = Object.keys(sharedValues(selected.id, values)).length
+      ? shareUrl(base, selected.id, values)
+      : `${base}#template/${encodeURIComponent(selected.id)}`
+    if (!url) return setShareState(t.qrTooLong)
+    setShareState('')
+    setQrUrl(url)
+  }
   const shareForm = async () => {
     if (!Object.keys(sharedValues(selected.id, values)).length) return setShareState(t.shareEmpty)
     const url = shareUrl(location.origin + location.pathname, selected.id, values)
@@ -158,7 +172,19 @@ export function CreateView({
           <button type="button" className="example-button" onClick={shareForm}>
             🔗 {t.shareForm}
           </button>
+          <button type="button" className="example-button" onClick={showQr}>
+            ▦ {t.showQr}
+          </button>
         </div>
+        {qrUrl && (
+          <QrDialog
+            t={t}
+            url={qrUrl}
+            title={getTemplateName(selected.id, t)}
+            fileName={`qr-${selected.id}`}
+            onClose={closeQr}
+          />
+        )}
         {shareState && (
           <p className="share-state" role="status">
             {shareState}
