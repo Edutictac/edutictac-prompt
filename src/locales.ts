@@ -334,6 +334,20 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
           : language === 'ca'
             ? 'Revisa sempre les respostes de qualsevol IA, verifica referències i dades, comprova possibles biaixos i adapta els materials al teu context. No utilitzis automàticament les respostes per a qualificar. La responsabilitat docent sempre és teva.'
             : 'Revisa sempre les respostes de qualsevol IA, verifica referències i dades, comprova possibles biaixos i adapta els materials al teu context. No utilitzes automàticament les respostes per a qualificar. La responsabilitat docent sempre és teua.',
+    licenseHeading:
+      language === 'en'
+        ? 'Your prompts are yours'
+        : language === 'es'
+          ? 'Los prompts que generas son tuyos'
+          : 'Els prompts que generes són teus',
+    licenseBody:
+      language === 'en'
+        ? 'You can use, modify and share the prompts, agents and other texts the app generates freely, without restrictions or attribution (CC0 1.0). The application code is free software under the AGPL-3.0-or-later licence.'
+        : language === 'es'
+          ? 'Puedes usar, modificar y compartir libremente los prompts, agentes y demás textos que genera la aplicación, sin restricciones ni obligación de citar (CC0 1.0). El código de la aplicación es software libre con licencia AGPL-3.0 o posterior.'
+          : language === 'ca'
+            ? 'Pots usar, modificar i compartir lliurement els prompts, agents i altres textos que genera l’aplicació, sense restriccions ni obligació de citar-ne l’origen (CC0 1.0). El codi de l’aplicació és programari lliure amb llicència AGPL-3.0 o posterior.'
+            : 'Pots usar, modificar i compartir lliurement els prompts, agents i altres textos que genera l’aplicació, sense restriccions ni obligació de citar-ne l’origen (CC0 1.0). El codi de l’aplicació és programari lliure amb llicència AGPL-3.0 o posterior.',
     offline:
       language === 'en'
         ? 'Works without an account or connection'

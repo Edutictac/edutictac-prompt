@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.34.1 - Licencia aclarada
+
+- El código se declara **AGPL-3.0-or-later** (`package.json`, README y pie de la aplicación).
+- **Permiso adicional (sección 7 de la AGPL):** los prompts, agentes, skills y demás textos que genera la aplicación se ceden al dominio público con **CC0 1.0**; el profesorado puede usarlos, modificarlos y compartirlos sin restricciones ni atribución. Detalle en `NOTICE` y en la página de privacidad («Los prompts que generas son tuyos»), en los cuatro idiomas.
+
 ## 0.34.0 - Ficha ilustrada para imprimir y novedades en la portada
 
 - Nueva herramienta **Ficha ilustrada para imprimir (imagen)** (Actividades; `#template/illustrated-worksheet`): prompt para una IA de imágenes (ChatGPT, Gemini, Copilot, Midjourney o Canva) que dibuja una ficha A4 vertical con temática. Incluye 16 temáticas con sus elementos (espacio, dinosaurios, piratas, fondo marino, robots, deportes…) y la opción de personajes y elementos propios, siempre genéricos y sin marcas. Puede ser en blanco y negro para colorear o en color. Ofrece 13 tipos de actividad combinables: contar, completar, emparejar, rodear, verdadero/falso, series, intruso, laberinto, unir los puntos, diferencias, colorear por código, sopa de letras y mensaje secreto. También permite elegir el idioma de la ficha, distinto del de la interfaz (valenciano normativo de la AVL si se elige). Admite el campo de accesibilidad del material.

@@ -324,6 +324,8 @@ export default function App() {
           </p>
           <h2>{t.privacyHeading}</h2>
           <p>{t.privacyBody}</p>
+          <h2>{t.licenseHeading}</h2>
+          <p>{t.licenseBody}</p>
           <p className="callout">{t.warning}</p>
         </main>
       )}

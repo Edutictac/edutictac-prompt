@@ -12,7 +12,7 @@ export function AppFooter({ t }: { t: Record<string, string> }) {
         <a href="https://edutictac.es/galetes.html">{t.cookies}</a>
         <a href="https://edutictac.es/termes.html">{t.terms}</a>
         <a href="https://git.edutictac.es/Edutictac/edutictac-prompt">{t.source}</a>
-        <a href="https://git.edutictac.es/Edutictac/edutictac-prompt/src/branch/master/LICENSE">AGPL-3.0</a>
+        <a href="https://git.edutictac.es/Edutictac/edutictac-prompt/src/branch/master/LICENSE">AGPL-3.0-or-later</a>
       </div>
     </footer>
   )

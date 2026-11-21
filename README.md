@@ -31,13 +31,13 @@ npm run build
 
 El JSON de exportación es propio (`format: edutictac-prompts`, `version: 1`) y no expone el esquema interno de IndexedDB. La sincronización usa la API privada `edutictac-prompt-api`; Authentik valida la identidad y la API nunca acepta el propietario enviado por el navegador.
 
-No introduzcas nombres ni datos personales del alumnado. Generar un prompt no llama a una IA ni envía datos a Internet. Licencia AGPL-3.0.
+No introduzcas nombres ni datos personales del alumnado. Generar un prompt no llama a una IA ni envía datos a Internet. Licencia: AGPL-3.0-or-later para el código; los prompts generados, CC0 (ver [Licencia](#licencia)).
 
 El plan de refactor gradual y su seguimiento están en [docs/PLAN-REFACTOR.md](docs/PLAN-REFACTOR.md). Las reglas de propiedad y sincronización, en [docs/SINCRONIZACION.md](docs/SINCRONIZACION.md), y la reversión preparada para 0.24.0, en [docs/REVERSION-0.24.0.md](docs/REVERSION-0.24.0.md).
 
 ## Estat actual
 
-- Versió publicada de la PWA: **0.34.0** (fitxa il·lustrada per a imprimir i novetats a la portada).
+- Versió publicada de la PWA: **0.34.1** (llicència aclarida: codi AGPL-3.0-or-later i prompts generats CC0).
 - Producció: [pages.edutictac.es/Edutictac/edutictac-prompt](https://pages.edutictac.es/Edutictac/edutictac-prompt/).
 - La PWA funciona localment amb IndexedDB i continua disponible sense compte ni connexió.
 - Authentik està integrat mitjançant OIDC + PKCE. L’inici de sessió es fa des de `id.edutictac.es`.
@@ -89,3 +89,11 @@ Los paquetes Agent Skills quedan en Compatibilidad y conservan su biblioteca.
 ## Enlace directo a una plantilla (0.28.0)
 
 `#template/<id>` abre directamente el formulario de una herramienta, p. ej. `https://pages.edutictac.es/Edutictac/edutictac-prompt/#template/coding-activity`. Un identificador desconocido deja la portada. Al abrir una herramienta, la dirección se actualiza con ese hash para poder copiarla.
+
+## Licencia
+
+El código de EduTicTac Prompt se distribuye bajo la **GNU Affero General Public License v3.0 o posterior** (AGPL-3.0-or-later). El texto completo está en [`LICENSE`](LICENSE). Es software libre con copyleft fuerte: quien modifique el programa y lo ofrezca como servicio en red debe publicar el código fuente de sus modificaciones.
+
+**Permiso adicional para lo que genera la aplicación** (sección 7 de la AGPL; detalle en [`NOTICE`](NOTICE)): los prompts, agentes, skills y demás textos que la aplicación genera a partir de sus plantillas se ceden al dominio público con [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/deed.es). El profesorado puede usarlos, modificarlos, compartirlos e incluirlos en sus materiales sin restricciones y sin obligación de citar el origen. Este permiso no se extiende al código de la aplicación.
+
+Las ideas de la ficha ilustrada, los pasatiempos y las medidas de accesibilidad se inspiran en el generador de fichas de Sandra Fortanet (CC BY-NC 4.0); no se ha copiado su texto ni su código.

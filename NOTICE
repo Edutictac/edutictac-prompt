@@ -1,0 +1,37 @@
+EduTicTac Prompt
+Copyright (C) 2026 Samuel Soriano and EduTicTac contributors
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU Affero General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option) any
+later version. See the LICENSE file.
+
+ADDITIONAL PERMISSION UNDER GNU AGPL VERSION 3 SECTION 7
+
+The prompts, agent configurations, skills and any other text output that the
+program generates from its templates, form values and built-in texts
+("Generated Output") are not subject to the terms of the GNU AGPL. To the
+extent possible under law, the copyright holders waive all copyright and
+related rights in the Generated Output under the Creative Commons CC0 1.0
+Universal Public Domain Dedication:
+https://creativecommons.org/publicdomain/zero/1.0/
+
+You may use, modify, share and include Generated Output in any work, for any
+purpose, without restriction and without attribution. This permission covers
+the Generated Output only; the source code of the program (including the
+template files from which the output is produced, as part of the program)
+remains licensed under the GNU AGPL v3.0 or later.
+
+Content written by users in the form fields belongs to those users.
+
+---
+
+Permís addicional (resum): els prompts i altres textos que genera l'aplicació
+es cedeixen al domini públic amb CC0 1.0; es poden usar, modificar i
+compartir sense restriccions ni atribució. El codi continua sota AGPL-3.0 o
+posterior.
+
+Permiso adicional (resumen): los prompts y demás textos que genera la
+aplicación se ceden al dominio público con CC0 1.0; se pueden usar, modificar y
+compartir sin restricciones ni atribución. El código sigue bajo AGPL-3.0 o
+posterior.
