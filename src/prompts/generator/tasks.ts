@@ -1,4 +1,5 @@
 import { codingActivityTask } from './codingActivity'
+import { localizeOption } from '../../optionLocales'
 import type { Language } from '../../types'
 import type { AssessmentTexts, DefaultTexts, GameTexts, UdlTexts } from './texts'
 
@@ -26,6 +27,28 @@ export function buildTask({
   mechanics: string[]
 }): string {
   const catalan = language === 'ca' || language === 'ca-valencia'
+  // Pasatiempos de la ficha: la IA suele fallar en cuadrículas y retos de
+  // ingenio, así que se le pide comprobarlos cuando se elige alguno.
+  const puzzleOptions = [
+    'Sopa de letras',
+    'Crucigrama',
+    'Anagramas',
+    'Adivinanzas',
+    'Jeroglífico',
+    'Mensaje secreto',
+    'Series y patrones',
+    'Encuentra el intruso',
+    'Llega al número',
+    'La palabra más larga',
+  ]
+  const hasPuzzle = puzzleOptions.some((option) => mechanics.includes(localizeOption(option, language)))
+  const puzzleCheck = !hasPuzzle
+    ? ''
+    : language === 'en'
+      ? ' For each puzzle, make sure it has a single correct solution and is fully solvable (in word searches and crosswords, every word fits and appears exactly as listed; in number challenges, the operations really give the target), and include every solution in the answer key.'
+      : catalan
+        ? ' En cada passatemps, comprova que té una única solució correcta i que es pot resoldre del tot (en les sopes de lletres i els mots encreuats, totes les paraules hi caben i apareixen tal com s’indica; en els reptes numèrics, les operacions donen de veritat el resultat), i inclou-ne totes les solucions en el solucionari.'
+        : ' En cada pasatiempo, comprueba que tiene una única solución correcta y que se puede resolver por completo (en las sopas de letras y los crucigramas, todas las palabras caben y aparecen tal como se indican; en los retos numéricos, las operaciones dan de verdad el resultado), e incluye todas sus soluciones en el solucionario.'
   const taskBuilders: Record<string, () => string> = {
     ...Object.fromEntries(Object.keys(a.tasks).map((id) => [id, () => `${a.tasks[id]} ${activity}.`])),
     rubric: () => `${d.rubric} ${activity}.`,
@@ -92,10 +115,10 @@ export function buildTask({
           : `Crea un cuestionario de opción múltiple sobre ${topic}. Para cada pregunta, incluye una respuesta correcta, tres distractores plausibles y una explicación breve de por qué cada opción es correcta o refleja un error frecuente. ${value('task') || 'Pregunta cuántas preguntas y qué dificultad se desean si no se indica.'}`,
     worksheet: () =>
       language === 'en'
-        ? `Create a printable student worksheet about ${topic}: a header with title, name and date; short, clear instructions; varied exercises${mechanics.length ? ` (${mechanics.join(', ')})` : ''}, ordered from easier to harder; and enough space to answer on paper. If a source text is provided, use only its information and do not invent facts. After the worksheet, in a separate section, include the answer key for the teacher. Use a simple format that can be pasted into a word processor.`
+        ? `Create a printable student worksheet about ${topic}: a header with title, name and date; short, clear instructions; varied exercises${mechanics.length ? ` (${mechanics.join(', ')})` : ''}, ordered from easier to harder; and enough space to answer on paper. If a source text is provided, use only its information and do not invent facts. After the worksheet, in a separate section, include the answer key for the teacher. Use a simple format that can be pasted into a word processor.${puzzleCheck}`
         : catalan
-          ? `Crea una fitxa de treball imprimible per a l’alumnat sobre ${topic}: encapçalament amb títol, nom i data; instruccions breus i clares; exercicis variats${mechanics.length ? ` (${mechanics.join(', ')})` : ''}, ordenats de menys a més dificultat, i espai suficient per a respondre en paper. Si s’aporta un text de partida, utilitza només la informació del text, sense inventar dades. Després de la fitxa, en un apartat separat, inclou el solucionari per al docent. Fes servir un format senzill, adequat per a un processador de textos.`
-          : `Crea una ficha de trabajo imprimible para el alumnado sobre ${topic}: encabezado con título, nombre y fecha; instrucciones breves y claras; ejercicios variados${mechanics.length ? ` (${mechanics.join(', ')})` : ''}, ordenados de menor a mayor dificultad, y espacio suficiente para responder en papel. Si se aporta un texto de partida, usa solo su información y no inventes datos. Después de la ficha, en un apartado separado, incluye el solucionario para el docente. Usa un formato sencillo, apto para un procesador de textos.`,
+          ? `Crea una fitxa de treball imprimible per a l’alumnat sobre ${topic}: encapçalament amb títol, nom i data; instruccions breus i clares; exercicis variats${mechanics.length ? ` (${mechanics.join(', ')})` : ''}, ordenats de menys a més dificultat, i espai suficient per a respondre en paper. Si s’aporta un text de partida, utilitza només la informació del text, sense inventar dades. Després de la fitxa, en un apartat separat, inclou el solucionari per al docent. Fes servir un format senzill, adequat per a un processador de textos.${puzzleCheck}`
+          : `Crea una ficha de trabajo imprimible para el alumnado sobre ${topic}: encabezado con título, nombre y fecha; instrucciones breves y claras; ejercicios variados${mechanics.length ? ` (${mechanics.join(', ')})` : ''}, ordenados de menor a mayor dificultad, y espacio suficiente para responder en papel. Si se aporta un texto de partida, usa solo su información y no inventes datos. Después de la ficha, en un apartado separado, incluye el solucionario para el docente. Usa un formato sencillo, apto para un procesador de textos.${puzzleCheck}`,
     'case-study': () =>
       language === 'en'
         ? `Create a case study about ${topic}: a realistic, plausible situation from the professional or social field of the subject, with the data needed to solve it (figures, documents or facts); tasks or questions graded from understanding to analysis and decision-making; the objective or learning outcome each task works on; and, in a separate section, the answer key for the teacher with expected answers and common mistakes. All data must be fictitious and consistent; do not use real personal data or identifiable real companies.`

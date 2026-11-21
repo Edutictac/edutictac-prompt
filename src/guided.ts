@@ -52,6 +52,7 @@ const fieldBlocks: Record<string, GuidedBlock> = {
   includeLabels: 'design',
   aspectRatio: 'design',
   udl: 'support',
+  accessibility: 'support',
   barriers: 'support',
   criteria: 'criteria',
   qualityCriteria: 'criteria',

@@ -657,6 +657,16 @@ export const templates: PromptTemplate[] = [
           'Respuesta corta',
           'Pregunta abierta',
           'Dibujo o esquema',
+          'Sopa de letras',
+          'Crucigrama',
+          'Anagramas',
+          'Adivinanzas',
+          'Jeroglífico',
+          'Mensaje secreto',
+          'Series y patrones',
+          'Encuentra el intruso',
+          'Llega al número',
+          'La palabra más larga',
         ],
       },
       { id: 'questionCount', type: 'select', options: ['4', '6', '8', '10'] },
@@ -868,7 +878,36 @@ const barriersField: TemplateField = { id: 'barriers', type: 'textarea' }
 const udlCategories = ['planning', 'activities', 'content', 'digital']
 const barrierCategories = [...udlCategories, 'assessment', 'adaptation']
 
+// Accesibilidad del material impreso: medidas concretas de tipografía, color,
+// espacio y lenguaje, con el perfil al que ayudan, solo en las plantillas que
+// producen una ficha o un texto para el alumnado. Complementa el DUA (principios)
+// y las barreras (texto libre). Idea inspirada en el generador de fichas de
+// Sandra Fortanet (sanforbel.github.io/generador-fitxes), redactada de nuevo.
+export const accessibilityTemplates = ['worksheet', 'reading-comprehension', 'easy-reading', 'lab-guide', 'escape-room']
+export const accessibilityOptions = [
+  'Letra grande sin serifa',
+  'Espaciado e interlineado amplios',
+  'Texto alineado a la izquierda',
+  'Alto contraste',
+  'Sin depender del color',
+  'Pensada para papel crema',
+  'Espacios de escritura pautados',
+  'Poco contenido por página',
+  'Una instrucción por paso',
+  'Pictogramas en las instrucciones',
+  'Diseño limpio sin adornos',
+  'Lectura fácil',
+  'Vocabulario con apoyo visual',
+]
+const accessibilityField: TemplateField = { id: 'accessibility', type: 'multiselect', options: accessibilityOptions }
+
 for (const template of templates) {
+  if (
+    accessibilityTemplates.includes(template.id) &&
+    !template.fields.some((existing) => existing.id === accessibilityField.id)
+  ) {
+    template.fields.push({ ...accessibilityField, options: [...accessibilityOptions] })
+  }
   if (udlCategories.includes(template.category) && !template.fields.some((existing) => existing.id === udlField.id)) {
     template.fields.push({ ...udlField, options: [...udlPrinciples] })
   }

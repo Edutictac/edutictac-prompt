@@ -901,6 +901,7 @@ export const examples: Record<string, Example> = {
       level: 'ESO',
       activityType: 'Completar huecos · Verdadero/Falso · Emparejar · Respuesta corta',
       questionCount: '6',
+      accessibility: 'Texto alineado a la izquierda · Espacios de escritura pautados',
     },
     es: {
       subject: 'Geografía e Historia',

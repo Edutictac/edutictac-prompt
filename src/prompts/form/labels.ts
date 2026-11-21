@@ -95,6 +95,7 @@ export const fieldNameKeys: Record<string, string> = {
   gameItems: 'gameItems',
   gameFeatures: 'gameFeatures',
   udl: 'udl',
+  accessibility: 'accessibility',
   barriers: 'barriers',
 }
 export const getTemplateName = (id: string, t: Record<string, string>) => t[templateNameKeys[id]] || id

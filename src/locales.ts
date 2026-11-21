@@ -1069,6 +1069,20 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
           : language === 'ca'
             ? 'Tria els principis que la IA ha d’incorporar al disseny. Mantén premuda la tecla Ctrl o Cmd per triar-ne diversos.'
             : 'Tria els principis que la IA ha d’incorporar al disseny. Mantín premuda la tecla Ctrl o Cmd per a triar-ne diversos.',
+    accessibility:
+      language === 'en'
+        ? 'Accessible materials'
+        : language === 'es'
+          ? 'Accesibilidad del material'
+          : 'Accessibilitat del material',
+    accessibilityHint:
+      language === 'en'
+        ? 'Specific measures for the printed material. The prompt says which students each one helps (dyslexia, low vision, ADHD, autism…).'
+        : language === 'es'
+          ? 'Medidas concretas para el material impreso. El prompt indica a qué alumnado ayuda cada una (dislexia, baja visión, TDAH, TEA…).'
+          : language === 'ca'
+            ? 'Mesures concretes per al material imprès. El prompt indica a quin alumnat ajuda cadascuna (dislèxia, baixa visió, TDAH, TEA…).'
+            : 'Mesures concretes per al material imprés. El prompt indica a quin alumnat ajuda cadascuna (dislèxia, baixa visió, TDAH, TEA…).',
     barriers:
       language === 'en' ? 'Contextual barriers' : language === 'es' ? 'Barreras del contexto' : 'Barreres del context',
     barriersHint:

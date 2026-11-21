@@ -24,6 +24,7 @@ export function FieldControl({
       {getFieldName(field.id, t)}
       {field.id === 'topic' && <small>{t.topicHint}</small>}
       {field.id === 'udl' && <small>{t.udlHint}</small>}
+      {field.id === 'accessibility' && <small>{t.accessibilityHint}</small>}
       {field.id === 'barriers' && <small>{t.barriersHint}</small>}
       {field.type === 'textarea' ? (
         <textarea

@@ -4,6 +4,7 @@ import { fileFormatInstructionFor, returnTextFor } from './formats'
 import { buildRoleDefault } from './roles'
 import { buildTask } from './tasks'
 import {
+  accessibilityTexts,
   assessmentTexts,
   defaults,
   extraLabels,
@@ -84,6 +85,18 @@ export function generatePrompt(template: PromptTemplate, values: Record<string, 
     template.id === 'udl-matrix' && !chosenPrinciples.length ? Object.keys(u.principles) : chosenPrinciples
   if (principles.length)
     lines.push(`## ${l.udl}\n${u.intro}\n${principles.map((item) => `- ${u.principles[item]}`).join('\n')}`)
+  // Accesibilidad del material impreso: solo en las plantillas que ofrecen el campo.
+  const access = accessibilityTexts[language]
+  const accessItems = template.fields.some((field) => field.id === 'accessibility')
+    ? (values['accessibility'] || '')
+        .split(' · ')
+        .map((item) => item.trim())
+        .filter((item) => item in access.items)
+    : []
+  if (accessItems.length)
+    lines.push(
+      `## ${access.title}\n${access.intro}\n${accessItems.map((item) => `- ${access.items[item]}`).join('\n')}`,
+    )
   if (value('barriers')) lines.push(`## ${l.barriers}\n${value('barriers')}\n${u.barriers}`)
   // Solo las plantillas de imagen ofrecen el campo; se ignora en prompts antiguos
   // guardados con una herramienta en otras plantillas.

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.33.0 - Accesibilidad del material y pasatiempos en la ficha
+
+- Nuevo campo **Accesibilidad del material** en la ficha de trabajo imprimible, la lectura comprensiva graduada, la lectura fácil, el guion de laboratorio y el escape room. Ofrece 13 medidas concretas: letra grande sin serifa, espaciado amplio, texto alineado a la izquierda, alto contraste, no depender del color, papel crema, espacios pautados, poco contenido por página, una instrucción por paso, pictogramas, diseño sin adornos, lectura fácil y vocabulario con apoyo visual. Cada una llega al prompt como instrucción precisa con el perfil de alumnado al que ayuda (dislexia, baja visión, TDAH, TEA, disgrafía, daltonismo, alumnado que aprende la lengua). Complementa el DUA y las barreras del contexto.
+- La **ficha de trabajo imprimible** suma diez tipos de pasatiempo: sopa de letras, crucigrama, anagramas, adivinanzas, jeroglífico, mensaje secreto, series y patrones, encuentra el intruso, llega al número y la palabra más larga. Si se elige alguno, el prompt pide comprobar que cada pasatiempo tiene una única solución y se puede resolver, e incluir las soluciones en el solucionario.
+- Idea inspirada en el [generador de fichas gamificadas](https://sanforbel.github.io/generador-fitxes/) de Sandra Fortanet; los textos se han redactado de nuevo en castellano, valenciano, catalán e inglés.
+
 ## 0.32.1
 
 - **Contraste en modo oscuro:** los títulos de las herramientas y de la portada, los iconos del catálogo, los textos secundarios, el selector «Paso a paso / Avanzado» y el indicador «local» se veían casi en azul marino sobre fondo oscuro. Ahora todos los textos de la portada, el formulario, la biblioteca, la ayuda y los agentes cumplen el contraste mínimo WCAG AA, también en modo claro (grises secundarios algo más oscuros).
