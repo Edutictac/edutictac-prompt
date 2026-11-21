@@ -95,3 +95,18 @@ export function guidedSteps(template: PromptTemplate): GuidedStep[] {
     fields: grouped.get(key)!,
   }))
 }
+
+// Campos imprescindibles para generar un prompt útil: el nivel (si la
+// herramienta lo tiene) y el primero que define el contenido. Cuando están
+// rellenos, el modo «Paso a paso» ofrece «Generar ya» y el resto sirve para afinar.
+const contentFields = ['topic', 'task', 'activity', 'sourceText']
+export function essentialFields(template: PromptTemplate): string[] {
+  const ids = template.fields.map((field) => field.id)
+  const content = contentFields.find((id) => ids.includes(id))
+  if (!content) return []
+  return [...(ids.includes('level') ? ['level'] : []), content]
+}
+export const essentialsReady = (template: PromptTemplate, values: Record<string, string>) => {
+  const essentials = essentialFields(template)
+  return essentials.length > 0 && essentials.every((id) => (values[id] || '').trim())
+}

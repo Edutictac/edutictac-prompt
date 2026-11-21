@@ -1,7 +1,6 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from 'vitest'
 import { act, renderHook } from '@testing-library/react'
-import { starters } from '../../starters'
 import type { SavedPrompt } from '../../types'
 import { templates } from '../../templates'
 import { usePromptDraft } from './usePromptDraft'
@@ -40,13 +39,12 @@ describe('borrador del formulario', () => {
     expect(result.current.values.topic).toBe('')
   })
 
-  it('carga un caso de inicio y abre un prompt guardado', () => {
+  it('elige una herramienta con datos compartidos y abre un prompt guardado', () => {
     const { result } = renderHook(() => usePromptDraft('es'))
-    const starter = starters[0]
 
-    act(() => result.current.startFrom(starter))
-    expect(result.current.selected.id).toBe(starter.templateId)
-    expect(Object.values(result.current.values).some(Boolean)).toBe(true)
+    act(() => result.current.choose('worksheet', { topic: 'El agua' }))
+    expect(result.current.selected.id).toBe('worksheet')
+    expect(result.current.values.topic).toBe('El agua')
 
     act(() => result.current.open(saved()))
     expect(result.current.selected.id).toBe('lesson')

@@ -37,7 +37,7 @@ El plan de refactor gradual y su seguimiento están en [docs/PLAN-REFACTOR.md](d
 
 ## Estat actual
 
-- Versió publicada de la PWA: **0.35.0** (llicència aclarida: codi AGPL-3.0-or-later i prompts generats CC0).
+- Versió publicada de la PWA: **0.36.0** (enllaç per a compartir formularis, ferramentes recents i «Genera ara»).
 - Producció: [pages.edutictac.es/Edutictac/edutictac-prompt](https://pages.edutictac.es/Edutictac/edutictac-prompt/).
 - La PWA funciona localment amb IndexedDB i continua disponible sense compte ni connexió.
 - Authentik està integrat mitjançant OIDC + PKCE. L’inici de sessió es fa des de `id.edutictac.es`.
@@ -97,3 +97,11 @@ El código de EduTicTac Prompt se distribuye bajo la **GNU Affero General Public
 **Permiso adicional para lo que genera la aplicación** (sección 7 de la AGPL; detalle en [`NOTICE`](NOTICE)): los prompts, agentes, skills y demás textos que la aplicación genera a partir de sus plantillas se ceden al dominio público con [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/deed.es). El profesorado puede usarlos, modificarlos, compartirlos e incluirlos en sus materiales sin restricciones y sin obligación de citar el origen. Este permiso no se extiende al código de la aplicación.
 
 Las ideas de la ficha ilustrada, los pasatiempos y las medidas de accesibilidad se inspiran en el generador de fichas de Sandra Fortanet (CC BY-NC 4.0); no se ha copiado su texto ni su código.
+
+## Compartir un formulari ja omplit (0.36.0)
+
+El botó «Compartix amb estes dades» copia un enllaç `#template/<id>?d=<dades>`. Les dades són els camps omplits que canvien respecte al formulari inicial, en JSON comprimit amb `fflate` i codificat en base64url (`src/shareLink.ts`). El fragment `#` no s’envia al servidor. En obrir l’enllaç es valida que les claus siguen camps de la ferramenta i que els valors siguen text curt; qualsevol error s’ignora i s’obri el formulari buit. Els enllaços antics `#template/<id>` continuen funcionant.
+
+## Publicar
+
+`./scripts/publish-pages.sh` publica exactament `edutictac/master`: requereix l’arbre net i `HEAD` igual a `edutictac/master`, compila en un worktree temporal i passa lint, format i proves abans de pujar la branca `pages`. Actualitza `src/news.ts` quan una versió tinga canvis visibles per al professorat.

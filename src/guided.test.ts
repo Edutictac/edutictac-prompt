@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { templates } from './templates'
 import { translations } from './locales'
-import { guidedBlockIds, guidedSteps } from './guided'
+import { essentialFields, essentialsReady, guidedBlockIds, guidedSteps } from './guided'
 import type { Language } from './types'
 
 const languages: Language[] = ['es', 'ca-valencia', 'ca', 'en']
@@ -54,5 +54,22 @@ describe('modo paso a paso', () => {
       for (const key of keys) {
         expect(translations[language][key], `${language}.${key}`).toBeTruthy()
       }
+  })
+})
+
+describe('generar ya con los campos imprescindibles', () => {
+  it('pide nivel y contenido, y no se ofrece sin ellos', () => {
+    const worksheet = templates.find((template) => template.id === 'worksheet')!
+    expect(essentialFields(worksheet)).toEqual(['level', 'topic'])
+    expect(essentialsReady(worksheet, { level: 'ESO' })).toBe(false)
+    expect(essentialsReady(worksheet, { level: 'ESO', topic: 'El agua' })).toBe(true)
+    expect(essentialsReady(worksheet, { level: 'ESO', topic: '   ' })).toBe(false)
+  })
+
+  it('todas las herramientas con pasos tienen campos imprescindibles que existen', () => {
+    for (const template of templates) {
+      const ids = template.fields.map((field) => field.id)
+      for (const id of essentialFields(template)) expect(ids, template.id).toContain(id)
+    }
   })
 })

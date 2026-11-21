@@ -1,30 +1,26 @@
 import { useState } from 'react'
 import { templates } from '../../templates'
 import { generatePrompt } from '../../generator'
-import { starterValues, type Starter } from '../../starters'
 import type { Language, SavedPrompt } from '../../types'
 import { initialValues } from './values'
 
 // Borrador compartido por Paso a paso y Avanzado: los modos cambian la
 // presentación, nunca los valores ni el prompt generado.
-export function usePromptDraft(language: Language, initialTemplateId?: string) {
+export function usePromptDraft(
+  language: Language,
+  initialTemplateId?: string,
+  initialShared: Record<string, string> = {},
+) {
   const first = templates.find((item) => item.id === initialTemplateId) ?? templates[0]
   const [selected, setSelected] = useState(first)
-  const [values, setValues] = useState<Record<string, string>>(() => initialValues(first.id))
+  const [values, setValues] = useState<Record<string, string>>(() => ({ ...initialValues(first.id), ...initialShared }))
   const [prompt, setPrompt] = useState('')
   const [editingId, setEditingId] = useState<string | null>(null)
 
-  const choose = (id: string) => {
+  const choose = (id: string, preset: Record<string, string> = {}) => {
     const template = templates.find((item) => item.id === id)!
     setSelected(template)
-    setValues(initialValues(template.id))
-    setPrompt('')
-    setEditingId(null)
-  }
-  const startFrom = (starter: Starter) => {
-    const template = templates.find((item) => item.id === starter.templateId)!
-    setSelected(template)
-    setValues({ ...initialValues(template.id), ...starterValues(starter, language) })
+    setValues({ ...initialValues(template.id), ...preset })
     setPrompt('')
     setEditingId(null)
   }
@@ -56,7 +52,6 @@ export function usePromptDraft(language: Language, initialTemplateId?: string) {
     beginEditing,
     stopEditing,
     choose,
-    startFrom,
     open,
     generate,
     clear,

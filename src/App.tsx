@@ -16,6 +16,8 @@ import { SaveModal } from './components/SaveModal'
 import { CreateView } from './prompts/form/CreateView'
 import { getTemplateName } from './prompts/form/labels'
 import { usePromptDraft } from './prompts/form/usePromptDraft'
+import { decodeShareData, splitTemplateHash } from './shareLink'
+import { readRecentTools, rememberRecentTool } from './recentTools'
 const AgentsView = lazy(() => import('./agents/AgentsView'))
 const HelpView = lazy(() => import('./components/HelpView').then((module) => ({ default: module.HelpView })))
 const eventNoticeKeys: Record<PromptLibraryEvent, string> = {
@@ -34,13 +36,19 @@ const TEMPLATE_HASH = '#template/'
 // Enlace directo a una plantilla: «#template/<id>». Un id desconocido se ignora.
 export function templateIdFromHash(hash: string): string | undefined {
   if (!hash.startsWith(TEMPLATE_HASH)) return undefined
-  let id = hash.slice(TEMPLATE_HASH.length)
+  let id = splitTemplateHash(hash).rawId.slice(TEMPLATE_HASH.length)
   try {
     id = decodeURIComponent(id)
   } catch {
     return undefined
   }
   return templates.some((template) => template.id === id) ? id : undefined
+}
+
+// Valores compartidos en «#template/<id>?d=…» (enlace con el formulario relleno).
+export function sharedValuesFromHash(hash: string): Record<string, string> {
+  const id = templateIdFromHash(hash)
+  return id ? decodeShareData(id, splitTemplateHash(hash).data) : {}
 }
 
 export default function App() {
@@ -58,10 +66,11 @@ export default function App() {
           ? 'help'
           : 'home',
   )
-  const draft = usePromptDraft(lang, templateIdFromHash(location.hash))
+  const draft = usePromptDraft(lang, templateIdFromHash(location.hash), sharedValuesFromHash(location.hash))
   const { selected, values, setValues, prompt, setPrompt, editingId } = draft
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('all')
+  const [recentTools, setRecentTools] = useState(readRecentTools)
   const [modal, setModal] = useState(false)
   const [notice, setNotice] = useState('')
   const library = usePromptLibrary({
@@ -82,7 +91,7 @@ export default function App() {
     const onHashChange = () => {
       const id = templateIdFromHash(location.hash)
       if (id) {
-        draft.choose(id)
+        draft.choose(id, sharedValuesFromHash(location.hash))
         setView('create')
       }
     }
@@ -92,6 +101,9 @@ export default function App() {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [view])
+  useEffect(() => {
+    if (view === 'create' && selected.id !== 'free') setRecentTools(rememberRecentTool(selected.id))
+  }, [view, selected.id])
   const categoryLabel = (id: string) => t[id] || id
   const templateName = (id: string) => getTemplateName(id, t)
   function choose(id: string) {
@@ -226,6 +238,7 @@ export default function App() {
           setSearch={setSearch}
           category={category}
           setCategory={setCategory}
+          recentTools={recentTools}
           onChoose={choose}
           onCreate={() => setView('create')}
           templateName={templateName}

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.36.0 - Compartir formularios, recientes y «Generar ya»
+
+- **Compartir con estos datos:** cada herramienta tiene un botón que copia un enlace (`#template/<id>?d=…`) que abre el formulario con los mismos datos. Los datos van comprimidos en el propio enlace (no pasan por ningún servidor) y solo incluyen los campos rellenos; al abrirlos se validan y se descarta todo lo que no sea un campo de la herramienta. Útil para proyectar un QR en una formación. Si hay demasiado texto, se avisa y se propone guardarlo en la biblioteca.
+- **Tus herramientas recientes:** la portada muestra las seis últimas herramientas usadas en el dispositivo (solo se guarda el identificador de la herramienta, nunca datos del formulario).
+- **Generar ya:** en el modo «Paso a paso», en cuanto están rellenos el nivel y el tema (o la tarea), aparece «Generar ya»; los pasos restantes quedan como opcionales.
+- Se retiran del código los antiguos «casos listos para usar» (`starters`), que ya no se mostraban; el enlace compartido cubre ese uso.
+- **Publicación más segura:** `scripts/publish-pages.sh` se niega a publicar si hay cambios sin commitear o si `HEAD` no coincide con `edutictac/master`, compila en una copia limpia del commit, pasa lint, formato y pruebas antes de publicar y avisa si las novedades de la portada no corresponden a la versión.
+- **Pruebas más estables:** el tiempo máximo por prueba pasa a 20 s (las de interfaz fallaban con la máquina cargada) y se formatean tres ficheros que hacían fallar `format:check`.
+
 ## 0.35.0 - Adaptación por perfil y documentos del centro
 
 - Nueva herramienta **Adaptación para un perfil concreto** (Adaptación; `#template/profile-adaptation`): parte de una tarea y de un perfil (TDAH, dislexia, TEA, altas capacidades, desconocimiento de la lengua vehicular, discapacidad visual, discapacidad auditiva o dificultades de regulación del comportamiento). Devuelve la tarea adaptada, ajustes por bloques (acceso, comprensión, expresión, tiempo y evaluación), qué se mantiene y qué cambia, materiales viables, indicadores de progreso y errores frecuentes. Cada perfil añade orientaciones concretas de aula; el enunciado pide no etiquetar ni diagnosticar y advierte de que el objetivo y la exigencia no bajan. Permite indicar fortalezas, intereses y apoyos que ya funcionan.

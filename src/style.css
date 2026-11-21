@@ -44,7 +44,7 @@
    cortos se emparejan y los textos largos ocupan toda la fila) y vista previa
    fija a la vista mientras se rellena el formulario. */
 @media(min-width:1400px){
-.hero,.starters,.news,.catalog,.workspace,.page{max-width:1560px}
+.hero,.starters,.recent,.news,.catalog,.workspace,.page{max-width:1560px}
 header{padding:0 max(24px,calc((100% - 1560px)/2))}
 .cards{grid-template-columns:repeat(6,1fr)}
 .workspace{grid-template-columns:minmax(600px,1.1fr) minmax(0,1fr)}
@@ -155,3 +155,7 @@ header{padding:0 max(24px,calc((100% - 1560px)/2))}
 
 .news{margin:auto;padding:0 24px 40px}.news h2{font:600 22px 'Space Grotesk';margin:4px 0 14px}.news .cards{grid-template-columns:repeat(3,1fr)}.news-card{min-height:auto;border-left:4px solid #f2b84b}.news-card small{line-height:1.4}.news-more{display:inline-block;margin-top:12px;font-size:14px;font-weight:600;color:#123c69}@media(max-width:800px){.news .cards{grid-template-columns:1fr}}
 [data-theme="dark"] .news-more{color:#9cc0ff}[data-theme="dark"] .news-card{border-left-color:#f1bb67}
+.form-tools{display:flex;flex-wrap:wrap;gap:8px}.share-state{font-size:12px;color:#36506b;background:#eaf2f9;border-radius:7px;padding:8px 10px;margin:4px 0 8px;overflow-wrap:anywhere}[data-theme="dark"] .share-state{background:#1c2a36;color:#c9d8e7}
+.recent{margin:auto;padding:0 24px 28px}.recent h2{font:600 18px 'Space Grotesk';margin:0 0 10px}.recent-list{display:flex;flex-wrap:wrap;gap:8px}.recent-chip{padding:8px 14px;border:1px solid #d8e0ea;border-radius:20px;background:#fff;color:#123c69;font-weight:600;font-size:14px}.recent-chip:hover{border-color:#f2b84b}[data-theme="dark"] .recent-chip{background:var(--panel);color:#d6e4f2;border-color:var(--line)}
+.form-panel .actions{flex-wrap:wrap}.generate-now{border-color:#f2b84b}
+.generate-now-hint{font-size:12px;color:#7a5410;margin:8px 0 0}[data-theme="dark"] .generate-now-hint{color:#f1bb67}

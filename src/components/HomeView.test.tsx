@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { useState } from 'react'
-import { cleanup, render, screen } from '@testing-library/react'
+import { cleanup, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { HomeView } from './HomeView'
@@ -51,5 +51,37 @@ describe('buscador visible del catálogo', () => {
     await user.click(screen.getByRole('button', { name: 'Limpiar' }))
     expect((input as HTMLInputElement).value).toBe('')
     expect(screen.getByText('Lo último en EduTicTac Prompt')).toBeTruthy()
+  })
+})
+
+describe('herramientas recientes en la portada', () => {
+  it('las muestra y abre la herramienta al pulsarla', async () => {
+    const user = userEvent.setup()
+    const onChoose = vi.fn()
+    const t = translations.es
+    render(
+      <HomeView
+        t={t}
+        lang="es"
+        search=""
+        setSearch={vi.fn()}
+        category="all"
+        setCategory={vi.fn()}
+        onChoose={onChoose}
+        recentTools={['worksheet']}
+        onCreate={vi.fn()}
+        templateName={(id) => getTemplateName(id, t)}
+        categoryLabel={(id) => t[id] || id}
+      />,
+    )
+    expect(screen.getByRole('heading', { name: 'Tus herramientas recientes' })).toBeTruthy()
+    const recent = screen.getByRole('heading', { name: 'Tus herramientas recientes' }).closest('section')!
+    await user.click(within(recent).getByRole('button', { name: /Ficha de trabajo imprimible/ }))
+    expect(onChoose).toHaveBeenCalledWith('worksheet')
+  })
+
+  it('no muestra la sección si no hay recientes', () => {
+    render(<Harness />)
+    expect(screen.queryByText('Tus herramientas recientes')).toBeNull()
   })
 })

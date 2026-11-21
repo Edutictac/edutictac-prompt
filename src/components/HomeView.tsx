@@ -12,6 +12,7 @@ export function HomeView({
   category,
   setCategory,
   onChoose,
+  recentTools = [],
   onCreate,
   templateName,
   categoryLabel,
@@ -23,6 +24,7 @@ export function HomeView({
   category: string
   setCategory: (value: string) => void
   onChoose: (id: string) => void
+  recentTools?: string[]
   onCreate: () => void
   templateName: (id: string) => string
   categoryLabel: (id: string) => string
@@ -87,6 +89,19 @@ export function HomeView({
           </p>
         )}
       </section>
+      {!hasQuery && recentTools.length > 0 && (
+        <section className="recent" aria-labelledby="recent-title">
+          <h2 id="recent-title">{t.recentTools}</h2>
+          <div className="recent-list">
+            {recentTools.map((id) => (
+              <button type="button" className="recent-chip" key={id} onClick={() => onChoose(id)}>
+                <span aria-hidden="true">{templates.find((template) => template.id === id)?.icon}</span>{' '}
+                {templateName(id)}
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
       {!hasQuery && (
         <section className="news" aria-labelledby="news-title">
           <p className="eyebrow">

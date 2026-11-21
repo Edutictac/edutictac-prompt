@@ -78,3 +78,39 @@ it('recorre el formulario bloque a bloque, deja saltar pasos y genera desde el r
   expect(preview.value).toContain('Primaria')
   expect(preview.value).toContain('Cultura científica · Iniciación a la actividad científica')
 })
+
+it('comparte la herramienta con los datos rellenados y el enlace la reabre igual', async () => {
+  const user = userEvent.setup()
+  let copied = ''
+  Object.defineProperty(navigator, 'clipboard', {
+    configurable: true,
+    value: { writeText: vi.fn(async (text: string) => void (copied = text)) },
+  })
+  Object.defineProperty(window, 'isSecureContext', { configurable: true, value: true })
+  history.replaceState(null, '', '/#template/worksheet')
+  render(<App />)
+  await user.click(screen.getByRole('button', { name: /Compartir con estos datos/ }))
+  expect(screen.getByRole('status').textContent).toContain('Rellena al menos un campo')
+  await user.click(screen.getByRole('button', { name: /Cargar un ejemplo/ }))
+  await user.click(screen.getByRole('button', { name: /Compartir con estos datos/ }))
+  expect(copied).toContain('#template/worksheet?d=')
+  cleanup()
+
+  history.replaceState(null, '', copied.slice(copied.indexOf('/#') + 1))
+  render(<App />)
+  await user.click(screen.getByRole('button', { name: 'Avanzado' }))
+  expect(screen.getByDisplayValue('El Palmeral de Elche')).toBeTruthy()
+  expect(location.hash).toBe('#template/worksheet')
+})
+
+it('ofrece «Generar ya» al rellenar nivel y tema, y genera sin recorrer el resto de pasos', async () => {
+  const user = userEvent.setup()
+  history.replaceState(null, '', '/#template/worksheet')
+  render(<App />)
+  expect(screen.queryByRole('button', { name: /Generar ya/ })).toBeNull()
+  await user.selectOptions(screen.getByRole('combobox', { name: 'Nivel educativo' }), 'ESO')
+  await user.click(screen.getByRole('button', { name: 'Siguiente' }))
+  await user.type(screen.getByRole('textbox', { name: /Tema/ }), 'El ciclo del agua')
+  await user.click(screen.getByRole('button', { name: /Generar ya/ }))
+  expect((screen.getByRole('textbox', { name: /prompt/i }) as HTMLTextAreaElement).value).toContain('El ciclo del agua')
+})

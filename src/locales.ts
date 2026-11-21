@@ -278,6 +278,14 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
           : language === 'ca'
             ? 'Prompt actualitzat a la teva biblioteca.'
             : 'Prompt actualitzat a la teua biblioteca.',
+    recentTools:
+      language === 'en'
+        ? 'Your recent tools'
+        : language === 'es'
+          ? 'Tus herramientas recientes'
+          : language === 'ca'
+            ? 'Les teves eines recents'
+            : 'Les teues ferramentes recents',
     newsEyebrow: language === 'en' ? 'WHAT’S NEW' : language === 'es' ? 'NOVEDADES' : 'NOVETATS',
     newsTitle:
       language === 'en'
@@ -287,28 +295,6 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
           : 'El més nou d’EduTicTac Prompt',
     newsMore:
       language === 'en' ? 'See all changes' : language === 'es' ? 'Ver todos los cambios' : 'Mostra tots els canvis',
-    startHere:
-      language === 'en'
-        ? 'START HERE'
-        : language === 'es'
-          ? 'EMPIEZA AQUÍ'
-          : language === 'ca'
-            ? 'COMENÇA AQUÍ'
-            : 'COMENÇA ACÍ',
-    startHereTitle:
-      language === 'en'
-        ? 'Real cases ready to go'
-        : language === 'es'
-          ? 'Casos reales listos para usar'
-          : 'Casos reals a punt per a usar',
-    startHereHint:
-      language === 'en'
-        ? 'The form opens already filled in: adapt it to your group and generate the prompt.'
-        : language === 'es'
-          ? 'El formulario se abre ya relleno: adáptalo a tu grupo y genera el prompt.'
-          : language === 'ca'
-            ? 'El formulari s’obre ja emplenat: adapta’l al teu grup i genera el prompt.'
-            : 'El formulari s’obri ja omplit: adapta’l al teu grup i genera el prompt.',
     help: language === 'en' ? 'Help' : language === 'es' ? 'Ayuda' : 'Ajuda',
     privacyTitle:
       language === 'en'
@@ -1158,6 +1144,52 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
           ? 'Ex. Palabras con vocal neutra (a/e)'
           : 'Ex. Paraules amb vocal neutra (a/e)',
     loadExample: language === 'en' ? 'Load an example' : language === 'es' ? 'Cargar un ejemplo' : 'Carrega un exemple',
+    generateNow:
+      language === 'en'
+        ? 'Generate now'
+        : language === 'es'
+          ? 'Generar ya'
+          : language === 'ca'
+            ? 'Genera ara'
+            : 'Genera ara',
+    generateNowHint:
+      language === 'en'
+        ? 'You already have the essentials: the remaining steps are optional.'
+        : language === 'es'
+          ? 'Ya tienes lo imprescindible: los pasos que faltan son opcionales.'
+          : 'Ja tens l’imprescindible: els passos que falten són opcionals.',
+    shareForm:
+      language === 'en'
+        ? 'Share with these answers'
+        : language === 'es'
+          ? 'Compartir con estos datos'
+          : language === 'ca'
+            ? 'Comparteix amb aquestes dades'
+            : 'Compartix amb estes dades',
+    shareCopied:
+      language === 'en'
+        ? 'Link copied: it opens this tool with the same answers. It does not include personal data unless you typed it, so check before sharing.'
+        : language === 'es'
+          ? 'Enlace copiado: abre esta herramienta con los mismos datos. Solo lleva lo que has escrito; comprueba que no haya datos personales antes de compartirlo.'
+          : language === 'ca'
+            ? 'Enllaç copiat: obre aquesta eina amb les mateixes dades. Només porta el que has escrit; comprova que no hi hagi dades personals abans de compartir-lo.'
+            : 'Enllaç copiat: obri esta ferramenta amb les mateixes dades. Només porta el que has escrit; comprova que no hi haja dades personals abans de compartir-lo.',
+    shareEmpty:
+      language === 'en'
+        ? 'Fill in at least one field to share it.'
+        : language === 'es'
+          ? 'Rellena al menos un campo para compartirlo.'
+          : language === 'ca'
+            ? 'Emplena almenys un camp per compartir-lo.'
+            : 'Ompli almenys un camp per a compartir-lo.',
+    shareTooLong:
+      language === 'en'
+        ? 'There is too much text for a link: shorten the long fields or save it in your library.'
+        : language === 'es'
+          ? 'Hay demasiado texto para un enlace: acorta los campos largos o guárdalo en tu biblioteca.'
+          : language === 'ca'
+            ? 'Hi ha massa text per a un enllaç: escurça els camps llargs o desa-ho a la biblioteca.'
+            : 'Hi ha massa text per a un enllaç: abreuja els camps llargs o guarda-ho en la biblioteca.',
     loadExampleConfirm:
       language === 'en'
         ? 'The example will replace what you have written in the form. Continue?'

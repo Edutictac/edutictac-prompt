@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { exampleValues } from '../../examples'
-import { guidedSteps } from '../../guided'
+import { sharedValues, shareUrl } from '../../shareLink'
+import { essentialsReady, guidedSteps } from '../../guided'
 import { followUps } from '../../followUps'
 import { EDUCEREA_URL, eduCreaNewProjectUrl, eduCreaPromptUrl } from '../../integrations'
 import { AiButtons } from '../../components/AiButtons'
@@ -66,7 +67,16 @@ export function CreateView({
     setValues({ ...initialValues(selected.id), ...example })
     setPrompt('')
   }
+  const [shareState, setShareState] = useState('')
+  useEffect(() => setShareState(''), [selected.id])
+  const shareForm = async () => {
+    if (!Object.keys(sharedValues(selected.id, values)).length) return setShareState(t.shareEmpty)
+    const url = shareUrl(location.origin + location.pathname, selected.id, values)
+    if (!url) return setShareState(t.shareTooLong)
+    setShareState((await copyPrompt(url)) ? t.shareCopied : `${t.copyFailed} ${url}`)
+  }
   const totalSteps = steps.length
+  const canGenerateNow = essentialsReady(selected, values) && stepIndex + 1 < totalSteps
   const atSummary = stepIndex >= totalSteps
   const currentStep = steps[Math.min(stepIndex, totalSteps - 1)]
   const generateFromSummary = () => {
@@ -138,9 +148,19 @@ export function CreateView({
           </button>
         </div>
         <p className="mode-hint">{mode === 'advanced' ? t.advancedModeHint : t.guidedModeHint}</p>
-        <button type="button" className="example-button" onClick={loadExample}>
-          💡 {t.loadExample}
-        </button>
+        <div className="form-tools">
+          <button type="button" className="example-button" onClick={loadExample}>
+            💡 {t.loadExample}
+          </button>
+          <button type="button" className="example-button" onClick={shareForm}>
+            🔗 {t.shareForm}
+          </button>
+        </div>
+        {shareState && (
+          <p className="share-state" role="status">
+            {shareState}
+          </p>
+        )}
         {mode === 'guided' ? (
           atSummary ? (
             <GuidedSummary
@@ -211,6 +231,7 @@ export function CreateView({
             ))}
           </>
         )}
+        {mode === 'guided' && canGenerateNow && <p className="generate-now-hint">⚡ {t.generateNowHint}</p>}
         <p className="warning">ⓘ {t.warning}</p>
         <div className="actions">
           {mode === 'guided' ? (
@@ -228,6 +249,18 @@ export function CreateView({
                 <button className="primary" onClick={() => setStepIndex((index) => Math.min(index + 1, totalSteps))}>
                   {stepIndex + 1 === totalSteps ? t.seeSummary : t.next}
                 </button>
+                {canGenerateNow && (
+                  <button
+                    type="button"
+                    className="secondary generate-now"
+                    onClick={() => {
+                      setStepIndex(totalSteps)
+                      generateFromSummary()
+                    }}
+                  >
+                    ⚡ {t.generateNow}
+                  </button>
+                )}
                 {stepIndex > 0 && (
                   <button className="secondary" onClick={() => setStepIndex((index) => index - 1)}>
                     {t.back}
