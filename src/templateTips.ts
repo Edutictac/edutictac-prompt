@@ -170,6 +170,10 @@ export const templateTips: Record<Language, Record<string, TemplateTip>> = {
       use: 'Preparar una ficha de trabajo para imprimir, con ejercicios variados y solucionario aparte.',
       tip: 'Pega tu texto para que use solo su información. Pásala a Word, retócala y revisa el solucionario.',
     },
+    'illustrated-worksheet': {
+      use: 'Pedir a una IA de imágenes una ficha A4 ilustrada con temática, para colorear o en color, con varias actividades.',
+      tip: 'Escribe tú los ejercicios exactos: la IA de imágenes falla con números y palabras. Revisa la ficha antes de imprimir.',
+    },
     'case-study': {
       use: 'Plantear un caso práctico o supuesto profesional con datos, tareas graduadas y solucionario.',
       tip: 'Muy indicada en FP y Bachillerato. Comprueba que los datos son coherentes y que el caso se puede resolver.',
@@ -375,6 +379,10 @@ export const templateTips: Record<Language, Record<string, TemplateTip>> = {
     worksheet: {
       use: 'Preparar una fitxa de treball per a imprimir, amb exercicis variats i solucionari a banda.',
       tip: 'Apega el teu text perquè use només la seua informació. Passa-la a Word, retoca-la i revisa el solucionari.',
+    },
+    'illustrated-worksheet': {
+      use: 'Demanar a una IA d’imatges una fitxa A4 il·lustrada amb temàtica, per a pintar o en color, amb diverses activitats.',
+      tip: 'Escriu tu els exercicis exactes: la IA d’imatges s’equivoca amb números i paraules. Revisa la fitxa abans d’imprimir-la.',
     },
     'case-study': {
       use: 'Plantejar un cas pràctic o supòsit professional amb dades, tasques graduades i solucionari.',
@@ -582,6 +590,10 @@ export const templateTips: Record<Language, Record<string, TemplateTip>> = {
       use: 'Preparar una fitxa de treball per a imprimir, amb exercicis variats i solucionari a banda.',
       tip: 'Enganxa el teu text perquè utilitzi només la seva informació. Passa-la a Word, retoca-la i revisa el solucionari.',
     },
+    'illustrated-worksheet': {
+      use: 'Demanar a una IA d’imatges una fitxa A4 il·lustrada amb temàtica, per pintar o en color, amb diverses activitats.',
+      tip: 'Escriu tu els exercicis exactes: la IA d’imatges s’equivoca amb números i paraules. Revisa la fitxa abans d’imprimir-la.',
+    },
     'case-study': {
       use: 'Plantejar un cas pràctic o supòsit professional amb dades, tasques graduades i solucionari.',
       tip: 'Molt indicada en FP i Batxillerat. Comprova que les dades són coherents i que el cas es pot resoldre.',
@@ -787,6 +799,10 @@ export const templateTips: Record<Language, Record<string, TemplateTip>> = {
     worksheet: {
       use: 'Prepare a printable worksheet with varied exercises and a separate answer key.',
       tip: 'Paste your text so it only uses that information. Move it to Word, adjust it and check the answer key.',
+    },
+    'illustrated-worksheet': {
+      use: 'Ask an image AI for an illustrated, themed A4 worksheet, for colouring or in colour, with several activities.',
+      tip: 'Write the exact exercises yourself: image AIs get numbers and words wrong. Check the sheet before printing.',
     },
     'case-study': {
       use: 'Set a case study or professional scenario with data, graded tasks and an answer key.',

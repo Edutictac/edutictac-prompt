@@ -408,4 +408,12 @@ export const goldenOutputs: Record<string, string> = {
   'code-coach:ca:example': '6e63207e4dccb6d7',
   'code-coach:en:empty': 'ab67e4d98672284f',
   'code-coach:en:example': 'c9796e6096890595',
+  'illustrated-worksheet:es:empty': 'b3cff5f3b49ede1e',
+  'illustrated-worksheet:es:example': 'c7328c5684942cef',
+  'illustrated-worksheet:ca-valencia:empty': 'cfe93d7fd290717a',
+  'illustrated-worksheet:ca-valencia:example': 'ae6f254cedadea76',
+  'illustrated-worksheet:ca:empty': '2bd95974411693ea',
+  'illustrated-worksheet:ca:example': '1d682beb134370e8',
+  'illustrated-worksheet:en:empty': '247f4c6dba77aa12',
+  'illustrated-worksheet:en:example': '5d72784c7aabd2be',
 }

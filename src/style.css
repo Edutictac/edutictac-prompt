@@ -44,7 +44,7 @@
    cortos se emparejan y los textos largos ocupan toda la fila) y vista previa
    fija a la vista mientras se rellena el formulario. */
 @media(min-width:1400px){
-.hero,.starters,.catalog,.workspace,.page{max-width:1560px}
+.hero,.starters,.news,.catalog,.workspace,.page{max-width:1560px}
 header{padding:0 max(24px,calc((100% - 1560px)/2))}
 .cards{grid-template-columns:repeat(6,1fr)}
 .workspace{grid-template-columns:minmax(600px,1.1fr) minmax(0,1fr)}
@@ -152,3 +152,6 @@ header{padding:0 max(24px,calc((100% - 1560px)/2))}
 [data-theme="dark"] .mode-switch button.active{background:#263a4a;color:#e8eef5;box-shadow:none}
 [data-theme="dark"] .guided-progress-text strong,[data-theme="dark"] .summary-head strong,[data-theme="dark"] .search-count,[data-theme="dark"] .hero-shortcut strong{color:#b8d2eb}
 [data-theme="dark"] .tool-card small,[data-theme="dark"] .form-panel label small,[data-theme="dark"] .saved-meta small,[data-theme="dark"] .preview-head small,[data-theme="dark"] .mode-hint,[data-theme="dark"] .summary-row dt,[data-theme="dark"] .summary-empty,[data-theme="dark"] .search-box input[type=search]::placeholder{color:#9fb3c8}
+
+.news{margin:auto;padding:0 24px 40px}.news h2{font:600 22px 'Space Grotesk';margin:4px 0 14px}.news .cards{grid-template-columns:repeat(3,1fr)}.news-card{min-height:auto;border-left:4px solid #f2b84b}.news-card small{line-height:1.4}.news-more{display:inline-block;margin-top:12px;font-size:14px;font-weight:600;color:#123c69}@media(max-width:800px){.news .cards{grid-template-columns:1fr}}
+[data-theme="dark"] .news-more{color:#9cc0ff}[data-theme="dark"] .news-card{border-left-color:#f1bb67}

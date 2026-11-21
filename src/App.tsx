@@ -16,7 +16,6 @@ import { SaveModal } from './components/SaveModal'
 import { CreateView } from './prompts/form/CreateView'
 import { getTemplateName } from './prompts/form/labels'
 import { usePromptDraft } from './prompts/form/usePromptDraft'
-import type { Starter } from './starters'
 const AgentsView = lazy(() => import('./agents/AgentsView'))
 const HelpView = lazy(() => import('./components/HelpView').then((module) => ({ default: module.HelpView })))
 const eventNoticeKeys: Record<PromptLibraryEvent, string> = {
@@ -97,10 +96,6 @@ export default function App() {
   const templateName = (id: string) => getTemplateName(id, t)
   function choose(id: string) {
     draft.choose(id)
-    setView('create')
-  }
-  function startFrom(starter: Starter) {
-    draft.startFrom(starter)
     setView('create')
   }
   function openSavedPrompt(item: SavedPrompt) {
@@ -232,7 +227,6 @@ export default function App() {
           category={category}
           setCategory={setCategory}
           onChoose={choose}
-          onStart={startFrom}
           onCreate={() => setView('create')}
           templateName={templateName}
           categoryLabel={categoryLabel}

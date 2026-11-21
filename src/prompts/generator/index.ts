@@ -43,7 +43,19 @@ export function generatePrompt(template: PromptTemplate, values: Record<string, 
   // escrita por el docente o el diseño de una actividad sobre el tema.
   const topic = value('topic') || d.topic
   const activity = value('activity') || d.topic
-  const task = buildTask({ templateId: template.id, language, value, d, u, g, a, topic, activity, mechanics })
+  const task = buildTask({
+    templateId: template.id,
+    language,
+    value,
+    d,
+    u,
+    g,
+    a,
+    topic,
+    activity,
+    mechanics,
+    raw: values,
+  })
   lines.push(`## ${l.task}\n${task}`)
   if (value('sourceText')) lines.push(`## ${l.sourceText}\n${value('sourceText')}`)
   for (const key of [
@@ -104,7 +116,10 @@ export function generatePrompt(template: PromptTemplate, values: Record<string, 
   const toolText = imageToolTexts[language][tool]
   if (toolText)
     lines.push(
-      `## ${l.aiTool}: ${tool}\n${toolText.replace('{ratio}', (values['aspectRatio'] || '1:1').split(' ')[0])}`,
+      `## ${l.aiTool}: ${tool}\n${toolText.replace(
+        '{ratio}',
+        (values['aspectRatio'] || (template.id === 'illustrated-worksheet' ? '5:7' : '1:1')).split(' ')[0],
+      )}`,
     )
   if (value('refinement')) lines.push(`## ${l.refinement}\n${value('refinement')}`)
   if (template.id === 'explainer-video') lines.push(`## ${l.videoBrief}\n${videoBriefs[language]}`)

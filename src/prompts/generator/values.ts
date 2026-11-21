@@ -20,6 +20,9 @@ const localizedKeys = new Set([
   'codingTool',
   'studentRole',
   'activityIdea',
+  'theme',
+  'printFinish',
+  'sheetLanguage',
 ])
 
 export type ValueReader = (key: string) => string

@@ -1,8 +1,7 @@
 import { useMemo } from 'react'
 import { categoryIds, templates } from '../templates'
 import { searchTemplates } from '../search'
-import { starters, starterTitle, type Starter } from '../starters'
-import { localizeOption } from '../optionLocales'
+import { changelogUrl, news, newsVersion } from '../news'
 import type { Language } from '../types'
 
 export function HomeView({
@@ -13,7 +12,6 @@ export function HomeView({
   category,
   setCategory,
   onChoose,
-  onStart,
   onCreate,
   templateName,
   categoryLabel,
@@ -25,7 +23,6 @@ export function HomeView({
   category: string
   setCategory: (value: string) => void
   onChoose: (id: string) => void
-  onStart: (starter: Starter) => void
   onCreate: () => void
   templateName: (id: string) => string
   categoryLabel: (id: string) => string
@@ -91,21 +88,23 @@ export function HomeView({
         )}
       </section>
       {!hasQuery && (
-        <section className="starters">
-          <p className="eyebrow">{t.startHere}</p>
-          <h2>{t.startHereTitle}</h2>
-          <p className="mode-hint">{t.startHereHint}</p>
+        <section className="news" aria-labelledby="news-title">
+          <p className="eyebrow">
+            {t.newsEyebrow} · v{newsVersion}
+          </p>
+          <h2 id="news-title">{t.newsTitle}</h2>
           <div className="cards">
-            {starters.map((starter) => (
-              <button className="tool-card starter-card" key={starter.id} onClick={() => onStart(starter)}>
-                <span className="tool-icon">{starter.icon}</span>
-                <strong>{starterTitle(starter, lang)}</strong>
-                <small>
-                  {localizeOption(starter.level, lang)} · {templateName(starter.templateId)}
-                </small>
+            {news.map((item) => (
+              <button className="tool-card news-card" key={item.templateId} onClick={() => onChoose(item.templateId)}>
+                <span className="tool-icon">{templates.find((template) => template.id === item.templateId)?.icon}</span>
+                <strong>{templateName(item.templateId)}</strong>
+                <small>{item.text[lang]}</small>
               </button>
             ))}
           </div>
+          <a className="news-more" href={changelogUrl} target="_blank" rel="noreferrer">
+            {t.newsMore} →
+          </a>
         </section>
       )}
       <section className="catalog" id="catalog">

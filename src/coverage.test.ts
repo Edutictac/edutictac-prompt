@@ -14,6 +14,12 @@ const formatOf = (id: string) =>
   templates.find((template) => template.id === id)!.fields.find((field) => field.id === 'outputFormat')!.options![0]
 // Opciones que se escriben igual en todos los idiomas.
 const sameEverywhere = new Set([
+  'Granja',
+  'Color',
+  'Arcade retro',
+  'Detectives',
+  'Francés',
+  'Portugués',
   'Infantil',
   'Ordenar',
   'Quiz',

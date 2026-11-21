@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.34.0 - Ficha ilustrada para imprimir y novedades en la portada
+
+- Nueva herramienta **Ficha ilustrada para imprimir (imagen)** (Actividades; `#template/illustrated-worksheet`): prompt para una IA de imágenes (ChatGPT, Gemini, Copilot, Midjourney o Canva) que dibuja una ficha A4 vertical con temática. Incluye 16 temáticas con sus elementos (espacio, dinosaurios, piratas, fondo marino, robots, deportes…) y la opción de personajes y elementos propios, siempre genéricos y sin marcas. Puede ser en blanco y negro para colorear o en color. Ofrece 13 tipos de actividad combinables: contar, completar, emparejar, rodear, verdadero/falso, series, intruso, laberinto, unir los puntos, diferencias, colorear por código, sopa de letras y mensaje secreto. También permite elegir el idioma de la ficha, distinto del de la interfaz (valenciano normativo de la AVL si se elige). Admite el campo de accesibilidad del material.
+- Para evitar errores de la IA de imágenes, se pueden escribir los ejercicios exactos. El prompt pide comprobar las soluciones antes de dibujar, dar el solucionario en texto e indicar qué revisar antes de imprimir. En Midjourney usa la proporción A4 (`--ar 5:7`). Salida PNG o PDF.
+- **Portada:** se retiran los «Casos reales listos para usar» y en su lugar aparece **Novedades**, con tres tarjetas que abren las herramientas nuevas o mejoradas y un enlace al historial completo de cambios (`src/news.ts`; un test comprueba que las tarjetas apunten a herramientas existentes y tengan texto en los cuatro idiomas).
+- Idea de la ficha ilustrada inspirada en el [generador de fichas gamificadas](https://sanforbel.github.io/generador-fitxes/) de Sandra Fortanet; textos redactados de nuevo.
+
 ## 0.33.0 - Accesibilidad del material y pasatiempos en la ficha
 
 - Nuevo campo **Accesibilidad del material** en la ficha de trabajo imprimible, la lectura comprensiva graduada, la lectura fácil, el guion de laboratorio y el escape room. Ofrece 13 medidas concretas: letra grande sin serifa, espaciado amplio, texto alineado a la izquierda, alto contraste, no depender del color, papel crema, espacios pautados, poco contenido por página, una instrucción por paso, pictogramas, diseño sin adornos, lectura fácil y vocabulario con apoyo visual. Cada una llega al prompt como instrucción precisa con el perfil de alumnado al que ayuda (dislexia, baja visión, TDAH, TEA, disgrafía, daltonismo, alumnado que aprende la lengua). Complementa el DUA y las barreras del contexto.

@@ -278,6 +278,15 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
           : language === 'ca'
             ? 'Prompt actualitzat a la teva biblioteca.'
             : 'Prompt actualitzat a la teua biblioteca.',
+    newsEyebrow: language === 'en' ? 'WHAT’S NEW' : language === 'es' ? 'NOVEDADES' : 'NOVETATS',
+    newsTitle:
+      language === 'en'
+        ? 'Latest in EduTicTac Prompt'
+        : language === 'es'
+          ? 'Lo último en EduTicTac Prompt'
+          : 'El més nou d’EduTicTac Prompt',
+    newsMore:
+      language === 'en' ? 'See all changes' : language === 'es' ? 'Ver todos los cambios' : 'Mostra tots els canvis',
     startHere:
       language === 'en'
         ? 'START HERE'
@@ -989,7 +998,7 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
       language === 'en'
         ? 'E.g. Year 10 students, families, staff...'
         : language === 'es'
-          ? 'Ej. alumnado de 4.º de ESO, familias, claustro...'
+          ? 'Ex. alumnado de 4.º de ESO, familias, claustro...'
           : language === 'ca'
             ? 'Ex. alumnat de 4t d’ESO, famílies, claustre...'
             : 'Ex. alumnat de 4t d’ESO, famílies, claustre...',
@@ -997,7 +1006,7 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
       language === 'en'
         ? 'E.g. that the deadline is 30 June and what happens if it is missed...'
         : language === 'es'
-          ? 'Ej. que el plazo termina el 30 de junio y qué pasa si no se entrega...'
+          ? 'Ex. que el plazo termina el 30 de junio y qué pasa si no se entrega...'
           : language === 'ca'
             ? 'Ex. que el termini acaba el 30 de juny i què passa si no es presenta...'
             : 'Ex. que el termini acaba el 30 de juny i què passa si no es presenta...',
@@ -1005,7 +1014,7 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
       language === 'en'
         ? 'E.g. students’ names, internal figures, medical data...'
         : language === 'es'
-          ? 'Ej. nombres del alumnado, cifras internas, datos médicos...'
+          ? 'Ex. nombres del alumnado, cifras internas, datos médicos...'
           : language === 'ca'
             ? 'Ex. noms de l’alumnat, xifres internes, dades mèdiques...'
             : 'Ex. noms de l’alumnat, xifres internes, dades mèdiques...',
@@ -1013,7 +1022,7 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
       language === 'en'
         ? 'E.g. #0A2540 and #00D4A0'
         : language === 'es'
-          ? 'Ej. #0A2540 y #00D4A0'
+          ? 'Ex. #0A2540 y #00D4A0'
           : 'Ex. #0A2540 i #00D4A0',
     templateScientificIllustration:
       language === 'en'
@@ -1261,6 +1270,36 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
         : language === 'es'
           ? 'Ficha de trabajo imprimible'
           : 'Fitxa de treball imprimible',
+    templateIllustratedWorksheet:
+      language === 'en'
+        ? 'Illustrated printable worksheet (image)'
+        : language === 'es'
+          ? 'Ficha ilustrada para imprimir (imagen)'
+          : 'Fitxa il·lustrada per a imprimir (imatge)',
+    worksheetTheme: language === 'en' ? 'Theme' : language === 'es' ? 'Temática' : 'Temàtica',
+    themeElements:
+      language === 'en'
+        ? 'Own characters and elements'
+        : language === 'es'
+          ? 'Personajes y elementos propios'
+          : 'Personatges i elements propis',
+    printFinish: language === 'en' ? 'Finish' : language === 'es' ? 'Acabado' : 'Acabat',
+    sheetLanguage:
+      language === 'en' ? 'Worksheet language' : language === 'es' ? 'Idioma de la ficha' : 'Llengua de la fitxa',
+    'placeholderThemeElements-illustrated-worksheet':
+      language === 'en'
+        ? 'E.g. A curious hedgehog, autumn leaves and mushrooms (optional; adds to or replaces the theme)'
+        : language === 'es'
+          ? 'Ex. Un erizo curioso, hojas de otoño y setas (opcional; se suma a la temática o la sustituye)'
+          : 'Ex. Un eriçó curiós, fulles de tardor i bolets (opcional; se suma a la temàtica o la substitueix)',
+    'placeholderGameItems-illustrated-worksheet':
+      language === 'en'
+        ? 'E.g. 7 + 5, 9 + 4, 12 − 3 … or the words for the word search (recommended: the image AI will copy them exactly)'
+        : language === 'es'
+          ? 'Ex. 7 + 5, 9 + 4, 12 − 3… o las palabras de la sopa de letras (recomendado: la IA de imágenes las copiará tal cual)'
+          : 'Ex. 7 + 5, 9 + 4, 12 − 3… o les paraules de la sopa de lletres (recomanat: la IA d’imatges les copiarà tal qual)',
+    'placeholderTopic-illustrated-worksheet':
+      language === 'en' ? 'E.g. Adding up to 20' : language === 'es' ? 'Ex. Sumas hasta 20' : 'Ex. Sumes fins a 20',
     templateCaseStudy:
       language === 'en'
         ? 'Case study'

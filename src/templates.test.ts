@@ -103,7 +103,7 @@ describe('plantillas de prompts', () => {
       const fieldIds = template.fields.map((field) => field.id)
       expect(fieldIds, template.id).toContain('refinement')
       expect(fieldIds.includes('aiTool'), template.id).toBe(
-        ['scientific-illustration', 'infographic'].includes(template.id),
+        ['scientific-illustration', 'infographic', 'illustrated-worksheet'].includes(template.id),
       )
     }
   })

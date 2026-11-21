@@ -20,7 +20,6 @@ function Harness() {
       category={category}
       setCategory={setCategory}
       onChoose={vi.fn()}
-      onStart={vi.fn()}
       onCreate={vi.fn()}
       templateName={(id) => getTemplateName(id, t)}
       categoryLabel={(id) => t[id] || id}
@@ -31,14 +30,14 @@ function Harness() {
 afterEach(cleanup)
 
 describe('buscador visible del catálogo', () => {
-  it('muestra un buscador grande y oculta los casos al buscar', async () => {
+  it('muestra un buscador grande y oculta las novedades al buscar', async () => {
     const user = userEvent.setup()
     render(<Harness />)
     const input = screen.getByRole('searchbox', { name: 'Buscar herramienta...' })
     expect(input.getAttribute('placeholder')).toBe('Busca por nombre, categoría o necesidad')
-    expect(screen.getByText('Casos reales listos para usar')).toBeTruthy()
+    expect(screen.getByText('Lo último en EduTicTac Prompt')).toBeTruthy()
     await user.type(input, 'examen')
-    expect(screen.queryByText('Casos reales listos para usar')).toBeNull()
+    expect(screen.queryByText('Lo último en EduTicTac Prompt')).toBeNull()
     expect(screen.getByText('Prueba escrita')).toBeTruthy()
     expect(screen.queryByText('Proyecto ABP')).toBeNull()
   })
@@ -51,6 +50,6 @@ describe('buscador visible del catálogo', () => {
     expect(screen.getByRole('status').textContent).toContain('No hay herramientas que coincidan')
     await user.click(screen.getByRole('button', { name: 'Limpiar' }))
     expect((input as HTMLInputElement).value).toBe('')
-    expect(screen.getByText('Casos reales listos para usar')).toBeTruthy()
+    expect(screen.getByText('Lo último en EduTicTac Prompt')).toBeTruthy()
   })
 })

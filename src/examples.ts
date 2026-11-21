@@ -925,6 +925,33 @@ export const examples: Record<string, Example> = {
         'The Palm Grove of Elche is a set of date palm orchards. Its origin is linked to the irrigation system of acequias (channels). In 2000 UNESCO declared it a World Heritage Site as a cultural landscape.',
     },
   },
+  'illustrated-worksheet': {
+    options: {
+      level: 'Primaria',
+      theme: 'Espacio',
+      activityType: 'Contar elementos · Completar huecos · Laberinto',
+      printFinish: 'Blanco y negro para colorear',
+      accessibility: 'Letra grande sin serifa · Espacios de escritura pautados',
+    },
+    es: {
+      course: '1.º',
+      subject: 'Matemáticas',
+      topic: 'Sumas hasta 20',
+      gameItems: '7 + 5 = __ · 9 + 4 = __ · 8 + 8 = __ · 6 + 7 = __ · 11 + 3 = __ · 5 + 9 = __',
+    },
+    va: {
+      course: '1r',
+      subject: 'Matemàtiques',
+      topic: 'Sumes fins a 20',
+      gameItems: '7 + 5 = __ · 9 + 4 = __ · 8 + 8 = __ · 6 + 7 = __ · 11 + 3 = __ · 5 + 9 = __',
+    },
+    en: {
+      course: 'Year 1',
+      subject: 'Maths',
+      topic: 'Adding up to 20',
+      gameItems: '7 + 5 = __ · 9 + 4 = __ · 8 + 8 = __ · 6 + 7 = __ · 11 + 3 = __ · 5 + 9 = __',
+    },
+  },
   'ethical-dilemma': {
     options: { level: 'Bachillerato' },
     es: {

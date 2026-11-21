@@ -37,7 +37,7 @@ El plan de refactor gradual y su seguimiento están en [docs/PLAN-REFACTOR.md](d
 
 ## Estat actual
 
-- Versió publicada de la PWA: **0.33.0** (accessibilitat del material i passatemps en la fitxa de treball).
+- Versió publicada de la PWA: **0.34.0** (fitxa il·lustrada per a imprimir i novetats a la portada).
 - Producció: [pages.edutictac.es/Edutictac/edutictac-prompt](https://pages.edutictac.es/Edutictac/edutictac-prompt/).
 - La PWA funciona localment amb IndexedDB i continua disponible sense compte ni connexió.
 - Authentik està integrat mitjançant OIDC + PKCE. L’inici de sessió es fa des de `id.edutictac.es`.
@@ -47,7 +47,7 @@ El plan de refactor gradual y su seguimiento están en [docs/PLAN-REFACTOR.md](d
 - El catàleg només mostra categories que tenen ferramentes associades; les categories buides no apareixen.
 - El buscador del catàleg és una barra destacada davall la portada: cerca per nom en els quatre idiomes, categoria i sinònims habituals («examen», «mapa mental», «lectura fàcil»), sense distingir accents ni majúscules, i mostra el nombre de resultats.
 - La portada mostra l’enllaç curt **e.edutictac.es/prompt** davall del botó «Crea», pensat per a projectar-lo o escriure’l a l’aula.
-- Proves automatitzades: **234** en la PWA i **8** en l’API.
+- Proves automatitzades: **236** en la PWA i **8** en l’API.
 - El formulari ofereix els modes **senzill**, **pas a pas** (per blocs, amb progrés i resum final) i **avançat** (tots els camps).
 - El currículum CV-LOMLOE incorpora perfils inicials d’Infantil, Primària (Coneixement del medi), ESO (Tecnologia i Matemàtiques) i selecció avançada de competències, criteris i sabers bàsics.
 - La categoria d’avaluació inclou rúbriques, escales de valoració, llistes de coteig, observació sistemàtica, portafolis, produccions, proves escrites, productes i exposicions.

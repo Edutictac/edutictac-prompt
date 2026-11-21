@@ -1,4 +1,5 @@
 import type { PromptTemplate, TemplateField } from './types'
+import { worksheetLanguages, worksheetThemes } from './prompts/generator/illustratedWorksheet'
 export const templates: PromptTemplate[] = [
   {
     id: 'learning-situation',
@@ -674,6 +675,42 @@ export const templates: PromptTemplate[] = [
     ],
   },
   {
+    id: 'illustrated-worksheet',
+    category: 'activities',
+    icon: '✎',
+    fields: [
+      { id: 'level', type: 'select', options: ['Infantil', 'Primaria', 'ESO'] },
+      { id: 'course', type: 'text' },
+      { id: 'subject', type: 'text' },
+      { id: 'topic', type: 'text' },
+      { id: 'theme', type: 'select', options: [...worksheetThemes] },
+      { id: 'themeElements', type: 'textarea' },
+      {
+        id: 'activityType',
+        type: 'multiselect',
+        options: [
+          'Contar elementos',
+          'Completar huecos',
+          'Emparejar',
+          'Rodear la respuesta',
+          'Verdadero/Falso',
+          'Series y patrones',
+          'Encuentra el intruso',
+          'Laberinto',
+          'Unir los puntos',
+          'Encuentra las diferencias',
+          'Colorear por código',
+          'Sopa de letras',
+          'Mensaje secreto',
+        ],
+      },
+      { id: 'gameItems', type: 'textarea' },
+      { id: 'printFinish', type: 'select', options: ['Blanco y negro para colorear', 'Color'] },
+      { id: 'sheetLanguage', type: 'select', options: [...worksheetLanguages] },
+      { id: 'outputFormat', type: 'select', options: ['PNG', 'PDF'] },
+    ],
+  },
+  {
     id: 'case-study',
     category: 'activities',
     icon: '◧',
@@ -861,7 +898,7 @@ const promptingFields: TemplateField[] = [
 // imagen, porque ahí cambia de verdad cómo debe redactarse el prompt. En las de
 // texto no aporta nada y el orden de «Abrir en» ya recuerda la última IA usada.
 // El primer valor equivale a no indicar ninguna y el generador lo omite.
-export const imageToolTemplates = ['scientific-illustration', 'infographic']
+export const imageToolTemplates = ['scientific-illustration', 'infographic', 'illustrated-worksheet']
 const aiToolField: TemplateField = {
   id: 'aiTool',
   type: 'select',
@@ -883,7 +920,14 @@ const barrierCategories = [...udlCategories, 'assessment', 'adaptation']
 // producen una ficha o un texto para el alumnado. Complementa el DUA (principios)
 // y las barreras (texto libre). Idea inspirada en el generador de fichas de
 // Sandra Fortanet (sanforbel.github.io/generador-fitxes), redactada de nuevo.
-export const accessibilityTemplates = ['worksheet', 'reading-comprehension', 'easy-reading', 'lab-guide', 'escape-room']
+export const accessibilityTemplates = [
+  'worksheet',
+  'illustrated-worksheet',
+  'reading-comprehension',
+  'easy-reading',
+  'lab-guide',
+  'escape-room',
+]
 export const accessibilityOptions = [
   'Letra grande sin serifa',
   'Espaciado e interlineado amplios',
@@ -929,7 +973,16 @@ for (const template of templates) {
 
 // Los formatos documentales se ofrecen en último lugar salvo en las plantillas
 // que producen su propio paquete o formato (H5P, SCORM, GIFT, QTI, CC y HTML).
-const ownFormatTemplates = ['h5p', 'scorm', 'gift', 'qti', 'common-cartridge', 'html-game', 'explainer-video']
+const ownFormatTemplates = [
+  'h5p',
+  'scorm',
+  'gift',
+  'qti',
+  'common-cartridge',
+  'html-game',
+  'explainer-video',
+  'illustrated-worksheet',
+]
 const documentFormats = ['PDF', 'ODT', 'DOCX']
 for (const template of templates) {
   const outputFormat = template.fields.find((field) => field.id === 'outputFormat')

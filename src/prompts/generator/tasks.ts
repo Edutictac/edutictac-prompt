@@ -1,4 +1,5 @@
 import { codingActivityTask } from './codingActivity'
+import { illustratedWorksheetTask } from './illustratedWorksheet'
 import { localizeOption } from '../../optionLocales'
 import type { Language } from '../../types'
 import type { AssessmentTexts, DefaultTexts, GameTexts, UdlTexts } from './texts'
@@ -14,6 +15,7 @@ export function buildTask({
   topic,
   activity,
   mechanics,
+  raw = {},
 }: {
   templateId: string
   language: Language
@@ -25,6 +27,7 @@ export function buildTask({
   topic: string
   activity: string
   mechanics: string[]
+  raw?: Record<string, string>
 }): string {
   const catalan = language === 'ca' || language === 'ca-valencia'
   // Pasatiempos de la ficha: la IA suele fallar en cuadrículas y retos de
@@ -164,6 +167,7 @@ export function buildTask({
     'historical-interview': () =>
       `${language === 'en' ? `Role-play an interview with ${topic}. Answer in first person while distinguishing well-established facts from uncertainty; do not invent quotations or claim access to private thoughts. Invite the learner to ask the first question.` : catalan ? `Interpreta una entrevista amb ${topic}. Respon en primera persona i diferencia els fets ben establerts de les incerteses; no inventes cites ni atribueixes pensaments privats. Convida l’estudiant a fer la primera pregunta.` : `Interpreta una entrevista con ${topic}. Responde en primera persona y distingue los hechos bien establecidos de las incertidumbres; no inventes citas ni atribuyas pensamientos privados. Invita al estudiante a hacer la primera pregunta.`}${value('task') ? ` ${value('task')}` : ''}`,
     'coding-activity': () => codingActivityTask(language, topic, value),
+    'illustrated-worksheet': () => illustratedWorksheetTask(language, topic, value, raw),
     'code-coach': () =>
       `${language === 'en' ? `Review the code below for ${topic}. Explain the first issue and give a hint before showing a correction; adapt the explanation to the learner’s level.` : catalan ? `Revisa el codi següent sobre ${topic}. Explica el primer problema i ofereix una pista abans de mostrar-ne la correcció; adapta l’explicació al nivell de l’estudiant.` : `Revisa el código siguiente sobre ${topic}. Explica el primer problema y ofrece una pista antes de mostrar una corrección; adapta la explicación al nivel del estudiante.`}${value('task') ? ` ${value('task')}` : ''}`,
   }

@@ -12,21 +12,25 @@ export function returnTextFor(language: Language): string {
 
 export const fileFormatInstructions: Record<Language, Record<string, string>> = {
   es: {
+    PNG: 'Entrega la ficha como una única imagen PNG en alta resolución, en A4 vertical, lista para imprimir.',
     PDF: 'Crea un archivo PDF descargable si puedes generar archivos; si no, entrega el contenido maquetado y listo para exportar a PDF.',
     ODT: 'Crea un archivo de texto OpenDocument (.odt) descargable si puedes generar archivos; si no, entrega el contenido estructurado y listo para guardar en ODT.',
     DOCX: 'Crea un documento de Word (.docx) descargable si puedes generar archivos; si no, entrega el contenido estructurado y listo para guardar en DOCX.',
   },
   'ca-valencia': {
+    PNG: 'Entrega la fitxa com una única imatge PNG en alta resolució, en A4 vertical, preparada per a imprimir.',
     PDF: 'Crea un arxiu PDF descarregable si pots generar arxius; si no, entrega el contingut maquetat i preparat per a exportar-lo a PDF.',
     ODT: 'Crea un arxiu de text OpenDocument (.odt) descarregable si pots generar arxius; si no, entrega el contingut estructurat i preparat per a guardar-lo en ODT.',
     DOCX: 'Crea un document de Word (.docx) descarregable si pots generar arxius; si no, entrega el contingut estructurat i preparat per a guardar-lo en DOCX.',
   },
   ca: {
+    PNG: 'Lliura la fitxa com una única imatge PNG en alta resolució, en A4 vertical, a punt per imprimir.',
     PDF: 'Crea un fitxer PDF descarregable si pots generar fitxers; si no, lliura el contingut maquetat i a punt per exportar-lo a PDF.',
     ODT: 'Crea un fitxer de text OpenDocument (.odt) descarregable si pots generar fitxers; si no, lliura el contingut estructurat i a punt per desar-lo en ODT.',
     DOCX: 'Crea un document de Word (.docx) descarregable si pots generar fitxers; si no, lliura el contingut estructurat i a punt per desar-lo en DOCX.',
   },
   en: {
+    PNG: 'Deliver the worksheet as a single high-resolution PNG image, A4 portrait, ready to print.',
     PDF: 'Create a downloadable PDF if you can generate files; otherwise provide the fully formatted content ready to export as PDF.',
     ODT: 'Create a downloadable OpenDocument Text (.odt) file if you can generate files; otherwise provide structured content ready to save as ODT.',
     DOCX: 'Create a downloadable Word (.docx) document if you can generate files; otherwise provide structured content ready to save as DOCX.',
