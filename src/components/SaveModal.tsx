@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useDialogFocus } from './useDialogFocus'
 import type { Category } from '../types'
 
 export function SaveModal({
@@ -25,10 +26,15 @@ export function SaveModal({
   const [tags, setTags] = useState('')
   const [notes, setNotes] = useState('')
   const [favorite, setFavorite] = useState(false)
+  const dialogRef = useDialogFocus<HTMLFormElement>(onCancel)
   return (
     <div className="modal-backdrop">
       <form
+        ref={dialogRef}
         className="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="save-dialog-title"
         onSubmit={(e) => {
           e.preventDefault()
           onSave({
@@ -45,9 +51,9 @@ export function SaveModal({
         }}
       >
         <div className="modal-head">
-          <h2>{t.save}</h2>
-          <button type="button" onClick={onCancel}>
-            ×
+          <h2 id="save-dialog-title">{t.save}</h2>
+          <button type="button" onClick={onCancel} aria-label={t.close}>
+            <span aria-hidden="true">×</span>
           </button>
         </div>
         <label>

@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useMemo } from 'react'
 import qrcode from 'qrcode-generator'
+import { useDialogFocus } from './useDialogFocus'
 
 // Código QR generado en el navegador (sin servicios externos) para proyectar
 // un enlace en clase o en una formación. Corrección de errores «M»: aguanta
@@ -78,17 +79,11 @@ export function QrDialog({
   fileName: string
   onClose: () => void
 }) {
-  const closeRef = useRef<HTMLButtonElement>(null)
-  useEffect(() => {
-    closeRef.current?.focus()
-    const onKey = (event: KeyboardEvent) => event.key === 'Escape' && onClose()
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [onClose])
+  const dialogRef = useDialogFocus<HTMLDivElement>(onClose)
   const fits = url.length <= QR_MAX_LENGTH
   return (
     <div className="qr-backdrop" role="dialog" aria-modal="true" aria-labelledby="qr-title" onClick={onClose}>
-      <div className="qr-dialog" onClick={(event) => event.stopPropagation()}>
+      <div className="qr-dialog" ref={dialogRef} onClick={(event) => event.stopPropagation()}>
         <h2 id="qr-title">{title}</h2>
         {fits ? (
           <>
@@ -105,7 +100,7 @@ export function QrDialog({
               ⬇ {t.qrDownload}
             </button>
           )}
-          <button type="button" className="primary" ref={closeRef} onClick={onClose}>
+          <button type="button" className="primary" data-autofocus onClick={onClose}>
             {t.close}
           </button>
         </div>

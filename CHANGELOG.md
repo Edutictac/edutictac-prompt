@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.37.1 - Diálogos accesibles
+
+- El diálogo **Guardar** se anuncia como diálogo modal con su título, el botón «×» tiene nombre («Cerrar»), Escape lo cierra, Tab no sale del diálogo y al cerrarlo el foco vuelve al botón que lo abrió. El diálogo del QR usa el mismo comportamiento (`src/components/useDialogFocus.ts`).
+
 ## 0.37.0 - QR, paquete de sesión y revisión de catalán y valenciano
 
 - **Mostrar QR:** cada herramienta tiene un botón que muestra a pantalla completa el código QR del enlace (con los datos rellenados, si los hay), para proyectarlo en clase o en una formación. Se genera en el navegador (`qrcode-generator`, MIT) y se puede descargar en SVG. Si el enlace es muy largo avisa de que puede costar escanearlo.
