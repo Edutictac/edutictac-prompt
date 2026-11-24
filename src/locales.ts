@@ -537,7 +537,7 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
       language === 'en'
         ? '4 levels: Insufficient · In progress · Achieved · Excellent'
         : language === 'es'
-          ? '4 niveles: Insuficiente · En proceso · Conseguido · Excelente'
+          ? '4 niveles: Insuficiente / En proceso / Conseguido / Excelente'
           : '4 nivells: Insuficient · En procés · Assolit · Excel·lent',
     criteria: language === 'en' ? 'Criteria' : language === 'es' ? 'Criterios' : 'Criteris',
     levels:

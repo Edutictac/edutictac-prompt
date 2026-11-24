@@ -65,8 +65,11 @@ describe('cobertura de plantillas', () => {
       for (const field of template.fields) {
         if (transformed.has(field.id)) continue
         for (const language of languages)
-          for (const option of field.options || [`MARCA-${field.id}`]) {
-            const values = { outputFormat: formatOf(template.id), [field.id]: option }
+          for (const option of field.options || [field.id === 'maxScore' ? '10' : `MARCA-${field.id}`]) {
+            const values = {
+              outputFormat: field.id === 'maxScore' ? 'CSV Aules / Moodle' : formatOf(template.id),
+              [field.id]: option,
+            }
             const expected = field.options ? localizeOption(option, language) : option
             if (!generatePrompt(template, values, language).includes(expected))
               missing.push(`${language} ${template.id}.${field.id}=${option}`)

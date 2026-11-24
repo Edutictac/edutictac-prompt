@@ -1,3 +1,4 @@
+import { localizeOption } from '../../optionLocales'
 import type { Language } from '../../types'
 
 export const RUBRIC_CSV_FORMAT = 'CSV Aules / Moodle'
@@ -137,7 +138,9 @@ export function generateRubricCsv(values: Record<string, string>, language: Lang
   const max = String(Number(raw))
   const parts = [
     values.role?.trim() || t.role,
-    [t.task, values.activity?.trim(), t.missing].filter(Boolean).join('\n'),
+    [localizeOption(RUBRIC_CSV_FORMAT, language), t.task, values.activity?.trim(), t.missing]
+      .filter(Boolean)
+      .join('\n'),
     [values.level, values.course, values.subject, values.context, values.curriculumContext].filter(Boolean).join('\n'),
     [values.criteria, values.curriculumCriteria].filter(Boolean).join('\n'),
     t.technical,

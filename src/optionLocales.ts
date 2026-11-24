@@ -2,6 +2,7 @@ import type { Language } from './types'
 
 const translations: Partial<Record<Language, Record<string, string>>> = {
   'ca-valencia': {
+    'CSV Aules / Moodle': 'CSV per a Aules / Moodle',
     'Pregunta abierta': 'Pregunta oberta',
     'Dibujo o esquema': 'Dibuix o esquema',
     'Sin dispositivos (actividad desenchufada)': 'Sense dispositius (activitat desendollada)',
@@ -173,6 +174,7 @@ const translations: Partial<Record<Language, Record<string, string>>> = {
     'Respuesta a una reclamación': 'Resposta a una reclamació',
   },
   ca: {
+    'CSV Aules / Moodle': 'CSV per a Aules / Moodle',
     'Pregunta abierta': 'Pregunta oberta',
     'Dibujo o esquema': 'Dibuix o esquema',
     'Sin dispositivos (actividad desenchufada)': 'Sense dispositius (activitat desendollada)',
@@ -344,6 +346,7 @@ const translations: Partial<Record<Language, Record<string, string>>> = {
     'Respuesta a una reclamación': 'Resposta a una reclamació',
   },
   en: {
+    'CSV Aules / Moodle': 'CSV for Aules / Moodle',
     'Pregunta abierta': 'Open question',
     'Dibujo o esquema': 'Drawing or diagram',
     'Sin dispositivos (actividad desenchufada)': 'No devices (unplugged activity)',

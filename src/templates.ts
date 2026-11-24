@@ -1041,7 +1041,9 @@ for (const template of templates) {
   if (!ownFormatTemplates.includes(template.id) && outputFormat.options) {
     for (const format of documentFormats) if (!outputFormat.options.includes(format)) outputFormat.options.push(format)
   }
-  template.fields = template.fields.filter((field) => field.id !== 'outputFormat')
+  const maxScore = template.fields.find((field) => field.id === 'maxScore')
+  template.fields = template.fields.filter((field) => field.id !== 'outputFormat' && field.id !== 'maxScore')
+  if (maxScore) template.fields.push(maxScore)
   template.fields.push(outputFormat)
 }
 
