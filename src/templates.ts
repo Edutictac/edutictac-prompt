@@ -143,7 +143,8 @@ export const templates: PromptTemplate[] = [
       { id: 'activity', type: 'text' },
       { id: 'criteria', type: 'textarea' },
       { id: 'levels', type: 'select', options: ['3', '4', '5'] },
-      { id: 'outputFormat', type: 'select', options: ['Tabla Markdown', 'Tabla HTML', 'Texto'] },
+      { id: 'maxScore', type: 'text' },
+      { id: 'outputFormat', type: 'select', options: ['Tabla Markdown', 'Tabla HTML', 'Texto', 'CSV Aules / Moodle'] },
     ],
   },
   {

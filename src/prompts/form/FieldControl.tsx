@@ -18,6 +18,9 @@ export function FieldControl({
   setValues: (v: Record<string, string>) => void
   templateId: string
 }) {
+  const rubricCsv = templateId === 'rubric' && values.outputFormat === 'CSV Aules / Moodle'
+  if (templateId === 'rubric' && field.id === 'maxScore' && !rubricCsv) return null
+  if (rubricCsv && field.id === 'levels') return <p className="form-field">{t.rubricCsvLevels}</p>
   const Field = field.type === 'multiselect' ? 'div' : 'label'
   return (
     <Field className="form-field">

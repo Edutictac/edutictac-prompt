@@ -527,6 +527,18 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
     resources: language === 'en' ? 'Available resources' : 'Recursos disponibles',
     format: language === 'en' ? 'Output format' : language === 'es' ? 'Formato de salida' : 'Format d’eixida',
     activity: language === 'en' ? 'Activity' : language === 'es' ? 'Actividad' : 'Activitat',
+    rubricMaxScore:
+      language === 'en'
+        ? 'Assignment maximum score (default 100)'
+        : language === 'es'
+          ? 'Puntuación máxima de la tarea (100 por defecto)'
+          : 'Puntuació màxima de la tasca (100 per defecte)',
+    rubricCsvLevels:
+      language === 'en'
+        ? '4 levels: Insufficient · In progress · Achieved · Excellent'
+        : language === 'es'
+          ? '4 niveles: Insuficiente · En proceso · Conseguido · Excelente'
+          : '4 nivells: Insuficient · En procés · Assolit · Excel·lent',
     criteria: language === 'en' ? 'Criteria' : language === 'es' ? 'Criterios' : 'Criteris',
     levels:
       language === 'en' ? 'Performance levels' : language === 'es' ? 'Niveles de desempeño' : 'Nivells de rendiment',

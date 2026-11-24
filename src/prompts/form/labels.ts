@@ -70,6 +70,7 @@ export const fieldNameKeys: Record<string, string> = {
   outputFormat: 'format',
   activity: 'activity',
   criteria: 'criteria',
+  maxScore: 'rubricMaxScore',
   levels: 'levels',
   activityType: 'activityType',
   questionCount: 'questionCount',

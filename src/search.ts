@@ -15,7 +15,7 @@ const keywords: Record<string, string[]> = {
   'competency-activity': ['competencial', 'competencias clave', 'tarea competencial'],
   project: ['abp', 'pbl', 'proyecto', 'interdisciplinar'],
   challenge: ['reto', 'problema', 'abp', 'pbl'],
-  rubric: ['rubrica', 'evaluacion', 'criterios', 'niveles', 'desempeno'],
+  rubric: ['rubrica', 'evaluacion', 'criterios', 'niveles', 'desempeno', 'csv', 'aules', 'moodle'],
   checklist: ['lista de cotejo', 'verificacion', 'observacion', 'coteig'],
   'rating-scale': ['escala', 'valoracion', 'estimacion', 'niveles'],
   'systematic-observation': ['observacion', 'registro', 'seguimiento', 'aula'],

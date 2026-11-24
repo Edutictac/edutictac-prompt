@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.38.0 - Rúbrica CSV para Aules
+
+- La herramienta Rúbrica ofrece el formato **CSV Aules / Moodle**: cuatro niveles fijos y puntuación máxima configurable (100 por defecto). El prompt exige las cuatro columnas oficiales de Aules y UTF-8 sin caracteres internos prohibidos. Reparte los máximos en milésimas y compensa el redondeo en el último criterio para que sumen exactamente la calificación de la actividad.
+- Solicita el archivo `rubrica-aules.csv` descargable y contempla las herramientas de IA que solo pueden devolver texto. No afirma haber probado la importación real. Las etiquetas de nivel se conservan en la descripción y la columna `level` lleva 1–4 como en el ejemplo oficial.
+- Documentación: https://portal.edu.gva.es/aules/va/importacio-de-rubriques-en-format-csv/ (actualizada en enero de 2026).
+
 ## 0.37.1 - Diálogos accesibles
 
 - El diálogo **Guardar** se anuncia como diálogo modal con su título, el botón «×» tiene nombre («Cerrar»), Escape lo cierra, Tab no sale del diálogo y al cerrarlo el foco vuelve al botón que lo abrió. El diálogo del QR usa el mismo comportamiento (`src/components/useDialogFocus.ts`).

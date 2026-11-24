@@ -3,12 +3,22 @@ import type { Language } from './types'
 // Novedades que se anuncian en la portada (sustituyen a los casos listos para
 // usar). Cada una abre su herramienta. Actualizar en cada versión con cambios
 // visibles para el profesorado; el historial completo está en el CHANGELOG.
-export const newsVersion = '0.37.0'
+export const newsVersion = '0.38.0'
 export const changelogUrl = 'https://git.edutictac.es/Edutictac/edutictac-prompt/src/branch/master/CHANGELOG.md'
 
 export type NewsItem = { templateId: string; text: Record<Language, string> }
 
 export const news: NewsItem[] = [
+  {
+    templateId: 'rubric',
+    text: {
+      es: 'Nuevo en Rúbrica: CSV Aules / Moodle con cuatro niveles y puntuación máxima configurable (100 por defecto). Incluye las reglas de importación y la petición del archivo descargable.',
+      'ca-valencia':
+        'Nou en Rúbrica: CSV Aules / Moodle amb quatre nivells i puntuació màxima configurable (100 per defecte). Inclou les regles d’importació i la petició de l’arxiu descarregable.',
+      ca: 'Nou a Rúbrica: CSV Aules / Moodle amb quatre nivells i puntuació màxima configurable (100 per defecte). Inclou les regles d’importació i la petició del fitxer descarregable.',
+      en: 'New in Rubric: CSV Aules / Moodle with four levels and a configurable maximum score (default 100). Includes import rules and asks for a downloadable file.',
+    },
+  },
   {
     templateId: 'illustrated-worksheet',
     text: {

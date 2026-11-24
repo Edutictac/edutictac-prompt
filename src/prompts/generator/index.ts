@@ -1,3 +1,4 @@
+import { generateRubricCsv, RUBRIC_CSV_FORMAT } from './rubricCsv'
 import { ADULT_LEVEL } from '../../templates'
 import type { Language, PromptTemplate } from '../../types'
 import { fileFormatInstructionFor, returnTextFor } from './formats'
@@ -21,6 +22,7 @@ import { mechanicsFor, readCurriculum, readValue } from './values'
 import { videoBriefs } from './video'
 
 export function generatePrompt(template: PromptTemplate, values: Record<string, string>, language: Language): string {
+  if (template.id === 'rubric' && values.outputFormat === RUBRIC_CSV_FORMAT) return generateRubricCsv(values, language)
   const l = labels[language]
   const d = defaults[language]
   const u = udlTexts[language]

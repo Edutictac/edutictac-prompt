@@ -32,7 +32,7 @@ export const templateTips: Record<Language, Record<string, TemplateTip>> = {
     },
     rubric: {
       use: 'Crear una rúbrica analítica con niveles de logro observables a partir de tus criterios.',
-      tip: 'Pega los criterios de evaluación de la fuente oficial (por ejemplo, desde NotebookLM): no dejes que la IA los invente.',
+      tip: 'Pega los criterios de evaluación de la fuente oficial (por ejemplo, desde NotebookLM): no dejes que la IA los invente. Para Aules elige CSV Aules / Moodle y la puntuación máxima (100 por defecto).',
     },
     checklist: {
       use: 'Hacer una lista de cotejo (sí/no) para comprobar si una tarea cumple unos requisitos.',
@@ -250,7 +250,7 @@ export const templateTips: Record<Language, Record<string, TemplateTip>> = {
     },
     rubric: {
       use: 'Crear una rúbrica analítica amb nivells d’assoliment observables a partir dels teus criteris.',
-      tip: 'Apega els criteris d’avaluació de la font oficial (per exemple, des de NotebookLM): no deixes que la IA se’ls invente.',
+      tip: 'Apega els criteris d’avaluació de la font oficial (per exemple, des de NotebookLM): no deixes que la IA se’ls invente. Per a Aules tria CSV Aules / Moodle i la puntuació màxima (100 per defecte).',
     },
     checklist: {
       use: 'Fer una llista de control (sí/no) per a comprovar si una tasca compleix uns requisits.',
@@ -468,7 +468,7 @@ export const templateTips: Record<Language, Record<string, TemplateTip>> = {
     },
     rubric: {
       use: 'Crear una rúbrica analítica amb nivells d’assoliment observables a partir dels teus criteris.',
-      tip: 'Enganxa els criteris d’avaluació de la font oficial (per exemple, des de NotebookLM): no deixis que la IA se’ls inventi.',
+      tip: 'Enganxa els criteris d’avaluació de la font oficial (per exemple, des de NotebookLM): no deixis que la IA se’ls inventi. Per a Aules tria CSV Aules / Moodle i la puntuació màxima (100 per defecte).',
     },
     checklist: {
       use: 'Fer una llista de control (sí/no) per a comprovar si una tasca compleix uns requisits.',
