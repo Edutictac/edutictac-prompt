@@ -136,6 +136,20 @@ const keywords: Record<string, string[]> = {
     'burocracia',
     'administracion',
   ],
+  'editable-latex': [
+    'latex',
+    'fórmulas',
+    'formulas',
+    'equacions',
+    'ecuaciones',
+    'equations',
+    'cálculos',
+    'calculations',
+    'editable',
+    'matemáticas',
+    'word',
+    'overleaf',
+  ],
 }
 
 export function normalizeSearchText(value: string): string {

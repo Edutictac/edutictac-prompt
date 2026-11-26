@@ -3,12 +3,22 @@ import type { Language } from './types'
 // Novedades que se anuncian en la portada (sustituyen a los casos listos para
 // usar). Cada una abre su herramienta. Actualizar en cada versión con cambios
 // visibles para el profesorado; el historial completo está en el CHANGELOG.
-export const newsVersion = '0.38.0'
+export const newsVersion = '0.39.0'
 export const changelogUrl = 'https://git.edutictac.es/Edutictac/edutictac-prompt/src/branch/master/CHANGELOG.md'
 
 export type NewsItem = { templateId: string; text: Record<Language, string> }
 
 export const news: NewsItem[] = [
+  {
+    templateId: 'editable-latex',
+    text: {
+      es: 'Nueva herramienta: fórmulas y cálculos en LaTeX editable, con código copiable y orientaciones para Word, Moodle/Aules y Overleaf.',
+      'ca-valencia':
+        'Nova ferramenta: fórmules i càlculs en LaTeX editable, amb codi que es pot copiar i orientacions per a Word, Moodle/Aules i Overleaf.',
+      ca: 'Nova eina: fórmules i càlculs en LaTeX editable, amb codi que es pot copiar i orientacions per a Word, Moodle/Aules i Overleaf.',
+      en: 'New tool: editable LaTeX formulas and calculations, with copyable source and guidance for Word, Moodle/Aules and Overleaf.',
+    },
+  },
   {
     templateId: 'rubric',
     text: {
@@ -37,16 +47,6 @@ export const news: NewsItem[] = [
         'Nou en totes les ferramentes: «Compartix amb estes dades» crea un enllaç que obri el formulari ja omplit, i «Genera ara» tan prompte com poses el nivell i el tema.',
       ca: 'Nou a totes les eines: «Comparteix amb aquestes dades» crea un enllaç que obre el formulari ja emplenat, i «Genera ara» tan aviat com poses el nivell i el tema.',
       en: 'New in every tool: “Share with these answers” makes a link that opens the form already filled in, and “Generate now” as soon as you set the level and topic.',
-    },
-  },
-  {
-    templateId: 'profile-adaptation',
-    text: {
-      es: 'Nueva: adapta una tarea a un perfil concreto (TDAH, dislexia, TEA, altas capacidades…) sin bajar la exigencia.',
-      'ca-valencia':
-        'Nova: adapta una tasca a un perfil concret (TDAH, dislèxia, TEA, altes capacitats…) sense baixar l’exigència.',
-      ca: 'Nova: adapta una tasca a un perfil concret (TDAH, dislèxia, TEA, altes capacitats…) sense baixar l’exigència.',
-      en: 'New: adapt a task to a specific learner profile (ADHD, dyslexia, ASD, gifted…) without lowering the demand.',
     },
   },
 ]

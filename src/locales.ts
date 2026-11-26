@@ -1469,6 +1469,14 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
           : 'Ex. 7 + 5, 9 + 4, 12 − 3… o les paraules de la sopa de lletres (recomanat: la IA d’imatges les copiarà tal qual)',
     'placeholderTopic-illustrated-worksheet':
       language === 'en' ? 'E.g. Adding up to 20' : language === 'es' ? 'Ex. Sumas hasta 20' : 'Ex. Sumes fins a 20',
+    templateEditableLatex:
+      language === 'en'
+        ? 'Editable LaTeX formulas and calculations'
+        : language === 'es'
+          ? 'Fórmulas y cálculos en LaTeX editable'
+          : language === 'ca'
+            ? 'Fórmules i càlculs en LaTeX editable'
+            : 'Fórmules i càlculs en LaTeX editable',
     templateCaseStudy:
       language === 'en'
         ? 'Case study'
@@ -1642,4 +1650,23 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[])
           : language === 'ca'
             ? 'Enllaç curt per a l’aula'
             : 'Enllaç curt per a l’aula',
+  })
+
+for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[])
+  Object.assign(translations[language], {
+    mathDestination:
+      language === 'es' ? 'Editor de destino' : language === 'en' ? 'Destination editor' : 'Editor de destinació',
+    placeholderMathDestination: 'Word, Moodle / Aules, Overleaf, Markdown…',
+    'placeholderTask-editable-latex':
+      language === 'es'
+        ? 'Ej. explica y resuelve tres ecuaciones paso a paso, o convierte mis apuntes sin cambiar el contenido.'
+        : language === 'en'
+          ? 'E.g. explain and solve three equations step by step, or convert my notes without changing the content.'
+          : 'Ex. explica i resol tres equacions pas a pas, o transforma els apunts sense canviar el contingut.',
+    'placeholderSourceText-editable-latex':
+      language === 'es'
+        ? 'Pega los enunciados, fórmulas o cálculos que quieres convertir (opcional).'
+        : language === 'en'
+          ? 'Paste the problems, formulas or calculations to convert (optional).'
+          : 'Copia els enunciats, fórmules o càlculs que vols transformar (opcional).',
   })

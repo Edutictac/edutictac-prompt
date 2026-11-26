@@ -932,6 +932,20 @@ export const templates: PromptTemplate[] = [
       { id: 'outputFormat', type: 'select', options: ['Texto', 'Markdown'] },
     ],
   },
+  {
+    id: 'editable-latex',
+    category: 'content',
+    icon: '∑',
+    fields: [
+      { id: 'level', type: 'select', options: ['Primaria', 'ESO', 'Bachillerato', 'FP', 'Universidad', 'Otro'] },
+      { id: 'subject', type: 'text' },
+      { id: 'topic', type: 'text' },
+      { id: 'task', type: 'textarea' },
+      { id: 'sourceText', type: 'textarea' },
+      { id: 'mathDestination', type: 'text' },
+      { id: 'outputFormat', type: 'select', options: ['Markdown', 'Texto'] },
+    ],
+  },
 ]
 
 // El curso de IA recomienda completar siempre que sea posible el contexto,
@@ -1025,6 +1039,7 @@ for (const template of templates) {
 // Los formatos documentales se ofrecen en último lugar salvo en las plantillas
 // que producen su propio paquete o formato (H5P, SCORM, GIFT, QTI, CC y HTML).
 const ownFormatTemplates = [
+  'editable-latex',
   'h5p',
   'scorm',
   'gift',

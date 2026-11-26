@@ -1,4 +1,4 @@
-// Generado con «npm run golden:update» (versión 0.38.0). No editar a mano.
+// Generado con «npm run golden:update» (versión 0.39.0). No editar a mano.
 export const goldenOutputs: Record<string, string> = {
   'learning-situation:es:empty': 'f646393a145c172b',
   'learning-situation:es:example': '6636d01ae8f2c505',
@@ -432,4 +432,12 @@ export const goldenOutputs: Record<string, string> = {
   'school-document:ca:example': 'd608a050eba6cd27',
   'school-document:en:empty': 'fa4ddcf8836cef95',
   'school-document:en:example': 'ab0e79618f04e622',
+  'editable-latex:es:empty': 'f2b5a446d2ecfe91',
+  'editable-latex:es:example': '939517797bcc84b1',
+  'editable-latex:ca-valencia:empty': '570eea02a1111981',
+  'editable-latex:ca-valencia:example': '8a493516174a537c',
+  'editable-latex:ca:empty': '972d0c099e15ab91',
+  'editable-latex:ca:example': '70f3364ca9ca904c',
+  'editable-latex:en:empty': 'c3eaba5f7c850dc8',
+  'editable-latex:en:example': 'f34383bd5a7f5a8d',
 }

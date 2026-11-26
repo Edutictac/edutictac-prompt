@@ -37,7 +37,7 @@ El plan de refactor gradual y su seguimiento están en [docs/PLAN-REFACTOR.md](d
 
 ## Estat actual
 
-- Versió publicada de la PWA: **0.37.1** (diàlegs accessibles amb teclat i lector de pantalla).
+- Versió publicada de la PWA: **0.39.0** (fórmules i càlculs en LaTeX editable).
 - Producció: [pages.edutictac.es/Edutictac/edutictac-prompt](https://pages.edutictac.es/Edutictac/edutictac-prompt/).
 - La PWA funciona localment amb IndexedDB i continua disponible sense compte ni connexió.
 - Authentik està integrat mitjançant OIDC + PKCE. L’inici de sessió es fa des de `id.edutictac.es`.
@@ -105,3 +105,7 @@ El botó «Compartix amb estes dades» copia un enllaç `#template/<id>?d=<dades
 ## Publicar
 
 `./scripts/publish-pages.sh` publica exactament `edutictac/master`: requereix l’arbre net i `HEAD` igual a `edutictac/master`, compila en un worktree temporal i passa lint, format i proves abans de pujar la branca `pages`. Actualitza `src/news.ts` quan una versió tinga canvis visibles per al professorat.
+
+## Fórmulas y cálculos en LaTeX editable (0.39.0)
+
+En Contenidos, `#template/editable-latex` prepara un prompt para crear o convertir material matemático conservando el código LaTeX de todas las expresiones y pasos. Permite indicar el editor de destino (Word, Moodle/Aules, Overleaf…) y cargar un ejemplo de ecuaciones. El código fuente se pide siempre en bloques copiables; la compatibilidad depende del editor.

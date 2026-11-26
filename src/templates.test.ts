@@ -50,6 +50,7 @@ describe('plantillas de prompts', () => {
 
   it('deja el formato de salida al final y admite PDF', () => {
     const ownFormats: Record<string, string[]> = {
+      'editable-latex': ['Markdown', 'Texto'],
       scorm: ['SCORM 1.2'],
       h5p: ['H5P'],
       gift: ['GIFT'],

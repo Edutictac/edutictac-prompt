@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.39.0 — 2026-11-26
+
+- Nueva herramienta «Fórmulas y cálculos en LaTeX editable» en Contenidos, en los cuatro idiomas, con ejemplo, búsqueda, enlace directo y modos guiado/avanzado.
+- Solicita código fuente copiable para todas las expresiones y pasos, comprobación de cálculos y adaptación al editor de destino (Word, Moodle/Aules u Overleaf). La conversión conserva el original y solo resuelve si se pide. Salida Texto/Markdown para conservar la fuente editable.
+
+
 ## 0.38.0 - Rúbrica CSV para Aules
 
 - La herramienta Rúbrica ofrece el formato **CSV Aules / Moodle**: cuatro niveles fijos y puntuación máxima configurable (100 por defecto). El prompt exige las cuatro columnas oficiales de Aules y UTF-8 sin caracteres internos prohibidos. Reparte los máximos en milésimas y compensa el redondeo en el último criterio para que sumen exactamente la calificación de la actividad.

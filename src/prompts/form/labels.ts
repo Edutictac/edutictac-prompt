@@ -52,6 +52,7 @@ export const templateNameKeys: Record<string, string> = {
   'profile-adaptation': 'templateProfileAdaptation',
   'school-document': 'templateSchoolDocument',
   'coding-activity': 'templateCodingActivity',
+  'editable-latex': 'templateEditableLatex',
   free: 'templateFree',
 }
 export const fieldNameKeys: Record<string, string> = {
@@ -81,6 +82,7 @@ export const fieldNameKeys: Record<string, string> = {
   constraints: 'constraints',
   qualityCriteria: 'qualityCriteria',
   sourceText: 'sourceText',
+  mathDestination: 'mathDestination',
   aiTool: 'aiTool',
   refinement: 'refinement',
   visualStyle: 'visualStyle',

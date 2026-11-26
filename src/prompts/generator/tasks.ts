@@ -1,3 +1,4 @@
+import { editableLatexTask } from './editableLatex'
 import { codingActivityTask } from './codingActivity'
 import { illustratedWorksheetTask } from './illustratedWorksheet'
 import { profileAdaptationTask } from './profileAdaptation'
@@ -174,6 +175,7 @@ export function buildTask({
     'school-document': () => schoolDocumentTask(language, value, raw),
     'code-coach': () =>
       `${language === 'en' ? `Review the code below for ${topic}. Explain the first issue and give a hint before showing a correction; adapt the explanation to the learner’s level.` : catalan ? `Revisa el codi següent sobre ${topic}. Explica el primer problema i dona una pista abans de mostrar-ne la correcció; adapta l’explicació al nivell de l’estudiant.` : `Revisa el código siguiente sobre ${topic}. Explica el primer problema y ofrece una pista antes de mostrar una corrección; adapta la explicación al nivel del estudiante.`}${value('task') ? ` ${value('task')}` : ''}`,
+    'editable-latex': () => editableLatexTask(language, topic, value),
   }
 
   return (taskBuilders[templateId] || (() => value('task') || `${d.design} ${topic}.`))()

@@ -70,6 +70,7 @@ const fieldBlocks: Record<string, GuidedBlock> = {
   avoid: 'limits',
   refinement: 'limits',
   outputFormat: 'format',
+  mathDestination: 'task',
   maxScore: 'format',
 }
 

@@ -1109,6 +1109,32 @@ export const examples: Record<string, Example> = {
       objectives: 'Record the agreements briefly and clearly for the leadership team.',
     },
   },
+  'editable-latex': {
+    options: {
+      level: 'ESO',
+    },
+    es: {
+      subject: 'Matemáticas',
+      topic: 'Ecuaciones de segundo grado',
+      task: 'Resuelve el ejemplo paso a paso y explica cada transformación.',
+      sourceText: 'x^2 - 5x + 6 = 0',
+      mathDestination: 'Word (editor de ecuaciones en modo LaTeX)',
+    },
+    va: {
+      subject: 'Matemàtiques',
+      topic: 'Equacions de segon grau',
+      task: 'Resol l’exemple pas a pas i explica cada transformació.',
+      sourceText: 'x^2 - 5x + 6 = 0',
+      mathDestination: 'Word (editor d’equacions en mode LaTeX)',
+    },
+    en: {
+      subject: 'Mathematics',
+      topic: 'Quadratic equations',
+      task: 'Solve the example step by step and explain each transformation.',
+      sourceText: 'x^2 - 5x + 6 = 0',
+      mathDestination: 'Word (equation editor in LaTeX mode)',
+    },
+  },
 }
 
 export function exampleValues(templateId: string, language: Language): Record<string, string> {
