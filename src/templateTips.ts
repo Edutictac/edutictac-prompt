@@ -223,8 +223,8 @@ export const templateTips: Record<Language, Record<string, TemplateTip>> = {
       tip: 'Elige el tipo de documento y pega tus notas. Revisa y firma siempre antes de presentarlo: la IA no sustituye la responsabilidad del centro.',
     },
     'editable-latex': {
-      use: 'Prepara fórmulas y cada paso de los cálculos en código LaTeX que puedes copiar y editar.',
-      tip: 'Indica el editor de destino. En Word, pega cada fórmula en una ecuación en modo LaTeX; un PDF por sí solo no conserva las ecuaciones editables.',
+      use: 'Pide a la IA que use LaTeX para mostrar las fórmulas y los cálculos ya compuestos dentro del material.',
+      tip: 'Indica qué material necesitas. Para editar las ecuaciones en Word, elige DOCX: se solicitarán ecuaciones nativas editables.',
     },
   },
   'ca-valencia': {
@@ -445,8 +445,8 @@ export const templateTips: Record<Language, Record<string, TemplateTip>> = {
       tip: 'Tria el tipus de document i apega les teues notes. Revisa i firma sempre abans de presentar-lo: la IA no substitueix la responsabilitat del centre.',
     },
     'editable-latex': {
-      use: 'Prepara fórmules i cada pas dels càlculs en codi LaTeX que es pot copiar i editar.',
-      tip: 'Indica l’editor de destinació. En Word, copia cada fórmula en una equació en mode LaTeX; un PDF sol no conserva les equacions editables.',
+      use: 'Demana a la IA que use LaTeX per a mostrar les fórmules i els càlculs ja compostos dins del material.',
+      tip: 'Indica quin material necessites. Per a editar les equacions en Word, tria DOCX: es demanaran equacions natives editables.',
     },
   },
   ca: {
@@ -667,8 +667,8 @@ export const templateTips: Record<Language, Record<string, TemplateTip>> = {
       tip: 'Tria el tipus de document i enganxa les teves notes. Revisa i signa sempre abans de presentar-lo: la IA no substitueix la responsabilitat del centre.',
     },
     'editable-latex': {
-      use: 'Prepara fórmules i cada pas dels càlculs en codi LaTeX que es pot copiar i editar.',
-      tip: 'Indica l’editor de destinació. En Word, copia cada fórmula en una equació en mode LaTeX; un PDF sol no conserva les equacions editables.',
+      use: 'Demana a la IA que faci servir LaTeX per a mostrar les fórmules i els càlculs ja compostos dins del material.',
+      tip: 'Indica quin material necessites. Per a editar les equacions en Word, tria DOCX: es demanaran equacions natives editables.',
     },
   },
   en: {
@@ -889,8 +889,8 @@ export const templateTips: Record<Language, Record<string, TemplateTip>> = {
       tip: 'Choose the document type and paste your notes. Always review and sign before submitting: AI does not replace the school’s responsibility.',
     },
     'editable-latex': {
-      use: 'Prepare formulas and every calculation step as copyable, editable LaTeX source.',
-      tip: 'Name the destination editor. In Word, paste each formula into an equation in LaTeX mode; a PDF alone does not preserve editable equations.',
+      use: 'Ask AI to use LaTeX to display typeset formulas and calculations within the material.',
+      tip: 'Describe the material you need. To edit equations in Word, choose DOCX: the prompt asks for native editable equations.',
     },
   },
 }

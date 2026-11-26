@@ -16,10 +16,8 @@ describe('LaTeX editable', () => {
       expect(prompt).toContain(values.task)
       expect(prompt).toContain(values.sourceText)
       expect(prompt).toContain(values.mathDestination)
-      for (const literal of ['\\frac{a}{b}', 'x^{2}', 'x_{1}', '\\sqrt{x}', '\\approx', '.tex', 'amsmath'])
-        expect(prompt).toContain(literal)
+      for (const literal of ['OMML', '.docx', '.tex', 'LaTeX']) expect(prompt).toContain(literal)
       for (const editor of ['Word', 'Moodle/Aules', 'Overleaf']) expect(prompt).toContain(editor)
-      expect(prompt).toMatch(/latex/)
       expect(prompt).not.toContain('undefined')
     },
   )
@@ -29,14 +27,17 @@ describe('LaTeX editable', () => {
       expect(searchTemplates(query).map((item) => item.id)).toContain(template.id)
   })
 
-  it('protege la fuente editable y diferencia conversión de resolución', () => {
+  it('pide fórmulas renderizadas y ecuaciones editables en documentos, sin entregar código', () => {
     const prompt = generatePrompt(template, {}, 'es')
-    expect(prompt).toContain('bloques de código etiquetados latex')
+    expect(prompt).toContain('fórmulas renderizadas dentro del contenido')
+    expect(prompt).toContain('No devuelvas código fuente LaTeX, bloques de código')
+    expect(prompt).toContain('ecuaciones nativas editables (OMML)')
     expect(prompt).toContain('pasos intermedios')
     expect(prompt).toContain('Resuelve solo si se pide')
-    expect(prompt).toContain('pregunta dónde se van a editar')
-    expect(prompt).toContain('sin delimitadores ni entornos de documento')
-    expect(prompt).toContain('Word admite un subconjunto de LaTeX')
-    expect(template.fields.find((field) => field.id === 'outputFormat')!.options).toEqual(['Markdown', 'Texto'])
+    expect(prompt).toContain('Si no puedes crear el archivo solicitado')
+    expect(prompt).not.toContain('Entrega el código fuente literal')
+    const formats = template.fields.find((field) => field.id === 'outputFormat')!.options!
+    expect(formats).toEqual(expect.arrayContaining(['Markdown', 'PDF', 'ODT', 'DOCX']))
+    expect(generatePrompt(template, { outputFormat: 'DOCX' }, 'es')).toContain('documento de Word (.docx) descargable')
   })
 })

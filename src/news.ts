@@ -3,7 +3,7 @@ import type { Language } from './types'
 // Novedades que se anuncian en la portada (sustituyen a los casos listos para
 // usar). Cada una abre su herramienta. Actualizar en cada versión con cambios
 // visibles para el profesorado; el historial completo está en el CHANGELOG.
-export const newsVersion = '0.39.0'
+export const newsVersion = '0.39.1'
 export const changelogUrl = 'https://git.edutictac.es/Edutictac/edutictac-prompt/src/branch/master/CHANGELOG.md'
 
 export type NewsItem = { templateId: string; text: Record<Language, string> }
@@ -12,11 +12,11 @@ export const news: NewsItem[] = [
   {
     templateId: 'editable-latex',
     text: {
-      es: 'Nueva herramienta: fórmulas y cálculos en LaTeX editable, con código copiable y orientaciones para Word, Moodle/Aules y Overleaf.',
+      es: 'Nueva herramienta: fórmulas y cálculos en LaTeX editable, para mostrar fórmulas ya compuestas y crear documentos con ecuaciones editables.',
       'ca-valencia':
-        'Nova ferramenta: fórmules i càlculs en LaTeX editable, amb codi que es pot copiar i orientacions per a Word, Moodle/Aules i Overleaf.',
-      ca: 'Nova eina: fórmules i càlculs en LaTeX editable, amb codi que es pot copiar i orientacions per a Word, Moodle/Aules i Overleaf.',
-      en: 'New tool: editable LaTeX formulas and calculations, with copyable source and guidance for Word, Moodle/Aules and Overleaf.',
+        'Nova ferramenta: fórmules i càlculs en LaTeX editable, per a mostrar fórmules ja compostes i crear documents amb equacions editables.',
+      ca: 'Nova eina: fórmules i càlculs en LaTeX editable, per a mostrar fórmules ja compostes i crear documents amb equacions editables.',
+      en: 'New tool: editable LaTeX formulas and calculations, to display typeset formulas and create documents with editable equations.',
     },
   },
   {

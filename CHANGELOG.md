@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.39.1 — 2026-11-26
+
+- Corregido el objetivo de la herramienta LaTeX: pide fórmulas renderizadas dentro del contenido, sin devolver código fuente ni bloques de código. En Word/DOCX solicita ecuaciones nativas editables (OMML).
+- Añadidos DOCX, ODT y PDF; pistas, ejemplos y novedades ajustados para pedir material terminado. La editabilidad depende de que la IA pueda crear el documento solicitado.
+
+
 ## 0.39.0 — 2026-11-26
 
 - Nueva herramienta «Fórmulas y cálculos en LaTeX editable» en Contenidos, en los cuatro idiomas, con ejemplo, búsqueda, enlace directo y modos guiado/avanzado.

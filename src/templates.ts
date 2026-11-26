@@ -1039,7 +1039,6 @@ for (const template of templates) {
 // Los formatos documentales se ofrecen en último lugar salvo en las plantillas
 // que producen su propio paquete o formato (H5P, SCORM, GIFT, QTI, CC y HTML).
 const ownFormatTemplates = [
-  'editable-latex',
   'h5p',
   'scorm',
   'gift',

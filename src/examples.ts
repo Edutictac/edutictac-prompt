@@ -1112,27 +1112,28 @@ export const examples: Record<string, Example> = {
   'editable-latex': {
     options: {
       level: 'ESO',
+      outputFormat: 'DOCX',
     },
     es: {
       subject: 'Matemáticas',
       topic: 'Ecuaciones de segundo grado',
       task: 'Resuelve el ejemplo paso a paso y explica cada transformación.',
       sourceText: 'x^2 - 5x + 6 = 0',
-      mathDestination: 'Word (editor de ecuaciones en modo LaTeX)',
+      mathDestination: 'Word, con las ecuaciones ya compuestas y editables',
     },
     va: {
       subject: 'Matemàtiques',
       topic: 'Equacions de segon grau',
       task: 'Resol l’exemple pas a pas i explica cada transformació.',
       sourceText: 'x^2 - 5x + 6 = 0',
-      mathDestination: 'Word (editor d’equacions en mode LaTeX)',
+      mathDestination: 'Word, amb les equacions ja compostes i editables',
     },
     en: {
       subject: 'Mathematics',
       topic: 'Quadratic equations',
       task: 'Solve the example step by step and explain each transformation.',
       sourceText: 'x^2 - 5x + 6 = 0',
-      mathDestination: 'Word (equation editor in LaTeX mode)',
+      mathDestination: 'Word, with typeset editable equations',
     },
   },
 }
