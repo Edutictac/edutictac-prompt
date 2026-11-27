@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.39.2 — 2026-11-27
+
+- La portada muestra el enlace corto `prompt.edutictac.es`, con HTTPS.
+- Últimas incorporaciones muestra solo las tres tarjetas más recientes; el historial completo sigue enlazado.
+
 ## 0.39.1 — 2026-11-26
 
 - Corregido el objetivo de la herramienta LaTeX: pide fórmulas renderizadas dentro del contenido, sin devolver código fuente ni bloques de código. En Word/DOCX solicita ecuaciones nativas editables (OMML).

@@ -2,8 +2,9 @@ import type { Language } from './types'
 
 // Novedades que se anuncian en la portada (sustituyen a los casos listos para
 // usar). Cada una abre su herramienta. Actualizar en cada versión con cambios
-// visibles para el profesorado; el historial completo está en el CHANGELOG.
-export const newsVersion = '0.39.1'
+// visibles para el profesorado; se muestran las tres primeras, de más reciente
+// a más antigua. El historial completo está en el CHANGELOG.
+export const newsVersion = '0.39.2'
 export const changelogUrl = 'https://git.edutictac.es/Edutictac/edutictac-prompt/src/branch/master/CHANGELOG.md'
 
 export type NewsItem = { templateId: string; text: Record<Language, string> }

@@ -41,9 +41,9 @@ export function HomeView({
           <button className="primary" onClick={onCreate}>
             {t.create} <span>→</span>
           </button>
-          <a className="hero-shortcut" href="https://e.edutictac.es/prompt">
+          <a className="hero-shortcut" href="https://prompt.edutictac.es/">
             <span>{t.shortLink}</span>
-            <strong>e.edutictac.es/prompt</strong>
+            <strong>prompt.edutictac.es</strong>
           </a>
         </div>
         <div className="hero-card">
@@ -109,7 +109,7 @@ export function HomeView({
           </p>
           <h2 id="news-title">{t.newsTitle}</h2>
           <div className="cards">
-            {news.map((item) => (
+            {news.slice(0, 3).map((item) => (
               <button className="tool-card news-card" key={item.templateId} onClick={() => onChoose(item.templateId)}>
                 <span className="tool-icon">{templates.find((template) => template.id === item.templateId)?.icon}</span>
                 <strong>{templateName(item.templateId)}</strong>
