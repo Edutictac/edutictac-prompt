@@ -38,7 +38,7 @@ El plan de refactor gradual y su seguimiento están en [docs/PLAN-REFACTOR.md](d
 ## Estat actual
 
 - Versió publicada de la PWA: **0.39.1** (fórmules i càlculs en LaTeX editable).
-- Producció: [pages.edutictac.es/Edutictac/edutictac-prompt](https://pages.edutictac.es/Edutictac/edutictac-prompt/).
+- Accés per a l’aula: [prompt.edutictac.es](https://prompt.edutictac.es/), amb HTTPS i redirecció a la [PWA publicada](https://pages.edutictac.es/Edutictac/edutictac-prompt/). Es conserva l’origen i la biblioteca local; [detalls del domini](docs/DOMINI-PROMPT.md).
 - La PWA funciona localment amb IndexedDB i continua disponible sense compte ni connexió.
 - Authentik està integrat mitjançant OIDC + PKCE. L’inici de sessió es fa des de `id.edutictac.es`.
 - La biblioteca remota és privada per usuari i està disponible en [prompts.edutictac.es](https://prompts.edutictac.es). La sincronització és automàtica en guardar, en iniciar sessió i en recuperar la connexió; el botó **Sincronitzar biblioteca** força la sincronització.
