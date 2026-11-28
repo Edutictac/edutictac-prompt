@@ -20,6 +20,7 @@ function Harness() {
       category={category}
       setCategory={setCategory}
       onChoose={vi.fn()}
+      onAgents={vi.fn()}
       onCreate={vi.fn()}
       templateName={(id) => getTemplateName(id, t)}
       categoryLabel={(id) => t[id] || id}
@@ -69,6 +70,7 @@ describe('herramientas recientes en la portada', () => {
         setCategory={vi.fn()}
         onChoose={onChoose}
         recentTools={['worksheet']}
+        onAgents={vi.fn()}
         onCreate={vi.fn()}
         templateName={(id) => getTemplateName(id, t)}
         categoryLabel={(id) => t[id] || id}
@@ -84,4 +86,26 @@ describe('herramientas recientes en la portada', () => {
     render(<Harness />)
     expect(screen.queryByText('Tus herramientas recientes')).toBeNull()
   })
+})
+
+it('la novedad de agentes abre la sección de agentes', async () => {
+  const onAgents = vi.fn()
+  const t = translations.es
+  render(
+    <HomeView
+      t={t}
+      lang="es"
+      search=""
+      setSearch={vi.fn()}
+      category="all"
+      setCategory={vi.fn()}
+      onChoose={vi.fn()}
+      onCreate={vi.fn()}
+      onAgents={onAgents}
+      templateName={(id) => getTemplateName(id, t)}
+      categoryLabel={(id) => t[id] || id}
+    />,
+  )
+  await userEvent.click(screen.getByRole('button', { name: /Elige un ejemplo de agente/ }))
+  expect(onAgents).toHaveBeenCalledOnce()
 })

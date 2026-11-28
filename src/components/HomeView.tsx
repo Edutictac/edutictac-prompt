@@ -14,6 +14,7 @@ export function HomeView({
   onChoose,
   recentTools = [],
   onCreate,
+  onAgents,
   templateName,
   categoryLabel,
 }: {
@@ -26,6 +27,7 @@ export function HomeView({
   onChoose: (id: string) => void
   recentTools?: string[]
   onCreate: () => void
+  onAgents: () => void
   templateName: (id: string) => string
   categoryLabel: (id: string) => string
 }) {
@@ -110,9 +112,15 @@ export function HomeView({
           <h2 id="news-title">{t.newsTitle}</h2>
           <div className="cards">
             {news.slice(0, 3).map((item) => (
-              <button className="tool-card news-card" key={item.templateId} onClick={() => onChoose(item.templateId)}>
-                <span className="tool-icon">{templates.find((template) => template.id === item.templateId)?.icon}</span>
-                <strong>{templateName(item.templateId)}</strong>
+              <button
+                className="tool-card news-card"
+                key={'view' in item ? item.view : item.templateId}
+                onClick={() => ('view' in item ? onAgents() : onChoose(item.templateId))}
+              >
+                <span className="tool-icon">
+                  {'view' in item ? '🧩' : templates.find((template) => template.id === item.templateId)?.icon}
+                </span>
+                <strong>{'view' in item ? t.agents : templateName(item.templateId)}</strong>
                 <small>{item.text[lang]}</small>
               </button>
             ))}

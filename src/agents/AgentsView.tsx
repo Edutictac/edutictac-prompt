@@ -69,7 +69,7 @@ export default function AgentsView({
     setNotice('')
   }
   const choosePreset = (id: string) => {
-    if (id === presetId) return
+    if (id === presetId && !dirty && !editing) return
     if ((dirty || editing) && !window.confirm(b.replace)) return
     const preset = presets.find((p) => p.id === id)
     if (preset) {
@@ -123,6 +123,49 @@ export default function AgentsView({
       {tab === 'design' && (
         <>
           <p className="mode-hint">{t.local}</p>
+          {basic && (
+            <section className="basic-presets" aria-labelledby="basic-presets-title">
+              <h2 id="basic-presets-title">{b.choose}</h2>
+              <div className="basic-preset-grid">
+                {['custom', 'tutor', 'crear-rubricas', 'adaptar-actividades-dua'].map((id) => {
+                  const preset = presets.find((item) => item.id === id)!
+                  return (
+                    <button
+                      type="button"
+                      key={id}
+                      className="basic-preset-card"
+                      aria-pressed={id === presetId && !editing}
+                      onClick={() => choosePreset(id)}
+                    >
+                      <strong>{id === 'custom' ? b.fromScratch : preset.title}</strong>
+                      <span>{preset.description}</span>
+                    </button>
+                  )
+                })}
+              </div>
+              <details className="basic-preset-more">
+                <summary>{b.more}</summary>
+                <div className="basic-preset-grid">
+                  {presets
+                    .filter(
+                      (preset) => !['custom', 'tutor', 'crear-rubricas', 'adaptar-actividades-dua'].includes(preset.id),
+                    )
+                    .map((preset) => (
+                      <button
+                        type="button"
+                        key={preset.id}
+                        className="basic-preset-card"
+                        aria-pressed={preset.id === presetId && !editing}
+                        onClick={() => choosePreset(preset.id)}
+                      >
+                        <strong>{preset.title}</strong>
+                        <span>{preset.description}</span>
+                      </button>
+                    ))}
+                </div>
+              </details>
+            </section>
+          )}
           {!basic && (
             <label>
               {t.examples}

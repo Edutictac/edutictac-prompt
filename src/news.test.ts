@@ -8,12 +8,17 @@ describe('novedades de la portada', () => {
     expect(news.length).toBeGreaterThan(0)
     expect(news.length).toBeLessThanOrEqual(4)
     for (const item of news) {
-      expect(
-        templates.some((template) => template.id === item.templateId),
-        item.templateId,
-      ).toBe(true)
+      if ('templateId' in item)
+        expect(
+          templates.some((template) => template.id === item.templateId),
+          item.templateId,
+        ).toBe(true)
+      else expect(item.view).toBe('agents')
       for (const language of ['es', 'ca-valencia', 'ca', 'en'] as const)
-        expect(item.text[language].trim().length, `${item.templateId} ${language}`).toBeGreaterThan(10)
+        expect(
+          item.text[language].trim().length,
+          `${'templateId' in item ? item.templateId : item.view} ${language}`,
+        ).toBeGreaterThan(10)
     }
   })
 

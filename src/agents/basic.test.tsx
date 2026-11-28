@@ -143,3 +143,26 @@ it('rejects an invalid imported rubric policy', () => {
     }),
   ).toThrow('invalid')
 })
+
+it('offers the basic preset cards and loads a chosen example without losing cancelled edits', async () => {
+  const user = userEvent.setup()
+  show()
+  expect(screen.getByRole('heading', { name: '¿Para qué quieres ayuda?' })).toBeTruthy()
+  expect(screen.getByRole('button', { name: /Crear desde cero/ })).toBeTruthy()
+  await user.click(screen.getByRole('button', { name: /Tutor de una materia/ }))
+  expect((screen.getByRole('combobox', { name: 'Materia, ámbito o especialidad' }) as HTMLInputElement).value).toBe(
+    'Matemáticas',
+  )
+  await user.type(screen.getByRole('combobox', { name: 'Materia, ámbito o especialidad' }), ' para mi grupo')
+  const confirm = vi.spyOn(window, 'confirm').mockReturnValue(false)
+  await user.click(screen.getByRole('button', { name: /Crear desde cero/ }))
+  expect(confirm).toHaveBeenCalledOnce()
+  expect(
+    (screen.getByRole('combobox', { name: 'Materia, ámbito o especialidad' }) as HTMLInputElement).value,
+  ).toContain('para mi grupo')
+  confirm.mockReturnValue(true)
+  await user.click(screen.getByRole('button', { name: /Crear desde cero/ }))
+  expect((screen.getByRole('combobox', { name: 'Materia, ámbito o especialidad' }) as HTMLInputElement).value).toBe('')
+  await user.click(screen.getByText('Ver todos los ejemplos'))
+  expect(screen.getByRole('button', { name: /SMART/ })).toBeTruthy()
+})

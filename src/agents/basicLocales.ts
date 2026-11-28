@@ -7,6 +7,7 @@ const es = {
   intro:
     'Prepara un asistente para tu trabajo docente. Elige un ejemplo, adáptalo y lleva su configuración a Copilot M365.',
   choose: '¿Para qué quieres ayuda?',
+  fromScratch: 'Crear desde cero',
   more: 'Ver todos los ejemplos',
   create: 'Crear agente',
   adapt: 'Adáptalo a tu contexto',
@@ -55,6 +56,7 @@ const va: Texts = {
   intro:
     'Prepara un assistent per al teu treball docent. Tria un exemple, adapta’l i porta la configuració a Copilot M365.',
   choose: 'Per a què vols ajuda?',
+  fromScratch: 'Crear des de zero',
   more: 'Vore tots els exemples',
   create: 'Crear agent',
   adapt: 'Adapta’l al teu context',
@@ -102,6 +104,7 @@ const en: Texts = {
   intro:
     'Prepare an assistant for your teaching. Choose an example, adapt it and take its configuration to Copilot M365.',
   choose: 'What would you like help with?',
+  fromScratch: 'Start from scratch',
   more: 'See all examples',
   create: 'Create agent',
   adapt: 'Adapt it to your context',

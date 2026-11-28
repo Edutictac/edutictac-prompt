@@ -1,15 +1,24 @@
 import type { Language } from './types'
 
 // Novedades que se anuncian en la portada (sustituyen a los casos listos para
-// usar). Cada una abre su herramienta. Actualizar en cada versión con cambios
+// usar). Cada una abre su herramienta o sección. Actualizar en cada versión con cambios
 // visibles para el profesorado; se muestran las tres primeras, de más reciente
 // a más antigua. El historial completo está en el CHANGELOG.
-export const newsVersion = '1.0.0'
+export const newsVersion = '1.1.0'
 export const changelogUrl = 'https://git.edutictac.es/Edutictac/edutictac-prompt/src/branch/master/CHANGELOG.md'
 
-export type NewsItem = { templateId: string; text: Record<Language, string> }
+export type NewsItem = ({ templateId: string } | { view: 'agents' }) & { text: Record<Language, string> }
 
 export const news: NewsItem[] = [
+  {
+    view: 'agents',
+    text: {
+      es: 'Elige un ejemplo de agente desde el modo básico y adáptalo a tu contexto.',
+      'ca-valencia': 'Tria un exemple d’agent des del mode bàsic i adapta’l al teu context.',
+      ca: 'Tria un exemple d’agent des del mode bàsic i adapta’l al teu context.',
+      en: 'Choose an agent example in basic mode and adapt it to your context.',
+    },
+  },
   {
     templateId: 'lesson',
     text: {
@@ -27,15 +36,6 @@ export const news: NewsItem[] = [
       'ca-valencia': 'Crea o millora un prompt educatiu conversant amb la IA que tries.',
       ca: 'Crea o millora un prompt educatiu conversant amb la IA que triïs.',
       en: 'Create or improve an educational prompt by talking to the AI of your choice.',
-    },
-  },
-  {
-    templateId: 'activity-evidence',
-    text: {
-      es: 'Continúa una actividad preparando evidencias o una rúbrica con los datos que ya has introducido.',
-      'ca-valencia': 'Continua una activitat preparant evidències o una rúbrica amb les dades que ja has introduït.',
-      ca: 'Continua una activitat preparant evidències o una rúbrica amb les dades que ja has introduït.',
-      en: 'Continue an activity by preparing evidence or a rubric with the details you already entered.',
     },
   },
 ]

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0 — 2026-11-28
+
+- El modo básico de Agentes muestra ejemplos para empezar y permite adaptarlos sin pasar por el modo avanzado.
+
 ## 1.0.0 — 2026-11-28
 
 - El botón principal «Crear» abre directamente «Ayúdame a crear mi prompt».

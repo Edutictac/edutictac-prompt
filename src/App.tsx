@@ -324,6 +324,7 @@ export default function App() {
           recentTools={recentTools}
           onChoose={choose}
           onCreate={() => choose('prompt-coach')}
+          onAgents={() => navigate('agents')}
           templateName={templateName}
           categoryLabel={categoryLabel}
         />
