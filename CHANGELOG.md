@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.39.3 — 2026-11-27
+
+- Más contraste en el modo claro: portada, novedades, herramientas recientes y catálogo con superficies diferenciadas y bordes más visibles.
+- Tarjetas, paneles y campos con límites más definidos para distinguir las áreas de trabajo.
+
 ## 0.39.2 — 2026-11-27
 
 - La portada muestra el enlace corto `prompt.edutictac.es`, con HTTPS.
