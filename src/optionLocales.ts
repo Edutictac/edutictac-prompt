@@ -346,6 +346,7 @@ const translations: Partial<Record<Language, Record<string, string>>> = {
     'Respuesta a una reclamación': 'Resposta a una reclamació',
   },
   en: {
+    Sí: 'Yes',
     'CSV Aules / Moodle': 'CSV for Aules / Moodle',
     'Pregunta abierta': 'Open question',
     'Dibujo o esquema': 'Drawing or diagram',

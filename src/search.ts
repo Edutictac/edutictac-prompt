@@ -150,6 +150,10 @@ const keywords: Record<string, string[]> = {
     'word',
     'overleaf',
   ],
+  'learning-stations': ['estaciones', 'racons', 'rotación', 'stations', 'prácticas'],
+  'activity-evidence': ['evidencias', 'observación', 'evaluación formativa', 'evidence', 'assessment'],
+  flashcards: ['tarjetas', 'memoria', 'repaso', 'recuperación', 'targetes', 'flashcards', 'retrieval'],
+  'prompt-coach': ['crear prompt', 'mejorar prompt', 'asistente', 'ayuda', 'idea', 'prompt designer', 'assistant'],
 }
 
 export function normalizeSearchText(value: string): string {

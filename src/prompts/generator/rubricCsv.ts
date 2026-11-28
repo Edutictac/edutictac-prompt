@@ -1,5 +1,6 @@
 import { localizeOption } from '../../optionLocales'
-import type { Language } from '../../types'
+import type { Language, PromptTemplate } from '../../types'
+import { csvEducationalOptions } from './educationalOptions'
 
 export const RUBRIC_CSV_FORMAT = 'CSV Aules / Moodle'
 export const AULES_RUBRIC_HELP = 'https://portal.edu.gva.es/aules/va/importacio-de-rubriques-en-format-csv/'
@@ -131,7 +132,11 @@ export const rubricCsvTexts = {
   },
 }
 
-export function generateRubricCsv(values: Record<string, string>, language: Language): string {
+export function generateRubricCsv(
+  values: Record<string, string>,
+  language: Language,
+  template?: PromptTemplate,
+): string {
   const t = rubricCsvTexts[language]
   const raw = (values.maxScore || '').trim().replace(',', '.') || '100'
   if (!/^\d+(\.\d{1,3})?$/.test(raw) || !Number.isFinite(Number(raw)) || Number(raw) <= 0) return t.invalid
@@ -146,7 +151,7 @@ export function generateRubricCsv(values: Record<string, string>, language: Lang
     t.technical,
     t.levels,
     t.scoring.replaceAll('{max}', max),
-    t.quality,
+    [t.quality, ...(template ? csvEducationalOptions(template, values, language) : [])].join('\n'),
     t.checks.replaceAll('{max}', max),
     t.delivery + '\n' + AULES_RUBRIC_HELP,
   ]

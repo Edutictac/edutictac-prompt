@@ -4,50 +4,48 @@ import type { Language } from './types'
 // usar). Cada una abre su herramienta. Actualizar en cada versión con cambios
 // visibles para el profesorado; se muestran las tres primeras, de más reciente
 // a más antigua. El historial completo está en el CHANGELOG.
-export const newsVersion = '0.39.4'
+export const newsVersion = '0.40.0'
 export const changelogUrl = 'https://git.edutictac.es/Edutictac/edutictac-prompt/src/branch/master/CHANGELOG.md'
 
 export type NewsItem = { templateId: string; text: Record<Language, string> }
 
 export const news: NewsItem[] = [
   {
-    templateId: 'editable-latex',
+    templateId: 'prompt-coach',
     text: {
-      es: 'Nueva herramienta: fórmulas y cálculos en LaTeX editable, para mostrar fórmulas ya compuestas y crear documentos con ecuaciones editables.',
-      'ca-valencia':
-        'Nova ferramenta: fórmules i càlculs en LaTeX editable, per a mostrar fórmules ja compostes i crear documents amb equacions editables.',
-      ca: 'Nova eina: fórmules i càlculs en LaTeX editable, per a mostrar fórmules ja compostes i crear documents amb equacions editables.',
-      en: 'New tool: editable LaTeX formulas and calculations, to display typeset formulas and create documents with editable equations.',
+      es: 'Nueva ayuda para crear o mejorar un prompt conversando con la IA que elijas.',
+      'ca-valencia': 'Nova ajuda per a crear o millorar un prompt conversant amb la IA que tries.',
+      ca: 'Nova ajuda per crear o millorar un prompt conversant amb la IA que triïs.',
+      en: 'New help to create or improve a prompt by talking to the AI of your choice.',
     },
   },
   {
-    templateId: 'rubric',
+    templateId: 'flashcards',
     text: {
-      es: 'Nuevo en Rúbrica: CSV Aules / Moodle con cuatro niveles y puntuación máxima configurable (100 por defecto). Incluye las reglas de importación y la petición del archivo descargable.',
-      'ca-valencia':
-        'Nou en Rúbrica: CSV Aules / Moodle amb quatre nivells i puntuació màxima configurable (100 per defecte). Inclou les regles d’importació i la petició de l’arxiu descarregable.',
-      ca: 'Nou a Rúbrica: CSV Aules / Moodle amb quatre nivells i puntuació màxima configurable (100 per defecte). Inclou les regles d’importació i la petició del fitxer descarregable.',
-      en: 'New in Rubric: CSV Aules / Moodle with four levels and a configurable maximum score (default 100). Includes import rules and asks for a downloadable file.',
+      es: 'Nueva herramienta: tarjetas de memoria con preguntas y respuestas para practicar y repasar.',
+      'ca-valencia': 'Nova ferramenta: targetes de memòria amb preguntes i respostes per a practicar i repassar.',
+      ca: 'Nova eina: targetes de memòria amb preguntes i respostes per practicar i repassar.',
+      en: 'New tool: flashcards with questions and answers for practice and review.',
     },
   },
   {
-    templateId: 'illustrated-worksheet',
+    templateId: 'learning-stations',
     text: {
-      es: 'Nuevo: «Mostrar QR» en cada herramienta para proyectarla ya rellena, y en Mi biblioteca, «Preparar la sesión»: una página con el QR y el enlace de varios prompts para imprimir o proyectar.',
+      es: 'Nuevas herramientas para organizar estaciones de aprendizaje e identificar evidencias a partir de una actividad existente.',
       'ca-valencia':
-        'Nou: «Mostra el QR» en cada ferramenta per a projectar-la ja omplida, i en La meua biblioteca, «Prepara la sessió»: una pàgina amb el QR i l’enllaç de diversos prompts per a imprimir o projectar.',
-      ca: 'Nou: «Mostra el QR» a cada eina per projectar-la ja emplenada, i a La meva biblioteca, «Prepara la sessió»: una pàgina amb el QR i l’enllaç de diversos prompts per imprimir o projectar.',
-      en: 'New: “Show QR” in every tool to project it already filled in, and in My library, “Prepare the session”: one page with the QR code and link of several prompts to print or project.',
+        'Noves ferramentes per a organitzar estacions d’aprenentatge i identificar evidències a partir d’una activitat existent.',
+      ca: 'Noves eines per organitzar estacions d’aprenentatge i identificar evidències a partir d’una activitat existent.',
+      en: 'New tools to organise learning stations and identify evidence from an existing activity.',
     },
   },
   {
-    templateId: 'worksheet',
+    templateId: 'lesson',
     text: {
-      es: 'Nuevo en todas las herramientas: «Compartir con estos datos» crea un enlace que abre el formulario ya relleno, y «Generar ya» en cuanto pones el nivel y el tema.',
+      es: 'Nuevas opciones para explorar conocimientos previos, preparar la coevaluación y pedir aclaraciones breves antes de generar.',
       'ca-valencia':
-        'Nou en totes les ferramentes: «Compartix amb estes dades» crea un enllaç que obri el formulari ja omplit, i «Genera ara» tan prompte com poses el nivell i el tema.',
-      ca: 'Nou a totes les eines: «Comparteix amb aquestes dades» crea un enllaç que obre el formulari ja emplenat, i «Genera ara» tan aviat com poses el nivell i el tema.',
-      en: 'New in every tool: “Share with these answers” makes a link that opens the form already filled in, and “Generate now” as soon as you set the level and topic.',
+        'Noves opcions per a explorar coneixements previs, preparar la coavaluació i demanar aclariments breus abans de generar.',
+      ca: 'Noves opcions per explorar coneixements previs, preparar la coavaluació i demanar aclariments breus abans de generar.',
+      en: 'New options to explore prior knowledge, prepare peer assessment and ask brief clarifying questions before generating.',
     },
   },
 ]

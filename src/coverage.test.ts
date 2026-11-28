@@ -56,7 +56,16 @@ const sameEverywhere = new Set([
   'Música',
 ])
 // Campos que el generador transforma en lugar de copiar el valor.
-const transformed = new Set(['udl', 'aiTool', 'gameFeatures', 'accessibility'])
+const transformed = new Set([
+  'udl',
+  'aiTool',
+  'gameFeatures',
+  'accessibility',
+  'lessonOpening',
+  'priorKnowledge',
+  'peerAssessment',
+  'guidedQuestions',
+])
 
 describe('cobertura de plantillas', () => {
   it('lleva cada campo y cada opción al prompt en todos los idiomas', () => {

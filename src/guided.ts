@@ -18,6 +18,12 @@ export const guidedBlockIds: GuidedBlock[] = [
 ]
 
 const fieldBlocks: Record<string, GuidedBlock> = {
+  coachIdea: 'topic',
+  coachSource: 'topic',
+  lessonOpening: 'design',
+  priorKnowledge: 'design',
+  peerAssessment: 'criteria',
+  guidedQuestions: 'limits',
   level: 'about',
   course: 'about',
   subject: 'about',
@@ -101,7 +107,7 @@ export function guidedSteps(template: PromptTemplate): GuidedStep[] {
 // Campos imprescindibles para generar un prompt útil: el nivel (si la
 // herramienta lo tiene) y el primero que define el contenido. Cuando están
 // rellenos, el modo «Paso a paso» ofrece «Generar ya» y el resto sirve para afinar.
-const contentFields = ['topic', 'task', 'activity', 'sourceText']
+const contentFields = ['coachIdea', 'topic', 'task', 'activity', 'sourceText']
 export function essentialFields(template: PromptTemplate): string[] {
   const ids = template.fields.map((field) => field.id)
   const content = contentFields.find((id) => ids.includes(id))

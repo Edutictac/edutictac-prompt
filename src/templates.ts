@@ -946,6 +946,64 @@ export const templates: PromptTemplate[] = [
       { id: 'outputFormat', type: 'select', options: ['Markdown', 'Texto'] },
     ],
   },
+  {
+    id: 'learning-stations',
+    category: 'planning',
+    icon: '◫',
+    fields: [
+      { id: 'level', type: 'select', options: ['Infantil', 'Primaria', 'ESO', 'Bachillerato', 'FP'] },
+      { id: 'course', type: 'text' },
+      { id: 'subject', type: 'text' },
+      { id: 'topic', type: 'text' },
+      { id: 'objectives', type: 'textarea' },
+      { id: 'duration', type: 'text' },
+      { id: 'resources', type: 'textarea' },
+      { id: 'context', type: 'textarea' },
+      { id: 'outputFormat', type: 'select', options: ['Texto', 'Markdown', 'Tabla'] },
+    ],
+  },
+  {
+    id: 'activity-evidence',
+    category: 'assessment',
+    icon: '◉',
+    fields: [
+      { id: 'level', type: 'select', options: ['Infantil', 'Primaria', 'ESO', 'Bachillerato', 'FP'] },
+      { id: 'course', type: 'text' },
+      { id: 'subject', type: 'text' },
+      { id: 'activity', type: 'textarea' },
+      { id: 'objectives', type: 'textarea' },
+      { id: 'criteria', type: 'textarea' },
+      { id: 'context', type: 'textarea' },
+      { id: 'outputFormat', type: 'select', options: ['Texto', 'Markdown', 'Tabla'] },
+    ],
+  },
+  {
+    id: 'flashcards',
+    category: 'activities',
+    icon: '▣',
+    fields: [
+      { id: 'level', type: 'select', options: ['Infantil', 'Primaria', 'ESO', 'Bachillerato', 'FP'] },
+      { id: 'course', type: 'text' },
+      { id: 'subject', type: 'text' },
+      { id: 'topic', type: 'text' },
+      { id: 'sourceText', type: 'textarea' },
+      { id: 'questionCount', type: 'select', options: ['5', '10', '15', '20'] },
+      { id: 'objectives', type: 'textarea' },
+      { id: 'outputFormat', type: 'select', options: ['Tabla', 'Texto', 'Markdown'] },
+    ],
+  },
+  {
+    id: 'prompt-coach',
+    category: 'free',
+    icon: '✧',
+    fields: [
+      { id: 'coachIdea', type: 'textarea' },
+      { id: 'coachSource', type: 'textarea' },
+      { id: 'level', type: 'select', options: ['Infantil', 'Primaria', 'ESO', 'Bachillerato', 'FP'] },
+      { id: 'subject', type: 'text' },
+      { id: 'outputFormat', type: 'select', options: ['Texto', 'Markdown'] },
+    ],
+  },
 ]
 
 // El curso de IA recomienda completar siempre que sea posible el contexto,
@@ -1034,6 +1092,16 @@ for (const template of templates) {
       template.fields.push({ ...field })
     }
   }
+}
+
+// Opciones pedagógicas adicionales, siempre optativas.
+for (const template of templates) {
+  const planning = ['learning-situation', 'lesson', 'sequence', 'learning-stations'].includes(template.id)
+  const assessment = ['rubric', 'checklist'].includes(template.id)
+  if (template.id === 'lesson') template.fields.push({ id: 'lessonOpening', type: 'select', options: ['Sí'] })
+  if (planning) template.fields.push({ id: 'priorKnowledge', type: 'select', options: ['Sí'] })
+  if (assessment) template.fields.push({ id: 'peerAssessment', type: 'select', options: ['Sí'] })
+  if (planning || assessment) template.fields.push({ id: 'guidedQuestions', type: 'select', options: ['Sí'] })
 }
 
 // Los formatos documentales se ofrecen en último lugar salvo en las plantillas

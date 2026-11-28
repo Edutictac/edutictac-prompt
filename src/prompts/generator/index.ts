@@ -1,3 +1,4 @@
+import { educationalOptions } from './educationalOptions'
 import { generateRubricCsv, RUBRIC_CSV_FORMAT } from './rubricCsv'
 import { ADULT_LEVEL } from '../../templates'
 import type { Language, PromptTemplate } from '../../types'
@@ -22,7 +23,8 @@ import { mechanicsFor, readCurriculum, readValue } from './values'
 import { videoBriefs } from './video'
 
 export function generatePrompt(template: PromptTemplate, values: Record<string, string>, language: Language): string {
-  if (template.id === 'rubric' && values.outputFormat === RUBRIC_CSV_FORMAT) return generateRubricCsv(values, language)
+  if (template.id === 'rubric' && values.outputFormat === RUBRIC_CSV_FORMAT)
+    return generateRubricCsv(values, language, template)
   const l = labels[language]
   const d = defaults[language]
   const u = udlTexts[language]
@@ -131,7 +133,11 @@ export function generatePrompt(template: PromptTemplate, values: Record<string, 
     : principles.length
       ? [...reviews[language][reviewTypes[template.id] || 'generic'], ...u.checks.slice(0, 2)]
       : reviews[language][reviewTypes[template.id] || 'generic']
-  const checks = [...(template.id === 'html-game' ? [...review, ...g.checks] : review), d.askIfMissing]
+  const checks = [
+    ...(template.id === 'html-game' ? [...review, ...g.checks] : review),
+    d.askIfMissing,
+    ...educationalOptions(template, values, language),
+  ]
   lines.push(
     `## ${l.requirements}\n${checks.map((item) => `- ${item}`).join('\n')}`,
     `## ${l.format}\n${fileFormatInstruction || `${returnTextFor(language)} ${value('outputFormat') || d.structured}.`}`,

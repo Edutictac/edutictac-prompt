@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.40.0 — 2026-11-28
+
+- Nueva ayuda para crear o mejorar prompts educativos mediante una conversación con la IA elegida.
+
+- Opción para proponer inicios breves, accesibles y ajustados al tiempo disponible en la planificación de clases.
+- Nueva herramienta de tarjetas de memoria para practicar y repasar, con texto de referencia opcional.
+
+- Nuevas herramientas de estaciones de aprendizaje y evidencias de aprendizaje a partir de una actividad existente.
+
+- Opciones para explorar conocimientos previos en planificación, preparar rúbricas y listas para coevaluación y solicitar aclaraciones breves cuando falten datos esenciales.
+- El formato CSV de Aules mantiene sus reglas de importación al activar la coevaluación.
+
 ## 0.39.4 — 2026-11-28
 
 - Atrás y Adelante del navegador recorren la portada, las herramientas y las vistas de la aplicación, conservando el borrador al volver.

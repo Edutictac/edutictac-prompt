@@ -1,6 +1,14 @@
 import type { Language } from './types'
 export const translations: Record<Language, Record<string, string>> = {
   es: {
+    coachIdea: '¿Qué quieres conseguir?',
+    placeholderCoachIdea: 'Por ejemplo: quiero una actividad para analizar noticias falsas.',
+    coachSource: 'Prompt que quieres mejorar (opcional)',
+    placeholderCoachSource: 'Pega aquí tu prompt si quieres revisarlo.',
+    lessonOpening: 'Proponer inicios breves para la clase',
+    priorKnowledge: 'Incluir conocimientos previos y cómo comprobarlos',
+    peerAssessment: 'Preparar para coevaluación entre iguales',
+    guidedQuestions: 'Pedir aclaraciones breves si faltan datos esenciales',
     app: 'EduTicTac Prompt',
     tagline: 'Crea mejores prompts educativos, sin complicaciones.',
     toolsCount: '24 herramientas educativas en evolución',
@@ -56,6 +64,14 @@ export const translations: Record<Language, Record<string, string>> = {
     privacyPolicy: 'Política de privacidad completa',
   },
   'ca-valencia': {
+    coachIdea: 'Què vols aconseguir?',
+    placeholderCoachIdea: 'Per exemple: vull una activitat per a analitzar notícies falses.',
+    coachSource: 'Prompt que vols millorar (opcional)',
+    placeholderCoachSource: 'Pega ací el teu prompt si vols revisar-lo.',
+    lessonOpening: 'Proposar inicis breus per a la classe',
+    priorKnowledge: 'Incloure coneixements previs i com comprovar-los',
+    peerAssessment: 'Preparar per a la coavaluació entre iguals',
+    guidedQuestions: 'Demanar aclariments breus si falten dades essencials',
     app: 'EduTicTac Prompt',
     tagline: 'Crea millors prompts educatius, sense complicacions.',
     toolsCount: '24 ferramentes educatives en evolució',
@@ -111,6 +127,14 @@ export const translations: Record<Language, Record<string, string>> = {
     privacyPolicy: 'Política de privacitat completa',
   },
   ca: {
+    coachIdea: 'Què vols aconseguir?',
+    placeholderCoachIdea: 'Per exemple: vull una activitat per analitzar notícies falses.',
+    coachSource: 'Prompt que vols millorar (opcional)',
+    placeholderCoachSource: 'Enganxa aquí el teu prompt si vols revisar-lo.',
+    lessonOpening: 'Proposar inicis breus per a la classe',
+    priorKnowledge: 'Incloure coneixements previs i com comprovar-los',
+    peerAssessment: 'Preparar per a la coavaluació entre iguals',
+    guidedQuestions: 'Demanar aclariments breus si falten dades essencials',
     app: 'EduTicTac Prompt',
     tagline: 'Crea millors prompts educatius, sense complicacions.',
     toolsCount: '24 eines educatives en evolució',
@@ -166,6 +190,14 @@ export const translations: Record<Language, Record<string, string>> = {
     privacyPolicy: 'Política de privacitat completa',
   },
   en: {
+    coachIdea: 'What do you want to achieve?',
+    placeholderCoachIdea: 'For example: I want an activity for analysing misinformation.',
+    coachSource: 'Prompt to improve (optional)',
+    placeholderCoachSource: 'Paste your prompt here if you want to revise it.',
+    lessonOpening: 'Suggest brief lesson openings',
+    priorKnowledge: 'Include prior knowledge and how to check it',
+    peerAssessment: 'Prepare for peer assessment',
+    guidedQuestions: 'Ask brief clarifying questions if essential details are missing',
     app: 'EduTicTac Prompt',
     tagline: 'Create better educational prompts, simply.',
     toolsCount: '24 educational tools and growing',
@@ -1477,6 +1509,38 @@ for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[]) {
           : language === 'ca'
             ? 'Fórmules i càlculs en LaTeX editable'
             : 'Fórmules i càlculs en LaTeX editable',
+    templateLearningStations:
+      language === 'en'
+        ? 'Learning stations'
+        : language === 'es'
+          ? 'Estaciones de aprendizaje'
+          : language === 'ca'
+            ? 'Estacions d’aprenentatge'
+            : 'Estacions d’aprenentatge',
+    templateActivityEvidence:
+      language === 'en'
+        ? 'Evidence from an activity'
+        : language === 'es'
+          ? 'Evidencias de una actividad'
+          : language === 'ca'
+            ? 'Evidències d’una activitat'
+            : 'Evidències d’una activitat',
+    templateFlashcards:
+      language === 'en'
+        ? 'Flashcards'
+        : language === 'es'
+          ? 'Tarjetas de memoria'
+          : language === 'ca'
+            ? 'Targetes de memòria'
+            : 'Targetes de memòria',
+    templatePromptCoach:
+      language === 'en'
+        ? 'Help me create my prompt'
+        : language === 'es'
+          ? 'Ayúdame a crear mi prompt'
+          : language === 'ca'
+            ? 'Ajuda’m a crear el meu prompt'
+            : 'Ajuda’m a crear el meu prompt',
     templateCaseStudy:
       language === 'en'
         ? 'Case study'

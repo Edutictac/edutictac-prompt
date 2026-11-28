@@ -226,6 +226,22 @@ export const templateTips: Record<Language, Record<string, TemplateTip>> = {
       use: 'Pide a la IA que use LaTeX para mostrar las fórmulas y los cálculos ya compuestos dentro del material.',
       tip: 'Indica qué material necesitas. Para editar las ecuaciones en Word, elige DOCX: se solicitarán ecuaciones nativas editables.',
     },
+    'learning-stations': {
+      use: 'Organiza prácticas por estaciones con instrucciones y tiempos realistas.',
+      tip: 'Indica el tiempo total, el tamaño de los grupos y los recursos disponibles.',
+    },
+    'activity-evidence': {
+      use: 'Convierte una actividad que ya realizas en evidencias observables y formas de recogerlas.',
+      tip: 'Describe qué hace el alumnado y añade los objetivos o criterios disponibles, sin datos personales.',
+    },
+    flashcards: {
+      use: 'Crea tarjetas para practicar y recordar conceptos con preguntas y respuestas breves.',
+      tip: 'Indica el tema y la cantidad de preguntas; puedes añadir un texto de referencia.',
+    },
+    'prompt-coach': {
+      use: 'Prepara una conversación con una IA para crear o mejorar un prompt educativo.',
+      tip: 'Escribe tu idea o pega un prompt. Copia el resultado y conversa con la IA que prefieras; la conversación ocurre allí.',
+    },
   },
   'ca-valencia': {
     'learning-situation': {
@@ -447,6 +463,22 @@ export const templateTips: Record<Language, Record<string, TemplateTip>> = {
     'editable-latex': {
       use: 'Demana a la IA que use LaTeX per a mostrar les fórmules i els càlculs ja compostos dins del material.',
       tip: 'Indica quin material necessites. Per a editar les equacions en Word, tria DOCX: es demanaran equacions natives editables.',
+    },
+    'learning-stations': {
+      use: 'Organitza pràctiques per estacions amb instruccions i temps realistes.',
+      tip: 'Indica el temps total, la mida dels grups i els recursos disponibles.',
+    },
+    'activity-evidence': {
+      use: 'Transforma una activitat existent en evidències observables i formes de recollir-les.',
+      tip: 'Descriu què fa l’alumnat i afig els objectius o criteris disponibles, sense dades personals.',
+    },
+    flashcards: {
+      use: 'Crea targetes per a practicar i recordar conceptes amb preguntes i respostes breus.',
+      tip: 'Indica el tema i la quantitat de preguntes; pots afegir un text de referència.',
+    },
+    'prompt-coach': {
+      use: 'Prepara una conversa amb una IA per a crear o millorar un prompt educatiu.',
+      tip: 'Escriu la teua idea o pega un prompt. Copia el resultat i conversa amb la IA que preferisques; la conversa ocorre allí.',
     },
   },
   ca: {
@@ -670,6 +702,22 @@ export const templateTips: Record<Language, Record<string, TemplateTip>> = {
       use: 'Demana a la IA que faci servir LaTeX per a mostrar les fórmules i els càlculs ja compostos dins del material.',
       tip: 'Indica quin material necessites. Per a editar les equacions en Word, tria DOCX: es demanaran equacions natives editables.',
     },
+    'learning-stations': {
+      use: 'Organitza pràctiques per estacions amb instruccions i temps realistes.',
+      tip: 'Indica el temps total, la mida dels grups i els recursos disponibles.',
+    },
+    'activity-evidence': {
+      use: 'Transforma una activitat existent en evidències observables i formes de recollir-les.',
+      tip: 'Descriu què fa l’alumnat i afegeix els objectius o criteris disponibles, sense dades personals.',
+    },
+    flashcards: {
+      use: 'Crea targetes per practicar i recordar conceptes amb preguntes i respostes breus.',
+      tip: 'Indica el tema i la quantitat de preguntes; pots afegir un text de referència.',
+    },
+    'prompt-coach': {
+      use: 'Prepara una conversa amb una IA per crear o millorar un prompt educatiu.',
+      tip: 'Escriu la teva idea o enganxa un prompt. Copia el resultat i conversa amb la IA que prefereixis; la conversa té lloc allà.',
+    },
   },
   en: {
     'learning-situation': {
@@ -891,6 +939,22 @@ export const templateTips: Record<Language, Record<string, TemplateTip>> = {
     'editable-latex': {
       use: 'Ask AI to use LaTeX to display typeset formulas and calculations within the material.',
       tip: 'Describe the material you need. To edit equations in Word, choose DOCX: the prompt asks for native editable equations.',
+    },
+    'learning-stations': {
+      use: 'Organise practical learning stations with realistic instructions and timing.',
+      tip: 'Give the total time, group size and available resources.',
+    },
+    'activity-evidence': {
+      use: 'Turn an existing activity into observable evidence and ways to collect it.',
+      tip: 'Describe what learners do and provide available objectives or criteria, without personal data.',
+    },
+    flashcards: {
+      use: 'Create cards for retrieval practice with short questions and answers.',
+      tip: 'Give the topic and number of questions; optionally add a source text.',
+    },
+    'prompt-coach': {
+      use: 'Prepare a conversation with an AI to create or improve an educational prompt.',
+      tip: 'Write your idea or paste a prompt. Copy the result and talk to your chosen AI; the conversation happens there.',
     },
   },
 }
