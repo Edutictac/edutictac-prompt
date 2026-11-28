@@ -16,6 +16,7 @@ import { Library } from './components/Library'
 import { SaveModal } from './components/SaveModal'
 import { getTemplateName } from './prompts/form/labels'
 import { usePromptDraft } from './prompts/form/usePromptDraft'
+import { continuationValues } from './prompts/form/continueActivity'
 import { splitTemplateHash } from './shareHash'
 import { readRecentTools, rememberRecentTool } from './recentTools'
 const AgentsView = lazy(() => import('./agents/AgentsView'))
@@ -181,6 +182,13 @@ export default function App() {
     navigate('create', id)
     draft.choose(id)
   }
+  function continueWith(id: string) {
+    const target = templates.find((template) => template.id === id)
+    if (!target) return
+    const preset = continuationValues(values, target)
+    navigate('create', id)
+    draft.choose(id, preset)
+  }
   function openSavedPrompt(item: SavedPrompt) {
     if (!draft.open(item)) {
       setNotice(t.noPrompts)
@@ -334,6 +342,7 @@ export default function App() {
             }}
             copyPrompt={copyPrompt}
             clear={draft.clear}
+            continueWith={continueWith}
             editingTitle={editing?.title}
             update={update}
           />

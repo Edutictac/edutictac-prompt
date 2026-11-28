@@ -1,6 +1,14 @@
 import type { Language } from './types'
 export const translations: Record<Language, Record<string, string>> = {
   es: {
+    defaultFormatLocal: 'Guardado en este navegador.',
+    defaultFormatAccount: 'Guardado en tu cuenta.',
+    defaultFormatSyncing: 'Sincronizando con tu cuenta…',
+    continueActivity: 'Continuar con esta actividad',
+    continueActivityHint:
+      'Usar los datos de este formulario para preparar evidencias o una rúbrica. Puedes añadir la actividad completa cuando la IA la haya creado.',
+    prepareEvidence: 'Preparar evidencias',
+    createRubric: 'Crear rúbrica',
     defaultFormatSyncFailed:
       'No se ha podido sincronizar el formato con tu cuenta. Se conserva en este navegador y se reintentará al recuperar la conexión.',
     defaultOutputFormat: 'Formato predeterminado',
@@ -69,6 +77,14 @@ export const translations: Record<Language, Record<string, string>> = {
     privacyPolicy: 'Política de privacidad completa',
   },
   'ca-valencia': {
+    defaultFormatLocal: 'Guardat en este navegador.',
+    defaultFormatAccount: 'Guardat en el teu compte.',
+    defaultFormatSyncing: 'Sincronitzant amb el teu compte…',
+    continueActivity: 'Continuar amb esta activitat',
+    continueActivityHint:
+      'Usa les dades d’este formulari per a preparar evidències o una rúbrica. Pots afegir l’activitat completa quan la IA l’haja creada.',
+    prepareEvidence: 'Preparar evidències',
+    createRubric: 'Crear rúbrica',
     defaultFormatSyncFailed:
       'No s’ha pogut sincronitzar el format amb el teu compte. Es conserva en este navegador i es tornarà a intentar quan torne la connexió.',
     defaultOutputFormat: 'Format predeterminat',
@@ -137,6 +153,14 @@ export const translations: Record<Language, Record<string, string>> = {
     privacyPolicy: 'Política de privacitat completa',
   },
   ca: {
+    defaultFormatLocal: 'Desat en aquest navegador.',
+    defaultFormatAccount: 'Desat al teu compte.',
+    defaultFormatSyncing: 'Sincronitzant amb el teu compte…',
+    continueActivity: 'Continuar amb aquesta activitat',
+    continueActivityHint:
+      'Fes servir les dades d’aquest formulari per preparar evidències o una rúbrica. Pots afegir l’activitat completa quan la IA l’hagi creada.',
+    prepareEvidence: 'Preparar evidències',
+    createRubric: 'Crear rúbrica',
     defaultFormatSyncFailed:
       'No s’ha pogut sincronitzar el format amb el teu compte. Es conserva en aquest navegador i es tornarà a intentar quan torni la connexió.',
     defaultOutputFormat: 'Format predeterminat',
@@ -205,6 +229,14 @@ export const translations: Record<Language, Record<string, string>> = {
     privacyPolicy: 'Política de privacitat completa',
   },
   en: {
+    defaultFormatLocal: 'Saved in this browser.',
+    defaultFormatAccount: 'Saved to your account.',
+    defaultFormatSyncing: 'Syncing with your account…',
+    continueActivity: 'Continue with this activity',
+    continueActivityHint:
+      'Use this form’s details to prepare evidence or a rubric. You can add the full activity after the AI creates it.',
+    prepareEvidence: 'Prepare evidence',
+    createRubric: 'Create rubric',
     defaultFormatSyncFailed:
       'Could not sync the format to your account. It is saved in this browser and will retry when the connection returns.',
     defaultOutputFormat: 'Default output format',

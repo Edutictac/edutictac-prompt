@@ -4,10 +4,11 @@ import { availableDefaultFormats, readDefaultFormat, writeDefaultFormat } from '
 
 const ownerKey = 'edutictac-default-format-owner'
 const pendingKey = (sub: string) => `edutictac-default-format-pending:${sub}`
-let failed = false
-export const getFormatSyncStatus = () => failed
-const setFailed = (value: boolean) => {
-  failed = value
+type FormatSyncStatus = 'local' | 'syncing' | 'synced' | 'error'
+let status: FormatSyncStatus = 'local'
+export const getFormatSyncStatus = () => status
+const setStatus = (value: FormatSyncStatus) => {
+  status = value
   window.dispatchEvent(new Event('prompt:format-sync'))
 }
 const read = (key: string): string | null => {
@@ -29,7 +30,7 @@ const write = (key: string, value: string | null) => {
 export function useDefaultFormatSync(sub?: string) {
   useEffect(() => {
     if (!sub) {
-      setFailed(false)
+      setStatus('local')
       return
     }
     let active = true
@@ -39,6 +40,7 @@ export function useDefaultFormatSync(sub?: string) {
     const flush = async () => {
       if (!active || running || queued === null) return
       running = true
+      setStatus('syncing')
       while (active && queued !== null) {
         const value: string = queued
         try {
@@ -48,9 +50,9 @@ export function useDefaultFormatSync(sub?: string) {
             queued = null
             write(pendingKey(sub), null)
           }
-          setFailed(false)
+          if (queued === null) setStatus('synced')
         } catch {
-          if (active) setFailed(true)
+          if (active) setStatus('error')
           break
         }
       }
@@ -70,6 +72,7 @@ export function useDefaultFormatSync(sub?: string) {
       else void load()
     }
     const load = async () => {
+      setStatus('syncing')
       try {
         const result = await getPreferences()
         if (!active || changed) return
@@ -84,7 +87,7 @@ export function useDefaultFormatSync(sub?: string) {
         } else if (remote !== null && (remote === '' || availableDefaultFormats.includes(remote))) {
           writeDefaultFormat(remote, 'remote')
           write(ownerKey, sub)
-          setFailed(false)
+          setStatus('synced')
         } else if (remote === null) {
           // Adoptar la preferencia anónima solo si no pertenece a otra cuenta.
           const local = !owner || owner === sub ? readDefaultFormat() : ''
@@ -94,10 +97,10 @@ export function useDefaultFormatSync(sub?: string) {
             queued = local
             write(pendingKey(sub), local)
             void flush()
-          } else setFailed(false)
+          } else setStatus('local')
         }
       } catch {
-        if (active) setFailed(true)
+        if (active) setStatus('error')
       }
     }
     window.addEventListener('prompt:default-format', onChange)

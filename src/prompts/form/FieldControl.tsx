@@ -22,11 +22,11 @@ export function FieldControl({
   templateId: string
 }) {
   const [defaultFormat, setDefaultFormat] = useState(readDefaultFormat)
-  const [syncFailed, setSyncFailed] = useState(getFormatSyncStatus)
+  const [syncStatus, setSyncStatus] = useState(getFormatSyncStatus)
   useEffect(() => {
     if (field.id !== 'outputFormat') return
     const refresh = () => setDefaultFormat(readDefaultFormat())
-    const sync = () => setSyncFailed(getFormatSyncStatus())
+    const sync = () => setSyncStatus(getFormatSyncStatus())
     window.addEventListener('prompt:default-format', refresh)
     window.addEventListener('prompt:format-sync', sync)
     return () => {
@@ -114,7 +114,15 @@ export function FieldControl({
         <label className="form-field">
           {t.defaultOutputFormat}
           <small>{t.defaultOutputFormatHint}</small>
-          {syncFailed && <small role="status">{t.defaultFormatSyncFailed}</small>}
+          <small role="status">
+            {syncStatus === 'error'
+              ? t.defaultFormatSyncFailed
+              : syncStatus === 'syncing'
+                ? t.defaultFormatSyncing
+                : syncStatus === 'synced'
+                  ? t.defaultFormatAccount
+                  : t.defaultFormatLocal}
+          </small>
           <select
             value={defaultFormat}
             onChange={(event) => {

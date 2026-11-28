@@ -3,6 +3,7 @@ import { exampleValues } from '../../examples'
 import { sharedValues, shareUrl } from '../../shareLink'
 import { QrDialog } from '../../components/QrDialog'
 import { loadGenerator } from './usePromptDraft'
+import { continuationTargets } from './continueActivity'
 import { essentialsReady, guidedSteps } from '../../guided'
 import { followUps } from '../../followUps'
 import { EDUCEREA_URL, eduCreaNewProjectUrl, eduCreaPromptUrl } from '../../integrations'
@@ -34,6 +35,7 @@ export function CreateView({
   goHome,
   copyPrompt,
   clear,
+  continueWith,
   editingTitle,
   update,
 }: {
@@ -49,6 +51,7 @@ export function CreateView({
   goHome: () => void
   copyPrompt: (text: string) => Promise<boolean>
   clear: () => void
+  continueWith: (id: string) => void
   editingTitle?: string
   update: () => void
 }) {
@@ -378,6 +381,19 @@ export function CreateView({
         )}
         {prompt && (
           <div className="after-prompt">
+            {continuationTargets(selected).length > 0 && (
+              <div className="follow-ups">
+                <p className="eyebrow">{t.continueActivity}</p>
+                <small>{t.continueActivityHint}</small>
+                <div className="follow-up-list">
+                  {continuationTargets(selected).map((id) => (
+                    <button type="button" key={id} onClick={() => continueWith(id)}>
+                      {id === 'rubric' ? t.createRubric : t.prepareEvidence}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
             <div className="ai-launch">
               <p className="eyebrow">{t.openIn}</p>
               <AiButtons t={t} prompt={prompt} aiTool={values.aiTool} copyPrompt={copyPrompt} onStatus={setCopyState} />

@@ -40,3 +40,18 @@ it('recorre herramientas y biblioteca con Atrás y Adelante sin perder el borrad
   history.forward()
   await waitFor(() => expect(screen.getByRole('heading', { name: 'Mi biblioteca', level: 1 })).toBeTruthy())
 })
+
+it('permite continuar una actividad en evidencias y volver al borrador', async () => {
+  const user = userEvent.setup()
+  history.replaceState(null, '', '/#template/lesson')
+  render(<App />)
+  await user.click(await screen.findByRole('button', { name: 'Avanzado' }))
+  await user.type(screen.getByPlaceholderText('Ex. Los ecosistemas de nuestro entorno'), 'El agua')
+  await user.click(screen.getByRole('button', { name: 'Generar prompt' }))
+  await user.click(await screen.findByRole('button', { name: 'Preparar evidencias' }))
+  expect(await screen.findByRole('heading', { name: 'Evidencias de una actividad', level: 1 })).toBeTruthy()
+  await user.click(screen.getByRole('button', { name: 'Avanzado' }))
+  expect(screen.getByDisplayValue('El agua')).toBeTruthy()
+  history.back()
+  await waitFor(() => expect(screen.getByRole('heading', { name: 'Sesión de clase', level: 1 })).toBeTruthy())
+})

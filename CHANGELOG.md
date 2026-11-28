@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.43.0 — 2026-11-28
+
+- El formulario indica si la preferencia de formato está en el navegador, sincronizándose, guardada en la cuenta o pendiente por un error.
+- Accesos para continuar una actividad en evidencias o rúbrica, trasladando los datos disponibles y conservando el borrador al volver.
+
 ## 0.42.0 — 2026-11-28
 
 - La preferencia de formato se sincroniza de manera privada con la cuenta, con respaldo local y reintento al recuperar conexión.

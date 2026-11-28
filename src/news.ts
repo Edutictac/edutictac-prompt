@@ -4,12 +4,21 @@ import type { Language } from './types'
 // usar). Cada una abre su herramienta. Actualizar en cada versión con cambios
 // visibles para el profesorado; se muestran las tres primeras, de más reciente
 // a más antigua. El historial completo está en el CHANGELOG.
-export const newsVersion = '0.42.0'
+export const newsVersion = '0.43.0'
 export const changelogUrl = 'https://git.edutictac.es/Edutictac/edutictac-prompt/src/branch/master/CHANGELOG.md'
 
 export type NewsItem = { templateId: string; text: Record<Language, string> }
 
 export const news: NewsItem[] = [
+  {
+    templateId: 'activity-evidence',
+    text: {
+      es: 'Continúa una actividad preparando evidencias o una rúbrica con los datos que ya has introducido.',
+      'ca-valencia': 'Continua una activitat preparant evidències o una rúbrica amb les dades que ja has introduït.',
+      ca: 'Continua una activitat preparant evidències o una rúbrica amb les dades que ja has introduït.',
+      en: 'Continue an activity by preparing evidence or a rubric with the details you already entered.',
+    },
+  },
   {
     templateId: 'lesson',
     text: {
@@ -27,25 +36,6 @@ export const news: NewsItem[] = [
       'ca-valencia': 'Nova ajuda per a crear o millorar un prompt conversant amb la IA que tries.',
       ca: 'Nova ajuda per crear o millorar un prompt conversant amb la IA que triïs.',
       en: 'New help to create or improve a prompt by talking to the AI of your choice.',
-    },
-  },
-  {
-    templateId: 'flashcards',
-    text: {
-      es: 'Nueva herramienta: tarjetas de memoria con preguntas y respuestas para practicar y repasar.',
-      'ca-valencia': 'Nova ferramenta: targetes de memòria amb preguntes i respostes per a practicar i repassar.',
-      ca: 'Nova eina: targetes de memòria amb preguntes i respostes per practicar i repassar.',
-      en: 'New tool: flashcards with questions and answers for practice and review.',
-    },
-  },
-  {
-    templateId: 'learning-stations',
-    text: {
-      es: 'Nuevas herramientas para organizar estaciones de aprendizaje e identificar evidencias a partir de una actividad existente.',
-      'ca-valencia':
-        'Noves ferramentes per a organitzar estacions d’aprenentatge i identificar evidències a partir d’una activitat existent.',
-      ca: 'Noves eines per organitzar estacions d’aprenentatge i identificar evidències a partir d’una activitat existent.',
-      en: 'New tools to organise learning stations and identify evidence from an existing activity.',
     },
   },
 ]

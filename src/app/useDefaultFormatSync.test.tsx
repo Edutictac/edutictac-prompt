@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, renderHook, waitFor } from '@testing-library/react'
 import { getPreferences, putPreferences } from '../api'
 import { readDefaultFormat, writeDefaultFormat } from '../prompts/form/defaultFormat'
-import { useDefaultFormatSync } from './useDefaultFormatSync'
+import { getFormatSyncStatus, useDefaultFormatSync } from './useDefaultFormatSync'
 
 vi.mock('../api', () => ({ getPreferences: vi.fn(), putPreferences: vi.fn() }))
 beforeEach(() => {
@@ -18,6 +18,7 @@ describe('account output format', () => {
     vi.mocked(putPreferences).mockResolvedValue({ defaultOutputFormat: 'PDF' })
     renderHook(() => useDefaultFormatSync('alice'))
     await waitFor(() => expect(readDefaultFormat()).toBe('DOCX'))
+    expect(getFormatSyncStatus()).toBe('synced')
     writeDefaultFormat('PDF')
     await waitFor(() => expect(putPreferences).toHaveBeenCalledWith('PDF'))
   })
@@ -37,8 +38,10 @@ describe('account output format', () => {
     renderHook(() => useDefaultFormatSync('alice'))
     await waitFor(() => expect(getPreferences).toHaveBeenCalled())
     writeDefaultFormat('DOCX')
-    await waitFor(() => expect(putPreferences).toHaveBeenCalledTimes(1))
+    await waitFor(() => expect(getFormatSyncStatus()).toBe('error'))
+    expect(putPreferences).toHaveBeenCalledTimes(1)
     window.dispatchEvent(new Event('online'))
-    await waitFor(() => expect(putPreferences).toHaveBeenCalledTimes(2))
+    await waitFor(() => expect(getFormatSyncStatus()).toBe('synced'))
+    expect(putPreferences).toHaveBeenCalledTimes(2)
   })
 })
