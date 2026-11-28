@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.39.4 — 2026-11-28
+
+- Atrás y Adelante del navegador recorren la portada, las herramientas y las vistas de la aplicación, conservando el borrador al volver.
+- Se mantienen los enlaces directos a herramientas y los enlaces compartidos con datos.
+
 ## 0.39.3 — 2026-11-27
 
 - Más contraste en el modo claro: portada, novedades, herramientas recientes y catálogo con superficies diferenciadas y bordes más visibles.

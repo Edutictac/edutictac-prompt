@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { templates } from './templates'
 import { translations } from './locales'
 import type { SavedPrompt } from './types'
@@ -32,6 +32,27 @@ const eventNoticeKeys: Record<PromptLibraryEvent, string> = {
 }
 
 const TEMPLATE_HASH = '#template/'
+type View = 'home' | 'create' | 'library' | 'privacy' | 'help' | 'agents'
+type NavigationState = {
+  promptNavigation: true
+  view: View
+  draft: { templateId: string; values: Record<string, string>; prompt: string; editingId: string | null }
+}
+
+function viewFromHash(hash: string): View {
+  if (templateIdFromHash(hash)) return 'create'
+  if (hash === '#agents' || hash === '#skills') return 'agents'
+  if (hash === '#library') return 'library'
+  if (hash === '#privacy') return 'privacy'
+  if (hash === '#help') return 'help'
+  return 'home'
+}
+
+function hashForView(view: View, templateId: string): string {
+  if (view === 'home') return ''
+  if (view === 'create') return `#template/${templateId}`
+  return `#${view}`
+}
 
 // Enlace directo a una plantilla: «#template/<id>». Un id desconocido se ignora.
 export function templateIdFromHash(hash: string): string | undefined {
@@ -61,15 +82,7 @@ export default function App() {
   const chipReady = useAccountChip()
   const { updateAvailable, applyUpdate } = usePwaUpdate()
   const t = translations[lang]
-  const [view, setView] = useState<'home' | 'create' | 'library' | 'privacy' | 'help' | 'agents'>(() =>
-    templateIdFromHash(location.hash)
-      ? 'create'
-      : location.hash === '#agents' || location.hash === '#skills'
-        ? 'agents'
-        : location.hash === '#help'
-          ? 'help'
-          : 'home',
-  )
+  const [view, setView] = useState<View>(() => viewFromHash(location.hash))
   const [initialHash] = useState(() => location.hash)
   const draft = usePromptDraft(lang, templateIdFromHash(initialHash))
   const { selected, values, setValues, prompt, setPrompt, editingId } = draft
@@ -85,32 +98,74 @@ export default function App() {
   })
   const { saved, categories, syncBusy } = library
   const editing = saved.find((p) => p.id === editingId)
+  const restoring = useRef(false)
+  const lastLocation = useRef(location.href)
+  const snapshot: NavigationState = {
+    promptNavigation: true,
+    view,
+    draft: { templateId: selected.id, values, prompt, editingId },
+  }
+  const latestSnapshot = useRef(snapshot)
+  latestSnapshot.current = snapshot
+
+  // Actualizar la entrada actual sin borrar otras entradas del navegador.
   useEffect(() => {
-    const base = location.pathname + location.search
-    if (view === 'agents') history.replaceState(null, '', '#agents')
-    else if (view === 'create' && !editingId) history.replaceState(null, '', `#template/${selected.id}`)
-    else if (location.hash === '#agents' || location.hash === '#skills' || location.hash.startsWith(TEMPLATE_HASH))
-      history.replaceState(null, '', base + (view === 'help' ? '#help' : ''))
-  }, [view, selected.id, editingId])
+    if (restoring.current) {
+      restoring.current = false
+      return
+    }
+    const hash = hashForView(view, selected.id)
+    const url = location.pathname + location.search + hash
+    history.replaceState(snapshot, '', url)
+    lastLocation.current = location.href
+  }, [view, selected.id, values, prompt, editingId])
+
+  function navigate(next: View, templateId = selected.id) {
+    const hash = hashForView(next, templateId)
+    if (view === next && location.hash === hash) return
+    history.replaceState(latestSnapshot.current, '', location.href)
+    history.pushState(null, '', location.pathname + location.search + hash)
+    lastLocation.current = location.href
+    setView(next)
+  }
+
   useEffect(() => {
-    // Enlace compartido al abrir la app: se rellena el formulario en cuanto se
-    // descomprime. Se usa el enlace inicial porque otro efecto limpia la URL.
     const id = templateIdFromHash(initialHash)
     if (id && splitTemplateHash(initialHash).data)
       void sharedValuesFromHash(initialHash).then((shared) => {
         if (Object.keys(shared).length) draft.choose(id, shared)
       })
   }, [])
+
   useEffect(() => {
-    const onHashChange = () => {
-      const id = templateIdFromHash(location.hash)
-      if (id) {
-        void sharedValuesFromHash(location.hash).then((shared) => draft.choose(id, shared))
-        setView('create')
+    const onNavigation = (event: PopStateEvent | HashChangeEvent) => {
+      // popstate y hashchange pueden llegar para el mismo movimiento.
+      if (event.type === 'hashchange' && lastLocation.current === location.href) return
+      lastLocation.current = location.href
+      const state = history.state as NavigationState | null
+      if (state?.promptNavigation) {
+        restoring.current = true
+        draft.restore(state.draft)
+        setView(state.view)
+        return
       }
+      const hash = location.hash
+      const id = templateIdFromHash(hash)
+      if (id) {
+        if (splitTemplateHash(hash).data) {
+          void sharedValuesFromHash(hash).then((shared) => {
+            if (location.hash === hash) draft.choose(id, shared)
+          })
+        } else if (latestSnapshot.current.draft.templateId !== id) draft.choose(id)
+      }
+      setView(viewFromHash(hash))
     }
-    window.addEventListener('hashchange', onHashChange)
-    return () => window.removeEventListener('hashchange', onHashChange)
+    window.addEventListener('popstate', onNavigation)
+    window.addEventListener('hashchange', onNavigation)
+    return () => {
+      window.removeEventListener('popstate', onNavigation)
+      window.removeEventListener('hashchange', onNavigation)
+    }
   }, [])
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -121,15 +176,15 @@ export default function App() {
   const categoryLabel = (id: string) => t[id] || id
   const templateName = (id: string) => getTemplateName(id, t)
   function choose(id: string) {
+    navigate('create', id)
     draft.choose(id)
-    setView('create')
   }
   function openSavedPrompt(item: SavedPrompt) {
     if (!draft.open(item)) {
       setNotice(t.noPrompts)
       return
     }
-    setView('create')
+    navigate('create', item.templateId)
   }
   async function generate() {
     setNotice('')
@@ -222,7 +277,7 @@ export default function App() {
         onLanguageChange={setLang}
         darkMode={darkMode}
         onToggleTheme={() => setThemeMode(darkMode ? 'light' : 'dark')}
-        onNavigate={(next) => setView(next)}
+        onNavigate={(next) => navigate(next)}
         user={user}
         chipReady={chipReady}
         syncBusy={syncBusy}
@@ -254,7 +309,7 @@ export default function App() {
           setCategory={setCategory}
           recentTools={recentTools}
           onChoose={choose}
-          onCreate={() => setView('create')}
+          onCreate={() => navigate('create')}
           templateName={templateName}
           categoryLabel={categoryLabel}
         />
@@ -272,7 +327,7 @@ export default function App() {
             generate={generate}
             setModal={setModal}
             goHome={() => {
-              setView('home')
+              navigate('home')
               window.scrollTo(0, 0)
             }}
             copyPrompt={copyPrompt}

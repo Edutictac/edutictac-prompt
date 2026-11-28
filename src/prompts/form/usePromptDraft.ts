@@ -25,6 +25,19 @@ export function usePromptDraft(
     setPrompt('')
     setEditingId(null)
   }
+  const restore = (snapshot: {
+    templateId: string
+    values: Record<string, string>
+    prompt: string
+    editingId: string | null
+  }) => {
+    const template = templates.find((item) => item.id === snapshot.templateId)
+    if (!template) return
+    setSelected(template)
+    setValues(snapshot.values)
+    setPrompt(snapshot.prompt)
+    setEditingId(snapshot.editingId)
+  }
   const open = (item: SavedPrompt) => {
     const template = templates.find((candidate) => candidate.id === item.templateId)
     if (!template) return false
@@ -58,6 +71,7 @@ export function usePromptDraft(
     beginEditing,
     stopEditing,
     choose,
+    restore,
     open,
     generate,
     clear,
