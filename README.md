@@ -37,7 +37,7 @@ El plan de refactor gradual y su seguimiento están en [docs/PLAN-REFACTOR.md](d
 
 ## Estat actual
 
-- Versió publicada de la PWA: **1.4.1** (editor visual de prompts i biblioteca amb filtres i metadades editables).
+- Versió publicada de la PWA: **1.5.0** (materials amb diferents suports i ajuda docent pràctica).
 - Accés per a l’aula: [prompt.edutictac.es](https://prompt.edutictac.es/), amb HTTPS i redirecció a la [PWA publicada](https://pages.edutictac.es/Edutictac/edutictac-prompt/). Es conserva l’origen i la biblioteca local; [detalls del domini](docs/DOMINI-PROMPT.md).
 - La PWA funciona localment amb IndexedDB i continua disponible sense compte ni connexió.
 - Authentik està integrat mitjançant OIDC + PKCE. L’inici de sessió es fa des de `id.edutictac.es`.

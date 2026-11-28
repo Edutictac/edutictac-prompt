@@ -425,7 +425,7 @@ export default function App() {
             </main>
           }
         >
-          <HelpView t={t} language={lang} />
+          <HelpView t={t} language={lang} onChoose={choose} />
         </Suspense>
       )}
       {view === 'privacy' && (

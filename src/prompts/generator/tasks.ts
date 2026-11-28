@@ -1,3 +1,4 @@
+import { threeLevelsTask } from './threeLevels'
 import { editableLatexTask } from './editableLatex'
 import { codingActivityTask } from './codingActivity'
 import { illustratedWorksheetTask } from './illustratedWorksheet'
@@ -66,7 +67,7 @@ export function buildTask({
     feedback: () => value('task') || d.feedback,
     'family-note': () => value('task') || d.familyNote,
     'tutoring-script': () => value('task') || d.tutoringScript,
-    'three-levels': () => value('task') || d.threeLevels,
+    'three-levels': () => threeLevelsTask(language, value, raw),
     scorm: () => `${d.scorm} ${topic}.`,
     gift: () => `${d.gift} ${topic}.`,
     qti: () => `${d.qti} ${topic}.`,

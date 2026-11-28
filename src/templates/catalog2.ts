@@ -90,6 +90,23 @@ export const catalog2: PromptTemplate[] = [
       { id: 'subject', type: 'text' },
       { id: 'task', type: 'textarea' },
       { id: 'objectives', type: 'textarea' },
+      { id: 'duration', type: 'text' },
+      {
+        id: 'supportVersions',
+        type: 'multiselect',
+        options: ['Con más apoyo', 'Actividad de referencia', 'Ampliación'],
+      },
+      {
+        id: 'supportChoices',
+        type: 'multiselect',
+        options: [
+          'Instrucciones paso a paso',
+          'Ejemplo resuelto',
+          'Apoyos visuales sugeridos',
+          'Opciones de respuesta',
+          'Menor carga de lectura',
+        ],
+      },
       { id: 'outputFormat', type: 'select', options: ['Texto', 'Markdown', 'Tabla'] },
     ],
   },

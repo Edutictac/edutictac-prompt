@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.0 — 2026-11-28
+
+- «Un material, tres niveles» permite elegir versiones y apoyos, conserva el objetivo y propone una evaluación común o equivalente. Se corrige la instrucción cuando se aporta una actividad.
+- La ayuda docente ofrece accesos a tareas habituales y orientación actualizada sobre el editor visual y la configuración.
+- Una prueba ejecuta el generador de herramientas en una copia temporal y comprueba los duplicados.
+
 ## 1.4.1 — 2026-11-28
 
 - Protege los cambios locales pendientes frente a descargas y respuestas de sincronización simultáneas.

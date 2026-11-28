@@ -66,6 +66,8 @@ const fieldBlocks: Record<string, GuidedBlock> = {
   aspectRatio: 'design',
   udl: 'support',
   accessibility: 'support',
+  supportVersions: 'support',
+  supportChoices: 'support',
   barriers: 'support',
   strengths: 'support',
   criteria: 'criteria',

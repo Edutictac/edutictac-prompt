@@ -90,8 +90,8 @@ describe('herramientas recientes en la portada', () => {
   })
 })
 
-it('la novedad de agentes abre la sección de agentes', async () => {
-  const onAgents = vi.fn()
+it('la novedad de adaptación abre la herramienta', async () => {
+  const onChoose = vi.fn()
   const t = translations.es
   render(
     <HomeView
@@ -101,16 +101,16 @@ it('la novedad de agentes abre la sección de agentes', async () => {
       setSearch={vi.fn()}
       category="all"
       setCategory={vi.fn()}
-      onChoose={vi.fn()}
+      onChoose={onChoose}
       onCreate={vi.fn()}
       onLibrary={vi.fn()}
-      onAgents={onAgents}
+      onAgents={vi.fn()}
       templateName={(id) => getTemplateName(id, t)}
       categoryLabel={(id) => t[id] || id}
     />,
   )
-  await userEvent.click(screen.getByRole('button', { name: /Prepara agentes con documentos sugeridos/ }))
-  expect(onAgents).toHaveBeenCalledOnce()
+  await userEvent.click(screen.getByRole('button', { name: /Adapta una actividad con los apoyos/ }))
+  expect(onChoose).toHaveBeenCalledWith('three-levels')
 })
 
 it('la novedad de biblioteca abre la biblioteca', async () => {

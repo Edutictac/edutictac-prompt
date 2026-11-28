@@ -1,4 +1,4 @@
-// Generado con «npm run golden:update» (versión 1.4.1). No editar a mano.
+// Generado con «npm run golden:update» (versión 1.5.0). No editar a mano.
 export const goldenOutputs: Record<string, string> = {
   'learning-situation:es:empty': 'f646393a145c172b',
   'learning-situation:es:example': '6636d01ae8f2c505',
@@ -176,14 +176,14 @@ export const goldenOutputs: Record<string, string> = {
   'feedback:ca:example': 'f2eaa9e23c5ed428',
   'feedback:en:empty': 'bfcc7e5c0530ad20',
   'feedback:en:example': 'd7ba9aae688181e6',
-  'three-levels:es:empty': '562659ae4078df0f',
-  'three-levels:es:example': '4e4b761839150cc8',
-  'three-levels:ca-valencia:empty': '5986c0b284a2218b',
-  'three-levels:ca-valencia:example': '7d29462d609c0258',
-  'three-levels:ca:empty': '6c2780490480bf2c',
-  'three-levels:ca:example': '7f832077e083e08d',
-  'three-levels:en:empty': '8a198a89266c3615',
-  'three-levels:en:example': '25349d8fd9d3e6ae',
+  'three-levels:es:empty': 'b587cc3728931444',
+  'three-levels:es:example': '0e647cd061502dcd',
+  'three-levels:ca-valencia:empty': '187bfb736afa917b',
+  'three-levels:ca-valencia:example': '60d56e72b0ef2919',
+  'three-levels:ca:empty': '8a3ef5f4a9af92a9',
+  'three-levels:ca:example': 'a80ca5541b4ada71',
+  'three-levels:en:empty': '03bc6c225b009d7c',
+  'three-levels:en:example': '96e4e966785adbb8',
   'easy-reading:es:empty': '7a95858155f7bbe9',
   'easy-reading:es:example': '0b59556ba5938fc4',
   'easy-reading:ca-valencia:empty': '2240a2710d580077',

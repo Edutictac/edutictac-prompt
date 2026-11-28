@@ -1,4 +1,5 @@
 import type { Language } from './types'
+import { practicalHelp } from './helpPractical'
 
 // Guía de uso de la vista «Ayuda». Cada idioma tiene las mismas secciones en el
 // mismo orden; los nombres de botones citados deben coincidir con locales.ts.
@@ -34,7 +35,7 @@ const es: HelpGuide = {
       points: [
         [
           '1. Elige un punto de partida.',
-          'Un caso de «Empieza aquí» en la portada, con el formulario ya relleno, o una herramienta del catálogo. Puedes filtrar por categoría o buscar por nombre. Cada herramienta tiene un enlace directo: añade «#template/» y su identificador a la dirección (por ejemplo, «#template/coding-activity»).',
+          'Pulsa «Crear» para empezar con una idea o elige una herramienta del catálogo. Puedes buscar por necesidad y filtrar por categoría. En cada formulario encontrarás un ejemplo preparado.',
         ],
         [
           '2. Rellena el formulario.',
@@ -92,7 +93,7 @@ const es: HelpGuide = {
         ],
         [
           'Orden de los botones:',
-          'primero aparece la IA que has elegido en el formulario o, si no, la última que has usado.',
+          'primero aparece la IA elegida en Configuración o, si no has elegido ninguna, la última que has usado.',
         ],
         ['Desde la biblioteca:', 'cada prompt guardado tiene sus propios botones «Abrir en».'],
       ],
@@ -194,7 +195,7 @@ const va: HelpGuide = {
       points: [
         [
           '1. Tria un punt de partida.',
-          'Un cas de «Comença ací» en la portada, amb el formulari ja emplenat, o una eina del catàleg. Pots filtrar per categoria o buscar pel nom. Cada eina té un enllaç directe: afig «#template/» i el seu identificador a l’adreça (per exemple, «#template/coding-activity»).',
+          'Prem «Crear» per a començar amb una idea o tria una eina del catàleg. Pots buscar per necessitat i filtrar per categoria. En cada formulari trobaràs un exemple preparat.',
         ],
         [
           '2. Ompli el formulari.',
@@ -247,7 +248,10 @@ const va: HelpGuide = {
           'Prompts molt llargs:',
           'els enllaços llargs es retallen, així que en eixe cas totes les IA el reben pel porta-retalls.',
         ],
-        ['Ordre dels botons:', 'primer apareix la IA que has triat en el formulari o, si no, l’última que has usat.'],
+        [
+          'Ordre dels botons:',
+          'primer apareix la IA triada en Configuració o, si no n’has triat cap, l’última que has usat.',
+        ],
         ['Des de la biblioteca:', 'cada prompt guardat té els seus propis botons «Obri en».'],
       ],
     },
@@ -348,7 +352,7 @@ const ca: HelpGuide = {
       points: [
         [
           '1. Tria un punt de partida.',
-          'Un cas de «Comença aquí» a la portada, amb el formulari ja emplenat, o una eina del catàleg. Pots filtrar per categoria o cercar pel nom. Cada eina té un enllaç directe: afegeix «#template/» i el seu identificador a l’adreça (per exemple, «#template/coding-activity»).',
+          'Prem «Crear» per començar amb una idea o tria una eina del catàleg. Pots cercar per necessitat i filtrar per categoria. A cada formulari trobaràs un exemple preparat.',
         ],
         [
           '2. Omple el formulari.',
@@ -403,7 +407,7 @@ const ca: HelpGuide = {
         ],
         [
           'Ordre dels botons:',
-          'primer apareix la IA que has triat al formulari o, si no, l’última que has fet servir.',
+          'primer apareix la IA triada a Configuració o, si no n’has triat cap, l’última que has fet servir.',
         ],
         ['Des de la biblioteca:', 'cada prompt desat té els seus propis botons «Obre a».'],
       ],
@@ -505,7 +509,7 @@ const en: HelpGuide = {
       points: [
         [
           '1. Pick a starting point.',
-          'A “Start here” case on the home page, with the form already filled in, or a tool from the catalogue. You can filter by category or search by name. Each tool has a direct link: add “#template/” and its identifier to the address (for example, “#template/coding-activity”).',
+          'Choose “Create” to start with an idea or pick a tool from the catalogue. Search by need or filter by category. Each form includes a ready-made example.',
         ],
         [
           '2. Fill in the form.',
@@ -561,7 +565,7 @@ const en: HelpGuide = {
           'Very long prompts:',
           'long links get cut short, so in that case every AI receives the prompt through the clipboard.',
         ],
-        ['Button order:', 'the AI chosen in the form comes first or, if none, the last one you used.'],
+        ['Button order:', 'the AI selected in Settings comes first or, if none is selected, the last one you used.'],
         ['From the library:', 'every saved prompt has its own “Open in” buttons.'],
       ],
     },
@@ -741,5 +745,5 @@ const agentHelp: Record<Language, HelpSection> = {
   },
 }
 for (const language of ['es', 'ca-valencia', 'ca', 'en'] as Language[])
-  guides[language].sections.splice(1, 0, agentHelp[language])
+  guides[language].sections.splice(1, 0, practicalHelp[language].editor, agentHelp[language])
 export const helpGuide = (language: Language): HelpGuide => guides[language]

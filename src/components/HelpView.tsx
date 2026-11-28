@@ -1,13 +1,35 @@
 import { helpGuide } from '../help'
+import { practicalHelp } from '../helpPractical'
 import type { Language } from '../types'
 
-export function HelpView({ t, language }: { t: Record<string, string>; language: Language }) {
+export function HelpView({
+  t,
+  language,
+  onChoose,
+}: {
+  t: Record<string, string>
+  language: Language
+  onChoose: (id: string) => void
+}) {
   const guide = helpGuide(language)
+  const practical = practicalHelp[language]
   return (
     <main className="page help">
       <p className="eyebrow">{t.help}</p>
       <h1>{guide.title}</h1>
       <p className="help-lead">{guide.lead}</p>
+      <section className="help-quick" aria-labelledby="help-practical-title">
+        <h2 id="help-practical-title">{practical.heading}</h2>
+        <p>{practical.intro}</p>
+        <div className="help-actions">
+          {practical.actions.map((action) => (
+            <button type="button" key={action.templateId} onClick={() => onChoose(action.templateId)}>
+              <strong>{action.label}</strong>
+              <span>{action.description}</span>
+            </button>
+          ))}
+        </div>
+      </section>
       <nav className="help-toc" aria-label={guide.contents}>
         <strong>{guide.contents}</strong>
         <ol>
