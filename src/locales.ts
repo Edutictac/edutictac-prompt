@@ -1,6 +1,10 @@
 import type { Language } from './types'
 export const translations: Record<Language, Record<string, string>> = {
   es: {
+    settings: 'Configuración',
+    creationPreferences: 'Preferencias de creación',
+    settingsFormatDescription:
+      'Elige el formato que se seleccionará al abrir una herramienta compatible. Puedes cambiar el formato de cada prompt en su formulario. Si una herramienta no lo admite, utilizará el suyo. La preferencia se guarda en este navegador y, si inicias sesión, también en tu cuenta.',
     defaultFormatLocal: 'Guardado en este navegador.',
     defaultFormatAccount: 'Guardado en tu cuenta.',
     defaultFormatSyncing: 'Sincronizando con tu cuenta…',
@@ -77,6 +81,10 @@ export const translations: Record<Language, Record<string, string>> = {
     privacyPolicy: 'Política de privacidad completa',
   },
   'ca-valencia': {
+    settings: 'Configuració',
+    creationPreferences: 'Preferències de creació',
+    settingsFormatDescription:
+      'Tria el format que se seleccionarà en obrir una ferramenta compatible. Pots canviar el format de cada prompt en el formulari. Si una ferramenta no l’admet, usarà el seu. La preferència es guarda en este navegador i, si inicies sessió, també en el teu compte.',
     defaultFormatLocal: 'Guardat en este navegador.',
     defaultFormatAccount: 'Guardat en el teu compte.',
     defaultFormatSyncing: 'Sincronitzant amb el teu compte…',
@@ -153,6 +161,10 @@ export const translations: Record<Language, Record<string, string>> = {
     privacyPolicy: 'Política de privacitat completa',
   },
   ca: {
+    settings: 'Configuració',
+    creationPreferences: 'Preferències de creació',
+    settingsFormatDescription:
+      'Tria el format que se seleccionarà en obrir una eina compatible. Pots canviar el format de cada prompt al formulari. Si una eina no l’admet, farà servir el seu. La preferència es desa en aquest navegador i, si inicies sessió, també al teu compte.',
     defaultFormatLocal: 'Desat en aquest navegador.',
     defaultFormatAccount: 'Desat al teu compte.',
     defaultFormatSyncing: 'Sincronitzant amb el teu compte…',
@@ -229,6 +241,10 @@ export const translations: Record<Language, Record<string, string>> = {
     privacyPolicy: 'Política de privacitat completa',
   },
   en: {
+    settings: 'Settings',
+    creationPreferences: 'Creation preferences',
+    settingsFormatDescription:
+      'Choose the format selected when opening a compatible tool. You can change the format for each prompt in its form. If a tool does not support it, its own default is used. The preference is saved in this browser and, when signed in, in your account too.',
     defaultFormatLocal: 'Saved in this browser.',
     defaultFormatAccount: 'Saved to your account.',
     defaultFormatSyncing: 'Syncing with your account…',

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.44.0 — 2026-11-28
+
+- Nueva sección Configuración para elegir el formato predeterminado y consultar su estado de sincronización; se retira ese ajuste de los formularios de cada herramienta.
+
 ## 0.43.0 — 2026-11-28
 
 - El formulario indica si la preferencia de formato está en el navegador, sincronizándose, guardada en la cuenta o pendiente por un error.

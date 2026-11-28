@@ -1,7 +1,7 @@
 import type { AuthUser } from '../api'
 import type { Language } from '../types'
 
-export type NavView = 'home' | 'library' | 'agents' | 'help' | 'privacy'
+export type NavView = 'home' | 'library' | 'agents' | 'help' | 'privacy' | 'settings'
 
 export function AppHeader({
   t,
@@ -44,6 +44,15 @@ export function AppHeader({
         <button onClick={() => onNavigate('privacy')}>{t.privacy}</button>
       </nav>
       <div className="header-options">
+        <button
+          type="button"
+          className="settings-link"
+          onClick={() => onNavigate('settings')}
+          aria-label={t.settings}
+          title={t.settings}
+        >
+          <span aria-hidden="true">⚙</span> <span className="settings-link-text">{t.settings}</span>
+        </button>
         <edutictac-account className="site-account" data-base="https://commons.edutictac.es" data-density="compact" />
         {!chipReady && (
           <>

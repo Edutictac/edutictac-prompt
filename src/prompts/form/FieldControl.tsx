@@ -1,6 +1,3 @@
-import { useEffect, useState } from 'react'
-import { getFormatSyncStatus } from '../../app/useDefaultFormatSync'
-import { availableDefaultFormats, readDefaultFormat, writeDefaultFormat } from './defaultFormat'
 import { suggestionsFor } from '../../suggestions'
 import { localizeOption } from '../../optionLocales'
 import type { Language, TemplateField } from '../../types'
@@ -21,19 +18,6 @@ export function FieldControl({
   setValues: (v: Record<string, string>) => void
   templateId: string
 }) {
-  const [defaultFormat, setDefaultFormat] = useState(readDefaultFormat)
-  const [syncStatus, setSyncStatus] = useState(getFormatSyncStatus)
-  useEffect(() => {
-    if (field.id !== 'outputFormat') return
-    const refresh = () => setDefaultFormat(readDefaultFormat())
-    const sync = () => setSyncStatus(getFormatSyncStatus())
-    window.addEventListener('prompt:default-format', refresh)
-    window.addEventListener('prompt:format-sync', sync)
-    return () => {
-      window.removeEventListener('prompt:default-format', refresh)
-      window.removeEventListener('prompt:format-sync', sync)
-    }
-  }, [field.id])
   const rubricCsv = templateId === 'rubric' && values.outputFormat === 'CSV Aules / Moodle'
   if (templateId === 'rubric' && field.id === 'maxScore' && !rubricCsv) return null
   if (rubricCsv && field.id === 'levels') return <p className="form-field">{t.rubricCsvLevels}</p>
@@ -110,37 +94,6 @@ export function FieldControl({
           </span>
         )}
       </Field>
-      {field.id === 'outputFormat' && (
-        <label className="form-field">
-          {t.defaultOutputFormat}
-          <small>{t.defaultOutputFormatHint}</small>
-          <small role="status">
-            {syncStatus === 'error'
-              ? t.defaultFormatSyncFailed
-              : syncStatus === 'syncing'
-                ? t.defaultFormatSyncing
-                : syncStatus === 'synced'
-                  ? t.defaultFormatAccount
-                  : t.defaultFormatLocal}
-          </small>
-          <select
-            value={defaultFormat}
-            onChange={(event) => {
-              const next = event.target.value
-              setDefaultFormat(next)
-              writeDefaultFormat(next)
-              if (next && field.options?.includes(next)) setValues({ ...values, outputFormat: next })
-            }}
-          >
-            <option value="">{t.defaultOutputFormatNone}</option>
-            {availableDefaultFormats.map((format) => (
-              <option key={format} value={format}>
-                {localizeOption(format, language)}
-              </option>
-            ))}
-          </select>
-        </label>
-      )}
     </>
   )
 }

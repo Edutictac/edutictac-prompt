@@ -11,6 +11,7 @@ import { useAccountChip } from './app/useAccountChip'
 import { usePwaUpdate } from './app/usePwaUpdate'
 import { AppHeader } from './components/AppHeader'
 import { AppFooter } from './components/AppFooter'
+import { SettingsView } from './components/SettingsView'
 import { HomeView } from './components/HomeView'
 import { Library } from './components/Library'
 import { SaveModal } from './components/SaveModal'
@@ -34,7 +35,7 @@ const eventNoticeKeys: Record<PromptLibraryEvent, string> = {
 }
 
 const TEMPLATE_HASH = '#template/'
-type View = 'home' | 'create' | 'library' | 'privacy' | 'help' | 'agents'
+type View = 'home' | 'create' | 'library' | 'privacy' | 'help' | 'agents' | 'settings'
 type NavigationState = {
   promptNavigation: true
   view: View
@@ -47,6 +48,7 @@ function viewFromHash(hash: string): View {
   if (hash === '#library') return 'library'
   if (hash === '#privacy') return 'privacy'
   if (hash === '#help') return 'help'
+  if (hash === '#settings') return 'settings'
   return 'home'
 }
 
@@ -396,6 +398,7 @@ export default function App() {
           />
         </Suspense>
       )}
+      {view === 'settings' && <SettingsView t={t} language={lang} />}
       {view === 'help' && (
         <Suspense
           fallback={
