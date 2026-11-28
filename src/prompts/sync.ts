@@ -1,13 +1,6 @@
 import { getRemotePrompts, putRemotePrompt } from '../api'
-import {
-  belongsTo,
-  getPrompt,
-  getCategory,
-  addCategory,
-  findCategoryByName,
-  pendingPrompts,
-  putPrompt,
-} from './repository'
+import { db } from '../db'
+import { belongsTo, getPrompt, getCategory, addCategory, findCategoryByName, pendingPrompts } from './repository'
 
 // Una única subida por propietario. Las llamadas simultáneas se agrupan y, si
 // llega otra mientras hay una en curso, se repite una pasada al terminar.
@@ -22,11 +15,7 @@ export async function downloadRemote(ownerId: string): Promise<number> {
     const local = await getPrompt(item.id)
     // Nunca se pisa un prompt local de otra cuenta aunque coincida el id.
     if (local && !belongsTo(local, ownerId)) continue
-    if (
-      !local ||
-      local.syncStatus === 'synced' ||
-      (local.syncStatus !== 'modified' && item.updatedAt >= local.updatedAt)
-    ) {
+    if (!local || local.syncStatus === 'synced') {
       let categoryId = item.categoryId
       let categoryName = typeof item.categoryName === 'string' ? item.categoryName.trim() : ''
       let needsCategoryUpload = false
@@ -45,14 +34,28 @@ export async function downloadRemote(ownerId: string): Promise<number> {
           categoryId = category.id
         }
       }
-      await putPrompt({
-        ...item,
-        categoryId,
-        categoryName: categoryName || undefined,
-        ownerId,
-        syncStatus: needsCategoryUpload ? 'modified' : 'synced',
+      const saved = await db.transaction('rw', db.prompts, async () => {
+        const current = await db.prompts.get(item.id)
+        if (local) {
+          if (
+            !current ||
+            !belongsTo(current, ownerId) ||
+            current.syncStatus !== 'synced' ||
+            current.updatedAt !== local.updatedAt ||
+            current.version !== local.version
+          )
+            return false
+        } else if (current) return false
+        await db.prompts.put({
+          ...item,
+          categoryId,
+          categoryName: categoryName || undefined,
+          ownerId,
+          syncStatus: needsCategoryUpload ? 'modified' : 'synced',
+        })
+        return true
       })
-      changed += 1
+      if (saved) changed += 1
     }
   }
   return changed
@@ -83,18 +86,21 @@ async function runUpload(ownerId: string): Promise<number> {
         item.categoryId && !item.categoryName ? (await getCategory(item.categoryId))?.name : item.categoryName
       const snapshot = categoryName ? { ...item, categoryName } : item
       const synced = await putRemotePrompt(snapshot)
-      const current = await getPrompt(snapshot.id)
-      // Si el prompt cambió o se borró mientras se subía, la respuesta ya no vale:
-      // se conserva la edición local y se reintenta en la siguiente pasada.
-      if (
-        current &&
-        belongsTo(current, ownerId) &&
-        current.updatedAt === snapshot.updatedAt &&
-        current.version === snapshot.version
-      ) {
-        await putPrompt({ ...synced, ownerId, syncStatus: 'synced' })
-        uploaded += 1
-      }
+      // La comprobación y la escritura deben ser atómicas frente a otra edición.
+      const saved = await db.transaction('rw', db.prompts, async () => {
+        const current = await db.prompts.get(snapshot.id)
+        if (
+          !current ||
+          !belongsTo(current, ownerId) ||
+          current.syncStatus !== item.syncStatus ||
+          current.updatedAt !== snapshot.updatedAt ||
+          current.version !== snapshot.version
+        )
+          return false
+        await db.prompts.put({ ...synced, ownerId, syncStatus: 'synced' })
+        return true
+      })
+      if (saved) uploaded += 1
       if (rerun.has(ownerId)) {
         rerun.delete(ownerId)
         again = true

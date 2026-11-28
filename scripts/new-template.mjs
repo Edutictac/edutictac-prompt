@@ -8,7 +8,7 @@
 // Ejemplo: npm run new-template -- debate-guide activities "Guion de debate"
 // Después: rellena los TODO, añade campos propios si hace falta y ejecuta
 // «npm run golden:update» y «npm test».
-import { readFileSync, writeFileSync } from 'node:fs'
+import { readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -36,7 +36,12 @@ if (!/^[a-z][a-z0-9]*(-[a-z0-9]+)*$/.test(id))
 if (!categories.includes(category)) fail(`Categoría desconocida «${category}». Usa: ${categories.join(', ')}.`)
 
 const read = (file) => readFileSync(join(root, file), 'utf8')
-if (read('src/templates.ts').includes(`id: '${id}',`)) fail(`Ya existe una herramienta con id «${id}».`)
+const catalogFiles = readdirSync(join(root, 'src/templates'))
+  .filter((file) => /^catalog\d+\.ts$/.test(file))
+  .sort((a, b) => Number(a.match(/\d+/)[0]) - Number(b.match(/\d+/)[0]))
+  .map((file) => `src/templates/${file}`)
+if (!catalogFiles.length) fail('No encuentro catálogos de herramientas.')
+if (catalogFiles.some((file) => read(file).includes(`id: '${id}',`))) fail(`Ya existe una herramienta con id «${id}».`)
 
 const key = `template${id
   .split('-')
@@ -60,7 +65,7 @@ function insertBefore(file, anchor, text, after = '') {
 
 // 1. Definición con los campos habituales.
 insertBefore(
-  'src/templates.ts',
+  catalogFiles[catalogFiles.length - 1],
   '\n]\n',
   `
   {
@@ -76,7 +81,7 @@ insertBefore(
       { id: 'outputFormat', type: 'select', options: ['Texto', 'Markdown'] },
     ],
   },`,
-  'export const templates',
+  'export const catalog',
 )
 
 // 2. Clave del nombre.
@@ -84,7 +89,7 @@ insertBefore('src/prompts/form/labels.ts', '  free: ', `  ${quoted}: '${key}',\n
 
 // 3. Nombre en los cuatro idiomas.
 insertBefore(
-  'src/locales.ts',
+  'src/locales/extended4.ts',
   '    templateCaseStudy:',
   `    ${key}:
       language === 'en'
@@ -113,7 +118,7 @@ insertBefore(
 
 // 5. Ejemplo cargable.
 insertBefore(
-  'src/examples.ts',
+  'src/examples/catalog5.ts',
   '\n}\n',
   `
   ${quoted}: {
@@ -122,26 +127,20 @@ insertBefore(
     va: { subject: '${TODO}', topic: '${TODO}', objectives: '${TODO}' },
     en: { subject: '${TODO}', topic: '${TODO}', objectives: '${TODO}' },
   },`,
-  'export const examples',
+  'export const examples5',
 )
 
 // 6. Palabras para el buscador.
 insertBefore('src/search.ts', '\n}\n', `\n  ${quoted}: ['${TODO}'],`, 'const keywords')
 
 // 7. «Para qué sirve» y pista en los cuatro idiomas.
-const tips = read('src/templateTips.ts')
-let updated = tips
-for (const language of ['en', 'ca', "'ca-valencia'", 'es']) {
-  const start = updated.indexOf(`\n  ${language}: {\n`)
-  const end = updated.indexOf('\n  },\n', start)
-  if (start < 0 || end < 0) fail(`No encuentro el bloque ${language} en src/templateTips.ts.`)
-  updated =
-    updated.slice(0, end) +
-    `\n    ${quoted}: {\n      use: '${TODO}',\n      tip: '${TODO}',\n    },` +
-    updated.slice(end)
+for (const language of ['es', 'valencian', 'ca', 'en']) {
+  insertBefore(
+    `src/templateTips/${language}.ts`,
+    '\n}\n',
+    `\n  ${quoted}: {\n    use: '${TODO}',\n    tip: '${TODO}',\n  },`,
+  )
 }
-writeFileSync(join(root, 'src/templateTips.ts'), updated)
-changed.push('src/templateTips.ts')
 
 console.log(`✓ Esqueleto de «${id}» creado en:\n${[...new Set(changed)].map((file) => `  - ${file}`).join('\n')}`)
 console.log(`\nSiguiente:

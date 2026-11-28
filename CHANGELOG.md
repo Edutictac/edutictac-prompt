@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.1 — 2026-11-28
+
+- Protege los cambios locales pendientes frente a descargas y respuestas de sincronización simultáneas.
+- Organiza los catálogos y el constructor de agentes en módulos más fáciles de mantener; conserva el generador de herramientas.
+
 ## 1.4.0 — 2026-11-28
 
 - Editor visual para títulos, párrafos y listas, con posibilidad de añadir o quitar elementos con viñetas. El texto original se conserva para copiar, guardar y exportar.

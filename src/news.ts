@@ -4,7 +4,7 @@ import type { Language } from './types'
 // usar). Cada una abre su herramienta o sección. Actualizar en cada versión con cambios
 // visibles para el profesorado; se muestran las tres primeras, de más reciente
 // a más antigua. El historial completo está en el CHANGELOG.
-export const newsVersion = '1.4.0'
+export const newsVersion = '1.4.1'
 export const changelogUrl = 'https://git.edutictac.es/Edutictac/edutictac-prompt/src/branch/master/CHANGELOG.md'
 
 export type NewsItem = ({ templateId: string } | { view: 'agents' | 'library' }) & { text: Record<Language, string> }

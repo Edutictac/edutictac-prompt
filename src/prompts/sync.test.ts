@@ -5,6 +5,7 @@ import { db } from '../db'
 import { getRemotePrompts, putRemotePrompt } from '../api'
 import type { SavedPrompt } from '../types'
 import { belongsTo, getPrompt, putPrompt } from './repository'
+import * as repository from './repository'
 import { downloadRemote, uploadPending } from './sync'
 
 vi.mock('../api', () => ({
@@ -119,6 +120,45 @@ describe('sincronización de la biblioteca', () => {
     resolveUpload({ ...mine, remoteId: mine.id, syncStatus: 'synced' })
     await Promise.all([first, second])
     expect(remotePut).toHaveBeenCalledTimes(1)
+  })
+
+  it('conserva un prompt local pendiente aunque el remoto sea más reciente', async () => {
+    const local = prompt({ id: 'pending', ownerId: 'user-a', prompt: 'Mi trabajo' })
+    await db.prompts.put(local)
+    remoteGet.mockResolvedValue({
+      prompts: [{ ...local, prompt: 'Remoto', syncStatus: 'synced', updatedAt: '2026-11-10T08:00:00.000Z' }],
+    })
+
+    expect(await downloadRemote('user-a')).toBe(0)
+    expect(await getPrompt(local.id)).toEqual(local)
+  })
+
+  it('conserva una edición realizada mientras prepara la categoría de una descarga', async () => {
+    const local = prompt({ id: 'race', ownerId: 'user-a', syncStatus: 'synced' })
+    await db.prompts.put(local)
+    remoteGet.mockResolvedValue({
+      prompts: [{ ...local, prompt: 'Remoto', categoryId: 'category', categoryName: 'Ciencias' }],
+    })
+    const originalGet = repository.getCategory
+    let release: () => void = () => {}
+    const gate = new Promise<void>((resolve) => {
+      release = resolve
+    })
+    const categoryGet = vi.spyOn(repository, 'getCategory').mockImplementation(async (...args) => {
+      await gate
+      return originalGet(...args)
+    })
+    try {
+      const download = downloadRemote('user-a')
+      await vi.waitFor(() => expect(categoryGet).toHaveBeenCalled())
+      await putPrompt({ ...local, prompt: 'Editado', syncStatus: 'modified', version: 2 })
+      release()
+      expect(await download).toBe(0)
+      expect((await getPrompt(local.id))?.prompt).toBe('Editado')
+    } finally {
+      release()
+      categoryGet.mockRestore()
+    }
   })
 
   it('descarga los prompts remotos sin pisar ediciones locales', async () => {
