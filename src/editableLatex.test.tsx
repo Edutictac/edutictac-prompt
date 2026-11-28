@@ -24,6 +24,7 @@ it('abre LaTeX por enlace, carga un ejemplo y pide fórmulas renderizadas para e
   const destination = screen.getByRole('textbox', { name: 'Editor de destino' })
   await user.clear(destination)
   await user.type(destination, 'Word 365')
+  await user.click(screen.getByRole('button', { name: 'Texto original' }))
   await user.click(screen.getByRole('button', { name: 'Generar prompt' }))
   await waitFor(() => {
     const prompt = (screen.getByRole('textbox', { name: 'Vista previa del prompt' }) as HTMLTextAreaElement).value

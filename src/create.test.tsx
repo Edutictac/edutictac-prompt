@@ -77,6 +77,7 @@ it('recorre el formulario bloque a bloque, deja saltar pasos y genera desde el r
   expect(screen.getByRole('heading', { name: 'Resumen del prompt', level: 2 })).toBeTruthy()
   expect(screen.getByText('Primaria')).toBeTruthy()
 
+  await user.click(screen.getByRole('button', { name: 'Texto original' }))
   await user.click(screen.getByRole('button', { name: 'Generar prompt' }))
   const preview = screen.getByRole('textbox', { name: 'Vista previa del prompt' }) as HTMLTextAreaElement
   expect(preview.value).toContain('Primaria')
@@ -115,6 +116,7 @@ it('ofrece «Generar ya» al rellenar nivel y tema, y genera sin recorrer el res
   expect(screen.queryByRole('button', { name: /Generar ya/ })).toBeNull()
   await user.click(screen.getByRole('button', { name: 'Siguiente' }))
   await user.type(screen.getByRole('textbox', { name: /Tema/ }), 'El ciclo del agua')
+  await user.click(screen.getByRole('button', { name: 'Texto original' }))
   await user.click(screen.getByRole('button', { name: /Generar ya/ }))
   await waitFor(() =>
     expect((screen.getByRole('textbox', { name: /prompt/i }) as HTMLTextAreaElement).value).toContain(

@@ -11,6 +11,7 @@ import { AiButtons } from '../../components/AiButtons'
 import type { Language, PromptTemplate } from '../../types'
 import { CurriculumElementsSelector } from './CurriculumSelector'
 import { FieldControl } from './FieldControl'
+import { PromptEditor } from './PromptEditor'
 import { GuidedSummary, stepHelp, stepTitle } from './GuidedSummary'
 import { getTemplateName } from './labels'
 import { templateTip } from '../../templateTips'
@@ -337,13 +338,7 @@ export function CreateView({
             </button>
           </div>
         </div>
-        <textarea
-          className="prompt-editor"
-          aria-label={t.preview}
-          value={prompt}
-          placeholder={t.empty}
-          onChange={(e) => setPrompt(e.target.value)}
-        />
+        <PromptEditor value={prompt} onChange={setPrompt} t={t} />
         <div className="preview-actions">
           <button
             className="secondary"

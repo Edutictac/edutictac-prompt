@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.0 — 2026-11-28
+
+- Editor visual para títulos, párrafos y listas, con posibilidad de añadir o quitar elementos con viñetas. El texto original se conserva para copiar, guardar y exportar.
+- El contenido con formatos especiales permanece en el editor de texto original, sin conversión destructiva.
+
 ## 1.3.0 — 2026-11-28
 
 - Filtros de favoritos, categoría, etiqueta y herramienta; orden por última modificación o título y búsqueda sin distinguir acentos.
