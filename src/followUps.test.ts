@@ -1,5 +1,13 @@
 import { describe, expect, it, vi } from 'vitest'
-import { aiTargets, aiTargetUrl, followUps, orderedAiTargets, preferredAiTarget, rememberAiTarget } from './followUps'
+import {
+  aiTargets,
+  aiTargetUrl,
+  followUps,
+  orderedAiTargets,
+  preferredAiTarget,
+  rememberAiTarget,
+  setPreferredAiTarget,
+} from './followUps'
 import { templates } from './templates'
 import type { Language } from './types'
 
@@ -48,7 +56,10 @@ describe('peticiones de seguimiento', () => {
     expect(preferredAiTarget('')).toBe('Claude')
     expect(preferredAiTarget('Midjourney')).toBe('Claude')
     expect(preferredAiTarget('Gemini')).toBe('Gemini')
-    expect(orderedAiTargets(preferredAiTarget(''))[0].id).toBe('Claude')
+    setPreferredAiTarget('Copilot')
+    expect(preferredAiTarget('')).toBe('Copilot')
+    expect(preferredAiTarget('Gemini')).toBe('Gemini')
+    expect(orderedAiTargets(preferredAiTarget(''))[0].id).toBe('Copilot')
     vi.unstubAllGlobals()
   })
 })

@@ -22,7 +22,7 @@ afterEach(async () => {
 it('recorre herramientas y biblioteca con Atrás y Adelante sin perder el borrador', async () => {
   const user = userEvent.setup()
   render(<App />)
-  await user.click(screen.getByRole('button', { name: /^Crear/ }))
+  await user.click(screen.getByRole('button', { name: /Situación de aprendizaje/ }))
   await user.click(await screen.findByRole('button', { name: 'Avanzado' }))
   const topic = screen.getByPlaceholderText('Ex. Los ecosistemas de nuestro entorno')
   await user.type(topic, 'Mi borrador')
@@ -64,7 +64,7 @@ it('abre configuración, guarda el formato y permite volver al borrador', async 
   await user.type(screen.getByPlaceholderText('Ex. Los ecosistemas de nuestro entorno'), 'Mi sesión')
   expect(screen.queryByLabelText('Formato predeterminado')).toBeNull()
   await user.click(screen.getByRole('button', { name: 'Configuración' }))
-  expect(screen.getByRole('heading', { name: 'Configuración', level: 1 })).toBeTruthy()
+  expect(await screen.findByRole('heading', { name: 'Configuración', level: 1 })).toBeTruthy()
   await user.selectOptions(screen.getByLabelText('Formato predeterminado'), 'DOCX')
   expect(localStorage.getItem('edutictac-default-output-format')).toBe('DOCX')
   history.back()

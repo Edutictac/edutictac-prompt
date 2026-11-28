@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { templates } from '../../templates'
 import type { Language, SavedPrompt } from '../../types'
-import { preferredInitialValues } from './defaultFormat'
+import { preferredInitialValues, reconcileCurriculum } from './defaultFormat'
 import { initialValues } from './values'
 
 // Borrador compartido por Paso a paso y Avanzado: los modos cambian la
@@ -15,10 +15,12 @@ export function usePromptDraft(
 ) {
   const first = templates.find((item) => item.id === initialTemplateId) ?? templates[0]
   const [selected, setSelected] = useState(first)
-  const [values, setValues] = useState<Record<string, string>>(() => ({
-    ...preferredInitialValues(first.id),
-    ...initialShared,
-  }))
+  const [values, setValues] = useState<Record<string, string>>(() =>
+    reconcileCurriculum({
+      ...preferredInitialValues(first.id, language),
+      ...initialShared,
+    }),
+  )
   const [prompt, setPrompt] = useState('')
   const [editingId, setEditingId] = useState<string | null>(null)
 
@@ -37,10 +39,28 @@ export function usePromptDraft(
     return () => window.removeEventListener('prompt:default-format', applyRemote)
   }, [selected, editingId])
 
+  useEffect(() => {
+    const applyProfile = (event: Event) => {
+      if (editingId) return
+      const previous = (event as CustomEvent<{ previous: string }>).detail.previous
+      const oldDefaults = preferredInitialValues(selected.id, language, previous)
+      const newDefaults = preferredInitialValues(selected.id, language)
+      setValues((current) => {
+        const keys = new Set([...Object.keys(current), ...Object.keys(oldDefaults)])
+        const untouched = [...keys].every(
+          (key) => key === 'outputFormat' || (current[key] || '') === (oldDefaults[key] || ''),
+        )
+        return untouched ? { ...newDefaults, outputFormat: current.outputFormat } : current
+      })
+    }
+    window.addEventListener('prompt:default-curriculum', applyProfile)
+    return () => window.removeEventListener('prompt:default-curriculum', applyProfile)
+  }, [selected, editingId, language])
+
   const choose = (id: string, preset: Record<string, string> = {}) => {
     const template = templates.find((item) => item.id === id)!
     setSelected(template)
-    setValues({ ...preferredInitialValues(template.id), ...preset })
+    setValues(reconcileCurriculum({ ...preferredInitialValues(template.id, language), ...preset }))
     setPrompt('')
     setEditingId(null)
   }
@@ -61,7 +81,7 @@ export function usePromptDraft(
     const template = templates.find((candidate) => candidate.id === item.templateId)
     if (!template) return false
     setSelected(template)
-    setValues(item.values || preferredInitialValues(template.id))
+    setValues(item.values || preferredInitialValues(template.id, language))
     setPrompt(item.prompt)
     setEditingId(item.id)
     return true
@@ -73,7 +93,7 @@ export function usePromptDraft(
     setPrompt(generatePrompt(selected, values, language))
   }
   const clear = () => {
-    setValues(preferredInitialValues(selected.id))
+    setValues(preferredInitialValues(selected.id, language))
     setPrompt('')
     setEditingId(null)
   }

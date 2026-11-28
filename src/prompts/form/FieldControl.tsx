@@ -1,3 +1,4 @@
+import { reconcileCurriculum } from './defaultFormat'
 import { suggestionsFor } from '../../suggestions'
 import { localizeOption } from '../../optionLocales'
 import type { Language, TemplateField } from '../../types'
@@ -34,7 +35,7 @@ export function FieldControl({
           <textarea
             value={values[field.id] || ''}
             placeholder={getFieldPlaceholder(field.id, t, templateId)}
-            onChange={(e) => setValues({ ...values, [field.id]: e.target.value })}
+            onChange={(e) => setValues(reconcileCurriculum({ ...values, [field.id]: e.target.value }))}
             rows={3}
           />
         ) : field.type === 'multiselect' ? (
@@ -61,7 +62,10 @@ export function FieldControl({
             })}
           </span>
         ) : field.type === 'select' ? (
-          <select value={values[field.id] || ''} onChange={(e) => setValues({ ...values, [field.id]: e.target.value })}>
+          <select
+            value={values[field.id] || ''}
+            onChange={(e) => setValues(reconcileCurriculum({ ...values, [field.id]: e.target.value }))}
+          >
             <option value="">—</option>
             {field.options?.map((o) => (
               <option key={o} value={o}>
@@ -73,7 +77,7 @@ export function FieldControl({
           <input
             value={values[field.id] || ''}
             placeholder={getFieldPlaceholder(field.id, t, templateId)}
-            onChange={(e) => setValues({ ...values, [field.id]: e.target.value })}
+            onChange={(e) => setValues(reconcileCurriculum({ ...values, [field.id]: e.target.value }))}
           />
         )}
         {suggestionsFor(field.id, language, values.level).length > 0 && (

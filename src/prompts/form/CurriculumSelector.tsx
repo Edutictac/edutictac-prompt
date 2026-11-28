@@ -1,57 +1,7 @@
-import {
-  getCurriculumElements,
-  joinCurriculumSelection,
-  parseCurriculumSelection,
-  valencianProfiles,
-} from '../../curriculum'
+import { getCurriculumElements, joinCurriculumSelection, parseCurriculumSelection } from '../../curriculum'
 import type { Language } from '../../types'
 
-export function CurriculumSelector({
-  t,
-  language,
-  values,
-  setValues,
-  advanced,
-}: {
-  t: Record<string, string>
-  language: Language
-  values: Record<string, string>
-  setValues: (v: Record<string, string>) => void
-  advanced: boolean
-}) {
-  return (
-    <>
-      <label className="curriculum-selector">
-        {t.curriculum}
-        <small>{t.general}</small>
-        <select
-          value={values.curriculumProfile || ''}
-          onChange={(e) => {
-            const profile = valencianProfiles.find((item) => item.id === e.target.value)
-            setValues({
-              ...values,
-              curriculumProfile: e.target.value,
-              curriculumContext: profile ? `${t.curriculumName}: ${profile.labels[language]}.` : '',
-              level: profile?.level || values.level,
-              course: profile ? '' : values.course,
-              subject: (profile?.subject && profile.subjectLabels[language]) || values.subject,
-            })
-          }}
-        >
-          <option value="">{t.general}</option>
-          {valencianProfiles.map((profile) => (
-            <option value={profile.id} key={profile.id}>
-              {profile.labels[language]}
-            </option>
-          ))}
-        </select>
-      </label>
-      {advanced && <CurriculumElementsSelector t={t} language={language} values={values} setValues={setValues} />}
-    </>
-  )
-}
-
-function CurriculumElementsSelector({
+export function CurriculumElementsSelector({
   t,
   language,
   values,

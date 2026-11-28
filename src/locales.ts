@@ -1,6 +1,16 @@
 import type { Language } from './types'
 export const translations: Record<Language, Record<string, string>> = {
   es: {
+    defaultCurriculum: 'Perfil curricular predeterminado',
+    defaultCurriculumHint:
+      'Se usará en las herramientas compatibles al empezar; los criterios y saberes se eligen en cada prompt. El perfil se guarda en este navegador.',
+    preferredAi: 'IA preferida',
+    lastAiUsed: 'Última IA utilizada',
+    preferredAiHint:
+      'Se destaca al abrir prompts; se guarda en este navegador. Una IA elegida en la herramienta tiene prioridad.',
+    languageAppearance: 'Idioma y apariencia',
+    libraryData: 'Biblioteca y datos',
+    libraryDataHint: 'Exporta o importa una copia JSON de tu biblioteca. La importación conserva los datos existentes.',
     settings: 'Configuración',
     creationPreferences: 'Preferencias de creación',
     settingsFormatDescription:
@@ -81,6 +91,16 @@ export const translations: Record<Language, Record<string, string>> = {
     privacyPolicy: 'Política de privacidad completa',
   },
   'ca-valencia': {
+    defaultCurriculum: 'Perfil curricular predeterminat',
+    defaultCurriculumHint:
+      'S’usarà en les ferramentes compatibles en començar; els criteris i sabers es trien en cada prompt. El perfil es guarda en este navegador.',
+    preferredAi: 'IA preferida',
+    lastAiUsed: 'Última IA utilitzada',
+    preferredAiHint:
+      'Es destaca en obrir prompts; es guarda en este navegador. Una IA triada en la ferramenta té prioritat.',
+    languageAppearance: 'Llengua i aparença',
+    libraryData: 'Biblioteca i dades',
+    libraryDataHint: 'Exporta o importa una còpia JSON de la biblioteca. La importació conserva les dades existents.',
     settings: 'Configuració',
     creationPreferences: 'Preferències de creació',
     settingsFormatDescription:
@@ -161,6 +181,15 @@ export const translations: Record<Language, Record<string, string>> = {
     privacyPolicy: 'Política de privacitat completa',
   },
   ca: {
+    defaultCurriculum: 'Perfil curricular predeterminat',
+    defaultCurriculumHint:
+      'Es farà servir a les eines compatibles en començar; els criteris i sabers es trien a cada prompt. El perfil es desa en aquest navegador.',
+    preferredAi: 'IA preferida',
+    lastAiUsed: 'Última IA utilitzada',
+    preferredAiHint: 'Es destaca en obrir prompts; es desa en aquest navegador. Una IA triada a l’eina té prioritat.',
+    languageAppearance: 'Llengua i aparença',
+    libraryData: 'Biblioteca i dades',
+    libraryDataHint: 'Exporta o importa una còpia JSON de la biblioteca. La importació conserva les dades existents.',
     settings: 'Configuració',
     creationPreferences: 'Preferències de creació',
     settingsFormatDescription:
@@ -241,6 +270,16 @@ export const translations: Record<Language, Record<string, string>> = {
     privacyPolicy: 'Política de privacitat completa',
   },
   en: {
+    defaultCurriculum: 'Default curriculum profile',
+    defaultCurriculumHint:
+      'Used when starting compatible tools; criteria and knowledge are selected for each prompt. The profile is saved in this browser.',
+    preferredAi: 'Preferred AI',
+    lastAiUsed: 'Last AI used',
+    preferredAiHint:
+      'Highlighted when opening prompts; saved in this browser. An AI chosen in the tool takes priority.',
+    languageAppearance: 'Language and appearance',
+    libraryData: 'Library and data',
+    libraryDataHint: 'Export or import a JSON copy of your library. Importing keeps existing data.',
     settings: 'Settings',
     creationPreferences: 'Creation preferences',
     settingsFormatDescription:

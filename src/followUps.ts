@@ -26,6 +26,23 @@ export function aiTargetUrl(target: AiTarget, prompt: string): string {
 // El asistente elegido en el formulario aparece en primer lugar.
 // La última IA abierta se recuerda en este navegador para ponerla la primera.
 const lastTargetKey = 'edutictac-last-ai'
+const preferredTargetKey = 'edutictac-preferred-ai'
+export function explicitAiTarget(): string {
+  try {
+    const id = localStorage.getItem(preferredTargetKey) || ''
+    return aiTargets.some((target) => target.id === id) ? id : ''
+  } catch {
+    return ''
+  }
+}
+export function setPreferredAiTarget(id: string) {
+  try {
+    if (aiTargets.some((target) => target.id === id)) localStorage.setItem(preferredTargetKey, id)
+    else localStorage.removeItem(preferredTargetKey)
+  } catch {
+    /* preferencia opcional */
+  }
+}
 export function lastAiTarget(): string {
   try {
     return localStorage.getItem(lastTargetKey) || ''
@@ -42,7 +59,7 @@ export function rememberAiTarget(id: string) {
 }
 // La herramienta elegida en la plantilla manda sobre la última usada.
 export const preferredAiTarget = (chosen: string) =>
-  aiTargets.some((target) => target.id === chosen) ? chosen : lastAiTarget()
+  aiTargets.some((target) => target.id === chosen) ? chosen : explicitAiTarget() || lastAiTarget()
 
 export function orderedAiTargets(preferred: string): AiTarget[] {
   return [...aiTargets].sort((a, b) => Number(b.id === preferred) - Number(a.id === preferred))

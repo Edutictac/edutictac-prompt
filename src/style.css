@@ -182,3 +182,6 @@ header{padding:0 max(24px,calc((100% - 1560px)/2))}
 .settings-panel h2{margin:0 0 12px}.settings-panel p{color:var(--muted);line-height:1.6}.settings-panel label{display:block;font-weight:600;margin:22px 0 8px}.settings-panel select{width:100%;max-width:360px;padding:10px;border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--text)}.settings-panel .settings-status{font-size:14px;margin:12px 0 0}
 
 .settings-link{display:flex;align-items:center;gap:4px;padding:7px 9px;border-radius:8px;color:var(--text)}.settings-link:hover,.settings-link:focus-visible{background:var(--bg)}@media(max-width:800px){.settings-link-text{display:none}.settings-link{font-size:20px}}
+.settings-panel+.settings-panel{margin-top:18px}.settings-panel .toolbar{margin-top:18px;justify-content:flex-start}.settings-panel .file-label{margin:0;font-weight:400}
+
+.settings-panel select#default-curriculum{max-width:100%}

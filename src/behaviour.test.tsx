@@ -41,7 +41,7 @@ describe('recorridos de la biblioteca', () => {
     const user = userEvent.setup()
     render(<App />)
 
-    await user.click(screen.getByRole('button', { name: /^Crear/ }))
+    await user.click(screen.getByRole('button', { name: /Situación de aprendizaje/ }))
     await user.click(await screen.findByRole('button', { name: 'Avanzado' }))
     await user.type(screen.getByRole('textbox', { name: /^Tema/ }), 'Los ecosistemas')
     await user.click(screen.getByRole('button', { name: 'Generar prompt' }))
@@ -82,7 +82,7 @@ describe('recorridos de la biblioteca', () => {
     const user = userEvent.setup()
     render(<App />)
 
-    await user.click(screen.getByRole('button', { name: /^Crear/ }))
+    await user.click(screen.getByRole('button', { name: /Situación de aprendizaje/ }))
     await user.click(screen.getByRole('button', { name: 'Paso a paso' }))
     await user.click(screen.getByRole('button', { name: 'Siguiente' }))
     await user.type(screen.getByRole('textbox', { name: /^Tema/ }), 'La fotosíntesis')
@@ -112,7 +112,7 @@ describe('recorridos de la biblioteca', () => {
     const user = userEvent.setup()
     render(<App />)
 
-    await user.click(screen.getByRole('button', { name: /^Crear/ }))
+    await user.click(screen.getByRole('button', { name: /Situación de aprendizaje/ }))
     await user.click(await screen.findByRole('button', { name: 'Avanzado' }))
     await user.type(screen.getByRole('textbox', { name: /^Tema/ }), 'El ciclo del agua')
     expect((screen.getByRole('textbox', { name: /^Tema/ }) as HTMLInputElement).value).toBe('El ciclo del agua')

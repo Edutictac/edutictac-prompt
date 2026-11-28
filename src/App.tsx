@@ -11,7 +11,6 @@ import { useAccountChip } from './app/useAccountChip'
 import { usePwaUpdate } from './app/usePwaUpdate'
 import { AppHeader } from './components/AppHeader'
 import { AppFooter } from './components/AppFooter'
-import { SettingsView } from './components/SettingsView'
 import { HomeView } from './components/HomeView'
 import { Library } from './components/Library'
 import { SaveModal } from './components/SaveModal'
@@ -20,6 +19,9 @@ import { usePromptDraft } from './prompts/form/usePromptDraft'
 import { continuationValues } from './prompts/form/continueActivity'
 import { splitTemplateHash } from './shareHash'
 import { readRecentTools, rememberRecentTool } from './recentTools'
+const SettingsView = lazy(() =>
+  import('./components/SettingsView').then((module) => ({ default: module.SettingsView })),
+)
 const AgentsView = lazy(() => import('./agents/AgentsView'))
 const CreateView = lazy(() => import('./prompts/form/CreateView').then((module) => ({ default: module.CreateView })))
 const HelpView = lazy(() => import('./components/HelpView').then((module) => ({ default: module.HelpView })))
@@ -81,7 +83,7 @@ export async function sharedValuesFromHash(hash: string): Promise<Record<string,
 }
 
 export default function App() {
-  const { lang, setLang, setThemeMode, darkMode } = usePreferences()
+  const { lang, setLang, themeMode, setThemeMode, darkMode } = usePreferences()
   const { user, central } = useAuth()
   useDefaultFormatSync(user?.sub)
   const chipReady = useAccountChip()
@@ -321,7 +323,7 @@ export default function App() {
           setCategory={setCategory}
           recentTools={recentTools}
           onChoose={choose}
-          onCreate={() => navigate('create')}
+          onCreate={() => choose('prompt-coach')}
           templateName={templateName}
           categoryLabel={categoryLabel}
         />
@@ -398,7 +400,19 @@ export default function App() {
           />
         </Suspense>
       )}
-      {view === 'settings' && <SettingsView t={t} language={lang} />}
+      {view === 'settings' && (
+        <Suspense fallback={<main className="page" aria-busy="true" />}>
+          <SettingsView
+            t={t}
+            language={lang}
+            setLanguage={setLang}
+            themeMode={themeMode}
+            setThemeMode={setThemeMode}
+            exportAll={exportAll}
+            importFile={importFile}
+          />
+        </Suspense>
+      )}
       {view === 'help' && (
         <Suspense
           fallback={

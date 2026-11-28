@@ -1,4 +1,4 @@
-// Generado con «npm run golden:update» (versión 0.44.0). No editar a mano.
+// Generado con «npm run golden:update» (versión 1.0.0). No editar a mano.
 export const goldenOutputs: Record<string, string> = {
   'learning-situation:es:empty': 'f646393a145c172b',
   'learning-situation:es:example': '6636d01ae8f2c505',

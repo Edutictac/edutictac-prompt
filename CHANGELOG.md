@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.0 — 2026-11-28
+
+- El botón principal «Crear» abre directamente «Ayúdame a crear mi prompt».
+
+- Configuración reúne perfil curricular predeterminado, formato, IA preferida, idioma, apariencia e importación/exportación de biblioteca.
+- El perfil se aplica en herramientas compatibles; los elementos curriculares se siguen escogiendo por prompt y se limpian al cambiar a un nivel o materia incompatible.
+- El perfil y la IA preferida se guardan en el navegador; el formato también puede sincronizarse con la cuenta.
+
 ## 0.44.0 — 2026-11-28
 
 - Nueva sección Configuración para elegir el formato predeterminado y consultar su estado de sincronización; se retira ese ajuste de los formularios de cada herramienta.

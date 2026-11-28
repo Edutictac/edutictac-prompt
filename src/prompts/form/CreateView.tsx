@@ -9,12 +9,12 @@ import { followUps } from '../../followUps'
 import { EDUCEREA_URL, eduCreaNewProjectUrl, eduCreaPromptUrl } from '../../integrations'
 import { AiButtons } from '../../components/AiButtons'
 import type { Language, PromptTemplate } from '../../types'
-import { CurriculumSelector } from './CurriculumSelector'
+import { CurriculumElementsSelector } from './CurriculumSelector'
 import { FieldControl } from './FieldControl'
 import { GuidedSummary, stepHelp, stepTitle } from './GuidedSummary'
 import { getTemplateName } from './labels'
 import { templateTip } from '../../templateTips'
-import { preferredInitialValues } from './defaultFormat'
+import { preferredInitialValues, reconcileCurriculum } from './defaultFormat'
 
 type FormMode = 'advanced' | 'guided'
 
@@ -69,7 +69,7 @@ export function CreateView({
     const filled = Object.entries(values).some(([key, value]) => key !== 'outputFormat' && value.trim())
     if (filled && !window.confirm(t.loadExampleConfirm)) return
     const example = exampleValues(selected.id, language)
-    setValues({ ...preferredInitialValues(selected.id), ...example })
+    setValues(reconcileCurriculum({ ...preferredInitialValues(selected.id, language), ...example }))
     setPrompt('')
   }
   const [shareState, setShareState] = useState('')
@@ -229,7 +229,7 @@ export function CreateView({
               <h2 className="guided-title">{stepTitle(currentStep, t)}</h2>
               {stepHelp(currentStep, t) && <p className="guided-help">{stepHelp(currentStep, t)}</p>}
               {currentStep.fields.includes('level') && (
-                <CurriculumSelector t={t} language={language} values={values} setValues={setValues} advanced />
+                <CurriculumElementsSelector t={t} language={language} values={values} setValues={setValues} />
               )}
               {currentStep.fields.map((id) => {
                 const field = selected.fields.find((item) => item.id === id)!
@@ -249,7 +249,7 @@ export function CreateView({
           )
         ) : (
           <>
-            <CurriculumSelector t={t} language={language} values={values} setValues={setValues} advanced />
+            <CurriculumElementsSelector t={t} language={language} values={values} setValues={setValues} />
             {selected.fields.map((field) => (
               <FieldControl
                 key={field.id}

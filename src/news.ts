@@ -4,7 +4,7 @@ import type { Language } from './types'
 // usar). Cada una abre su herramienta. Actualizar en cada versión con cambios
 // visibles para el profesorado; se muestran las tres primeras, de más reciente
 // a más antigua. El historial completo está en el CHANGELOG.
-export const newsVersion = '0.44.0'
+export const newsVersion = '1.0.0'
 export const changelogUrl = 'https://git.edutictac.es/Edutictac/edutictac-prompt/src/branch/master/CHANGELOG.md'
 
 export type NewsItem = { templateId: string; text: Record<Language, string> }
@@ -13,10 +13,20 @@ export const news: NewsItem[] = [
   {
     templateId: 'lesson',
     text: {
-      es: 'Nueva sección Configuración para elegir y sincronizar el formato predeterminado.',
-      'ca-valencia': 'Nova secció Configuració per a triar i sincronitzar el format predeterminat.',
-      ca: 'Nova secció Configuració per triar i sincronitzar el format predeterminat.',
-      en: 'New Settings section to choose and sync your default format.',
+      es: 'EduTicTac Prompt 1.0: configura tu perfil curricular, formato e IA preferida para empezar con menos pasos.',
+      'ca-valencia':
+        'EduTicTac Prompt 1.0: configura el perfil curricular, el format i la IA preferida per a començar amb menys passos.',
+      ca: 'EduTicTac Prompt 1.0: configura el perfil curricular, el format i la IA preferida per començar amb menys passos.',
+      en: 'EduTicTac Prompt 1.0: set your curriculum profile, format and preferred AI to get started faster.',
+    },
+  },
+  {
+    templateId: 'prompt-coach',
+    text: {
+      es: 'Crea o mejora un prompt educativo conversando con la IA que elijas.',
+      'ca-valencia': 'Crea o millora un prompt educatiu conversant amb la IA que tries.',
+      ca: 'Crea o millora un prompt educatiu conversant amb la IA que triïs.',
+      en: 'Create or improve an educational prompt by talking to the AI of your choice.',
     },
   },
   {

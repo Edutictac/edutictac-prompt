@@ -2,7 +2,7 @@
 
 PWA local-first para ayudar al profesorado a construir, editar y reutilizar prompts educativos. Funciona sin cuenta, sin IA obligatoria y sin conexión permanente.
 
-## MVP
+## Funcionalidades
 
 React + TypeScript + Vite, PWA instalable, IndexedDB con Dexie, formularios guiados, plantillas separadas de los componentes, cuatro idiomas independientes, biblioteca con búsqueda, favoritos, etiquetas, duplicado, borrado, exportación JSON/Markdown e importación versionada. Con cuenta Authentik, la biblioteca se puede sincronizar entre dispositivos; sin cuenta sigue funcionando completamente offline.
 
@@ -37,7 +37,7 @@ El plan de refactor gradual y su seguimiento están en [docs/PLAN-REFACTOR.md](d
 
 ## Estat actual
 
-- Versió publicada de la PWA: **0.39.4** (navegació enrere i avant entre pantalles, amb el contingut del formulari conservat).
+- Versió publicada de la PWA: **1.0.0** (configuració personal, ferramentes educatives i biblioteca reutilitzable).
 - Accés per a l’aula: [prompt.edutictac.es](https://prompt.edutictac.es/), amb HTTPS i redirecció a la [PWA publicada](https://pages.edutictac.es/Edutictac/edutictac-prompt/). Es conserva l’origen i la biblioteca local; [detalls del domini](docs/DOMINI-PROMPT.md).
 - La PWA funciona localment amb IndexedDB i continua disponible sense compte ni connexió.
 - Authentik està integrat mitjançant OIDC + PKCE. L’inici de sessió es fa des de `id.edutictac.es`.
@@ -47,9 +47,9 @@ El plan de refactor gradual y su seguimiento están en [docs/PLAN-REFACTOR.md](d
 - El catàleg només mostra categories que tenen ferramentes associades; les categories buides no apareixen.
 - El buscador del catàleg és una barra destacada davall la portada: cerca per nom en els quatre idiomes, categoria i sinònims habituals («examen», «mapa mental», «lectura fàcil»), sense distingir accents ni majúscules, i mostra el nombre de resultats.
 - La portada mostra l’enllaç curt **prompt.edutictac.es** davall del botó «Crea», pensat per a projectar-lo o escriure’l a l’aula.
-- Proves automatitzades: **236** en la PWA i **8** en l’API.
-- El formulari ofereix els modes **senzill**, **pas a pas** (per blocs, amb progrés i resum final) i **avançat** (tots els camps).
-- El currículum CV-LOMLOE incorpora perfils inicials d’Infantil, Primària (Coneixement del medi), ESO (Tecnologia i Matemàtiques) i selecció avançada de competències, criteris i sabers bàsics.
+- Proves automatitzades: **322** en la PWA i **28** en l’API.
+- El formulari ofereix els modes **pas a pas** (per blocs, amb progrés i resum final) i **avançat** (tots els camps).
+- Configuració permet triar un perfil curricular CV-LOMLOE de partida; les competències, criteris i sabers disponibles es trien en cada prompt. El perfil i la IA preferida es guarden en el navegador; el format predeterminat també es pot sincronitzar amb el compte.
 - La categoria d’avaluació inclou rúbriques, escales de valoració, llistes de coteig, observació sistemàtica, portafolis, produccions, proves escrites, productes i exposicions.
 - Cada publicació de la PWA actualitza la versió de Workbox del `sw.js` i inclou un avís perquè la persona usuària puga actualitzar l’aplicació.
 
