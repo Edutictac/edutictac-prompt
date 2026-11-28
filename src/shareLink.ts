@@ -35,11 +35,16 @@ const allowedKeys = (templateId: string) => {
 export function sharedValues(templateId: string, values: Record<string, string>): Record<string, string> {
   const initial = initialValues(templateId)
   const allowed = allowedKeys(templateId)
-  return Object.fromEntries(
+  const shared = Object.fromEntries(
     Object.entries(values).filter(
       ([key, value]) => allowed.has(key) && typeof value === 'string' && value.trim() && value !== initial[key],
     ),
   )
+  // Un enlace con datos conserva el formato elegido aunque coincida con el
+  // formato inicial: quien lo abra puede tener otra preferencia guardada.
+  if (Object.keys(shared).length && values.outputFormat && allowed.has('outputFormat'))
+    shared.outputFormat = values.outputFormat
+  return shared
 }
 
 export function encodeShareData(templateId: string, values: Record<string, string>): string {

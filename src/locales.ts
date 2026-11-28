@@ -1,6 +1,9 @@
 import type { Language } from './types'
 export const translations: Record<Language, Record<string, string>> = {
   es: {
+    defaultOutputFormat: 'Formato predeterminado',
+    defaultOutputFormatHint: 'Se guarda en este navegador y se aplica cuando la herramienta lo admite.',
+    defaultOutputFormatNone: 'Usar el de cada herramienta',
     coachIdea: '¿Qué quieres conseguir?',
     placeholderCoachIdea: 'Por ejemplo: quiero una actividad para analizar noticias falsas.',
     coachSource: 'Prompt que quieres mejorar (opcional)',
@@ -64,6 +67,9 @@ export const translations: Record<Language, Record<string, string>> = {
     privacyPolicy: 'Política de privacidad completa',
   },
   'ca-valencia': {
+    defaultOutputFormat: 'Format predeterminat',
+    defaultOutputFormatHint: 'Es guarda en este navegador i s’aplica quan la ferramenta l’admet.',
+    defaultOutputFormatNone: 'Usa el de cada ferramenta',
     coachIdea: 'Què vols aconseguir?',
     placeholderCoachIdea: 'Per exemple: vull una activitat per a analitzar notícies falses.',
     coachSource: 'Prompt que vols millorar (opcional)',
@@ -127,6 +133,9 @@ export const translations: Record<Language, Record<string, string>> = {
     privacyPolicy: 'Política de privacitat completa',
   },
   ca: {
+    defaultOutputFormat: 'Format predeterminat',
+    defaultOutputFormatHint: 'Es desa en aquest navegador i s’aplica quan l’eina l’admet.',
+    defaultOutputFormatNone: 'Fes servir el de cada eina',
     coachIdea: 'Què vols aconseguir?',
     placeholderCoachIdea: 'Per exemple: vull una activitat per analitzar notícies falses.',
     coachSource: 'Prompt que vols millorar (opcional)',
@@ -190,6 +199,9 @@ export const translations: Record<Language, Record<string, string>> = {
     privacyPolicy: 'Política de privacitat completa',
   },
   en: {
+    defaultOutputFormat: 'Default output format',
+    defaultOutputFormatHint: 'Saved in this browser and applied when the tool supports it.',
+    defaultOutputFormatNone: 'Use each tool’s default',
     coachIdea: 'What do you want to achieve?',
     placeholderCoachIdea: 'For example: I want an activity for analysing misinformation.',
     coachSource: 'Prompt to improve (optional)',

@@ -24,10 +24,10 @@ describe('enlace con el formulario relleno', () => {
     expect((await sharedValuesFromHash(hash)).topic).toBe('Sumes fins a 20')
   })
 
-  it('solo comparte los campos rellenos y distintos de los iniciales', () => {
+  it('comparte el formato junto con los campos rellenos para conservarlo al abrir el enlace', () => {
     const shared = sharedValues('illustrated-worksheet', values)
     expect(Object.values(shared).every((value) => value.trim())).toBe(true)
-    expect(shared.outputFormat).toBeUndefined()
+    expect(shared.outputFormat).toBe('PNG')
     expect(encodeShareData('illustrated-worksheet', initialValues('illustrated-worksheet'))).toBe('')
   })
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.41.0 — 2026-11-28
+
+- Preferencia local de formato de salida: se aplica cuando la herramienta lo admite, sin alterar herramientas con formatos propios. Los enlaces compartidos conservan el formato elegido.
+
 ## 0.40.0 — 2026-11-28
 
 - Nueva ayuda para crear o mejorar prompts educativos mediante una conversación con la IA elegida.

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { templates } from '../../templates'
 import type { Language, SavedPrompt } from '../../types'
-import { initialValues } from './values'
+import { preferredInitialValues } from './defaultFormat'
 
 // Borrador compartido por Paso a paso y Avanzado: los modos cambian la
 // presentación, nunca los valores ni el prompt generado.
@@ -14,14 +14,17 @@ export function usePromptDraft(
 ) {
   const first = templates.find((item) => item.id === initialTemplateId) ?? templates[0]
   const [selected, setSelected] = useState(first)
-  const [values, setValues] = useState<Record<string, string>>(() => ({ ...initialValues(first.id), ...initialShared }))
+  const [values, setValues] = useState<Record<string, string>>(() => ({
+    ...preferredInitialValues(first.id),
+    ...initialShared,
+  }))
   const [prompt, setPrompt] = useState('')
   const [editingId, setEditingId] = useState<string | null>(null)
 
   const choose = (id: string, preset: Record<string, string> = {}) => {
     const template = templates.find((item) => item.id === id)!
     setSelected(template)
-    setValues({ ...initialValues(template.id), ...preset })
+    setValues({ ...preferredInitialValues(template.id), ...preset })
     setPrompt('')
     setEditingId(null)
   }
@@ -42,7 +45,7 @@ export function usePromptDraft(
     const template = templates.find((candidate) => candidate.id === item.templateId)
     if (!template) return false
     setSelected(template)
-    setValues(item.values || initialValues(template.id))
+    setValues(item.values || preferredInitialValues(template.id))
     setPrompt(item.prompt)
     setEditingId(item.id)
     return true
@@ -54,7 +57,7 @@ export function usePromptDraft(
     setPrompt(generatePrompt(selected, values, language))
   }
   const clear = () => {
-    setValues(initialValues(selected.id))
+    setValues(preferredInitialValues(selected.id))
     setPrompt('')
     setEditingId(null)
   }

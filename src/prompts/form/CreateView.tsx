@@ -13,7 +13,7 @@ import { FieldControl } from './FieldControl'
 import { GuidedSummary, stepHelp, stepTitle } from './GuidedSummary'
 import { getTemplateName } from './labels'
 import { templateTip } from '../../templateTips'
-import { initialValues } from './values'
+import { preferredInitialValues } from './defaultFormat'
 
 type FormMode = 'advanced' | 'guided'
 
@@ -66,7 +66,7 @@ export function CreateView({
     const filled = Object.entries(values).some(([key, value]) => key !== 'outputFormat' && value.trim())
     if (filled && !window.confirm(t.loadExampleConfirm)) return
     const example = exampleValues(selected.id, language)
-    setValues({ ...initialValues(selected.id), ...example })
+    setValues({ ...preferredInitialValues(selected.id), ...example })
     setPrompt('')
   }
   const [shareState, setShareState] = useState('')
