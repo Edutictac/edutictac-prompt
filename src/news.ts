@@ -4,7 +4,7 @@ import type { Language } from './types'
 // usar). Cada una abre su herramienta. Actualizar en cada versión con cambios
 // visibles para el profesorado; se muestran las tres primeras, de más reciente
 // a más antigua. El historial completo está en el CHANGELOG.
-export const newsVersion = '0.41.0'
+export const newsVersion = '0.42.0'
 export const changelogUrl = 'https://git.edutictac.es/Edutictac/edutictac-prompt/src/branch/master/CHANGELOG.md'
 
 export type NewsItem = { templateId: string; text: Record<Language, string> }
@@ -13,10 +13,11 @@ export const news: NewsItem[] = [
   {
     templateId: 'lesson',
     text: {
-      es: 'Elige un formato de salida predeterminado, como DOCX: se aplicará en las herramientas compatibles.',
-      'ca-valencia': 'Tria un format d’eixida predeterminat, com DOCX: s’aplicarà en les ferramentes compatibles.',
-      ca: 'Tria un format de sortida predeterminat, com DOCX: s’aplicarà a les eines compatibles.',
-      en: 'Choose a default output format, such as DOCX: it applies in compatible tools.',
+      es: 'Elige un formato de salida predeterminado, como DOCX: se aplicará en las herramientas compatibles y se sincroniza con tu cuenta.',
+      'ca-valencia':
+        'Tria un format d’eixida predeterminat, com DOCX: s’aplicarà en les ferramentes compatibles i se sincronitza amb el teu compte.',
+      ca: 'Tria un format de sortida predeterminat, com DOCX: s’aplicarà a les eines compatibles i se sincronitza amb el teu compte.',
+      en: 'Choose a default output format, such as DOCX: it applies in compatible tools and syncs with your account.',
     },
   },
   {

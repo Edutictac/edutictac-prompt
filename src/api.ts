@@ -39,3 +39,10 @@ export const putRemotePrompt = (prompt: SavedPrompt) =>
   })
 export const deleteRemotePrompt = (id: string) =>
   apiRequest<void>(`/api/prompts/${encodeURIComponent(id)}`, { method: 'DELETE' })
+
+export const getPreferences = () => apiRequest<{ defaultOutputFormat: string | null }>('/api/preferences')
+export const putPreferences = (format: string) =>
+  apiRequest<{ defaultOutputFormat: string }>('/api/preferences', {
+    method: 'PUT',
+    body: JSON.stringify({ defaultOutputFormat: format }),
+  })

@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { getFormatSyncStatus } from '../../app/useDefaultFormatSync'
 import { availableDefaultFormats, readDefaultFormat, writeDefaultFormat } from './defaultFormat'
 import { suggestionsFor } from '../../suggestions'
 import { localizeOption } from '../../optionLocales'
@@ -21,6 +22,18 @@ export function FieldControl({
   templateId: string
 }) {
   const [defaultFormat, setDefaultFormat] = useState(readDefaultFormat)
+  const [syncFailed, setSyncFailed] = useState(getFormatSyncStatus)
+  useEffect(() => {
+    if (field.id !== 'outputFormat') return
+    const refresh = () => setDefaultFormat(readDefaultFormat())
+    const sync = () => setSyncFailed(getFormatSyncStatus())
+    window.addEventListener('prompt:default-format', refresh)
+    window.addEventListener('prompt:format-sync', sync)
+    return () => {
+      window.removeEventListener('prompt:default-format', refresh)
+      window.removeEventListener('prompt:format-sync', sync)
+    }
+  }, [field.id])
   const rubricCsv = templateId === 'rubric' && values.outputFormat === 'CSV Aules / Moodle'
   if (templateId === 'rubric' && field.id === 'maxScore' && !rubricCsv) return null
   if (rubricCsv && field.id === 'levels') return <p className="form-field">{t.rubricCsvLevels}</p>
@@ -101,6 +114,7 @@ export function FieldControl({
         <label className="form-field">
           {t.defaultOutputFormat}
           <small>{t.defaultOutputFormatHint}</small>
+          {syncFailed && <small role="status">{t.defaultFormatSyncFailed}</small>}
           <select
             value={defaultFormat}
             onChange={(event) => {

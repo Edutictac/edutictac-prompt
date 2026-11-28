@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.42.0 — 2026-11-28
+
+- La preferencia de formato se sincroniza de manera privada con la cuenta, con respaldo local y reintento al recuperar conexión.
+
 ## 0.41.0 — 2026-11-28
 
 - Preferencia local de formato de salida: se aplica cuando la herramienta lo admite, sin alterar herramientas con formatos propios. Los enlaces compartidos conservan el formato elegido.

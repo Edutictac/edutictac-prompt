@@ -1,6 +1,8 @@
 import type { Language } from './types'
 export const translations: Record<Language, Record<string, string>> = {
   es: {
+    defaultFormatSyncFailed:
+      'No se ha podido sincronizar el formato con tu cuenta. Se conserva en este navegador y se reintentará al recuperar la conexión.',
     defaultOutputFormat: 'Formato predeterminado',
     defaultOutputFormatHint: 'Se guarda en este navegador y se aplica cuando la herramienta lo admite.',
     defaultOutputFormatNone: 'Usar el de cada herramienta',
@@ -67,6 +69,8 @@ export const translations: Record<Language, Record<string, string>> = {
     privacyPolicy: 'Política de privacidad completa',
   },
   'ca-valencia': {
+    defaultFormatSyncFailed:
+      'No s’ha pogut sincronitzar el format amb el teu compte. Es conserva en este navegador i es tornarà a intentar quan torne la connexió.',
     defaultOutputFormat: 'Format predeterminat',
     defaultOutputFormatHint: 'Es guarda en este navegador i s’aplica quan la ferramenta l’admet.',
     defaultOutputFormatNone: 'Usa el de cada ferramenta',
@@ -133,6 +137,8 @@ export const translations: Record<Language, Record<string, string>> = {
     privacyPolicy: 'Política de privacitat completa',
   },
   ca: {
+    defaultFormatSyncFailed:
+      'No s’ha pogut sincronitzar el format amb el teu compte. Es conserva en aquest navegador i es tornarà a intentar quan torni la connexió.',
     defaultOutputFormat: 'Format predeterminat',
     defaultOutputFormatHint: 'Es desa en aquest navegador i s’aplica quan l’eina l’admet.',
     defaultOutputFormatNone: 'Fes servir el de cada eina',
@@ -199,6 +205,8 @@ export const translations: Record<Language, Record<string, string>> = {
     privacyPolicy: 'Política de privacitat completa',
   },
   en: {
+    defaultFormatSyncFailed:
+      'Could not sync the format to your account. It is saved in this browser and will retry when the connection returns.',
     defaultOutputFormat: 'Default output format',
     defaultOutputFormatHint: 'Saved in this browser and applied when the tool supports it.',
     defaultOutputFormatNone: 'Use each tool’s default',

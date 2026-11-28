@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { templates } from '../../templates'
 import type { Language, SavedPrompt } from '../../types'
 import { preferredInitialValues } from './defaultFormat'
+import { initialValues } from './values'
 
 // Borrador compartido por Paso a paso y Avanzado: los modos cambian la
 // presentación, nunca los valores ni el prompt generado.
@@ -20,6 +21,21 @@ export function usePromptDraft(
   }))
   const [prompt, setPrompt] = useState('')
   const [editingId, setEditingId] = useState<string | null>(null)
+
+  useEffect(() => {
+    const applyRemote = (event: Event) => {
+      const detail = (event as CustomEvent<{ format: string; source: string; previous: string }>).detail
+      if (detail.source !== 'remote' || editingId) return
+      const formats = selected.fields.find((field) => field.id === 'outputFormat')?.options || []
+      const oldDefault = formats.includes(detail.previous) ? detail.previous : initialValues(selected.id).outputFormat
+      const nextDefault = formats.includes(detail.format) ? detail.format : initialValues(selected.id).outputFormat
+      setValues((current) =>
+        current.outputFormat === oldDefault ? { ...current, outputFormat: nextDefault } : current,
+      )
+    }
+    window.addEventListener('prompt:default-format', applyRemote)
+    return () => window.removeEventListener('prompt:default-format', applyRemote)
+  }, [selected, editingId])
 
   const choose = (id: string, preset: Record<string, string> = {}) => {
     const template = templates.find((item) => item.id === id)!

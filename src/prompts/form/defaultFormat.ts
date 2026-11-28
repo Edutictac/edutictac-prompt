@@ -17,13 +17,15 @@ export function readDefaultFormat(): string {
   }
 }
 
-export function writeDefaultFormat(format: string): void {
+export function writeDefaultFormat(format: string, source: 'user' | 'remote' = 'user'): void {
+  const previous = readDefaultFormat()
   try {
     if (availableDefaultFormats.includes(format)) localStorage.setItem(storageKey, format)
     else localStorage.removeItem(storageKey)
   } catch {
     // La aplicación sigue funcionando si el navegador bloquea el almacenamiento.
   }
+  window.dispatchEvent(new CustomEvent('prompt:default-format', { detail: { format, source, previous } }))
 }
 
 export function preferredInitialValues(templateId: string): Record<string, string> {

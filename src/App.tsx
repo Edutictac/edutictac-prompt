@@ -6,6 +6,7 @@ import { login, logout } from './api'
 import { usePromptLibrary, type PromptLibraryEvent } from './prompts/usePromptLibrary'
 import { useAuth } from './app/useAuth'
 import { usePreferences } from './app/usePreferences'
+import { useDefaultFormatSync } from './app/useDefaultFormatSync'
 import { useAccountChip } from './app/useAccountChip'
 import { usePwaUpdate } from './app/usePwaUpdate'
 import { AppHeader } from './components/AppHeader'
@@ -79,6 +80,7 @@ export async function sharedValuesFromHash(hash: string): Promise<Record<string,
 export default function App() {
   const { lang, setLang, setThemeMode, darkMode } = usePreferences()
   const { user, central } = useAuth()
+  useDefaultFormatSync(user?.sub)
   const chipReady = useAccountChip()
   const { updateAvailable, applyUpdate } = usePwaUpdate()
   const t = translations[lang]
