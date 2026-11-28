@@ -13,7 +13,7 @@ describe('novedades de la portada', () => {
           templates.some((template) => template.id === item.templateId),
           item.templateId,
         ).toBe(true)
-      else expect(item.view).toBe('agents')
+      else expect(['agents', 'library']).toContain(item.view)
       for (const language of ['es', 'ca-valencia', 'ca', 'en'] as const)
         expect(
           item.text[language].trim().length,

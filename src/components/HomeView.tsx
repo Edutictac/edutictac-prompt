@@ -15,6 +15,7 @@ export function HomeView({
   recentTools = [],
   onCreate,
   onAgents,
+  onLibrary,
   templateName,
   categoryLabel,
 }: {
@@ -28,6 +29,7 @@ export function HomeView({
   recentTools?: string[]
   onCreate: () => void
   onAgents: () => void
+  onLibrary: () => void
   templateName: (id: string) => string
   categoryLabel: (id: string) => string
 }) {
@@ -115,12 +117,20 @@ export function HomeView({
               <button
                 className="tool-card news-card"
                 key={'view' in item ? item.view : item.templateId}
-                onClick={() => ('view' in item ? onAgents() : onChoose(item.templateId))}
+                onClick={() =>
+                  'view' in item ? (item.view === 'library' ? onLibrary() : onAgents()) : onChoose(item.templateId)
+                }
               >
                 <span className="tool-icon">
-                  {'view' in item ? '🧩' : templates.find((template) => template.id === item.templateId)?.icon}
+                  {'view' in item
+                    ? item.view === 'library'
+                      ? '▤'
+                      : '🧩'
+                    : templates.find((template) => template.id === item.templateId)?.icon}
                 </span>
-                <strong>{'view' in item ? t.agents : templateName(item.templateId)}</strong>
+                <strong>
+                  {'view' in item ? (item.view === 'library' ? t.library : t.agents) : templateName(item.templateId)}
+                </strong>
                 <small>{item.text[lang]}</small>
               </button>
             ))}

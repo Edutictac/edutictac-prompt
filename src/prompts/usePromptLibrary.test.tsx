@@ -123,3 +123,33 @@ describe('estado de la biblioteca', () => {
     expect(remotePut).toHaveBeenCalled()
   })
 })
+
+it('guarda metadatos sin modificar el texto y conserva el cambio pendiente si la subida falla', async () => {
+  const item = prompt({ title: 'Anterior', prompt: 'Texto original', remoteId: 'remote-1', syncStatus: 'synced' })
+  await db.prompts.put(item)
+  remotePut.mockRejectedValue(new Error('offline'))
+  const onEvent = vi.fn()
+  const { result } = renderHook(() => usePromptLibrary({ user, defaultCategories: ['A'], onEvent }))
+  await waitFor(() => expect(result.current.saved).toHaveLength(1))
+  await act(async () => {
+    await result.current.updateMetadata(item, {
+      title: 'Nuevo',
+      tags: ['agua'],
+      notes: 'Para clase',
+      favorite: true,
+      categoryName: 'Ciencias',
+    })
+  })
+  await waitFor(() => expect(onEvent).toHaveBeenCalledWith('syncFailed'))
+  const stored = await db.prompts.get(item.id)
+  expect(stored).toMatchObject({
+    title: 'Nuevo',
+    prompt: 'Texto original',
+    tags: ['agua'],
+    notes: 'Para clase',
+    favorite: true,
+    syncStatus: 'modified',
+    version: 2,
+  })
+  expect((await db.categories.get(stored!.categoryId!))?.name).toBe('Ciencias')
+})

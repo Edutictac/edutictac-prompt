@@ -4,12 +4,22 @@ import type { Language } from './types'
 // usar). Cada una abre su herramienta o sección. Actualizar en cada versión con cambios
 // visibles para el profesorado; se muestran las tres primeras, de más reciente
 // a más antigua. El historial completo está en el CHANGELOG.
-export const newsVersion = '1.2.0'
+export const newsVersion = '1.3.0'
 export const changelogUrl = 'https://git.edutictac.es/Edutictac/edutictac-prompt/src/branch/master/CHANGELOG.md'
 
-export type NewsItem = ({ templateId: string } | { view: 'agents' }) & { text: Record<Language, string> }
+export type NewsItem = ({ templateId: string } | { view: 'agents' | 'library' }) & { text: Record<Language, string> }
 
 export const news: NewsItem[] = [
+  {
+    view: 'library',
+    text: {
+      es: 'Filtra tu biblioteca, edita los datos y marca favoritos; comprueba qué prompts están sincronizados.',
+      'ca-valencia':
+        'Filtra la biblioteca, edita les dades i marca favorits; comprova quins prompts estan sincronitzats.',
+      ca: 'Filtra la biblioteca, edita les dades i marca preferits; comprova quins prompts estan sincronitzats.',
+      en: 'Filter your library, edit details and mark favorites; check which prompts are synced.',
+    },
+  },
   {
     view: 'agents',
     text: {
@@ -28,15 +38,6 @@ export const news: NewsItem[] = [
         'EduTicTac Prompt 1.0: configura el perfil curricular, el format i la IA preferida per a començar amb menys passos.',
       ca: 'EduTicTac Prompt 1.0: configura el perfil curricular, el format i la IA preferida per començar amb menys passos.',
       en: 'EduTicTac Prompt 1.0: set your curriculum profile, format and preferred AI to get started faster.',
-    },
-  },
-  {
-    templateId: 'prompt-coach',
-    text: {
-      es: 'Crea o mejora un prompt educativo conversando con la IA que elijas.',
-      'ca-valencia': 'Crea o millora un prompt educatiu conversant amb la IA que tries.',
-      ca: 'Crea o millora un prompt educatiu conversant amb la IA que triïs.',
-      en: 'Create or improve an educational prompt by talking to the AI of your choice.',
     },
   },
 ]

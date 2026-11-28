@@ -6,6 +6,9 @@ import type { Category, Language, SavedPrompt } from '../types'
 import {
   addCategory,
   addPrompt,
+  getPrompt,
+  getCategory,
+  belongsTo,
   deletePrompt,
   findCategoryByName,
   ensureDefaultCategories,
@@ -33,6 +36,11 @@ export interface PromptDraft {
   favorite: boolean
 }
 
+export type PromptMetadata = Pick<SavedPrompt, 'title' | 'tags' | 'notes' | 'favorite'> & {
+  categoryId?: string
+  categoryName?: string
+}
+
 export interface PromptLibrary {
   saved: SavedPrompt[]
   categories: Category[]
@@ -42,6 +50,7 @@ export interface PromptLibrary {
     item: SavedPrompt,
     patch: Pick<SavedPrompt, 'prompt' | 'templateId' | 'values' | 'language'>,
   ) => Promise<SavedPrompt>
+  updateMetadata: (item: SavedPrompt, metadata: PromptMetadata) => Promise<void>
   remove: (item: SavedPrompt) => Promise<boolean>
   duplicate: (item: SavedPrompt, suffix: string) => Promise<SavedPrompt>
   exportData: () => ReturnType<typeof buildExportData>
@@ -105,8 +114,10 @@ export function usePromptLibrary({
       .then(() => {
         if (ownerRef.current === owner) void refresh()
       })
-      .catch(() => {})
-  }, [refresh])
+      .catch(() => {
+        if (ownerRef.current === owner) emit('syncFailed')
+      })
+  }, [refresh, emit])
 
   useEffect(() => {
     if (!user) return
@@ -161,6 +172,7 @@ export function usePromptLibrary({
         values: draft.values,
         language: draft.language,
         categoryId,
+        categoryName: categoryId ? (await getCategory(categoryId))?.name : undefined,
         tags: draft.tags,
         notes: draft.notes,
         favorite: draft.favorite,
@@ -194,6 +206,37 @@ export function usePromptLibrary({
       emit('updated')
       triggerUpload()
       return next
+    },
+    [emit, triggerUpload],
+  )
+
+  const updateMetadata = useCallback(
+    async (item: SavedPrompt, metadata: PromptMetadata) => {
+      const owner = ownerRef.current
+      const current = await getPrompt(item.id)
+      if (!current || !belongsTo(current, owner)) throw new Error('prompt unavailable')
+      let categoryId = metadata.categoryId
+      const name = metadata.categoryName?.trim()
+      if (name) categoryId = (await findCategoryByName(name))?.id ?? (await addCategory(name)).id
+      if (ownerRef.current !== owner) throw new Error('account changed')
+      const next: SavedPrompt = {
+        ...current,
+        title: metadata.title.trim() || current.title,
+        tags: metadata.tags,
+        notes: metadata.notes,
+        favorite: metadata.favorite,
+        categoryId,
+        categoryName: categoryId ? (await getCategory(categoryId))?.name : undefined,
+        updatedAt: new Date().toISOString(),
+        version: current.version + 1,
+        syncStatus: current.remoteId ? 'modified' : 'local',
+      }
+      await putPrompt(next)
+      if (ownerRef.current !== owner) return
+      setSaved((items) => items.map((prompt) => (prompt.id === next.id ? next : prompt)))
+      setCategories(await listCategories())
+      emit('updated')
+      triggerUpload()
     },
     [emit, triggerUpload],
   )
@@ -272,5 +315,18 @@ export function usePromptLibrary({
     }
   }, [emit, refresh])
 
-  return { saved, categories, syncBusy, create, update, remove, duplicate, exportData, importFile, syncLocal, refresh }
+  return {
+    saved,
+    categories,
+    syncBusy,
+    create,
+    update,
+    updateMetadata,
+    remove,
+    duplicate,
+    exportData,
+    importFile,
+    syncLocal,
+    refresh,
+  }
 }

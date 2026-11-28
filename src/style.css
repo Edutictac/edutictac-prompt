@@ -185,3 +185,5 @@ header{padding:0 max(24px,calc((100% - 1560px)/2))}
 .settings-panel+.settings-panel{margin-top:18px}.settings-panel .toolbar{margin-top:18px;justify-content:flex-start}.settings-panel .file-label{margin:0;font-weight:400}
 
 .settings-panel select#default-curriculum{max-width:100%}
+
+.library-filters{display:flex;flex-wrap:wrap;align-items:end;gap:12px;margin:0 0 20px}.library-filters label:not(.library-favorite-filter){display:grid;gap:4px;font-size:13px;font-weight:600}.library-filters select{max-width:240px;padding:8px;border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--text)}.library-favorite-filter{display:flex;gap:7px;align-items:center;font-size:14px;padding:9px 0}.favorite-toggle{font-size:20px;color:#a56a00;padding:0 4px;border-radius:4px}.favorite-toggle:focus-visible{outline:2px solid var(--accent-2)}.saved-main .library-item-meta,.saved-main .library-item-notes{font-size:13px;color:var(--muted);margin:6px 0}.saved-main .library-item-notes{white-space:pre-wrap}

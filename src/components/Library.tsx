@@ -1,13 +1,17 @@
 import { lazy, Suspense, useState } from 'react'
 import type { AuthUser } from '../api'
-import type { SavedPrompt } from '../types'
+import type { Category, SavedPrompt } from '../types'
 import { AiButtons } from './AiButtons'
+import { SaveModal } from './SaveModal'
+import type { PromptMetadata } from '../prompts/usePromptLibrary'
 
 const SessionPack = lazy(() => import('./SessionPack'))
 
 export function Library({
   t,
   saved,
+  categories,
+  updateMetadata,
   templateName,
   search,
   setSearch,
@@ -25,6 +29,8 @@ export function Library({
 }: {
   t: Record<string, string>
   saved: SavedPrompt[]
+  categories: Category[]
+  updateMetadata: (item: SavedPrompt, metadata: PromptMetadata) => Promise<void>
   templateName: (id: string) => string
   search: string
   setSearch: (v: string) => void
@@ -40,6 +46,13 @@ export function Library({
   onLogin: () => void
   central: boolean
 }) {
+  const [metadataError, setMetadataError] = useState('')
+  const [editDetails, setEditDetails] = useState<SavedPrompt | null>(null)
+  const [onlyFavorites, setOnlyFavorites] = useState(false)
+  const [categoryFilter, setCategoryFilter] = useState('')
+  const [tagFilter, setTagFilter] = useState('')
+  const [toolFilter, setToolFilter] = useState('')
+  const [sortOrder, setSortOrder] = useState('updated')
   const [status, setStatus] = useState<{ id: string; text: string } | null>(null)
   const [sessionIds, setSessionIds] = useState<string[]>([])
   const [showSession, setShowSession] = useState(false)
@@ -63,9 +76,35 @@ export function Library({
         </Suspense>
       </main>
     )
-  const filtered = saved.filter((p) =>
-    `${p.title} ${p.prompt} ${p.tags.join(' ')} ${p.notes || ''}`.toLowerCase().includes(search.toLowerCase()),
+  const normalize = (value: string) =>
+    value
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLocaleLowerCase()
+  const tags = [...new Set(saved.flatMap((item) => item.tags))].sort((a, b) => a.localeCompare(b))
+  const tools = [...new Set(saved.map((item) => item.templateId).filter((id): id is string => Boolean(id)))].sort(
+    (a, b) => templateName(a).localeCompare(templateName(b)),
   )
+  const filtered = saved
+    .filter(
+      (p) =>
+        normalize(`${p.title} ${p.prompt} ${p.tags.join(' ')} ${p.notes || ''}`).includes(normalize(search.trim())) &&
+        (!onlyFavorites || p.favorite) &&
+        (!categoryFilter || p.categoryId === categoryFilter) &&
+        (!tagFilter || p.tags.includes(tagFilter)) &&
+        (!toolFilter || p.templateId === toolFilter),
+    )
+    .sort((a, b) =>
+      sortOrder === 'title' ? a.title.localeCompare(b.title) : (b.updatedAt || '').localeCompare(a.updatedAt || ''),
+    )
+  const statusText = (p: SavedPrompt) =>
+    !user
+      ? t.libraryDeviceOnly
+      : p.syncStatus === 'conflict'
+        ? t.librarySyncConflict
+        : p.syncStatus === 'synced' && p.remoteId
+          ? t.librarySynced
+          : t.libraryPending
   return (
     <main className="page library-page">
       <div className="library-title">
@@ -124,20 +163,88 @@ export function Library({
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
+      <div className="library-filters" aria-label={t.libraryFilters}>
+        <label className="library-favorite-filter">
+          <input type="checkbox" checked={onlyFavorites} onChange={(e) => setOnlyFavorites(e.target.checked)} />
+          {t.favoritesOnly}
+        </label>
+        <label>
+          {t.category}
+          <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)}>
+            <option value="">{t.allCategories}</option>
+            {categories.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          {t.libraryTag}
+          <select value={tagFilter} onChange={(e) => setTagFilter(e.target.value)}>
+            <option value="">{t.allTags}</option>
+            {tags.map((tag) => (
+              <option key={tag} value={tag}>
+                {tag}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          {t.libraryTool}
+          <select value={toolFilter} onChange={(e) => setToolFilter(e.target.value)}>
+            <option value="">{t.allTools}</option>
+            {tools.map((id) => (
+              <option key={id} value={id}>
+                {templateName(id)}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          {t.librarySort}
+          <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+            <option value="updated">{t.sortRecent}</option>
+            <option value="title">{t.sortTitle}</option>
+          </select>
+        </label>
+      </div>
       {filtered.length === 0 ? (
-        <div className="empty">{t.noPrompts}</div>
+        <div className="empty">{saved.length ? t.libraryNoResults : t.noPrompts}</div>
       ) : (
         <div className="saved-list">
           {filtered.map((p) => (
             <article className="saved-card" key={p.id}>
               <div className="saved-main">
                 <div className="saved-meta">
-                  <span>{p.favorite ? '★' : '☆'}</span>
+                  <button
+                    type="button"
+                    className="favorite-toggle"
+                    aria-pressed={p.favorite}
+                    aria-label={`${p.favorite ? t.removeFavorite : t.addFavorite}: ${p.title}`}
+                    onClick={() =>
+                      void updateMetadata(p, {
+                        title: p.title,
+                        tags: p.tags,
+                        notes: p.notes || '',
+                        categoryId: p.categoryId,
+                        favorite: !p.favorite,
+                      }).catch(() => setStatus({ id: p.id, text: t.libraryUpdateFailed }))
+                    }
+                  >
+                    {p.favorite ? '★' : '☆'}
+                  </button>
                   <small>
                     {p.language} · {p.templateId ? templateName(p.templateId) : t.app}
                   </small>
                 </div>
                 <h3>{p.title}</h3>
+                <p className="library-item-meta">
+                  {categories.find((item) => item.id === p.categoryId)?.name &&
+                    `${categories.find((item) => item.id === p.categoryId)?.name} · `}
+                  {statusText(p)}
+                </p>
+                {p.notes && <p className="library-item-notes">{p.notes}</p>}
                 {p.templateId && (
                   <label className="session-check">
                     <input type="checkbox" checked={sessionIds.includes(p.id)} onChange={() => toggleSession(p.id)} />{' '}
@@ -173,6 +280,14 @@ export function Library({
               <div className="saved-actions">
                 <button onClick={() => openSavedPrompt(p)}>{t.edit}</button>
                 <button
+                  onClick={() => {
+                    setMetadataError('')
+                    setEditDetails(p)
+                  }}
+                >
+                  {t.editDetails}
+                </button>
+                <button
                   onClick={async () =>
                     setStatus({ id: p.id, text: (await copyPrompt(p.prompt)) ? t.copied : t.copyFailed })
                   }
@@ -188,6 +303,21 @@ export function Library({
             </article>
           ))}
         </div>
+      )}
+      {editDetails && (
+        <SaveModal
+          t={t}
+          categories={categories}
+          initial={editDetails}
+          error={metadataError}
+          onCancel={() => setEditDetails(null)}
+          onSave={(meta) => {
+            setMetadataError('')
+            void updateMetadata(editDetails, meta)
+              .then(() => setEditDetails(null))
+              .catch(() => setMetadataError(t.libraryUpdateFailed))
+          }}
+        />
       )}
     </main>
   )

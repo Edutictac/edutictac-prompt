@@ -325,6 +325,7 @@ export default function App() {
           onChoose={choose}
           onCreate={() => choose('prompt-coach')}
           onAgents={() => navigate('agents')}
+          onLibrary={() => navigate('library')}
           templateName={templateName}
           categoryLabel={categoryLabel}
         />
@@ -357,6 +358,8 @@ export default function App() {
         <Library
           t={t}
           saved={saved}
+          categories={categories}
+          updateMetadata={library.updateMetadata}
           templateName={templateName}
           search={search}
           setSearch={setSearch}

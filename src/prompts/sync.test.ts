@@ -35,6 +35,7 @@ const prompt = (overrides: Partial<SavedPrompt> = {}): SavedPrompt => ({
 describe('sincronización de la biblioteca', () => {
   beforeEach(async () => {
     await db.prompts.clear()
+    await db.categories.clear()
     remoteGet.mockReset()
     remotePut.mockReset()
   })
@@ -157,4 +158,34 @@ describe('sincronización de la biblioteca', () => {
     expect((await getPrompt('new'))?.ownerId).toBe('user-a')
     expect(belongsTo((await getPrompt('new'))!, 'user-a')).toBe(true)
   })
+})
+
+it('restaura el nombre de categoría en otro dispositivo y conserva las categorías existentes', async () => {
+  await db.categories.put({ id: 'local-collision', name: 'Otra', createdAt: '2026-01-01' })
+  remoteGet.mockResolvedValue({
+    prompts: [
+      prompt({
+        id: 'p-categoria',
+        ownerId: 'user-a',
+        remoteId: 'p-categoria',
+        syncStatus: 'synced',
+        categoryId: 'local-collision',
+        categoryName: 'Ciencias',
+      }),
+    ],
+  })
+  await downloadRemote('user-a')
+  const stored = await db.prompts.get('p-categoria')
+  expect(stored?.categoryId).not.toBe('local-collision')
+  expect((await db.categories.get(stored!.categoryId!))?.name).toBe('Ciencias')
+  expect((await db.categories.get('local-collision'))?.name).toBe('Otra')
+})
+
+it('añade el nombre de categoría al sincronizar prompts anteriores que solo tienen el identificador', async () => {
+  await db.categories.put({ id: 'c1', name: 'Ciencias', createdAt: '2026-01-01' })
+  const item = prompt({ ownerId: 'user-a', categoryId: 'c1' })
+  await db.prompts.put(item)
+  remotePut.mockImplementation(async (sent) => ({ ...sent, remoteId: sent.id, syncStatus: 'synced' }))
+  await uploadPending('user-a')
+  expect(remotePut).toHaveBeenCalledWith(expect.objectContaining({ categoryName: 'Ciencias' }))
 })

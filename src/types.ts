@@ -19,6 +19,7 @@ export interface SavedPrompt {
   values?: Record<string, string>
   language: Language
   categoryId?: string
+  categoryName?: string
   tags: string[]
   notes?: string
   favorite: boolean

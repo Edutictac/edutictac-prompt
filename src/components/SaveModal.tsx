@@ -1,15 +1,19 @@
 import { useState } from 'react'
 import { useDialogFocus } from './useDialogFocus'
-import type { Category } from '../types'
+import type { Category, SavedPrompt } from '../types'
 
 export function SaveModal({
   t,
   categories,
   onCancel,
   onSave,
+  initial,
+  error,
 }: {
   t: Record<string, string>
   categories: Category[]
+  initial?: SavedPrompt
+  error?: string
   onCancel: () => void
   onSave: (x: {
     title: string
@@ -20,12 +24,12 @@ export function SaveModal({
     favorite: boolean
   }) => void
 }) {
-  const [title, setTitle] = useState('')
-  const [categoryId, setCategoryId] = useState('')
+  const [title, setTitle] = useState(initial?.title || '')
+  const [categoryId, setCategoryId] = useState(initial?.categoryId || '')
   const [categoryName, setCategoryName] = useState('')
-  const [tags, setTags] = useState('')
-  const [notes, setNotes] = useState('')
-  const [favorite, setFavorite] = useState(false)
+  const [tags, setTags] = useState(initial?.tags.join(', ') || '')
+  const [notes, setNotes] = useState(initial?.notes || '')
+  const [favorite, setFavorite] = useState(initial?.favorite || false)
   const dialogRef = useDialogFocus<HTMLFormElement>(onCancel)
   return (
     <div className="modal-backdrop">
@@ -51,7 +55,7 @@ export function SaveModal({
         }}
       >
         <div className="modal-head">
-          <h2 id="save-dialog-title">{t.save}</h2>
+          <h2 id="save-dialog-title">{initial ? t.editDetails : t.save}</h2>
           <button type="button" onClick={onCancel} aria-label={t.close}>
             <span aria-hidden="true">×</span>
           </button>
@@ -94,11 +98,16 @@ export function SaveModal({
           <input type="checkbox" checked={favorite} onChange={(e) => setFavorite(e.target.checked)} />
           {t.favorite}
         </label>
+        {error && (
+          <p className="warning" role="alert">
+            {error}
+          </p>
+        )}
         <div className="modal-actions">
           <button type="button" className="secondary" onClick={onCancel}>
             {t.cancel}
           </button>
-          <button className="primary">{t.confirm}</button>
+          <button className="primary">{initial ? t.saveChanges : t.confirm}</button>
         </div>
       </form>
     </div>

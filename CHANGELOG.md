@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.0 — 2026-11-28
+
+- Filtros de favoritos, categoría, etiqueta y herramienta; orden por última modificación o título y búsqueda sin distinguir acentos.
+- Edición de título, categoría, etiquetas, notas y favorito sin alterar el contenido. Cada tarjeta muestra su estado de sincronización.
+- Los nombres de categoría se sincronizan junto al prompt para poder recuperarlos en otros dispositivos; los prompts antiguos los incorporan al sincronizar desde un dispositivo que conserve la categoría.
+
 ## 1.2.0 — 2026-11-28
 
 - Agentes muestra documentos sugeridos según el ejemplo y permite anotar los que se añadirán en M365; la aplicación no adjunta esos documentos.

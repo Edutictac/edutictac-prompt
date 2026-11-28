@@ -20,6 +20,7 @@ function Harness() {
       category={category}
       setCategory={setCategory}
       onChoose={vi.fn()}
+      onLibrary={vi.fn()}
       onAgents={vi.fn()}
       onCreate={vi.fn()}
       templateName={(id) => getTemplateName(id, t)}
@@ -70,6 +71,7 @@ describe('herramientas recientes en la portada', () => {
         setCategory={vi.fn()}
         onChoose={onChoose}
         recentTools={['worksheet']}
+        onLibrary={vi.fn()}
         onAgents={vi.fn()}
         onCreate={vi.fn()}
         templateName={(id) => getTemplateName(id, t)}
@@ -101,6 +103,7 @@ it('la novedad de agentes abre la sección de agentes', async () => {
       setCategory={vi.fn()}
       onChoose={vi.fn()}
       onCreate={vi.fn()}
+      onLibrary={vi.fn()}
       onAgents={onAgents}
       templateName={(id) => getTemplateName(id, t)}
       categoryLabel={(id) => t[id] || id}
@@ -108,4 +111,27 @@ it('la novedad de agentes abre la sección de agentes', async () => {
   )
   await userEvent.click(screen.getByRole('button', { name: /Prepara agentes con documentos sugeridos/ }))
   expect(onAgents).toHaveBeenCalledOnce()
+})
+
+it('la novedad de biblioteca abre la biblioteca', async () => {
+  const onLibrary = vi.fn()
+  const t = translations.es
+  render(
+    <HomeView
+      t={t}
+      lang="es"
+      search=""
+      setSearch={vi.fn()}
+      category="all"
+      setCategory={vi.fn()}
+      onChoose={vi.fn()}
+      onCreate={vi.fn()}
+      onAgents={vi.fn()}
+      onLibrary={onLibrary}
+      templateName={(id) => getTemplateName(id, t)}
+      categoryLabel={(id) => t[id] || id}
+    />,
+  )
+  await userEvent.click(screen.getByRole('button', { name: /Filtra tu biblioteca/ }))
+  expect(onLibrary).toHaveBeenCalledOnce()
 })

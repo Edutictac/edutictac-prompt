@@ -22,6 +22,10 @@ export async function ensureDefaultCategories(names: string[]): Promise<Category
   return created
 }
 
+export async function getCategory(id: string): Promise<Category | undefined> {
+  return db.categories.get(id)
+}
+
 export async function addCategory(name: string): Promise<Category> {
   const category: Category = { id: uid(), name, createdAt: new Date().toISOString() }
   await db.categories.add(category)
