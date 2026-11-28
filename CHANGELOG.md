@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.0 — 2026-11-28
+
+- Agentes muestra documentos sugeridos según el ejemplo y permite anotar los que se añadirán en M365; la aplicación no adjunta esos documentos.
+- Tres preguntas concretas y copiables ayudan a comprobar un caso habitual, uno incompleto y uno fuera de la función del agente.
+
 ## 1.1.0 — 2026-11-28
 
 - El modo básico de Agentes muestra ejemplos para empezar y permite adaptarlos sin pasar por el modo avanzado.

@@ -6,6 +6,10 @@ const es = {
   mode: 'Modo de edición',
   intro:
     'Prepara un asistente para tu trabajo docente. Elige un ejemplo, adáptalo y lleva su configuración a Copilot M365.',
+  materialsSuggest: 'Documentos que podrían ayudarte',
+  materialsSuggestHint:
+    'Son sugerencias: elige solo materiales autorizados y añádelos después en M365. Esta lista no adjunta documentos.',
+  testPrompt: 'Pregunta para copiar',
   choose: '¿Para qué quieres ayuda?',
   fromScratch: 'Crear desde cero',
   more: 'Ver todos los ejemplos',
@@ -55,6 +59,10 @@ const va: Texts = {
   mode: 'Mode d’edició',
   intro:
     'Prepara un assistent per al teu treball docent. Tria un exemple, adapta’l i porta la configuració a Copilot M365.',
+  materialsSuggest: 'Documents que et poden ajudar',
+  materialsSuggestHint:
+    'Són suggeriments: tria només materials autoritzats i afig-los després en M365. Esta llista no adjunta documents.',
+  testPrompt: 'Pregunta per a copiar',
   choose: 'Per a què vols ajuda?',
   fromScratch: 'Crear des de zero',
   more: 'Vore tots els exemples',
@@ -103,6 +111,10 @@ const en: Texts = {
   mode: 'Editing mode',
   intro:
     'Prepare an assistant for your teaching. Choose an example, adapt it and take its configuration to Copilot M365.',
+  materialsSuggest: 'Documents that could help',
+  materialsSuggestHint:
+    'These are suggestions: choose authorised materials and add them later in M365. This list does not attach documents.',
+  testPrompt: 'Question to copy',
   choose: 'What would you like help with?',
   fromScratch: 'Start from scratch',
   more: 'See all examples',
@@ -151,6 +163,8 @@ export const basicLocales: Record<Language, Texts> = {
   ca: {
     ...va,
     more: 'Veure tots els exemples',
+    materialsSuggestHint:
+      'Són suggeriments: tria només materials autoritzats i afegeix-los després a M365. Aquesta llista no adjunta documents.',
     context: 'Què ha de tenir en compte? (opcional)',
     preview: 'Veure les instruccions completes',
     local: 'Desar a Els meus agents',

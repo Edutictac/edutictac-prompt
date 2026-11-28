@@ -166,3 +166,17 @@ it('offers the basic preset cards and loads a chosen example without losing canc
   await user.click(screen.getByText('Ver todos los ejemplos'))
   expect(screen.getByRole('button', { name: /SMART/ })).toBeTruthy()
 })
+
+it('sugiere documentos, conserva los nombres indicados y permite copiar tres pruebas concretas', async () => {
+  const user = userEvent.setup()
+  const copy = show()
+  expect(screen.getByText('Criterios de evaluación oficiales aplicables y actualizados')).toBeTruthy()
+  expect(screen.getByText(/Esta lista no adjunta documentos/)).toBeTruthy()
+  await user.type(screen.getByRole('textbox', { name: /Materiales que añadirás en M365/ }), 'Criterios revisados')
+  await user.click(screen.getByRole('button', { name: 'Preparar mi agente' }))
+  await user.click(screen.getByText('Llevar a Copilot M365'))
+  expect(screen.getAllByText('Criterios revisados').some((item) => item.tagName === 'LI')).toBe(true)
+  expect(screen.getAllByRole('textbox', { name: 'Pregunta para copiar' })).toHaveLength(3)
+  await user.click(screen.getByRole('button', { name: 'Copiar este campo: Pregunta para copiar 1' }))
+  expect(copy).toHaveBeenCalledWith(expect.stringContaining('Ayúdame con esta tarea:'))
+})

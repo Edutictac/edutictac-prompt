@@ -4,7 +4,7 @@ import type { Language } from './types'
 // usar). Cada una abre su herramienta o sección. Actualizar en cada versión con cambios
 // visibles para el profesorado; se muestran las tres primeras, de más reciente
 // a más antigua. El historial completo está en el CHANGELOG.
-export const newsVersion = '1.1.0'
+export const newsVersion = '1.2.0'
 export const changelogUrl = 'https://git.edutictac.es/Edutictac/edutictac-prompt/src/branch/master/CHANGELOG.md'
 
 export type NewsItem = ({ templateId: string } | { view: 'agents' }) & { text: Record<Language, string> }
@@ -13,10 +13,11 @@ export const news: NewsItem[] = [
   {
     view: 'agents',
     text: {
-      es: 'Elige un ejemplo de agente desde el modo básico y adáptalo a tu contexto.',
-      'ca-valencia': 'Tria un exemple d’agent des del mode bàsic i adapta’l al teu context.',
-      ca: 'Tria un exemple d’agent des del mode bàsic i adapta’l al teu context.',
-      en: 'Choose an agent example in basic mode and adapt it to your context.',
+      es: 'Prepara agentes con documentos sugeridos y tres preguntas copiables para probar su comportamiento.',
+      'ca-valencia':
+        'Prepara agents amb documents suggerits i tres preguntes copiables per a provar-ne el comportament.',
+      ca: 'Prepara agents amb documents suggerits i tres preguntes copiables per a provar-ne el comportament.',
+      en: 'Prepare agents with suggested documents and three copyable test questions.',
     },
   },
   {

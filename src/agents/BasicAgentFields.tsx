@@ -7,14 +7,17 @@ import { agentLocales } from '../skills/agentLocales'
 import { wizardLocales } from './locales'
 import { basicLocales } from './basicLocales'
 import { subjectSuggestions } from './presets'
+import { suggestedMaterials } from './guidance'
 
 export default function BasicAgentFields({
   draft,
   language,
   onChange,
+  presetId,
 }: {
   draft: AgentDraft
   language: Language
+  presetId: string
   onChange: <K extends keyof AgentDraft>(key: K, value: AgentDraft[K]) => void
 }) {
   const b = basicLocales[language],
@@ -92,6 +95,28 @@ export default function BasicAgentFields({
           </select>
         </label>
       )}
+      <section className="agent-materials" aria-labelledby={`${id}-materials`}>
+        <h3 id={`${id}-materials`}>{b.materialsSuggest}</h3>
+        <p>{b.materialsSuggestHint}</p>
+        <ul>
+          {suggestedMaterials(
+            presetId === 'custom' && draft.rubricApproach ? 'crear-rubricas' : presetId,
+            language,
+          ).map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+        <label>
+          {t.materials}
+          <small>{t.materialsHint}</small>
+          <textarea
+            rows={3}
+            maxLength={4000}
+            value={draft.materials}
+            onChange={(event) => onChange('materials', event.target.value)}
+          />
+        </label>
+      </section>
       <details>
         <summary>{b.optional}</summary>
         <label>

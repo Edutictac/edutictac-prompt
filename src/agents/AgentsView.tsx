@@ -183,6 +183,7 @@ export default function AgentsView({
             language={language}
             initialDraft={draft}
             basic={basic}
+            presetId={presetId}
             onDraftChange={(next) => {
               setDraft(next)
               setDirty(true)

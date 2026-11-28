@@ -18,6 +18,7 @@ import { downloadSkillFile } from './files'
 import { wizardLocales } from '../agents/locales'
 import { subjectSuggestions } from '../agents/presets'
 import BasicAgentFields from '../agents/BasicAgentFields'
+import { agentTestCases } from '../agents/guidance'
 import { basicLocales } from '../agents/basicLocales'
 export default function AgentBuilder({
   language,
@@ -26,6 +27,7 @@ export default function AgentBuilder({
   initialDraft,
   editing = false,
   basic = false,
+  presetId = 'custom',
   onSave,
   onDraftChange,
   copy,
@@ -35,6 +37,7 @@ export default function AgentBuilder({
   initialDraft?: AgentDraft
   editing?: boolean
   basic?: boolean
+  presetId?: string
   onDraftChange?: (draft: AgentDraft) => void
   onSave?: (draft: AgentDraft, skill?: Skill, asNew?: boolean) => Promise<void>
   initialSkill?: Skill
@@ -198,7 +201,7 @@ export default function AgentBuilder({
         }}
       >
         {basic ? (
-          <BasicAgentFields draft={draft} language={language} onChange={update} />
+          <BasicAgentFields draft={draft} language={language} onChange={update} presetId={presetId} />
         ) : (
           <>
             <h3>{w.identity}</h3>
@@ -584,11 +587,24 @@ export default function AgentBuilder({
             ))}
             <h4>{basic ? b.tests : t.test}</h4>
             <p>{t.testHelp}</p>
-            <ul>
-              <li>{b.testUsual}</li>
-              <li>{b.testMissing}</li>
-              <li>{b.testOutside}</li>
-            </ul>
+            <div className="agent-tests">
+              {agentTestCases(draft, language).map((question, index) => (
+                <div className="agent-copy-field" key={index}>
+                  <p>{[b.testUsual, b.testMissing, b.testOutside][index]}</p>
+                  <label>
+                    {b.testPrompt}
+                    <textarea readOnly rows={2} value={question} />
+                  </label>
+                  <button
+                    className="secondary"
+                    aria-label={`${t.copy}: ${b.testPrompt} ${index + 1}`}
+                    onClick={() => void copyField(question)}
+                  >
+                    {t.copy}
+                  </button>
+                </div>
+              ))}
+            </div>
             <p className="callout">{t.complete}</p>
             <button
               className="secondary"

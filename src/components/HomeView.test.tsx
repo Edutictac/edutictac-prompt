@@ -106,6 +106,6 @@ it('la novedad de agentes abre la sección de agentes', async () => {
       categoryLabel={(id) => t[id] || id}
     />,
   )
-  await userEvent.click(screen.getByRole('button', { name: /Elige un ejemplo de agente/ }))
+  await userEvent.click(screen.getByRole('button', { name: /Prepara agentes con documentos sugeridos/ }))
   expect(onAgents).toHaveBeenCalledOnce()
 })
